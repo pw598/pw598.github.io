@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+<h1>Probability - Joseph Blitzstein Book Pt 2</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#rvs">Random Variables and Their Distributions</a></td><td><a href="#pmf">Probability Mass Function</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#bernoulli">Bernoulli Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#binomial">Binomial Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#hypergeom">Hypergeometric Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#discrete_uniform">Discrete Uniform Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cdf">Cumulative Distribution Functions (CDFs)</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#indep">Independence of Random Variables</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#discrete_recap">Random Variable and Discrete Distributions Recap</a></td></tr>
+ <tr><td><a href="#expectation">Expectation</a></td><td><a href="#expect_rv">Expectation of a Random Variable</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#variance">Variance</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#covar_correl">Covariance and Correlation</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#linearity">Linearity of Expectation</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#geom_neg_binom">Geometric and Negative Binomial Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#poisson">Poisson Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#expect_recap">Expectation Recap</a></td></tr>
+ <tr><td><a href="#continuous">Continuous Distributions</a></td><td><a href="#pdf">Probability Density Function</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cont_uniform">Uniform Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#normal">Normal Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#exponential">Exponential Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#poisson">Poisson Process</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cont_recap">Continuous Distributions Recap</a></td></tr>
+ <tr><td><a href="#moments">Moments</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#joint_dist">Joint Distributions</a></td><td><a href="#multinom">Multinomial Distribution</a></td></tr>
+ <tr><td><a href="#trans">Transformations</a></td><td><a href="#lotus">Law of the Unconscious Statistician (LOTUS)</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#beta">The Beta Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#gamma">The Gamma Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#chi">Chi-Square Distribution</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#t_dist">Student's t-Distribution</a></td></tr>
+ <tr><td><a href="#inequalities">Inequalities</a></td><td><a href="#markovs_ineq">Markov's Inequality</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cheb_ineq">Chebyshev's Inequality</a></td></tr>
+</tbody></table>
+
+
+    <h2 id="rvs">Random Variables and Their Distributions</h2>
+
+        <p>A random variable is defined as a function mapping the sample space $\mathbb{S}$ to the real line $\mathbb{R}$. A random number $X$ assigns a numerical value $X(s)$ to each of the possible outcomes of the experiment. Before we perform an experiment, the sample outcome is not yet realized, though we could calculate the probability that $X$ will take on a given range of values. Random variables provide numerical summaries of the experiment in question.</p>
+
+        <h3 id="pmf">Probability Mass Function</h3>
+
+            <p>The probability mass function (PMF) of a discrete random variable is the function $p_X$ given by $p_X(x) = P(X=x)$. The PMF of $X$ must satisfy the following criteria:</p>
+                <ol>
+                    <li>Non-negative: $p_X(x) \ge 0$</li>
+                    <li>Sums to 1: $\sum_{j=1}^\infty p_X(x_j) = 1$</li>
+                </ol>
+
+            <p>The PMF is one way of expressing the distribution of a discrete random variable. Once we know the PMF of $X$, we can calculate the probability that $X$ will fall into a given subset of the real numbers by summing over the appropriate values of $X$.</p>
+
+
+        <h3 id="bernoulli">Bernoulli Distribution</h3>
+
+            <p>A random variable $X$ is said to have the Bernoulli distribution with parameter $p$ if $P(x=1) = p$, and $P(x=0) = 1-p$, where $0 \lt p \lt 1$. An indicator variable is equal to $1$ when an event happens, and $0$ otherwise.</p>
+
+
+        <h3 id="binomial">Binomial Distribution</h3>
+
+                <p>Suppose $n$ independent Bernoulli trials are performed, each with the same success probability $p$. $X$, the number of successes, is Binomial distributed with parameters $n$ and $p$.</p>
+
+                <p>If $X \text{ ~ } Bin(n,p)$, then the PMF of $X$ is:</p>
+
+                <p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$</p>
+
+                <p>The probability of any specific sequence of $k$ successes and $n-k$ failures is $p^k(1-p)^{n-k}$. There are $\binom{n}{k}$ such sequences.</p>
+
+
+        <h3 id="hypergeom">Hypergeometric Distribution</h3>
+
+            <p>If we have an urn filled with $w$ white and $b$ black balls, then drawing $n$ balls out of the urn with replacement yields a $Bin(n, w/(w+b))$ distribution for the number of white balls obtained in $n$ trials, since they are independent Bernoulli trials. If we instead sample without replacement, the number of white balls follows a Hypergeometric distribution, with parameters $w$, $b$, and $n$.</p>
+
+
+            <h4>Hypergeometric PMF</h4>
+
+                <p>If $X \text{ ~ } HGeom(w,b,n)$, then the PMF of $X$ is:</p>
+
+                <p>$$P(X=k) = \frac{ \binom{W}{k} \binom{b}{n-k} }{ \binom{w+b}{n} }$$</p>
+
+                <p>The structure of the Hypergeometric story is that items in a population are classified using sets of tags. Then, $X \text{ ~ } HGeom(w,b,n)$ represents the number of twice-tagged items: using the urn story, balls that are both white and sampled.</p>
+
+
+            <h5>Example (Elk Capture-Recapture):</h5>
+
+                <p>A forest has $N$ elk. Today, $m$ of the elk are captured, tagged, and released into the wild. At a later date, $n$ elk are recaptured at random. Assume the recaptured elk are equally likely to be any set of $n$ of the elk (i.e., an elk being captured does not affect its likelihood of being captured again). The number of tagged elk in the recaptured sample is $HGeom(m, N-m, n)$. The $m$ tagged elk correspond to white balls from the previous example, and the $N-m$ untagged elk correspond to the black balls.</p>
+
+
+            <h5>Example (Aces in a Poker Hand):</h5>
+
+                <p>In a $5$-card hand drawn at random from a standard deck, the number of aces in the hand has the $HGeom(4,48,5)$ distribution. The probability that the hand has $3$ aces is:</p>
+
+                <p>$$\frac{ \binom{4}{3} \binom{48}{2} }{ \binom{52}{5} }$$</p>
+
+                <p>The Binomial and Hypergeometric distributions are often confused. Both are discrete, take on integer values between $0$ and $n$, and can be interpreted as the number of successes in $n$ Bernoulli trials. However, a crucial part of the Binomial story is that the trials involved are independent. With the Hypergeometric distribution they are dependent, since the sampling is done without replacement.</p>
+
+
+        <h3 id="discrete_uniform">Discrete Uniform Distribution</h3>
+
+            <p>Let $C$ be a finite, nonempty set of numbers. All values in $C$ are equally likely. Then, $X$ is said to have the discrete Uniform distribution with parameter $C$. $X \text{ ~ } DUnif(C)$.</p>
+
+            <p>The PMF of $X \text{ ~ } DUnif(C)$ is:</p>
+
+            <p>$$P(X=x) = \frac{1}{|C|}$$</p>
+
+
+            <h5>Example (Random Slips of Paper):</h5>
+
+                <p>There are $100$ slips of paper in a hat, each with a number from $1$ to $100$ written on it, with no number appearing more than once. $5$ slips are drawn one at a time. First, consider sampling with replacement:</p>
+
+                <p>a) What is the distribution of how many of the drawn slips have a value of at least $80$?</p>
+
+                <p>Answer: the Binomial distribution $X \text{ ~ } Bin(5,0.21)$</p>
+
+
+                <p>b) What is the distribution of the value of the $j^{th}$ draw?</p>
+
+                <p>Answer: $X_j \text{ ~ } DUnif(1, 2, \ldots, 100)$</p>
+
+
+                <p>c) What is the probability that 100 is drawn at least once?</p>
+
+                <p>Answer:</p>
+
+                <p>$$P(X_j = 100 \text{ for at least one draw}) = 1 - P(X_1 \neq 100, \ldots, X_5 \neq 100)$$</p>
+
+                <p>$$1 - (99/100)^5 = 0.049$$</p>
+
+
+                <p>Now, consider random sampling without replacement</p>
+
+                <p>d) What is the distribution of how many of the drawn slips have a value of at least 80 written on them?</p>
+
+                <p>Answer: the Hypergeometric distribution $X \text{ ~ } HGeom(21,79,5)$</p>
+
+
+                <p>e) What is the distribution of the value of the $j^th$ draw?</p>
+
+                <p>Answer: $Y_j \text{ ~ } DUnif(1, 2, \ldots, 100)$</p>
+
+
+        <h3 id="cdf">Cumulative Distribution Functions (CDFs)</h3>
+
+            <p>Another function that describes the distribution of a random variable is the CDF. Though the PMF is only defined for discrete random variables, the CDF is defined for all random variables. The CDF of a random variable $X$ is the function $F_X$ given by $F_X(x) = P(X \ge x)$. They are often notated as $F$.</p>
+
+
+        <h3 id="indep">Independence of Random Variables</h3>
+
+            <p>Random variables $X$ and $Y$ are said to be independent if:</p>
+
+            <p>$$P(X \le x, Y \le y) = P(X \le x) P(Y \le y)$$</p>
+
+            <p>In the discrete case, this is equal to:</p>
+
+            <p>$$P(X=x, Y=y) = P(X=x) P(Y=y)$$</p>
+
+            <p>Random variables $X_1, \ldots, X_n$ are independent if every finite subset of the random variables is independent.</p>
+
+            <p>$$P(X_1 \le x_1, \ldots, X_n \le x_n) = P(X \le x_1) \ldots P(X_n \le x_n)$$</p>
+
+
+            <h4>Functions of Independent Random Variables</h4>
+
+                <p>If $X$ and $Y$ are independent random variables, then any function of $X$ is independent of any function of $Y$. If $X \text{ ~ } Bin(n,p), Y \text{ ~ } Bin(n,p)$, and $X$ is independent of $Y$, then $X + Y \text{ ~ } Bin(n+m, p)$. For any discrete random variables $X$ and $Z$, the function $P(X=x|Z=z)$, when considered as a function of $X$ for fixed $z$, is called the conditional PMF of $X$ given $Z=z$.</p>
+
+                <p>Independence of random variables does not imply conditional independence, nor vice versa.</p>
+
+
+            <h5>Example (Matching Pennies):</h5>
+
+                <p>Each of two players, A and B, has a fair penny. They flip their pennies independently. If the pennies match, A wins; otherwise, B wins.</p>
+
+                <p>Let $X$ be $1$ if A's penny lands heads, and $-1$ otherwise, and define $Y$ similarly for $B$.</p>
+
+                <p>Let $Z = XY$, which is $1$ if A wins and $-1$ if B wins. Then, $X$ and $Y$ are unconditionally independent, but given $Z=1$, we know $X=Y$</p>
+
+                <p>So $X$ and $Y$ are conditionally dependent, given $Z$</p>
+
+
+        <h3 id="discrete_recap">Random Variable and Discrete Distributions Recap</h3>
+
+            <p>A random variable is a function assigning a real number to every possible outcome of an experiment. The distribution of a random variable $X$ is a full specification of the probabilities for the events associated with $X$. The PMF of $X$ is the function $P(X=x)$ for $x \in \mathbb{R}$. The CDF of $X$ is the function $P(X \le x)$ for $x \in \mathbb{R}$.</p>
+
+            <p>For a PMF to be valid, it must be non-negative and sum to $1$. For a CDF to be valid, it must be increasing, right-continuous, converge to $0$ as $x \to -\infty$ and converge to $1$ as $x \to \infty$.</p>
+
+            <p>It is important to distinguish between a random variable and its distribution. Different random variables can have the same distribution, just as different houses can be built from the same blueprint.</p>
+
+                <ul>
+                    <li>A $Bern(p)$ random variable is the indicator of success in a Bernoulli trial with probability of success $p$</li>
+
+                    <li>A $Bin(n,p)$ random variable is the number of successes in $n$ independent Bernoulli trials, all with the same probability $p$ of success</li>
+
+                    <li>A $HGeom(w,b,n)$ random variable can be characterized as the number of white balls obtained in a sample of size $n$ drawn without replacement from an urn of $w$ white and $b$ black balls</li>
+
+                    <li>A $DUnif(C)$ random variable is obtained by randomly choosing an element of the finite set $C$, with equal probabilities for each element</li>
+                </ul>
+
+            <p>Two random variables are independent if knowing the value of one gives no information about the value of the other.</p>
+
+
+
+    <h2 id="expectation">Expectation</h2>
+
+        <p>We often want just one number summarizing the average value of a random variable. The mean of a random variable is also known as its expected value. Variance and standard deviation are defined in terms of expected values, so the use of expected values go beyond just computing averages.</p>
+
+        <p>We can define the arithmetic mean as $\bar{x} = \frac{1}{n} \sum_{j=1}^n x_j$. More generally, we can define a weighted mean as $\sum_{j=1}^n x_j p_j$, where the weights $p1, \ldots, p_n$ are specified non-negative numbers that add up to $1$.</p>
+
+
+        <h3 id="expect_rv">Expectation of a Random Variable</h3>
+
+            <p>The expected value of a random variable $X$, defined on a probability space with measure $P$, is a number denoted $E(X)$ representing the probability-weighted average value of of $X$.</p>
+
+            <p>It is defined for discrete $X$ with PMF $p_X$ as:</p>
+            <p>$$E(X) = \sum_x x p_X(x)$$</p>
+
+            <p>For continuous $X$ with PDF $f_X$:</p>
+            <p>$$E(X) = \int_{-\infty}^{\infty} x f_X(x)dx$$</p>
+
+            <p>where $E(X)$ represents a single number.</p>
+
+
+                <h5>Example:</h5>
+
+                    <p>Consider the probability space corresponding to a sequence of $3$ flips of a fair coin. Let $X$ be the number of heads, $Y$ be the number of tails, and $Z$ be the length of the longest streak of heads in a row ($0$, $1$, $2$, or $3$). Compute $E(X)$.</p>
+                        <ul>
+                            <li>$X$ has a $Bin(3, 0.5)$ distribution, taking values $0, 1, 2, 3$ with respective probabilities $\frac{1}{8}, \frac{3}{8}, \frac{3}{8},$ and $\frac{1}{8}$</li>
+                        </ul>
+
+                    <p>$$E(X) = 0 \left( \frac{1}{8} \right) + 1 \left( \frac{3}{8} \right) + 2 \left( \frac{3}{8} \right) + 3 \left( \frac{1}{8} \right) = 1.5$$</p>
+
+                    <p>It is not necessarily the value that we would expect on a single repetition. For example, the average of coin flips landing heads amongst several sequences of coin flips does not have to be an integer.</p>
+
+                    <p>If two random variables $X$ and $Y$ have the same distribution, then they have the same expected value. But the converse is not true; knowing that $E(X) = E(Y)$ does not imply that the two have the same distribution.</p>
+
+                    <p>$E$ is more than just shorthand for 'expected value'. Rather, $E$ represents the probability-weighted average value according to all of the underlying assumptions of the random phenomenon as specified by the probability measure $P$.</p>
+
+
+        <h3 id="variance">Variance</h3>
+
+            <p>The variance of a random variable $X$ is:</p>
+            <p>$$Var(X) = E \left( (X-E(X))^2 \right)$$</p>
+            <p>$$Var(X) = E(X^2) - (E(X))^2$$</p>
+
+            <p>The definition $E((X - E(X))^2)$ represents the concept of variance; however, variance is usually computed using the following equivalent but slightly simpler formula:</p>
+
+            <p>$$Var(X) = E(X^2) - E(X))^2$$</p>
+
+            <p>That is to say that variance is the expected value of the square of $X$ minus the square root of the expected value of $X$. The expected value of the square can be computed with LOTUS.</p>
+
+            <p>The standard deviation of a random variable is:</p>
+            <p>$$SD(X) = \sqrt {Var(X)}$$</p>
+
+
+        <h3 id="covar_correl">Covariance and Correlation</h3>
+
+            <p>Covariance of random variables $X$ and $Y$ is the long run average of the product of the paired deviations from the respective means. It summarizes in a single number this characteristic of the joint distribution of two random variables.</p>
+
+            <p>$$Cov(X,Y) = \text{Average of } ( (X - \text{Average of  } X)(Y - \text{Average of } Y) )$$</p>
+
+            <p>Covariance is also equivalent to the average of the product minus the product of the averages</p>
+
+            <p>$$Cov(X,Y) = \text{Average of } XY - (\text{Average of } X)(\text{Average of } Y)$$</p>
+
+            <p>The covariance between two random variables $X$ and $Y$ is:</p>
+
+            <p>$$Cov(X,Y) = E[ (x-E[X])(Y-E[Y]) ]$$</p>
+
+            <p>$$= E(XY) - E(X)E(Y)$$</p>
+
+            <p>The first line above defines covariance as the long-run average product of paired deviations from the mean. The second provides an equivalent formula that simplifies computation. Namely, covariance is the expected value of the product minus the product of expected values.</p>
+
+            <p>The numerical value of the covariance depends on the measurement units of both variables, so interpreting it can be difficult. The correlation coefficient is often a more practical measure.</p>
+
+            <p>$$Corr(X,Y) = Cov \left( \frac{X-E(X)}{SD(X)}, \frac{Y-E(Y)}{SD(Y)}  \right)$$</p>
+
+            <p>$$= \frac{Cov(X,Y)}{SD(X)SD(Y)}$$</p>
+
+            <p>Covariance is equal to correlation times the product of the standard deviations:</p>
+
+            <p>$$Cov(X,Y) = Corr(X,Y) SD(X) SD(Y)$$</p>
+
+            <p>The correlation between two random variables is the covariance between the corresponding standardized variables. Therefore, correlation is a standardized masure of the association between two random variables. It is covariance divided by the product of the standard deviations.</p>
+
+
+        <h3 id="linearity">Linearity of Expectation</h3>
+
+            <p>An important property of expectation is linearity: the expected value of a sum of random variables is the sum of the individual expected values.</p>
+
+            <P>For any random variables $X$ and $Y$, and any constant $c$:</P>
+
+            <P>$$E(X + Y) = E(X) + E(Y)$$</P>
+            <P>$$E(cX) = cE(x)$$</P>
+
+            <P>Linearity is true for all random variables, and holds even in the most extreme cases of dependence between $X$ and $Y$.</P>
+
+    
+            <h4>Expected Values of Linear Combinations</h4>
+
+                <p>In general, you cannot interchange averaging and transformation:</p>
+
+                <p>$$E(g(X)) \neq g(E(X))$$</p>
+                <p>$$E(g(X,Y)) \neq g(E(X),E(Y))$$</p>
+
+                <p>But for linear functions, an expected value of the transformation is the transformation evaluated at the expected values. A linear rescaling is a transformation of the form $g(u) = au + b$. It does not change the basic shape of the distribution, just the possible range of values, and it transforms the mean in the same way the individual values are transformed. Adding a constant to a random variable does not affect the standard deviation, but multiplying a random variable by a constant multiplies the standard deviation by the absolute value of the constant.</p>
+
+                <p>If $X$ is a random variable and $a, b$ are constants then:</p>
+
+                <p>$$E(aX+b) = aE(X)+b$$</p>
+                <p>$$SD(aX+b) = |a|SD(X)$$</p>
+                <p>$$Var(aX+b) = a^2 Var(X)$$</p>
+
+                <p>Linearity of expected value follows from simple arithmetic properties of numbers. Whether in the short run or long run:</p>
+
+                <p>$$\text{Average of } X+Y = \text{Average of } X + \text{Average of } Y$$</p>
+
+                <p>For example, for the two $(X,Y)$ pairs of $(4,3)$ and $(2,1)$:</p>
+
+                <p>$$\text{Average of } X+Y = \frac{ (4+3)+(2+1) }{ 2 } = \frac{4+2}{2} + \frac{3+1}{2} = \text{Average of } X + \text{Average of } Y$$</p>
+
+                <p>A linear combination of two random variables $X$ and $Y$ is of the form $aX + bY$, where $a$ and $b$ are non-random constants. Combining properties of linear rescaling with linearity of expected value yields the expected value of a linear combination.</p>
+
+                <p>$$E(aX + bY) = aE(X) + bE(Y)$$</p>
+
+                <p>The left side above represents the long way: find the distribution between $X$ and $Y$, and then use the definition of expected value. The right side is the short way: find the expected values of $X$ and $Y$, which only require their marginal distributions, and plug those numbers into the transformation formula. Similar to LOTUS, linearity of expected values provides a way to find the expected value of certain random variables without first finding the distribution of the random variables. Linearity of expected value extends naturally to more than two random variables.</p>
+
+
+        <h3 id="geom_neg_binom">Geometric and Negative Binomial Distribution</h3>
+
+            <h4>Geometric Distribution</h4>
+
+                <p>Consider a sequence of independent Bernoulli trials, performed until a success occurs. Let $X$ be the number of failures before the first successful trial. Then, $X$ has the Geometric distribution with parameter $p$, denoted $X \text{ ~ } Geom(p)$. For example, if we flip a fair coin until it lands heads for the first time, then the number of tails before the first occurrence of heads is distributed as $Geom(1/2)$. Each $0$ (failure) has probability $q = 1 - p$, and each $1$ (success) has probability $p$, so a string of $k$ failures followed by one success has probability $q^kp$.</p>
+
+
+            <h4>Geometric PDF</h4>
+
+                <p>If $X \text{ ~ } Geom(p)$, then the CDF of $X$ is:</p>
+
+                <p>
+                    $$
+                    F(x) = 
+                    \begin{cases}
+                      1-q^{[x]+1} &amp; \text{if } x \ge 0 \\
+                      0 &amp; \text{if } x \lt 0
+                    \end{cases}
+                    $$
+                </p>
+
+                <p>where $q = 1-p$, and $[x]$ is the greatest integer $\le x$</p>
+
+                <p>The expected value of a Geometric distribution is:</p>
+
+                <p>$$E(X) = \sum_{k=0}^{\infty} q^kp$$</p>
+
+
+            <h4>Negative Binomial Distribution</h4>
+
+                <p>In a sequence of independent Bernoulli trials success probability $p$, if $X$ is the number of failures before the $r^{th}$ success, then $X$ has the Negative Binomial distribution with parameters $r$ and $p$, denoted $X \text{ ~ } Bin(r,p)$. The Binomial distribution counts the number of successes in a fixed number of trials; the Negative Binomial distribution counts the number of failures until a fixed number of successes.</p>
+
+                <p>If $X \text{ ~ } Bin(r,p)$, then the PMF of $X$ is:</p>
+
+                <p>$$P(X=n) = \binom{n+r-1}{r-1} p^r q^n$$</p>
+
+                <p>for $n = 0, 1, 2, \ldots$, where $q = 1-p$.</p>
+
+
+        <h3 id="poisson">Poisson Distribution</h3>
+
+            <p>A random variable has the Poisson distribution with parameter $\lambda \gt 0$ if the PMF of $X$ is:</p>
+
+            <p>$$P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}$$</p>
+
+            <p>where $k = 0, 1, 2, \ldots$. It is denoted as $X \text{ ~ } Pois(\lambda)$.</p>
+
+            <p>The mean and variance are both equal to $\lambda$, the rate of occurrence. The Poisson distribution is often used in situations where we are counting the number of successes in a particular region or interval of time, and there are a large number of trials, each with a small possibility of success. For example, the number of emails you receive in an hour, or the number of earthquakes that occur in a region.</p>
+
+
+            <h4>Poisson Paradigm</h4>
+
+                <p>Let $A_1, \ldots, A_n$ be events with $p_j = P(A_j)$, where $N$ is large, the $p_j$ are small, and the $A_j$ are independent or weakly dependent. Let $X = \sum_{j=1}^n I (A_j)$ count how many of the $A_j$ occur. Then $X$ is approximately distributed as $Pois(\lambda)$, with $\lambda = \sum_{j=1}^n p_j$. The Poisson paradigm is also called the law of rare events. The interpretation of 'rare' is that the $p_j$ are small, not that $\lambda$ is small.</p>
+
+
+        <h3 id="expect_recap">Expectation Recap</h3>
+
+            <p>The expectation of a discrete random variable $X$ is:</p>
+
+            <p>$$E(X) = \sum_x x P(X=x)$$</p>
+
+            <p>Expectation is linear: $E(cX) = cE(X)$ and $E(X+Y) = E(X) + E(Y)$, regardless of whether $X$ and $Y$ are independent. Variance is not linear.</p>
+
+            <p>Four new distributions discussed are:</p>
+                <ul>
+                    <li>Geometric: A $Geom(p)$ random variable is the number of failures before the first success in a sequence of independent Bernoulli trials with probability $p$ of success.</li>
+
+                    </br>
+                    <li>Negative Binomial: A $NBin(r,p)$ is the number of failures before $r$ successes</li>
+
+                    </br>
+                    <li>Negative Hypergeometric: The negative Hypergeometric is similar to the Negative Binomial, except that in terms of drawing balls from an urn, the negative Hypergeometric samples without replacement and the Negative Binomial samples with replacement.</li>
+
+                    </br>
+                    <li>Poisson: A Poisson random variable is often used as an approximation for the number of successes that occur when there are many independent or weakly dependent trials, where each has a small probability of success.</li>
+                </ul>
+
+
+    
+    <h2 id="continuous">Continuous Distributions</h2>
+
+        <p>Continuous random variables can take on any real value in an interval, possibly of infinite length. A random variable has a continuous distribution if its CDF is differentiable. We allow endpoints, where the CDF is continuous but not differentiable, as long as the CDF is differentiable everywhere else.</p>
+
+        <p>For continuous random variables, the CDF is often convenient to work with, and its derivative is the probability density function (PDF).</p>
+
+
+        <h3 id="pdf">Probability Density Function</h3>
+
+            <p>For a continuous random variable $X$ with CDF $F$, the PDF of $X$ is the derivative $f$ of the CDF, given by $f(x) = F'(x)$. The PDF is analogous to the PMF, but for a PDF $f$, the quantity $f(x)$ is not a probability, and to obtain a probability, we need to integrate the PDF. The fundamental theorem of calculus tells us how to get from the PDF back to the CDF. We integrate the PDF over all values up to $x$, so the CDF is the accumulated area under the PDF.</p>
+
+            <p>$$P(a \lt X \le b) = F(b) - F(a) = \int_a^b f(x)dx$$</p>
+
+            <p>Valid PDFs are:
+                <ol>
+                    <li>Non-Negative: $f(x) \ge 0$</li>
+                    <li>Integrates to 1: $\int_{-\infty}^{\infty} f(x)dx = 1$</li>
+                </ol>
+
+            <p>The expected value of a continuous random variable with PDF $f$ is:</p>
+
+            <p>$$E(X) = \int_{-\infty}^{\infty} x f(x)dx$$</p>
+
+
+        <h3 id="cont_uniform">Uniform Distribution</h3>
+
+            <p>A Uniform random variable on the interval $(a,b)$ is a completely random number between $a$ and $b$. We formalize the notion of 'completely random' on an interval by specifying that the PDF should be constant over the interval.</p>
+
+            <p>A continuous random variable is said to have the Uniform distribution on the interval $(a,b)$ if its PDF is</p>
+
+            <p>
+                $$
+                E(X) = 
+                \begin{cases}
+                  \frac{1}{b-a} &amp; \text{if } a \lt x \lt b;  \\
+                  0 &amp; \text{otherwise}
+                \end{cases}
+                $$
+            </p>
+
+            <p>We denote this by $U \text{ ~ } Unif(a,b)$. The variance of the Uniform distribution is:</p>
+
+            <p>$$Var(V) = \frac{(b-a)^2}{12}$$</p>
+
+            <p>In studying Uniform distributions, a useful strategy is to start with a random variable that has the simplest Uniform distribution, figure things out in the friendly simple case, and then use a location-scale transformation to handle the general case.</p>
+
+
+            <h4>Location-Scale Transformation</h4>
+
+                <p>Let $X$ be a random variable and $Y = \sigma X + \mu$, where $\sigma$ and $\mu$ are constants with $\sigma \gt 0$. Then we say that $Y$ has been obtained as a location-scale transformation of $X$. $\mu$ controls the location and $\sigma$ controls the scale.</p>
+
+
+        <h3 id="normal">Normal Distribution</h3>
+
+            <p>The Normal distribution is widely used in statistics because the central limit theorem says that under very weak assumptions, the sum of a large number of IID random variables has an approximately Normal distribution, regardless of the distribution of individual random variables.</p>
+
+
+            <h4>Standard Normal Distribution</h4>
+
+                <p>A continuous random variable $Z$ is said to have the Standard Normal distribution if its PDF $\varphi$ is given by:</p>
+
+                <p>$$\varphi(Z) = \frac{ 1 }{ \sqrt{2 \pi} } e^{-z^2 / 2}$$</p>
+
+                <p>where $-\infty \lt z \lt \infty$. We write this as $Z = \mathcal{N}(0,1)$. The Standard Normal CDF $\Phi$ is the accumulated area under the PDF.</p>
+
+                <p>If $Z \text{ ~ } \mathcal{N}(0,1)$, then $X = \mu + \sigma Z$ is said to have a Normal distribution with mean $\mu$ and variance $\sigma^2$, for any real $\mu$ and $\sigma^2$ with $\sigma \gt 0$. We denote this by $X \text{ ~ } \mathcal{N}(\mu, \sigma^2)$.</p>
+
+                <p>The process of getting a Standard Normal distribution from a non-Standard Normal distribution is called standardization. The standardized version of $X$ is:</p>
+
+                <p>$$\frac{x-\mu}{\sigma} \text{ ~ } \mathcal{N}(0,1)$$</p>
+
+
+        <h3 id="exponential">Exponential Distribution</h3>
+
+            <p>The Exponential distribution is the continuous counterpart to the Geometric distribution. Recall that a Geometric random variable counts the number of failures before the first success in a sequence of Bernoulli trials. An Exponential random variable represents the waiting time until the first arrival of success. However, we are waiting for a success in continuous time, where successes arrive at a rate of $\lambda$ successes per unit of time. The average number of successes in a time interval of length $t$ is $\lambda t$, though the actual number of successes varies randomly.</p>
+
+            <p>A continuous random variable $X$ is said to have the Exponential distribution with parameter $\lambda \gt 0$, if its PDF is:</p>
+
+            <p>$$f(x) = \lambda e^{\lambda x}, x \gt 0$$</p>
+
+            <p>We denote this by $X \text{ ~ } Expo(\lambda)$.</p>
+
+            <p>The corresponding CDF is </p>
+
+            <p>$$F(x) = 1 - e^{-\lambda x}, x \gt 0$$</p>
+
+
+            <h4>Memoryless Property</h4>
+
+                <p>A continuous distribution is said to have the memoryless property if a random variable $X$ from that distribution satisfies:</p>
+
+                <p>$$P(X \ge s+t | X \ge x) = P(X \ge t)$$</p>
+
+                <p>for all $s, t \ge 0$.</p>
+
+                <p>$s$ represents time that has already been spent waiting. The definition says that after you've waited $s$ minutes, the probability you will have to wait another $t$ minutes is exactly the same as the probability of having to wait $t$ minutes with no previous waiting time under your belt. For example, if waiting at a bus stop has an Exponential distribution, then conditional on your having waited 30 minutes, the bus isn't due to arrive any sooner.</p>
+
+                <p>Some physical phenomena, such as radioactive decay, exhibit the memoryless property, and flexible distributions such as the Weibull distribution, that allow for a wear-and-tear or survival-of-the-fittest effect (where the larger you have lived, the stronger you get). The memoryless property is a special property of the Exponential distribution. No other continuous distribution is memoryless.</p>
+
+
+        <h3 id="poisson">Poisson Process</h3>
+
+            <p>The Exponential and Poisson distributions are linked by a common story, which is the story of the Poisson process. A Poisson process is a sequence of arrivals occurring at different points on a timeline, such that the number of arrivals in a particular interval of time has a Poisson distribution.</p>
+
+            <p>A process of arrivals in continuous time is called a Poisson process with rate $\lambda$ if the following two conditions hold:</p>
+                <ol>
+                    <li>The number of arrivals that occur in an interval of length $t$ is a $Pois(\lambda)$ random variable</li>
+                    <li>The number of arrivals that occur in disjoint intervals are independent of each other</li>
+                </ol>
+
+
+
+        <h3 id="cont_recap">Continuous Distributions Recap</h3>
+
+            <p>A continuous random variable can take on any value in an interval, although the probability that it equals any particular value is $0$. The CDF of a continuous random variable is differentiable, and the derivative is called the probability density function (PDF). Probability is given by area under the PDF curve, not the value of the PDF at a point. We must integrate the PDF to get a probability.</p>
+
+            <p>A $Unif(a,b)$ random variable is a completely random number in the interval $(a,b)$ and has the property that probability is proportional to length.</p>
+
+            <p>A $\mathcal{N}(\mu, \sigma^2)$ random variable has a symmetric bell-shaped PDF centered at $\mu$, with $\sigma$ controlling how spread out the curve is. The $68-95-99.7\%$ rule gives important benchmarks for the probability of a normal random variable falling within $1$, $2$, or $3$ standard deviations from the mean.</p>
+
+            <p>An $Expo(\lambda)$ random variable represents the waiting time for the first success in continuous time. The parameter $\lambda$ can be interpreted as the rate at which successes arrive. The exponential distribution is the only distribution that has the memoryless property, which says that conditional on our having waited a certain amount of time without success, the distribution of the remaining wait time is exactly the same as if we hadn't waited at all.</p>
+
+            <p>A Poisson process is a sequence of arrivals in continuous time such that the number of arrivals in an interval is Poisson distributed, with mean proportional to the length of the interval, and disjoint intervals have independent numbers of arrivals. The interarrival times in a Poisson process of rate $\lambda$ are IID $Expo(\lambda)$ random variables.</p>
+
+
+
+    <h2 id="moments">Moments</h2>
+
+        <p>A useful way to study a distribution is via its moments. The first 4 moments are widely used to quantitatively describe what a distribution looks like. The first moment is the mean, the second central moment is variance, the third standardized moment is skew (asymmetry), and the fourth standardized moment is kurtosis, which measures how heavy the tails are.</p>
+
+        <p>The moment-generating function (MGF) of a random variable is $M(t) = E(e^{tX})$</p>
+
+        <p>If the MGF exists then:</p>
+
+        <p>$$M(0) = 1, M'(0) = E(X), M''(0) = E(X^2), M'''(0) = E(X^3)$$</p>
+
+
+
+    <h2 id="joint_dist">Joint Distributions</h2>
+
+        <h3 id="multinom">Multinomial Distribution</h3>
+
+            <p>The Multinomial distribution is a generalization of the Binomial. Whereas the Binomial distribution counts the successes in a fixed number of trials categorized as success or failure, the Multinomial distribution keeps track of trials whose outcomes can fall into multiple categories such as excellent, adequate, or poor.</p>
+
+            <p>Each of $n$ objects is independently placed into one of $k$ categories. An object is placed into category $j$ with probability $p_j$, where the $p_j$ are nonnegative and $\sum_{j=1}^k p_j = 1$. Let $X_1$ be the number of objects in category 2, etc., so that $X_1 + \ldots + X_k = n$. Then $\mathbf{X}=(X_1, \ldots, X_k)$ is said to have the Multinomial distribution with parameters $n$ and $\mathbf{p} = (p_1, \ldots, p_k)$. We write this as $\mathbf{X} \text{ ~ } Mult(n,p)$.</p>
+
+
+            <h4>Multinomial Joint PDF</h4>
+
+                <p>If $\mathbb{x} \text{ ~ } Mult(n,p)$, then the joint PMF of $\mathbf{X}$ is</p>
+
+                <p>$$P(X_1=n_1, \ldots, X_k=n_k) = \frac{n!}{n_1! n_2! \ldots n_k!} \cdot p_1^{n_1} p_2^{n_2} \ldots p_k^{n_k}$$</p>
+
+                <p>for $n_k$ satisfying $n_1 + \ldots + n_k = n$.</p>
+
+                <p>The story of the Multinomial distribution is: $X_j$ is the number of objects in category $j$, where each of the $n$ objects independently belong to category $j$ with probability $p_j$. Define success as leading in category $j$. Then we have $n$ independent Bernoulli trials, so the marginal distribution of $X_j$ is $Bin(n,p_j)$.</p>
+
+                <p>The marginal distributions of a Multinomial distribution are Binomial. If $\mathbf{X} \text{ ~ } Mult(n,p)$, then $X_j \text{ ~ } Bin(n,p_j)$</p>
+
+
+
+    <h2 id="trans">Transformations</h2>
+
+        <p>After applying a function to a random variable $X$ or random vector $X$, the goal is to find the distribution of the transformed random variable or joint distribution of the transformed random vector. Ways in which transformations of random variables appear in statistics include:</p>
+            <ol>
+                <li>Unit Conversion</li>
+                    <ul>
+                        <li>For example, standardization</li>
+                        <li>Location-scale transforms are linear, converting the random variable $Y = aX + b$ where $a$ and $b$ are constants</li>
+                    </ul>
+
+                <li>Sums and Averages as Summaries</li>
+                    <ul>
+                        <li>Turning $X_1, \ldots, X_n$ into a sum or mean is a transformation from $\mathbb{R}^n$ to $\mathbb{R}$</li>
+                        <li>The term for a sum of independent random variables is convolution</li>
+                    </ul>
+
+                <li>Extreme Values</li>
+                    <ul>
+                        <li>In many cases, we may be interested in the distribution of the most extreme observations</li>
+                    </ul>
+            </ol>
+
+
+        <h3 id="lotus">Law of the Unconscious Statistician (LOTUS)</h3>
+
+            <p>A distribution is the complete picture of the long-run pattern of variability of a random variable. An expected value is just one particular characteristic of a distribution; namely, the long run average value. We can often compute expected values without first finding the entire distribution.</p>
+
+            <p>LOTUS says that the expected value of a transformed random variable can be found without finding the distribution of the transformed random variable, simply by applying the probability weights of the original random variable to the transformed values.</p>
+
+            <p>Discrete $X$ with PMF $p_X$:</p>
+            <p>$$E[g(X)] = \sum_x g(x) p_X(x)$$</p>
+
+            <p>Continuous $X$ with PDF $f_X$:</p>
+            <p>$$E[g(X)] = \int_{-\infty}^{\infty} g(x) f_X(x) dx$$</p>
+
+            <p>The left-hand side of LOTUS, $E[g(X)]$, represents finding the expected value the long way: define $Y = g(X)$, find the distribution of $Y$, and then use the definition of expected value to compute $E(Y)$. LOTUS says we don't have to first find the distribution of $Y = g(X)$ to find $E[g(X)]$. Rather, we simply apply the transformation $g$ to each possible value $x$ of $X$ and then apply the corresponding weight for $x$ to $g(x)$.</p>
+
+            <p>From a simulation perspective, the left-hand side of LOTUS, $E[g(X)]$ represents first contructing a spinner according to the distribution $Y = g(X)$, then spinning it to simulate many $Y$ values and averaging the simulated values. LOTUS says we don't have to construct the $Y$ spinner; we can simply spin the $X$ spinner to simulate many $X$ values, apply the transformation $g$ to each simulated $X$ value, and then average the transformed values. </p>
+
+            <p>There is also LOTUS for two random variables:</p>
+
+            <p>Discrete $X, Y$ with Joint PMF $p_{X,Y}$:</p>
+            <p>$$E[g(X,Y)] = \sum_x \sum_y g(x,y) p_{X,Y}(x,y)$$</p>
+
+            <p>Continuous $X, Y$ with joint PDF $f_{X,Y}$:</p>
+            <p>$$E[g(X,Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y) f_{X,Y}(x,y) dxdy$$</p>
+
+
+        <h3 id="beta">The Beta Distribution</h3>
+
+            <p>A random variable is said to have the Beta distribution with parameters $a$ and $b$, where $a \gt 0$ and $b \gt 0$, if its PDF is:</p>
+
+            <p>$$f(x) = \frac{1}{\beta(a,b)} x^{a-1} (1-x)^{b-1}, 0 \lt x \lt 1$$</p>
+
+            <p>where the constant $\beta(a,b)$ is chosen to make the PDF integrate to $1$. We write $X \text{ ~ } Beta(a,b)$.</p>
+
+            <p>The Beta distribution is a continuous distribution on the interval $(0,1)$. It is a generalization of the $Unif(0,1)$ distribution, allowing the PDF to be non-constant on $(0,1)$. The $Beta(1,1)$ and $Unif(0,1)$ distributions are the same. By varying the values of $a$ and $b$, we get PDFs with a variety of shapes.</p>
+
+                <ul>
+                    <li>If $a \lt 1$ and $b \lt 1$, the PDF is U-shaped and opens upward. If $a \gt 1$ and $b \gt 1$, the PDF opens downward.</li>
+
+                    <li>If $a=b$, the PDF is symmetric about $\frac{1}{2}$. If $a \gt b$, the PDF favors values larger than $\frac{1}{2}$. If $a \lt b$, the PDF favors values smaller than $\frac{1}{2}$.</li>
+                </ul>
+
+            <img src="img/blitz_8-4.jpg" style="height: 500px; width:auto;"></br></br>
+
+
+        <h3 id="gamma">The Gamma Distribution</h3>
+
+                <p>The gamma distribution is a generalization of the Exponential distribution. While an Exponential random variable represents the waiting time for the first success under conditions of memorylessness, a Gamma random variable represents the total waiting time for multiple successes. The Gamma function is a function that extends the factorial function beyond the realm of non-negative integers.</p>
+
+
+            <h4>The Gamma Function</h4>
+
+                <p>The Gamma function $\Gamma$ is used in various areas of mathematics, and is defined by:</p>
+
+                <p>$$\Gamma(a) = \int_0^{\infty} x^a e^{-x} \frac{dx}{x}$$</p>
+
+                <p>for real numbers $a \gt 0$</p>
+
+                <p>$\Gamma(n) = (n-1)!$ if $n$ is a positive integer, recovering the factorial function but shifted by $1$.</p>
+
+
+            <h4>Back to the Gamma Distribution</h4>
+
+                <p>A random variable $Y$ is said to have the Gamma distribution with parameters $a$ and $\lambda$, where $a \gt 0$ and $\lambda \gt 0$, if its PDF is:</p>
+
+                <p>$$f(y) = \frac{1}{\Gamma(a)} (\lambda y)^a e^{-\lambda y} \frac{1}{y}$$</p>
+
+                <p>where $y \gt 0$. This is denoted as $Y \text{ ~ } Gamma(a, \lambda)$.</p>
+
+                <p>The Gamma distribution is a generalization of the Exponential distribution. In a Poisson process of rate $\lambda$, the total waiting time for $n$ arrivals is distributed $Gamma(n,\lambda)$. Thus, the Gamma is the continuous analog of the Negative Binomial distribution.</p>
+
+                <p>Taking $a=1$, the $Gamma(1,\lambda)$ and $Expo(\lambda)$ distributions are the same. For small values of $a$, the Gamma PDF is skewed, but as $a$ increases, the PDF starts to look more symmetrical and bell-shaped. Increasing $\lambda$ compresses the PDF toward smaller values.</p>
+
+                <img src="img/blitz_8-7.jpg" style="height: 500px; width:auto;"></br></br>
+
+
+        <h3 id="chi">Chi-Square Distribution</h3>
+
+            <p>The Chi-Square and t-distribution are two important distributions in statistics. The Chi-Square is a special case of the Gamma. The t-distribution has a symmetrical and bell-shaped PDF with heavier tails than the Normal, and converges to the Standard Normal as the degrees of freedom increase. The Chi-Square distribution and Student's t-distribution are closely related to the Normal distribution.</p>
+
+            <p>Let $V = Z_1^2 + \ldots + Z_n^2$ where $Z_1, Z_2, \ldots, Z_n$ are IID $\mathcal{N}(0,1)$. In other words, a sum of squares of IID standard normal random variables. Then $V$ is said to have the Chi-Square distribution with $n$ degrees of freedom. We write this as $V \text{ ~ } \chi_n^2$.</p>
+
+            <p>The $\chi_n^2$ distribution is a special case of the gamma distribution; it is the $Gamma(\frac{n}{2}, \frac{1}{2})$ distribution. It is important in statistics because it is related to the distribution of the sample variance, which can be used to estimate the true variance of a distribution. When our random variables are IID normals, the distribution of the sample variance after appropriate scaling is chi-square.</p>
+
+
+        <h3 id="t_dist">Student's t-Distribution</h3>
+
+            <p>The t-distribution is defined by representing sample variance in terms of a standard normal random variable and a $\chi_n^2$ random variable</p>
+
+            <p>Let $T = \frac{Z}{\sqrt{V/n}}$</p>
+
+            <p>where $Z \text{ ~ } \mathcal{N}(0,1), V \text{ ~ } \chi_n^2$, and $Z$ is independent of $V$.</p>
+
+            <p>Then, $T$ is said to have the Student's t-distribution with $n$ degrees of freedom. The PDF of the t-distribution with $n$ degrees of freedom looks similar to that of a standard normal distribution, but with heavier tails (much heavier if $n$ is small). The formula for the PDF is:</p>
+
+            <p>$$f_T(t) = \frac{ \Gamma((n+1)/2) }{ \sqrt{n \pi} \Gamma(n/2) } (1 + t^2/n)^{(-n+1)/2}$$</p>
+
+            <p>If $n=1$, then it is the ratio of two independent standard vormals, which is the Cauchy distribution. At $n=1$, the mean doesn't exist, as the Cauchy does not have a finite expectation.</p>
+
+            
+
+    <h2 id="inequalities">Inequalities</h2>
+
+        <h3 id="markovs_ineq">Markov's Inequality</h3>
+
+            <h5>Example:</h5>
+
+                <p>Annual income for US households is $\$100K$. What can you say about the percent of households with at least $\$1M$?</p>
+                    <ol>
+                        <li>Can 100% of households have income $\ge \$1M?$</li>
+                            <ul>
+                                <li>No, because the mean must be $\$1M$</li>
+                            </ul>
+
+                        <li>Can $50\%$ of households have at least $\$1M$?</li>
+                            <ul>
+                                <li>No, because then the mean must be at least $\$500K$. Even if $50\%$ of households had $\$1M$ and the rest had $\$0$, the mean would be $\$500K$</li>
+                            </ul>
+
+                        <li>What is the largest possible percentage of households with income of at least $\$1M$?</li>
+                            <ul>
+                                <li>The idea is that if too many households have incomes above $\$1M$ then the average cannot be $\$100K$. The mean will be smallest in the extreme case where each household of less than $\$1M$ has zero.</li>
+
+                                <li>Let $p$ be the proportion of households with an income of $\$1M$. Then the mean is $1,000,000 p + 0(1-p) = 1,000,000 p$, and setting it equal to $\$100,000$ yields $p=0.1$.</li>
+
+                                <li>Therefore, given a mean of $\$100K$, it is theoretically possible for $10\%$ of households to have incomes of at least $\$1M$. But this is the maximum possible percentage.</li>
+                            </ul>
+                    </ol>
+
+
+            <p>The above illustrates Markov's inequality. For any random variable $X$ and any constant $c \gt 0$, </p>
+
+            <p>$$P(|X| \ge c) \le \frac{E(|X|)}{c}$$</p>
+
+            <p>We can also express Markov's inequality in relative terms. If $X \ge 0$, then for any constant $k$:</p>
+
+            <p>$$P(X \ge kE(X)) \le \frac{E(X)}{kE(X)} = \frac{1}{k}$$</p>
+
+            <p>Markov's inequality says that, at most, $\frac{1}{k}$ of values are at least $k$ times greater than the mean.</p>
+
+
+            <h5>Example:</h5>
+
+                <p>Suppose X is a random variable with an $Expo(1)$ distribution. What does Markov's inequality say about $P(X \gt 5)$?</p>
+                    <ul>
+                        <li>The mean of an $Expo(1)$ distribution is $1$, so Markov's inequality says:</li>
+                    </ul>
+
+                <p>$$P(X \ge 5) \le \frac{E(X)}{5} = \frac{1}{5} = 0.2$$</p>
+
+                <p>The upper bound provided by Markov's inequality often grossly overestimates the tail probability. However, without further information, we cannot rule out the extreme case.</p>
+
+
+        <h3 id="cheb_ineq">Chebyshev's Inequality</h3>
+
+            <p>Markov's inequality only relies on the mean, but if we have more information - particularly standard deviation - then we can put better bounds on the probability that a random variable takes a value far from its mean.</p>
+
+            <p>For any random variable $X$ and any constant $c \gt 0$, </p>
+
+            <p>$$P(|X - E(X) | \ge c) \ge \frac{Var(X)}{c^2}$$</p>
+
+            <p>Equivalently, for any constant $z \gt 0$,</p>
+
+            <p>$$P \left( \frac{|X - E(X)|}{SD(X)} \ge z \right) \le \frac{1}{z^2}$$</p>
+
+            <p>The first version of Chebyshev's inequality bounds the probability that a random variable is at least $c$ measurement units away from the mean. The proof is an application of Markov's inequality to the squared deviation random variable $|X - E(X)|^2$.</p>
+
+            <p>The bound in Markov's inequality is on the order of $\frac{1}{c}$ and the bound on Chebyshev's inequality is on the order of $\frac{1}{c^2}$. Therefore, Chebyshev's inequality usually provides a tighter bound, but you need to know the standard deviation to use it.</p>
+
+
+            <h5>Example:</h5>
+
+                <p>Suppose again that average annual income for US households is about $\$100K$. Assume the standard deviation of income is $\$230K$. What can you say about the percentage of households with incomes of at least $\$1M$?</p>
+
+                <p>The second version of Chebyshev's inequality follows by taking $c = zSD(X)$ in the first version. The second version bounds the probability that a random variable is at least $z$ standard deviations away from its mean. Chebyshev's inequality says that for any distribution, the probability that the random variable takes a value within $2$ standard deviations of its mean is at least $1 - \frac{1}{z^2}$. For any distribution:</p>
+                    <ul>
+                        <li>$(z=2)$ At least $75\%$ of values fall within $2$ standard deviations of the mean</li>
+                        <li>$(z=3)$ At least $88.9\%$ of values fall within $3$ standard deviations of the mean</li>
+                        <li>$(z=4)$ At least $93.75\%$ of values fall within $4$ standard deviations of the mean</li>
+                        <li>$(z=5)$ At least $96\%$ of values fall within $5$ standard deviations of the mean</li>
+                    </ul>
+
+                <p>The complimentary probabilities can be taken as $1$ minus the above probabilities.</p>
+
+                <p>In short, Chebyshev's inequality says that if a value is more than a few standard deviations away from the mean then it is a fairly extreme value, regardless of the shape of the distribution.</p>
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

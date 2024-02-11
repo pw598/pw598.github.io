@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+
+<h1>Fourier Transform Course</h1>
+
+
+	<h2>Introduction</h2>
+
+		<p>The Fourier transform states that any signal can be perfectly represented as a sum of sine waves, each having its own phase, frequency, and amplitude. This provides an efficient way to transform a signal from the time domain to the frequency domain. The Fourier transform provides two sets of information about the signal, per frequency:</p>
+			<ol>
+				<li>Power: a.k.a. amplitude, energy, or magnitude, measures the vertical distance of the waves
+				<li>Phase: the value of the sine wave when it crosses $x=0$. Phase is a circular property measured in radians. Phase offsets have no effect on the amplitude spectrum.</li>
+			</li>
+		</ol>
+
+		<p>Broadly speaking, the Fourier transform is used for two purposes:</p>
+			<ol>
+				<li>As a method to inspect frequency-specific energy and phase dynamics of a signal or image
+				<li>As an intermediary tool in an algorithm, such as filtering or convolution. Using the fast Fourier transform (FFT) to move quickly between the time and frequency domains is useful because of the convolution theorem, which allows many time-domain operations to be performed in the frequency domain, more quickly than the corresponding time-domain operation.</li>
+			</li>
+		</ol>
+
+		<p>The results of a Fourier transform are easily visually interpreted for stationary signals that contain rhythmic components. However, it is a lossless transform, regardless of signal properties, and can be extended from 1D to 2D, such as an image.</p>
+
+		<img src="img/ft_intro1.png" style="height: 400px; width: auto;"></br></br>
+
+
+
+	<h2>Foundations of the Fourier Transform</h2>
+
+		<p>To understand the Fourier transform, you must understand three mathematical concepts:</p>
+			<ol>
+				<li>Sine Waves: sine waves have the three properties 1) frequency, 2) power, and 3) phase.</li>
+
+				<li>Complex Numbers: complex numbers have both a real part and an imaginary part, and can be represented on the 2D complex plane.</li>
+
+				<li>Dot Product: a single number that reflects the relationship between two vectors. To compute, point-wise multply the corresponding elements and sum over all elements. The larger the dot product (after accounting for scaling), the more similar the two vectors.</li>
+			</ol>
+
+		<p>The geometric interpretation of a complex number leads to the concept of 'length' and 'angle' of a complex number. Length is $m = \sqrt{ real(z)^2 + imag(z)^2 }$, and angle is the inverse tangent of the imaginary part over the real part, $\phi = atan \left( \frac{imag(z)}{real(z)} \right)$. When the length is the signal amplitude and the angle is the signal phase.</p>
+
+		<p>When you compute the dot product between a real-value signal and a complex sine wave, the resulting dot product is also a complex number. The dot product of the signal with a complex sine wave is called a Fourier coefficient.</p>
+
+		<p>To compute the Fourier transform, compute the dot product between a signal and complex sine wave. The magnitude of the dot product is the signal amplitude at the frequency of the sine wave, and the angle of the dot product with respect to the positive real axis is the phase of the signal at that frequency. This procedure is repeated for many sine wave frequencies, and the result is a power or phase spectrum.</p>
+
+
+
+	<h2>The Discrete Time Fourier Transform (DTFT)</h2>
+
+		<p>The DTFT involves computing the dot product between complex sine waves and the signal. There are as many complex sine waves as data points. The resulting complex dot products are called Fourier coefficients, and from that complex number you extract the magnitude (amplitude, the square root of power) and angle relative to the positive real axis. The procedure is as follows:</p>
+			<ol>
+				<li>Create a time vector for the sine wave, which goes from $0$ to $1-dt$ (where $dt$ is a sample time step), in a number of steps corresponding to the number of time points in the signal.</li>
+
+				<li>Create a loop over time points:</li>
+
+				<li>Create a complex sine wave as $e^{-i 2 \pi f t}$ where $i=\sqrt{-1}$, $f$ is the frequency and is set by the looping index minus one (the first frequency is $0$), and $t$ is the time vector.</li>
+
+				<li>Compute the dot product between that complex sine wave and the signal. The signal does not change, only the frequency of the complex sine wave. The resulting complex dot product is the Fourier coefficient for the frequency.</li>
+			</ol>
+
+		<p>The raw frequencies are indices, not meaningful units such as $Hz$. To convert from indices to frequencies, compute a linearly spaced vector of $N/2+1$ numbers, where $N$ is the number of time points, between $0$ and the Nyquist (one half of the sampling rate). The frequencies can be organized into four groups:</p>
+			<ol>
+				<li>$0 Hz$ (the DC or direct current)</li>
+				<li>Positive Frequencies (between DC and the Nyquist)</li>
+				<li>Nyquist (half of the sampling rate)</li>
+				<li>Negative Frequencies (above the Nyquist)</li>
+			</ol>
+
+		<p>A real valued signal has amplitudes split between the positive and negative frequencies. This is a result of the cosine identity, which states that a real-valued cosine can be made from the combination of two complex exponentials: one with a negative exponent and one with a positive exponent.</p>
+
+		<p>$$cos(k) = 0.5(e^{ik} + e^{-ik})$$</p>
+
+		<p>To reconstruct the amplitude of the original signal, you double the amplitudes of the positive frequencies and ignore the negative frequencies. This is one of two normalization factors you need to apply to recover accurate amplitudes from the Fourier transform. The other factor is to divide the Fourier coefficients by $N$, the number of time points. This is because longer signals have larger dot products. These two normalizations are necessary only if interpreting the amplitude/power results of the Fourier transform, not if simply using the Fourier transform as a tool in signal processing.</p>
+
+		<img src="img/ft_dtft1.png" style="height: 500px; width: auto;"></br></br>
+
+		<img src="img/ft_dtft2.png" style="height: 500px; width: auto;"></br></br>
+
+
+	<h2>The Inverse Fourier Transform</h2>
+
+		<p>Getting back from the frequency domain to the time domain is implemented via the inverse Fourier transform. The procedure is as follows:</p>
+			<ol>
+				<li>Create a time vector for the sine wave, which goes from $0$ to $1-dt$, in a number of steps corresponding to the number of time points in the signal</li>
+
+				<li>Create a loop over time points:</li>
+
+				<li>Create a complex sine wave as $e^{i 2 \pi f t}$. Note the lack of a negative sign, compared to the forward Fourier transform.</li>
+
+				<li>Multiply that sine wave by the complex Fourier coefficient obtained from the forward Fourier transform. Then sum the sine waves together.</li>
+			</ol>
+
+
+
+	<h2>The Fast Fourier Transform</h2>
+
+		<p>The fast Fourier transform (FFT) is much faster than the alternatives. There are several algorithms for it, but they generally work by:</p>
+			<ol>
+				<li>Putting all of the complex sine waves into a matrix</li>
+				<li>Decomposing that matrix into many other sparse matrices</li>
+				<li>Perform a series of matrix-matrix and matrix-vector multiplications</li>
+			</ol>
+
+		<p>The fast inverse Fourier transform is called the IFFT. The two normalization steps you need to apply are the same as for the loop-based Fourier transform.</p>
+
+		<p>There are (at least) two ways to understand why the Fourier transform is a lossless transform:</p>
+			<ol>
+				<li>Linear Algebra: when the complex sine waves are columns in a matrix, it is a $N \times N$ matrix with linearly independent columns, meaning it has an inverse. So if the sine waves are in matrix $F$ and the signal is in row vector $s$, then $sF = c$ gives the Fourier coefficients in row vector $c$, and you can compute $s = cF^{-1}$.</li>
+
+				<li>Statistics: think of the time series signal as a dependent variable and the sine waves as independent variables in a model. The zero frequency component is the intercept. The collection of independent variables is the model, and the Fourier coefficients are the regression coefficients. The model has $N$ predictors for $N$ data points, and therefore $0$ degrees of freedom. A model with $0$ degrees of freedom accounts for $100%$ of the variance in the data.</li>
+			</ol>
+
+
+
+	<h2>Frequency Resolution and Zero Padding</h2>
+
+		<p>The sampling theorem describes the frequency limit that you can measure, given your sampling rate. There are two important messages about sampling:</p>
+			<ol>
+				<li>The Nyquist frequency, one half of the sampling rate, is the highest frequency signal you can measure. Dynamics higher than that in the signal can become aliased into lower frequencies.</li>
+
+				<li>The Nyquist limit is not a practical limit. A guideline is to sample at least $5$ times higher than the highest frequency you think will be in the signal.</li>
+			</ol>
+
+		<p>Frequency resolution refers to the spacing between successive frequencies. If the vector of frequencies is $0, 1, 2, \ldots$, then the frequency resolution is $1 Hz$. It is given by the equation $r = s/n$ where $r$ is the frequency resolution, $s$ is the sampling rate, and $n$ is the number of time points in the FFT.</p>
+
+		<p>In the time domain, the resolution is determined by the sampling rate, not the signal length. In the frequency domain, the resolution is determined by the signal length for a fixed sampling rate. Therefore, you can increase frequency resolution by adding zeros to the end of the signal. This procedure is called zero padding; the zeros don't add any new information, they just increase $N$.</p>
+
+		<p>There are three reasons to zero-pad a signal:</p>
+			<ol>
+				<li>To obtain a specific frequency that is not present in the native resolution</li>
+				<li>To match FFT lengths for some signal-processing methods like convolution</li>
+				<li>To make the power spectral plot look smoother</li>
+			</ol>
+
+		<p>Zero-padding in the time domain increases frequency resolution. Zero-padding in the frequency domain increases temporal resolution. This is stated by the zero-padding theorem. In the frequency domain, the zeros are added at the Nyquist, i.e., middle of the spectrum.</p>
+
+		<img src="img/ft_res1.png" style="height: 400px; width: auto;"></br></br>
+
+
+	<h2>Aliasing, Stationarity, and Violations</h2>
+
+		<p>Aliasing is the phenomenon that a feature of a signal or image that is higher than the Nyquist frequency, appears at a lower frequency in the measurement.</p>
+
+		<img src="img/ft_alias1.png" style="height: 400px; width: auto;"></br></br>
+
+		<p>Stationarity refers to the reproducibility of the descriptive statistics of a signal (mean, variance, frequency, etc.). There are three sources of ambiguity in this definition:</p>
+			<ol>
+				<li>Many Features: a signal could be mean-stationary but not frequency stationary</li>
+				<li>Window Size and Placement: a signal might look stationary or non-stationary depending on the size of the time windows</li>
+				<li>Threshold Dependence: noise threshold must be selected, which could entail bias</li>
+			</ol>
+
+		<p>Non-stationarities affect the results of the Fourier transform, though it is still a lossless transform. Non-stationary signals have power spectra that can be difficult to interpret. Many solutions to the non-stationarity issue involve time-frequency analyses, which involve examining how the spectral structure of a signal changes over time or space.</p>
+
+
+
+	<h2>The 2D FFT</h2>
+
+		<p>The 2D FFT is an extension of the 1D FFT. The digital representation of a picture is often a 2D or 3D matrix. To compute the 2D FFT, first compute the normal FFT on each column of the matrix, then compute the FFT on each row of the result. This produces a 2D matrix of Fourier coefficients, from which you can extract amplitude and phase.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+<h1>Probability - Joseph Blitzstein Book Pt 1</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#prob_counting">Probability and Counting</a></td><td><a href="#space_events">Sample Space and Events</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#naive_def">Naive Definition of Probability</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#how_to_count">How to Count</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#binomial_coeff">Binomial Coefficients</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#properties">Properties of Probability</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#prob_count_recap">Probability and Counting Recap</a></td></tr>
+ <tr><td><a href="#conditional">Conditional Probability</a></td><td><a href="#bayes">Bayes' Rule and the Law of Total Probability</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#indep">Independence of Events</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#coherency">Coherency of Bayes Rule</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#conditional_recap">Conditional Probability Recap</a></td></tr>
+</tbody></table>
+
+
+    <h2 id="prob_counting">Probability and Counting</h2>
+
+        <h3 id="space_events">Sample Space and Events</h3>
+
+            <p>The sample space $S$ of an experiment is the set of all possible outcomes of an experiment. An event $A$ is a subset of the sample space $S$, and we say that $A$ occurred if the actual outcome is in $A$. Set operations - unions, interactions, and complements in particular, make it easy to build new events in terms of already-defined events, and let us express an event in more than one way.</p>
+
+            <p>The union of two sets $A$ and $B$ is written as $A \cup B$, and is the set of all objects in $A$, $B$, or both. The intersection of $A$ and $B$ is written as $A \cap B$, and is the set of all objects that are in both $A$ and $B$. We say that $A$ and $B$ are disjoint if $A \cap B$ is the area of $A$ plus the area of $B$, minus the area of $A \cap B$.</p>
+
+            <p>De Morgan's laws give an elegant, useful duality between unions and intersections:</p>
+
+            <p>$$(A_1, \cup A_2 \cup \ldots \cup A_n)^c = A_1 \cap A_2 \cap \ldots \cap A_n^c$$</p>
+            <p>$$(A_1, \cap A_2 \cap \ldots \cap A_n)^c = A_1 \cup A_2 \cup \ldots \cup A_n^c$$</p>
+
+            <p>In simplified form:</p>
+
+            <p>$$(A \cup B)^c = A^c \cap B^c$$</p>
+            <p>$$(A \cap B)^c = A^c \cup B^c$$</p>
+
+
+
+        <h3 id="naive_def">Naive Definition of Probability</h3>
+
+            <p>Let $A$ be an event for an experiment with a finite sample space $S$</p>
+
+            <p>$$P_{naive}(A) = \frac{|A|}{|S|} = \frac{\text{# outcomes favorable to A}}{\text{total # outcomes in S}}$$</p>
+                <ul>
+                    <li>$|A|$ and $|S|$ denote the size of $A$ and $S$</li>
+                </ul>
+
+            <p>The naive definition is restrictive in that it requires $S$ to be finite. It has often been misapplied by people who assume likely outcomes without justification, and argue odds are $50/50$. The naive definition is applicable when all outcomes are equally likely (i.e., there is symmetry).</p>
+
+
+
+        <h3 id="how_to_count">How to Count</h3>
+
+            <h4>Multiplication Rule</h4>
+
+                <p>The multiplication rule leads naturally to counting rules for sampling with replacement and sampling without replacement. Consider a compound experiment consisting of two sub-experiments, experiment $A$ and experiment $B$. Suppose that experiment $A$ has $a$ possible outcomes, and for each of these outcomes, experiment $B$ has $b$ possible outcomes. Then, the compound experiment has $ab$ possible outcomes.</p>
+
+
+            <h5>Example (Runners):</h5>
+
+                <p>10 people are running a race. Ties are not possible. How many possibilities are there for the first, second, and third place winners?</p>
+
+                <p>Answer: there are 10 possibilities for who gets first place. Once that is fixed, there are 9 possibilities for who gets second place. And once these are both fixed, there are 8 possibilities for third place. So by the multiplication rule, there are $10 \times 9 \times 8 = 720$ possibilities.</p>
+
+
+            <h4>Sampling with Replacement</h4>
+
+                <p>Consider $n$ objects and making $k$ choices from them, one at a time with replacement. There are $n^k$ possible outcomes where order matters (e.g., choosing object $3$ then $7$ is considered a different outcome from $7$ then $3$).</p>
+
+
+            <h4>Sampling Without Replacement</h4>
+
+                <p>Consider $n$ objects and making $k$ choices from them, one at a time without replacement. Then there are $n(n-1) \ldots (n-k+1)$ possible outcomes for $a\le k \le n$, and $0$ possibilities for $k \gt n$. This result follows directly from the multiplication rule: each sampled object is again a sub-experiment, and the number of possible outcomes decreases by $1$ each time. For sampling without replacement, we need $k \le n$, whereas when sampling with replacement the objects are inexhaustible.</p>
+
+                <p>A permutation of $1, 2, \ldots, n$ is an arrangement of those numbers in some order. With $k=n$, there are $n!$ permutations.</p>
+
+
+            <h5>Example (Birthday Problem):</h5>
+
+                <p>There are $k$ people in a room. Assume each person's birthday is equally likely to be any of the 365 days of year, and that peoples' birthdays are independent. What is the probability that at least one pair of people in the group will have the same birthday?</p>
+
+                <p>Answer: there are $365^k$ ways to assign birthdays to $k$ people in the room, since we can imagine the 365 days of year being sampled $k$ times, with replacement. All of the possibilities are equally likely, so the naive definition of probability applies. It says we just need to count the number of ways to assign birthdays to $k$ people such that there are two people who share a birthday.</p>
+
+                <p>This counting problem is hard, so let's count the complement:</p>
+
+                <p>$$P(\text{no birthday match}) = \frac{365 \cdot 364 \cdot \ldots \cdot (365-k+1)}{365^k}$$</p>
+
+                <p>$$P(\text{1 or more birthday match}) = 1 - \frac{365 \cdot 364 \cdot \ldots \cdot (365-k+1)}{365^k}$$</p>
+
+                <img src="img/blitz_pg13.jpg" style="height: 400px; width:auto;"></br></br>
+
+                <p>When drawing a sample from a population, it is important to think of the objects or people as named or labelled, rather than being indistinguishable or faceless.</p>
+
+
+            <h5>Example (Liebniz's Mistake):</h5>
+
+                <p>If we roll two fair dice, which is more likely: a sum of $11$ or $12$?</p>
+
+                <p>Answer: label the dice $A$ and $B$, and consider each to be a sub-experiment. $(5,6)$ and $(6,5)$ sum to $11$, however only $(6,6)$ sums to $12$. Therefore, a sum of 11 is twice as likely. The probability is $\frac{1}{18}$ for $11$, and $\frac{1}{36}$ for $12$.</p>
+
+
+            <h4>Adjusting For Overcounting</h4>
+
+                <p>In many counting problems, it is not easy to directly count each possibility once and only once. However, if we are able to count each possibility $c$ times, we can adjust by dividing by $c$.</p>
+
+
+            <h5>Example (Committees and Teams):</h5>
+
+                <p>a) How many ways can a two-person committee be chosen from 4 people?</p>
+
+                <p>Answer: by the multiplication rule, there are $4$ ways to choose the first person, and $3$ ways to choose the second. But this counts each possibility twice, since picking 1 and 2 is the same as picking 2 and 1. We overcount by a factor of 2, therefore the number of possibilities is $(4 \cdot 3)/2=6$.</p>
+
+                <p>b) How many ways are there fo break the people into two teams of two?</p>
+
+                <p>Answer: there are 6 ways to choose one team. This overcounts by a factor of $2$, since picking $1$ and $2$ to be a team is equivalent to picking $3$ and $4$ to be a team. So the answer is $6/2=3$.</p>
+
+
+
+        <h3 id="binomial_coeff">Binomial Coefficients</h3>
+
+            <p>Binomial coefficients count the number of subsets of a certain size for a set, such as the number of ways to choose a committee of size $k$ from a set of $n$ people, without replacement and without distinguishing between the different orders in which they could be chosen.</p>
+
+            <p>For any non-negative integers $k$ and $n$, the Binomial coefficient $\binom{n}{k}$ is the number of subsets of size $k$ for a set of size $n$. For example, $\binom{4}{2} = 6$.</p>
+
+            <p>Algebraically, Binomial coefficients can be computed as:</p>
+
+            <p>$$\binom{n}{k} = \frac{n(n-1) \ldots (n-k+1)}{k!} = \frac{n!}{(n-k!) k!}$$</p>
+
+            <p>For example,</p>
+
+            <p>$$\binom{100}{2} = \frac{100-99}{2} = 4950$$</p>
+
+
+            <h5>Example (Permutations of a Word):</h5>
+
+                <p>How many ways are there to permute the letters in LALALAAA?</p>
+
+                <p>$$\binom{8}{5} = \frac{8 \cdot 7 \cdot 6 \cdot 5 \cdot 4}{5!} = 56$$</p>
+                <p>$$\binom{8}{3} = \frac{8 \cdot 7 \cdot 6}{3!} = 56$$</p>
+
+
+            <h5>The Binomial Theorem</h5>
+
+                <p>The Binomial theorem states that:</p>
+
+                <p>$$(x + y)^n = \sum_{k=0}^n \binom{n}{k} x^k y^{n-k}$$</p>
+
+                <p>We can use Binomial coefficients to calculate probabilities in many situations for which the naive definition of probability applies.</p>
+
+
+            <h5>Example (Full House in Poker):</h5>
+
+                <p>What is the probability of a full house in poker?</p>
+
+                <p>There are $13$ choices for what rank we have 3 of. There are $\binom{4}{3}$ ways to choose which cards of that rank (e.g. 7s) we have. Then there are $12$ choices for what rank we have $2$ of, and $\binom{4}{2}$ ways to choose two cards of that rank.</p>
+
+                <p>$$\frac{ 13 \binom{4}{3} 12 \binom{4}{2} }{ \binom{52}{5} } = \frac{3744}{2598960} = 0.00144$$</p>
+
+
+
+        <h3 id="properties">Properties of Probability</h3>
+
+            <p>Probability has the following properties, for events $A$ and $B$:</p>
+                <ol>
+                    <li>$P(A^c) = 1 - P(A)$</li>
+                    <li>$\text{If } A \subseteq B, \text{ then } P(A) \le P(B)$</li>
+                    <li>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</li>
+                </ol>
+
+
+        <h3 id="prob_count_recap">Probability and Counting Recap</h3>
+
+            <p>When counting the number of possibilities, we often use the multiplication rule. For example, there are $n!$ permutations of the numbers $1, 2, \ldots, n$ and there are $2^n$ subsets of a set with $n$ elements.</p>
+
+            <p>If we cannot directly use the multiplication rule, we can sometimes count each possibility exactly $c$ times for some $c$, and then divide $c$ to get the actual number of possibilities. This is useful for finding an expression for Binomial coefficients in terms of factorials.</p>
+
+            <p>An important pitfall to avoid is misapplying the naive definition of probability, implicitly or explicitly assuming equally likely outcomes without justification. One technique to help avoid this is to give the objects labels, so that we are not tempted to treat them as indistinguishable.</p>
+
+
+
+    <h2 id="conditional">Conditional Probability</h2>
+
+        <p>If $A$ and $B$ are events with $P(B) \gt 0$, then the conditional probability of $A$ given $B$, is denoted as:</p>
+
+        <p>$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$</p>
+
+        <p>$A$ is the event whose uncertainty we want to update, and $B$ is the evidence we observe or want to treat as given. We call $P(A)$ the prior probability of $A$ and $P(A|B)$ the posterior probability of $A$.</p>
+
+
+            <h5>Example (Two Cards):</h5>
+
+                <p>A deck of cards is shuffled and two cards are drawn randomly, one at a time without replacement. Let $A$ be the event that the first card is a heart, and $B$ be the event that the second card is red. Find $P(A|B)$ and $P(B|A)$.</p>
+
+                <p>Answer: By the naive definition and the multiplication rule,</p>
+
+                <p>$$P(A \cap B) = \frac{13 \cdot 25}{52 \cdot 51} = \frac{25}{204}$$</p>
+
+                <p>since a favorable outcome is determined by choosing any of the $13$ hearts and then any of the $25$ remaining red cards.</p>
+
+                <p>Answer:</p>
+                <p>$$P(A) = \frac{1}{4}$$</p>
+
+                <p>since each of the suits are equally likely:</p>
+                <p>$$P(B) = \frac{26 \cdot 51}{52 \cdot 51} = \frac{1}{2}$$</p>
+
+
+
+        <h3 id="bayes">Bayes' Rule and the Law of Total Probability</h3>
+
+
+            <p>Intersection of Two Events:</p>
+
+            <p>$$P(A \cap B) = P(B) P(A|B) = P(A) P(B|A)$$</p>
+
+            <p>Applying this theorem repeatedly, we can generalize to the intersection of $n$ events. For any events $A_1, \ldots, A_n$ with $P(A_1, A_2, \ldots, A_{n-1}) > 0$,</p>
+
+            <p>$$P(A_1, A_2, \ldots, A_n) = P(A_1) P(A_2|A) P(A_3|A_1,A_2) \dots P(A_1, \ldots, A_{n-1})$$</p>
+
+
+            <h4>Bayes' Rule and Odds</h4>
+
+                <p>Bayes' rule is expressed as:</p>
+
+                <p>$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$</p>
+
+                <p>The odds of an event $A$ are expressed as:</p>
+
+                <p>$$odds(A) = \frac{P(A)}{P(A^c)}$$</p>
+
+
+            <h5>Odds Form of Bayes Rule</h5>
+
+                <p>For any events $A$ and $B$ with positive probabilities, the odds of a $A$ after conditioning on $B$ are:</p>
+
+                <p>$$\frac{P(A|B)}{P(A^c|B)} = \frac{P(B|A)}{P(B|A^c)} \frac{P(A)}{P(A^c)}$$</p>
+
+                <p>This says that the posterior odds,</p>
+
+                <p>$$\frac{P(A|B)}{P(A^c|B)}$$</p>
+
+                <p>are equal to the prior odds,</p>
+
+                <p>$$\frac{P(A)}{P(A^c)}$$</p>
+
+                <p>times the factor:</p>
+
+                <p>$$\frac{P(B|A)}{P(B|A^c)}$$</p>
+
+                <p>which is known as the likelihood ratio.</p>
+
+
+            <h4>Law of Total Probability</h4>
+
+                <p>The law of total probability is often used in tandem with Bayes rule. Let $A_1, \ldots, A_N$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events). Then,</p>
+
+                <p>$$P(B) = \sum_{i=1}^n P(B|A)P(A_i)$$</p>
+
+
+            <h5>Example (Random Coin):</h5>
+
+                <p>You have one fair coin, and one biased coin which lands heads with probability $\frac{3}{4}$. You grab one of the coins at random and flip it $3$ times. It lands on heads each time. What is the probability you picked the fair one?</p>
+
+                <p>Answer:</p>
+
+                <p>$A$: event the chosen coin lands heads $3$ times</p>
+                <p>$F$: event that we picked the fair coin</p>
+
+                <p>We are interested in $P(F|A)$, but it is easier to find $P(A|F)$ and $P(A|F^c)$, so we will use the law of total probability along with Bayes' rule.</p>
+
+                <p>$$P(F|A) = \frac{P(A|F) P(F)}{P(A)}$$</p>
+
+                <p>$$= \frac{ P(A|F) P(F) }{ P(A|F) P(F) + P(A|F^c) P(F^c) }$$</p>
+
+                <p>$$\frac{ (1/2)^3 \cdot 1/2 }{ (1/2)^3 \cdot 1/2 + (3/4)^3 \cdot 1/2 }$$</p>
+
+                <p>$$\approx 0.23$$</p>
+
+                <p>It would not be correct to say after the first step, $P(A) = 1$ because we know that $A$ happened. $P(A|A) = 1$, but $P(A)$ is the prior probability of $A$ and $P(F)$.</p>
+
+
+            <h5>Example (Testing for a Rare Disease):</h5>
+
+                <p>A patient is tested for a disease which afflicts $1\%$ of the population, and the test is positive. Suppose the test is $95%$ accurate. What is the conditional probability that the patient has the disease, given the evidence provided by the test result?</p>
+
+                <p>$$P(D|T) = \frac{P(T|D) P(D)}{P(T)}$$</p>
+                <p>$$= \frac{ P(T|D) P(D) }{ P(T|D) P(D) + P(T|D^c) P(D^c) }$$</p>
+                <p>$$= \frac{ 0.95 \cdot 0.01 }{ 0.95 \cdot 0.01 + 0.05 \cdot 0.99 }$$</p>
+                <p>$$\approx 0.16$$</p>
+
+                <img src="img/blitz_pg57.jpg" style="height: 400px; width:auto;"></br></br>
+
+**there is some 3blue1brown content**
+
+            <p>Bayes' Rule with Extra Conditioning:</p>
+
+            <p>Provided that $P(A \cap E) \gt 0$ and $P(B \cap E) \gt 0$, we have:</p>
+
+            <p>$$P(A|B,E) = \frac{ P(B|A,E) P(A|E) }{ P(B|E) }$$</p>
+
+
+            <p>Law of Total Probability with Extra Conditioning:</p>
+
+            <p>$$P(B|E) = \sum_{i=1}^n P(B|A_i,E) P(A_i,E)$$</p>
+
+
+            <h5>Example (Random Coin Continued):</h5>
+
+                <p>Continuing the random coin scenario, suppose we have now seen our chosen coin land heads $3$ times. What is the probability that it will land heads once more?</p>
+
+                <p>$A$: event that chosen coin lands heads $3$ times</p>
+                <p>$B$: event that chosen coin lands heads on toss $4$</p>
+
+                <p>$$P(H|A) = P(H|F,A) P(F|A) + P(H|F^c,A) P(F^c|A)$$</p>
+                <p>$$\approx \frac{1}{2} \cdot 0.23 + \frac{3}{4} \cdot (1 - 0.23)$$</p>
+                <p>$$\approx 0.69$$</p>
+
+
+
+        <h3 id="indep">Independence of Events</h3>
+
+                <p>Events $A$ and $B$ are independent if:</p>
+
+                <p>$$P(A \cap B) = P(A) P(B)$$</p>
+
+                <p>If $P(A) \gt 0$ and $P(B) \gt 0$, this is equivalent to $P(A|B) = P(A)$ and $P(B|A) = P(B)$. $A$ and $B$ are independent if learning that $B$ occurred gives no information that would change our probabilities for $A$ occurring.</p>
+
+                <p>Independence is symmetric: if $A$ is independent of $B$, then $B$ is independent of $A$. Independence is completely different from disjointness; if knowing $A$ happens tells us that $B$ does not happen, then the results are not independent.</p>
+
+                <p>Events $A$, $B$, and $C$ are said to be independent if all of the following equations hold:</p>
+                    <ul>
+                        <li>$P(A \cap B) = P(A) P(B)$</li>
+                        <li>$P(A \cap C) = P(A) P(C)$</li>
+                        <li>$P(B \cap C) = P(B) P(C)$</li>
+                        <li>$P(A \cap B \cap C) = P(A) P(B) P(C)$</li>
+                    </ul>
+
+
+            <h5>Example (Pairwise Independent Doesn't Imply Indpendent):</h5>
+
+                <p>Consider two fair, independent coin tosses, and let $A$ be the event that the first is heads, $B$ be the event that the second is heads, and $C$ the event that both tosses have heads. $A$, $B$, and $C$ are pairwise independent but not independent, since:</p>
+
+                <p>$$P(A \cap B \cap C) = \frac{1}{4}$$</p>
+                <p>$$P(A) P(B) P(C) = \frac{1}{8}$$</p>
+
+                <p>Knowing about $A$ or $B$ alone tells us nothing about $C$, but knowing what happened with both $A$ and $B$ does provide information about $C$.</p>
+
+
+            <h4>Conditional Independence</h4>
+
+                <p>Events $A$ and $B$ are said to be conditionally independent given $E$ if:</p>
+
+                <p>$$P(A \cap B|E) = P(A|E) P(B|E)$$</p>
+
+
+            <h5>Example (Crying Baby):</h5>
+
+                <p>A certain baby cries only if she is hungry, tired, or both. Let $C$ be the event she is crying, $H$ be the event she is hungry, and $T$ be the event she is tired. $H$ and $T$ are independent. Let $P(C) = c$, $P(H) = h$, and $P(T) = t$.</p>
+
+                <p>a) Find $c$, in terms of $h$ and $t$</p>
+
+                <p>$$P(C) = P(H \cup T) = P(H) + P(T) - P(H \cap T) = h + t - ht$$</p>
+
+                <p>b) Find $P(H|C)$, $P(T|C)$, and $P(H,T|C)$</p>
+
+                <p>$$P(H|C) = \frac{ P(C|H) P(H) }{ P(C) } = \frac{h}{c}$$</p>
+
+                <p>$$P(T|C) = \frac{ P(C|T) P(T) }{ P(C) } = \frac{t}{c}$$</p>
+
+                <p>$$P(H,T|C) = \frac{ P(C|H,T) P(H,T) }{ P(C) } = \frac{ht}{c}$$</p>
+
+
+
+        <h3 id="coherency">Coherency of Bayes Rule</h3>
+
+            <p>Bayes' rule is coherent: if we receive multiple pieces of information and wish to update our probabilities to incorporate all the information, it does not matter whether we update sequentially or simultaneously. In a weeklong experiment that yields data every day, it does not matter if we update our probabilities each day, or wait until the end of week.</p>
+
+
+            <h5>Example (Testing For a Rare Disease Continued):</h5>
+
+                <p>A disease affects $1\%$ of the population and the test for it is $95\%$ accurate (i.e., $P(T|D) = 0.95$). Fred tested positive for the disease. His probability of having the disease is as follows:</p>
+
+                <p>We use the odds form of Bayes' rule. $D$ is the event he has the disease</p>
+
+                <p>$$\frac{ P(D|T_1) }{ P(D^C|T_1) } = \frac{ P(D) }{ P(D^C) } \frac{ P(T_1 | D) }{ P(T_1 | D^C) } = 1/99 \cdot \frac{0.95}{0.05} = 0.19$$</p>
+
+                <p>Since</p>
+
+                <p>$$\frac{ P(D|T_1) }{ 1 - P(D|T_1) } = 0.19$$</p>
+
+                <p>we have</p>
+
+                <p>$$P(D|T_1) = \frac{0.19}{1 + 0.19} = 0.16$$</p>
+
+
+                <p>Fred decides to get a second test, and the new test is independent of the first, with the same levels of specificity and sensitivity. Fred tests positive again. Find the probability that Fred has the disease.</p>
+
+                <p>$T_1:$ The first test that was positive</p>
+                <p>$T_2:$ The second test that was positive</p>
+
+                <p>Now, again using the odds form of Bayes' rule, we will consider the second test</p>
+
+                <p>One-Step Method:</p>
+
+                <p>$$\frac{ P(D|T_1 \cap T_2) }{ P(D^C|T_1 \cap T_2) } = \frac{ P(D) }{ P(D^C) } \frac{ P(T_1 \cap T_2 | D) }{ P(T_1 \cap T_2 | D^C) } = \frac{1}{99} \cdot \frac{0.95^2}{0.05^2} = \frac{361}{99} = 3.646$$</p>
+
+                <p>Odds of $3.646$ corresponds to a probability of $0.78$</p>
+
+
+                <p>Two-Step Method:</p>
+
+                <p>$$\frac{ P(D|T_1) }{ P(D^C|T_1) } = \frac{1}{99} \cdot \frac{0.95}{0.05} = 0.19$$</p>
+
+
+                <p>$$\frac{ P(D|T_1 \cap T_2) }{ P(D^C|T_1 \cap T_2) } = \frac{ P(D|T_1) }{ P(D^C|T_1) } \frac{ P(T_2|D, T_1) }{ P(T_2|D^C, T_1) }$$</p>
+
+                <p>$$= \left( \frac{1}{99} \cdot \frac{0.95}{0.05} \right) \frac{0.95}{0.05} = \frac{361}{99} = 3.646$$</p>
+
+
+        <h3 id="conditional_recap">Conditional Probability Recap</h3>
+
+            <p>The conditional probability of $A$ given $B$ is:</p>
+
+            <p>$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$</p>
+
+            <p>Conditional probability has the same properties as probability, but $P(\cdot|B)$ updates our uncertainty about events to reflect the observed evidence $B$. Events whose properties are unchanged after observing evidence $B$ are said to be independent of $B$.</p>
+
+            <p>Two important results about conditional probability are 1) Bayes' rule, which relates $P(A|B)$ to $P(B|A)$, and 2) the law of total probability, which allows us to get unconditional probabilities by partitioning the sample space and calculating conditional probabilities within each slice.</p>
+
+            <p>Bayes Rule:</p>
+
+            <p>$$P(A|B) = \frac{ P(B|A) P(A) }{ P(B) }$$</p>
+
+            <p>Law of Total Probability:</p>
+
+            <p>$$P(B) = \sum_{i=1}^n P(B|A_i) P(A_i)$$</p>
+
+            <p>Bayes' rule and the law of total probability (LOTP) are often used together. Common mistakes in thinking conditionally include:</p>
+                <ul>
+                    <li>Confusing the prior probability $P(A)$ with the posterior probability $P(A|B)$</li>
+                    <li>The prosecutor's fallacy: confusing $P(A|B)$ with $P(B|A)$</li>
+                    <li>The defense attorney's fallacy: failing to condition on all the evidence</li>
+                </ul>
+
+
+            </br></br>
+            <p>Here is a link to <a href="blitzstein_pt2.html">part 2</a></p>
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
