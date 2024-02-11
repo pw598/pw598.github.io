@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+        
+
+
+
+<h1>Calculus III, Pt. 4</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#dot_prod">Vectors - Dot Products</a></td><td><a href="#dot_prod_2vec">Dot Product of Two Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#orthog_parallel">Orthogonal, Parallel, or Neither</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#acute_angles">Acute Angles Between the Curves</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#scalar_eq_line">Scalar Equation of a Line</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#scalar_eq_plane">Scalar Equation of a Plane</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#scalar_vect_projections">Scalar and Vector Projections</a></td></tr>
+ <tr><td><a href="#cross_prods">Vectors - Cross Products</a></td><td><a href="#cross_prod_2vec">Cross-Product of Two Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vect_orthog_plane">Vector Orthogonal to the Plane</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vol_par_vect">Volume of the Parallelepiped From Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vol_par_edges">Volume of the Parallelepiped From Adjacent Edges</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="dot_prod">Vectors - Dot Products</h2>
+
+		<h3 id="dot_prod_2vec">Dot Product of Two Vectors</h3>
+
+			<p>To find the angle between two vectors, we'll use the formula:</p>
+
+			<p>$cos ~\theta = \frac{a \cdot b}{|a| ~|b|}$</p>
+
+			<p>where $a \cdot b$ is the dot product of the two vectors, $|a|$ is the length of $a$, and $|b|$ is the length of $b$.</p>
+
+			<p>To find the length of the vectors, we'll use the distance formula:</p>
+
+			<p>$D = \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2 }$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the angle between the vectors:</p>
+
+				<p>$a = \langle 4, -2, 3 \rangle$</p>
+				<p>$b = \langle 1, 3, -1 \rangle$</p>
+
+				</br>
+
+				<p>$a \cdot b = (4)(1) + (-2)(3) + (3)(-1)$</p>
+				<p>$a \cdot b = 4 - 6 - 3$</p>
+				<p>$a \cdot b = -5$</p>
+
+				</br>
+
+				<p>$|a| = \sqrt{ (4-0)^2 + (-2-0)^2 + (3-0)^2 }$</p>
+				<p>$|a| = \sqrt{16 + 4 + 9}$</p>
+				<p>$|a| = \sqrt{29}$</p>
+
+				</br>
+
+				<p>$|b| = \sqrt{ (1-0)^2 + (3-0)^2 + (-1-0)^2 }$</p>
+				<p>$|b| = \sqrt{1 + 9 + 1}$</p>
+				<p>$|b| = \sqrt{11}$</p>
+
+				<p>Plugging everything we've calculated into the formula for the angle between two vectors, we get:</p>
+
+				<p>$cos ~\theta = \frac{a \cdot b}{|a| ~|b|}$</p>
+				<p>$cos ~\theta = \frac{-5}{|\sqrt{29}| ~|\sqrt{11}|}$</p>
+				<p>$cos ~\theta = \frac{-5}{|\sqrt{319}|}$</p>
+				<p>$\theta = 106.3^{\circ}$</p>
+
+
+		<h3 id="orthog_parallel">Orthogonal, Parallel, or Neither</h3>
+
+			<p>Vectors $a$ and $b$ are orthogonal if they are perpendicular, and their dot product equatl to $0$. They are parallel if they point in the same or opposite directions, and never cross each other; after factoring out any common factors, the remaining direction numbers will be equal.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Say whether the following vectors are orthogonal, parallel, or neither.</p>
+
+				<p>$a = \langle 2,1 \rangle$ and $b = \langle -1, 2 \rangle$</p>
+				<p>$a = 2i + 3j + 5k$ and $b = i + 4j - 2k$</p>
+				<p>$a = \langle 1, -2, 3 \rangle$ and $b = \langle -2, 4, -6 \rangle$</p>
+
+				</br>
+				<p>For $a = \langle 2,1 \rangle$ and $b = \langle -1,2 \rangle$, we'll take the dot product to see whether they are orthogonal.</p>
+
+				<p>$a \cdot b = (2)(-1) + (1)(2)$</p>
+				<p>$a \cdot b = -2 + 2$</p>
+				<p>$a \cdot b = 0$</p>
+
+				<p>The vectors are orthogonal.</p>
+
+
+				<p>For $a = 2i + 3j + 5k$ and $b = i + 4j - 2k$:</p>
+
+				<p>First we'll put the vectors in standard form.</p>
+
+				<p>$a = 2i + 3j + 5k$</p>
+				<p>$a = \langle 2, 3, 5 \rangle$</p>
+
+				<p>and</p>
+
+				<p>$b = i + 4j - 2k$</p>
+				<p>$b = \langle 1, 4, -2 \rangle$</p>
+
+				
+				<p>Next we'll take the dot product to see if they are orthogonal.</p>
+
+				<p>$a \cdot b = (2)(1) + (3)(4) + (5)(-2)$</p>
+				<p>$a \cdot b = 2 + 12 - 10$</p>
+				<p>$a \cdot b = 4$</p>
+
+				
+				<p>The two vectors are not orthogonal.</p>
+
+				<p>To say whether the vectors are parallel, we want to look for a common factor in the direction numbers of either vector, and pull it out until both vectors are irreducible.</p>
+
+				
+				<p>$a = \langle 2, 3, 5 \rangle$ is already irreducible because $2$, $3$, and $5$ have no common factors. $b = \langle 1, 4, -2 \rangle$ is also irreducible. Therefore, the two vectors are not parallel.</p>
+
+				</br>
+				
+				<p>For $a = \langle 1, -2, 3 \rangle$ and $b = \langle -2, 4, -6 \rangle$, we'll take the dot product to see if they are orthogonal.</p>
+				
+				<p>$a \cdot b = (1)(-2) + (-2)(4) + (3)(-6)$</p>
+				
+				<p>$a \cdot b = 2 - 8 - 18$</p>
+				
+				<p>$a \cdot b = -28$</p>
+
+				<p>The vectors are not orthogonal.</p>
+
+				<p>$a = \langle 1, -2, 3 \rangle$ is irreducible but $b = \langle -2, 4, -6 \rangle$ has a common factor of $-2$ that can be factored out of the vector.</p>
+
+				<p>$b = \langle -2, 4, 6 \rangle$</p>
+				<p>$b = -2 \langle 1, -2, 3 \rangle$</p>
+
+				<p>Now the direction numbers of $a$ and $b$ are equal, so we can say that $a$ and $b$ are parallel.</p>
+
+
+		<h3 id="acute_angles">Acute Angles Between the Curves</h3>
+
+			<p>An acute angle is less than $90^{\circ}$. If we want to find the acute angle between two curves, we'll find the tangent lines to both curves at their points of intersection, convert the tangent lines to standard vector form and then use the formula.</p>
+
+			<p>$cos ~\theta = \frac{a \cdot b}{|a| ~|b|}$</p>
+
+			<p>We find the magnitude of both vectors using the distance formula,</p>
+
+			<p>$D = \sqrt{ (x_2 - x_1)^2 + (y_2 - y_2)^2 }$</p>
+
+			<p>for a 2D vector where the point $(x_1, y_1)$ is the origin $(0,0)$.</p>
+
+			<p>If the formula above gives a result that is greater than $90^{\circ}$, then we've found the obtuse angle between lines. To find the acute angle, we subtract the obtuse angle from $180^{\circ}$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the acute angle between the curves for:</p>
+
+				<p>$y = x^2$</p>
+				<p>$y = 2x^2 - 1$</p>
+
+				<p>We'll start by setting the curves equal to each other and solving for $x$, in order to find the point(s) where the curves intersect.</p>
+
+				<p>$x^2 = 2x^2 - 1$</p>
+				<p>$-x^2 = -1$</p>
+				<p>$x^2 = 1$</p>
+				<p>$x = \pm 1$</p>
+
+				<p>Since we have two points of intersection, we'll need to find two acute angles, one for each of hte points of intersection.</p>
+
+				<p>We'll plug both values of $x$ into $y=x^2$ to find corresponding y-values. We can use either curve, they should return the same y-values.</p>
+
+				<p>For $x=1$:</p>
+
+				<p>$y = x^2$</p>
+				<p>$y = (1)^2$</p>
+				<p>$y = 1$</p>
+				<p>$(1, 1)$</p>
+
+				<p>For $x = -1$:</p>
+
+				<p>$y = x^2$</p>
+				<p>$y = (-1)^2$</p>
+				<p>$y = 1$</p>
+				<p>$(-1, 1)$</p>
+
+				<p>We need to find the tangent lines for both curves at each of the points of intersection. To find a tangent line, we take the derivative of the function, then evaluate the derivative at the point of intersection to find the slope of the tangent line there. Then we'll plug the slope and the tangent point into the point-slope formula to find the equation of the tangent line.</p>
+
+				<p>At $(1,1)$:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>For $y = x^2$:</th><th>For $y = 2x^2 - 1$:</th></tr></thead><tbody>
+				 <tr><td>$y' = 2x$</td><td>$y' = 4x$</td></tr>
+				 <tr><td>$y'(1,1) = 2(1)$</td><td>$y' = 4(1)$</td></tr>
+				 <tr><td>$y'(1,1) = 2$</td><td>$y'(1,1) = 4$</td></tr>
+				</tbody></table>
+
+				<p>At $(-1,1)$:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>For $y = x^2$:</th><th>For $y = 2x^2 - 1$:</th></tr></thead><tbody>
+				 <tr><td>$y' = 2x$</td><td>$y' = 4x$</td></tr>
+				 <tr><td>$y'(-1,1) = 2(-1)$</td><td>$y' = 4(-1)$</td></tr>
+				 <tr><td>$y'(-1,1) = -2$</td><td>$y'(1,1) = -4$</td></tr>
+				</tbody></table>
+
+
+				<p>Plugging the slopes and intersection points into the point-slope formula for the equation of a line, we get:</p>
+
+				<p>At $(1,1)$:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>For $y = x^2$:</th><th>For $y = 2x^2 - 1$:</th></tr></thead><tbody>
+				 <tr><td>$y - y_1 = m(x - x_1)$</td><td>$y - y_1 = m(x - x_1)$</td></tr>
+				 <tr><td>$y - 1 = 2(x - 1)$</td><td>$y - 1 = 4(x - 1)$</td></tr>
+				 <tr><td>$y - 1 = 2x - 2$</td><td>$y - 1 = 4x - 4$</td></tr>
+				 <tr><td>$y = 2x - 1$</td><td>$y = 4x - 3$</td></tr>
+				</tbody></table>
+
+
+				<p>At $(-1,1)$:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>For $y = x^2$:</th><th>For $y = 2x^2 - 1$:</th></tr></thead><tbody>
+				 <tr><td>$y - y_1 = m(x - x_1)$</td><td>$y - y_1 = m(x - x_1)$</td></tr>
+				 <tr><td>$y - 1 = -2[x - (-1)]$</td><td>$y - 1 = -4[x - (-1)]$</td></tr>
+				 <tr><td>$y - 1 = -2(x + 1)$</td><td>$y - 1 = -4(x + 1)$</td></tr>
+				 <tr><td>$y - 1 = -2x - 2$</td><td>$y - 1 = -4x - 4$</td></tr>
+				 <tr><td>$y = -2x - 1$</td><td>$y = -4x - 3$</td></tr>
+				</tbody></table>
+
+				<p>We need to convert our tangent line equations to standard vector form.</p>
+
+				<p>At $(1,1)$:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>For $y = x^2$:</th><th>For $y = 2x^2 - 1$:</th></tr></thead><tbody>
+				 <tr><td>$y = -2x - 1$</td><td>$y = 4x - 3$</td></tr>
+				 <tr><td>$-2x + y = -1$</td><td>$-4x + y = -3$</td></tr>
+				 <tr><td>$\langle -2, 1 \rangle$</td><td>$\langle -4,1 \rangle$</td></tr>
+				</tbody></table>
+
+
+				<p>At $(-1,1)$:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>For $y = x^2$:</th><th>For $y = 2x^2 - 1$:</th></tr></thead><tbody>
+				 <tr><td>$y = -2x - 1$</td><td>$y = -4x - 3$</td></tr>
+				 <tr><td>$2x + y = -1$</td><td>$4x + y = -3$</td></tr>
+				 <tr><td>$\langle 2, 1 \rangle$</td><td>$\langle 4, 1 \rangle$</td></tr>
+				</tbody></table>
+
+
+				<p>To summarize our findings so far, we can say that we need to find the acute angle:</p>
+					<ul>
+						<li>Between the vectors $a = \langle -2, 1 \rangle$ and $b = \langle -4, 1 \rangle$ at the point $(1,1)$</li>
+						<li>Between the vectors $c = \langle 2, 1 \rangle$ and $d = \langle 4, 1 \rangle$</li>
+					</ul>
+
+				<p>Before we can use the cosine formula to find the acute angle, we need to find the dot products $a \cdot b$ and $c \cdot d$, and the magnitude of each vector.</p>
+
+				<p>For $a = \langle -2$, $1 \rangle$ and $b = \langle -4$, $1 \rangle$ at the point $(1,1)$:</p>
+
+				<p>For $a \cdot b$:</p>
+
+				<p>$a \cdot b = (-2)(-4) + (1)(1)$</p>
+				<p>$a \cdot b = 8 + 1$</p>
+
+				</br>
+				<p>For $|a|$:</p>
+
+				<p>$|a| = \sqrt{ (-2 - 0)^2 + (1 - 0)^2 }$</p>
+				<p>$|a| = \sqrt{4+1}$</p>
+				<p>$|a| = \sqrt{5}$</p>
+
+				</br>
+				<p>For $|b|$:</p>
+
+				<p>$|b| = \sqrt{ (-4 - 0)^2 + (1 - 0)^2 }$</p>
+				<p>$|b| = \sqrt{16+1}$</p>
+				<p>$|b| = \sqrt{17}$</p>
+
+				</br>
+				<p>For $c = \langle 2, 1 \rangle$ and $d = \langle 4, 1 \rangle$ at the point $(-1,1)$:</p>
+
+				</br>
+				<p>For $c \cdot d$:</p>
+
+				<p>$c \cdot d = (2)(4) + (1)(1)$</p>
+				<p>$c \cdot d = 8 + 1$</p>
+				<p>$c \cdot d = 9$</p>
+
+				</br>
+				<p>For $|c|$:</p>
+
+				<p>$|c| = \sqrt{ (2-0)^2 + (1-0)^2 }$</p>
+				<p>$|c| = \sqrt{4+1}$</p>
+				<p>$|c| = \sqrt{5}$</p>
+
+				</br>
+				<p>For $|d|$:</p>
+
+				<p>$|d| = \sqrt{ (4-0)^2 + (1-0)^2 }$</p>
+				<p>$|d| = \sqrt{16 + 1}$</p>
+				<p>$|d| = \sqrt{17}$</p>
+
+				<p>Finally, plug the dot products and magnitudes into our formula.</p>
+
+				<p>For $a = \langle -2, 1 \rangle$ and $b = \langle -4, 1, \rangle$ at the point $(1,1)$:</p>
+
+				<p>$cos ~\theta = \frac{9}{ \sqrt{5} \sqrt{17} }$</p>
+				<p>$cos ~\theta = \frac{9}{\sqrt{85}}$</p>
+				<p>$\theta = arccos \frac{9}{\sqrt{85}}$</p>
+				<p>$\theta = 12.5^{\circ}$</p>
+
+				<p>In conclusion, we can say that:</p>
+					<ul>
+						<li>The acute angle between the tangent lines $y = 2x - 1$ and $y = 4x - 3$ at the tangent point $(-1,1)$ is $12.5^{\circ}$.</li>
+						<li>The same can be said about the intersection point $(-1,1)$</li>
+					</ul>
+
+				<p>Therefore, we can say that:</p>
+					<ul>
+						<li>The acute angle between the curves $y = x^2$ and $y = 2x^2 - 1$ at the intersection point $(-1,1)$ is $12.5^{\circ}$</li>
+						<li>The acute angle between the curves $y = x^2$ and $y = 2x^2 - 1$ at the intersection point $(-1,1)$ is $12.5^{\circ}$</li>
+					</ul>
+
+
+		<h3 id="scalar_eq_line">Scalar Equation of a Line</h3>
+
+			<p>To find the scalar equation of a line, we'll use the formulas:</p>
+
+			<p>$x = x_0 + at$</p>
+			<p>$y = y_0 + bt$</p>
+			<p>$z = z_0 + ct$</p>
+
+			<p>where $P_0(x_0, y_0, z_0)$ is a given point and $v = \langle a, b, c \rangle$ is the given vector. The vector may also be in the format $v = ai + bj + ck$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the scalar equation of the line:</p>
+
+				<p>$P(2,3,1)$</p>
+				<p>$\langle 2, -1, 5 \rangle$</p>
+
+				<p>Plugging the given point and vector into our formulas for $x$, $y$, and $z$, we get:</p>
+
+				<p>$x = 2 + 2t$</p>
+				<p>$y = 3 - t$</p>
+				<p>$z = 1 + 5t$</p>
+
+
+		<h3 id="scalar_eq_plane">Scalar Equation of a Plane</h3>
+
+			<p>To find the scalar equation of a plane, we'll use the formula:</p>
+
+			<p>$a(x-x_0) + b(y-y_0) + c(z-z_0) = 0$</p>
+
+			<p>where $P_0(x_0, y_0, z_0)$ is a given point and $v = \langle a, b, c \rangle$ is the normal vector to the plane. The vector may also be in the format $v = ai + bj + ck$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the scalar equation of the following plane:</p>
+
+				<p>$P(1,4,-8)$</p>
+				<p>$\langle 3, 6, 2 \rangle$</p>
+
+				<p>Plugging the given point and vector into our formula, we get:</p>
+
+				<p>$3(x-1) + 6(y-4) + 2[2 - (-8)] = 0$</p>
+				<p>$3(x-1) + 6(y-4) + 2(z+8) = 0$</p>
+				<p>$3x - 3 + 6y - 24 + 2z + 16 = 0$</p>
+				<p>$3x + 6y + 2z = 11$</p>
+
+				<p>The scalar equation of the plane is given by $3x + 6y + 2z = 11.$</p>
+
+
+		<h3 id="scalar_vect_projections">Scalar and Vector Projections</h3>
+
+			<p>The scalar projection of one vector onto another, also called the component of one vector along another, is:</p>
+
+			<p>$comp_ab = \frac{a \cdot b}{|a|}$</p>
+
+			<p>The projection of one vector onto another is like a shadow that one vector casts on another</p>
+
+			<p>$proj_ab = \left( \frac{a \cdot b}{|a|} \right)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the scalar and vector projections of $b$ onto $a$ for:</p>
+
+				<p>$a = i + 2j - 3k$</p>
+				<p>$b = 6i + j$</p>
+
+				<p>Since we use the value of the scalar projection in the formula for the vector projection, we'll start by finding the scalar projection. We'll convert the given vector equations into the form:</p>
+
+				<p>$a = \langle 1, 2, -3 \rangle$</p>
+				<p>$b = \langle 6, 1, 0 \rangle$</p>
+
+				<p>We'll take the dot product.</p>
+
+				<p>$a \cdot b = (1)(6) + (2)(1) + (-3)(0)$</p>
+				<p>$a \cdot b = 6 + 2 + 0$</p>
+				<p>$a \cdot b = 8$</p>
+
+				
+				<p>We'll find the magnitude of a using the distance formula.</p>
+
+				
+				<p>$|a| = \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2 }$</p>
+				<p>$|a| = \sqrt{ (1 - 0)^2 + (2 - 0)^2 + (-3 - 0)^2 }$</p>
+				<p>$|a| = \sqrt{1 + 4 + 9}$</p>
+				<p>$|a| = \sqrt{14}$</p>
+
+				
+				<p>We'll plug $a \cdot b$ and $|a|$ into the formula for the scalar projection.</p>
+
+				<p>$comp_ab = \frac{8}{\sqrt{14}}$</p>
+
+				<p>Now we have everything we need to find the vector projection.</p>
+
+				<p>$proj_ab = \left( \frac{8}{\sqrt{14}} \right) \frac{i + 2j - 3k}{\sqrt{14}}$</p>
+				<p>$proj_ab = \frac{ 8i + 16j - 24k }{14}$</p>
+				<p>$proj_ab = \frac{ 4i + 8j - 12k }{7}$</p>
+				<p>$proj_ab = \frac{4}{7}i + \frac{8}{7}k - \frac{12}{7}k$</p>
+
+				<p>To summarize, we'll say that the scalar projection of $b$ onto a is:</p>
+
+				<p>$comp_ab = \frac{8}{\sqrt{14}}$</p>
+
+				<p>and the vector projection of $b$ onto a is:</p>
+
+				<p>$proj_ab = \frac{4}{7}i + \frac{8}{7}j - \frac{12}{7}k$</p>
+
+
+
+	<h2 id="cross_prods">Vectors - Cross Products</h2>
+
+		<h3 id="cross_prod_2vec">Cross-Product of Two Vectors</h3>
+
+			<p>To take the cross product of two vectors, $a \langle a_1, b_1, c_1 \rangle$ and $b \langle b_1, b_2, b_3 \rangle$, we'll create a matrix of the form:</p>
+
+			<p>$
+				\begin{vmatrix}
+				\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+				a_1 & a_2 & a_3 \\
+				b_1 & b_2 & b_3 \\
+				\end{vmatrix}
+				$
+			</p>
+
+			<p>and use the sign matrix,</p>
+
+			<p>$
+				\begin{vmatrix}
+				+ & - & + \\
+				- & + & - \\
+				+ & - & + \\
+				\end{vmatrix}
+				$
+			</p>
+
+			<p>to determine the signs for the top row, we'll expand the matrix to:</p>
+
+			<p>$
+				\begin{vmatrix}
+				\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+				a_1 & a_2 & a_3 \\
+				b_1 & b_2 & b_3 \\
+				\end{vmatrix}
+
+				=
+
+				\mathbf{i}
+				\begin{vmatrix}
+				a_2 & a_3 \\
+				b_2 & b_3 \\
+				\end{vmatrix}
+
+				-
+
+				\mathbf{j}
+				\begin{vmatrix}
+				a_1 & a_3 \\
+				b_1 & b_3 \\
+				\end{vmatrix}
+
+				+
+
+				\mathbf{k}
+				\begin{vmatrix}
+				a_1 & a_2 \\
+				b_1 & b_2 \\
+				\end{vmatrix}
+				$
+			</p>
+
+
+				<p>$= \mathbf{i}(a_2b_3 - a_3b_2) - \mathbf{j}(a_1b_3 - a_3b_1) + \mathbf{k}(a_1b_2 - a_2b_1)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the cross product of the vectors:</p>
+
+				<p>$a \langle 2, -4, 1 \rangle$</p>
+				<p>$b \langle -2, 5, 7 \rangle$</p>
+
+
+				</br>
+				<p>$
+					\overrightarrow{a} \times \overrightarrow{b} = 
+
+					\begin{vmatrix}
+					\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+					2 & -4 & 1 \\
+					-2 & 5 & 7 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{a} \times \overrightarrow{b} = 
+
+					\mathbf{i}
+					\begin{vmatrix}
+					-4 & 1 \\
+					5 & 7 \\
+					\end{vmatrix}
+
+					-
+
+					\mathbf{j}
+					\begin{vmatrix}
+					2 & 1 \\
+					-2 & 7 \\
+					\end{vmatrix}
+
+					+
+
+					\mathbf{k}
+					\begin{vmatrix}
+					2 & -4 \\
+					-2 & 5 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$\overrightarrow{a} \times \overrightarrow{b} = \mathbf{i}[(-4)(7) - (1)(5)] - \mathbf{j}[(2)(7) - (1)(-2)] + \mathbf{k}[(2)(5) - (-4)(-2)]$</p>
+
+				<p>$\overrightarrow{a} \times \overrightarrow{b} = \mathbf{i}(-28 - 5) - \mathbf{j}(14+2) + \mathbf{k}(10-8)$</p>
+
+				<p>$\overrightarrow{a} \times \overrightarrow{b} = -33 \mathbf{i} - 16 \mathbf{j} + 2 \mathbf{k}$</p>
+				<p>$\overrightarrow{a} \times \overrightarrow{b} = \langle -33, -16, 2 \rangle$</p>
+
+				<p>This is the cross product of vectors $a$ and $b$.</p>
+
+
+		<h3 id="vect_orthog_plane">Vector Orthogonal to the Plane</h3>
+
+			<p>To find the vector orthogonal to a plane, we need to start with two vectors that lie on the plane. Sometimes the problem will give us these vectors; other times, we'll be given 3 points in the plane. If we only have the 3 points, we need to use them to find the two vectors that lie on the plane, using these formulas:</p>
+
+			<p>Given points $A(a_1, a_2, a_3)$, $B(b_1, b_2, b_3)$, and $C(c_1, c_2, c_3)$:</p>
+
+			<p>$\overrightarrow{AB} = (b_1 - a_1) \mathbf{i} + (b_2 - a_2) \mathbf{j} + (b_3 - a_3) \mathbf{k}$</p>
+			<p>$\overrightarrow{AB} = (AB_1) \mathbf{i} + (AB_2) \mathbf{j} + (AB_3) \mathbf{k}$</p>
+			<p>$\overrightarrow{AB} = AB \langle AC_1, AC_2, AC_3 \rangle$</p>
+
+			<p>Now we have our vectors, and can take the cross product.</p>
+
+			<p>$
+				\begin{vmatrix}
+				\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+				AB_1 & AB_2 & AB_3 \\
+				AC_1 & AC_2 & AC_3 \\
+				\end{vmatrix}
+
+				= 
+
+				\mathbf{i}
+				\begin{vmatrix}
+				AB_2 & AB_3 \\
+				AC_2 & AC_3 \\
+				\end{vmatrix}
+
+				-
+
+				\mathbf{j}
+				\begin{vmatrix}
+				AB_1 & AB_3 \\
+				AC_1 & AC_3 \\
+				\end{vmatrix}
+
+				+
+
+				\mathbf{k}
+				\begin{vmatrix}
+				AB_1 & AB_2 \\
+				AC_1 & AC_2 \\
+				\end{vmatrix}
+				$
+			</p>
+
+			<p>$ = \mathbf{i}(AB_2AC_3 - AB_3AC_2) - \mathbf{j}(AB_1AC_3 - AB_3AC_1) + \mathbf{k}(AB_1AC_2 - AB_2AC_1)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the vector orthogonal to the plane that includes the given points:</p>
+
+				<p>$A(1,3,2), B(-2,4,1), and C(3,0,-2)$</p>
+
+				<p>We need to use these three points to find two vectors that lie in the plane.</p>
+
+				<p>$\overrightarrow{AB} = (-2 - 1) \mathbf{i} + (4-3) \mathbf{j} + (1-2) \mathbf{k}$</p>
+				<p>$\overrightarrow{AB} = -3 \mathbf{i} + \mathbf{j} - \mathbf{k}$</p>
+				<p>$\overrightarrow{AB} = AB \langle -3, 1, -1 \rangle$</p>
+
+				<p>and</p>
+
+				<p>$\overrightarrow{AC} = (3-1) \mathbf{i} + (0-3) \mathbf{j} + (-2 - 2) \mathbf{k}$</p>
+				<p>$\overrightarrow{AC} = 2 \mathbf{i} - 3 \mathbf{j} - 4 \mathbf{k}$</p>
+				<p>$\overrightarrow{AC} = AC \langle 2, -3, -4 \rangle$</p>
+
+				<p>Now we'll take the cross product of \overrightarrow{AB} and \overrightarrow{AC}.</p>
+
+				<p>$
+					\overrightarrow{AB} \times \overrightarrow{AC} = 
+
+					\begin{vmatrix}
+					\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+					-3 & 1 & -1 \\
+					2 & -3 & -4 \\
+					\end{vmatrix}
+					$
+				</p>
+
+				<p>$
+					\overrightarrow{AB} \times \overrightarrow{AC} =
+
+					\mathbf{i}
+					\begin{vmatrix}
+					1 & -1 \\
+					-3 & -4 \\
+					\end{vmatrix}
+
+					-
+
+					\mathbf{j}
+					\begin{vmatrix}
+					-3 & -1 \\
+					2 & -4 \\
+					\end{vmatrix}
+
+					+
+
+					\mathbf{k}
+					\begin{vmatrix}
+					-3 & 1 \\
+					2 & -3 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$\overrightarrow{AB} \times \overrightarrow{AC} = [(1)(-4) - (-1)(-3)] \mathbf{i} - [(-3)(-4) - (-1)(2)] \mathbf{j} + [(-3)(-3) - (1)(2)] \mathbf{k}$</p>
+
+				<p>$\overrightarrow{AB} \times \overrightarrow{AC} = (-4 - 3) \mathbf{i} - (12+2) \mathbf{j} + (9-2) \mathbf{k}$</p>
+
+				<p>$\overrightarrow{AB} \times \overrightarrow{AC} = -7 \mathbf{i} - 14 \mathbf{j} + 7 \mathbf{k}$</p>
+				<p>$\overrightarrow{AB} \times \overrightarrow{AC} = \langle -7, -14, 7 \rangle$</p>
+
+				<p>This is the vector orthogonal to the plane that includes the given points.</p>
+
+
+		<h3 id="vol_par_vect">Volume of the Parallelepiped From Vectors</h3>
+
+			<p>If we need to find the volume of a parallelepiped and are given 3 vectors, we find the scalar triple product of the 3 vectors.</p>
+
+			<p>$|a \cdot (b \times c)|$</p>
+				<ul>
+					<li>where $b \times c$ is the cross product of $b$ and $c$</li>
+				</ul>
+
+			<p>We'll convert the result of the cross product into standard vector form, and then take the dot product of $a \langle a_1, a_2, a_3 \rangle$ and the vector result of $b \times c$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the volume of the parallelepiped given by the following vectors.</p>
+
+				<p>$a \langle 2, -1, 3 \rangle$</p>
+				<p>$b \langle 3, 2, -4 \rangle$</p>
+				<p>$c \langle -2, 0, 1 \rangle$</p>
+
+				<p>First we'll take the cross product of $b$ and $c$.</p>
+
+				<p>$
+					b \times c = 
+
+					\begin{vmatrix}
+					\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+					3 & 2 & -4 \\
+					-2 & 0 & 1 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$
+					b \times c =
+
+					\mathbf{i}
+					\begin{vmatrix}
+					2 & -4 \\
+					0 & 1 \\
+					\end{vmatrix}
+
+					-
+
+					\mathbf{j}
+					\begin{vmatrix}
+					3 & -4 \\
+					-2 & 1 \\
+					\end{vmatrix}
+
+					+
+
+					\mathbf{k}
+					\begin{vmatrix}
+					3 & 2 \\
+					-2 & 0 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$b \times c = [(2)(1) - (-4)(0)] \mathbf{i} - [(3)(1) - (-4)(-2)] \mathbf{j} + [(3)(0) - (2)(-2)] \mathbf{k}$</p>
+
+				<p>$b \times c = (2+0) \mathbf{i} - (3-8) \mathbf{j} + (0+4) \mathbf{k}$</p>
+				<p>$b \times c = 2 \mathbf{i} + 5 \mathbf{j} + 4 \mathbf{k}$</p>
+				<p>$b \times c = \langle 2, 5, 4 \rangle$</p>
+
+
+				<p>Now we'll take the dot product of $a \langle 2, -1, 3 \rangle$ and $b \times c = \langle 2, 5, 4 \rangle$</p>
+
+				<p>$|a \cdot (b \times c)| = (2)(2) + (-1)(5) + (3)(4)$</p>
+				<p>$|a \cdot (b \times c)| = 4 - 5 + 12$</p>
+				<p>$|a \cdot (b \times c)| = 11$</p>
+
+				<p>The volume of the parallelepiped is $11$.</p>
+
+
+		<h3 id="vol_par_edges">Volume of the Parallelepiped From Adjacent Edges</h3>
+
+			<p>If we need to find the volume of a parallelpiped and are given 3 adjacent edges of it, we find the scalar triple product of the 3 vectors that define the edges.</p>
+
+			<p>$| \overrightarrow{PS} \cdot (\overrightarrow{PQ} \times \overrightarrow{PR}) |$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the volume of the parallelepiped given by adjacent edges $\overrightarrow{PQ}$, $\overrightarrow{PR}$, and $\overrightarrow{PS}$:</p>
+
+				<p>$P(5,1,-2)$</p>
+				<p>$Q(0,-1,3)$</p>
+				<p>$R(3,2,-4)$</p>
+				<p>$S(1,-2,0)$</p>
+
+				<p>We need to start by using the four points to find the vectors $\overrightarrow{PQ}$, $\overrightarrow{PR}$, and $\overrightarrow{PS}$, since these are the 3 adjacent edges of the parallelepiped.</p>
+
+				<p>$\overrightarrow{PQ} = \langle 0-5, ~-1-1, ~3-(-2) \rangle$</p>
+				<p>$\overrightarrow{PQ} = \langle -5, ~-2, ~5 \rangle$</p>
+
+				<p>and</p>
+
+				<p>$\overrightarrow{PS} = \langle 1-5, ~-2-1, ~0-(-2) \rangle$</p>
+				<p>$\overrightarrow{PS} = \langle -2, ~1, ~-2 \rangle$</p>
+
+				<p>and</p>
+
+				<p>$\overrightarrow{PR} = \langle 1-5, ~-2-1, ~0-(-2) \rangle$</p>
+				<p>$\overrightarrow{PR} = \langle -4, ~-3, 2 ~\rangle$</p>
+
+				<p>Now we need to take the cross product of $\overrightarrow{PQ}$ and $\overrightarrow{PR}$.</p>
+
+				<p>$
+					\overrightarrow{PQ} \times \overrightarrow{PR} = 
+
+					\begin{vmatrix}
+					\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+					-5 & -2 & 5 \\
+					-2 & 1 & -2 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{PQ} \times \overrightarrow{PR} = 
+
+					\mathbf{i}
+					\begin{vmatrix}
+					-2 & 5 \\
+					1 & -2 \\
+					\end{vmatrix}
+
+					-
+
+					\mathbf{j}
+					\begin{vmatrix}
+					-5 & 5 \\
+					-2 & -2 \\
+					\end{vmatrix}
+
+					+
+
+					\mathbf{k}
+					\begin{vmatrix}
+					-5 & -2 \\
+					-2 & 1 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+			<p>$\overrightarrow{PQ} \times \overrightarrow{PR} = [(-2)(-2) - (5)(1)] \mathbf{i} - [(-5)(-2) - (5)(-2)] \mathbf{j} + [(-5)(1) - (2)(-2)] \mathbf{k}$</p>
+
+			<p>$\overrightarrow{PQ} \times \overrightarrow{PR} = (4-5) \mathbf{i} - (10 + 10) \mathbf{j} + (-5 - 4) \mathbf{k}$</p>
+
+			<p>$\overrightarrow{PQ} \times \overrightarrow{PR} = -\mathbf{i} - 20 \mathbf{j} - 9 \mathbf{k}$</p>
+			<p>$\overrightarrow{PQ} \times \overrightarrow{PR} = \langle -1, -20, -9 \rangle$</p>
+
+			<p>Taking the dot product of $\overrightarrow{PS} = \langle -4, -3, 2 \rangle$ and $\overrightarrow{PQ} \times \overrightarrow{PR} = \langle -1, -20, -9 \rangle$, we get:</p>
+
+			<p>$| PS \cdot (\overrightarrow{PQ} \times \overrightarrow{PR}) | = (-4)(-1) + (-3)(-20) + (2)(-9)$</p>
+			<p>$| PS \cdot (\overrightarrow{PQ} \times \overrightarrow{PR}) | = 4 + 60 - 18$</p>
+			<p>$| PS \cdot (\overrightarrow{PQ} \times \overrightarrow{PR}) | = 46$</p>
+
+			<p>The volume of the parallelpiped is $46$.</p>
+
+
+		<h4>Scalar Triple Product to Prove Vectors are Coplanar</h4>
+
+			<p>The scalar product $|a \cdot (b \times c)|$ of 3 vectors will be equal to $0$ when the vectors are coplanar which means the vectors all lie in the same plane.</p>
+
+
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="calc3_pt5.html">part 5</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+

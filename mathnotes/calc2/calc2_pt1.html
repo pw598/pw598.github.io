@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+<h1>Calculus II, Pt. 1</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#indef_ints">Antiderivatives and Indefinite Integrals</a></td><td><a href="#int_properties">Properties of Integrals</a></td></tr>
+ <tr><td><a href="#init_value_problems">Initial Value Problems</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#def_ints">Definite Integrals</a></td><td><a href="#even_odd">Definite Integrals of Even and Odd Functions</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#riemann">Riemann Sums</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#limit_process">Limit Process to Find Area On [a,b]</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#trapezoidal_rule">Trapezoidal Rule</a></td></tr>
+ <tr><td><a href="#ftc">Fundamental Theorem of Calculus (FTC)</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#u_sub">U-Substitution</a></td><td><a href="#u_sub_def">U-Substitution in Definite Integrals</a></td></tr>
+ <tr><td><a href="#int_by_parts">Integration by Parts</a></td><td><a href="#parts_two_times">Integration by Parts Two Times</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="indef_ints">Antiderivatives and Indefinite Integrals</h2>
+
+		<p>The integral of a function models the area underneath the graph of a function, and is calculated as the opposite of a derivative. Instead of looking for the derivative of a function, we look for the function we would have differentiated to arrive at our current function. An integral is also called an antiderivative.</p>
+
+		<p>Consider the below:</p>
+
+		<p>$f(x) = x^3 + 2x^2 + 3x + 7$</p>
+		<p>$g(x) = 3x^2 + 4x + 3$</p>
+		<p>$h(x) = 6x + 4$</p>
+
+		<p>Previously we were given $g(x)$ and asked to calculate the derivative, asking 'what function would I have had to differentiate to get $g(x)$?''</p>
+
+		<p>There are two ways to calculate an antiderivative and find area beneath a curve:</p>
+			<ol>
+				<li>Estimate the area using basic geometry area equations</li>
+				<li>Find the exact area using integrals</li>
+			</ol>
+
+		<p>Riemann sums, trapezoidal rules, and Simpsons approximation are variations of taking an area.</p>
+
+
+		<p>Consider:</p>
+
+		<p>$\int x^3 - 2x - 3 ~dx$</p>
+			<ul>
+				<li>The $dx$ means with respect to $x$</li>
+				<li>$\int$ starts the statement and $dx$ finishes it</li>
+			</ul>
+
+
+		<p>Consider $x^3$, for which the derivative is:</p>
+
+			<p>$3x^{3-1} = 3x^2$</p>
+
+			<p>We want to reverse this process in order to take the integral. Instead of subtracting $1$ from the exponent, we will add $1$. Then, instead of multiplying the coefficient by the exponent, we will divide.</p>
+
+			<p>$\int x^3 = \frac{1}{3+1} x^{3+1} = \frac{1}{4} x^4$</p>
+
+			<p>We can confirm that $\frac{1}{4}$ is the integral by taking its derivative:</p>
+
+			<p>$\frac{1}{4} x^4 \rightarrow \frac{1}{4}(4)x^{4-1} = x^3$</p>
+
+			<p>The integral of $2x$ is $\frac{2}{1+1} x^{1+1} = x^2$</p>
+
+			<p>The integral $\int 3x^2 + 2x + 1dx$ is:</p>
+
+			<p>$x^3 + x^2 + x + C$</p>
+			<p>$C$ indicates a constant that may be present, called the 'constant of integration'.</p>
+
+
+		<h3 id="int_properties">Properties of Integrals</h3>
+
+			<p>Property One: if you have an integral that is the sum or difference of multiple functions, then you can split them apart. For example:</p>
+
+			<p>$\int_0^1 4dx + \int_0^1 3x^2 ~dx$</p>
+
+			<p>Property Two: we can pull constants in front of our integral</p>
+
+			<p>$\int_0^1 4dx + \int_0^1 3x^2 ~dx = 4 \int_0^1 ~dx + 3 \int_0^1 x^2 ~dx$</p>
+
+			<p>The integral of $x^2$ is $x^3$ divided by the same value in the exponent, so $\frac{1}{3}x^3$</p>
+
+			<p>$4(x) \bigg|_0^1 ~dx + 3(\frac{1}{3}x^2) \bigg|_0^1 = 4(x) \bigg|_0^1 + x^3 \bigg|_0^1$</p>
+			<p>$= (4x + x^3) \bigg|_0^1$</p>
+
+			<p>Evaluating for the range $\bigg|_0^1$ means we plug the value $1$ into $x$ and then subtract from that result the value of the equation when $x=0$.</p>
+
+			<p>$(4(1) + 1)^3 - (0 - 0) = 5$</p>
+
+			<p>$5$ is the integral of $4 + 3x^2$ on the range of $0$ to $1$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find $f(x)$ if $f''(x) = \frac{2}{3} x^{2/3}$</p>
+
+				</br>
+				<p>$f'(x) = \int \frac{2}{3} x^{2/3} ~dx$</p>
+				<p>$= \frac{2}{3} \left( \frac{3}{5} \right) x^{5/	3} + C$</p>
+				<p>$= \frac{2}{5} x^{5/3} + C$</p>
+				</br>
+				<p>$f(x) = \int \frac{2}{5} x^{5/3} Cx ~dx$</p>
+				<p>$= \frac{2}{5} \frac{3}{8} x^{8/3} + \frac{C}{1}x + D$</p>
+				<p>$= \frac{3}{20} x^{8/3} + CX + D$</p>
+
+
+				</br>
+			<h4>Example:</h4>
+
+				<p>Find $f(x)$ if $f'''(x) = x - \sqrt{x}$</p>
+
+				</br>
+				<p>$f''(x) = \int x - \sqrt{x} ~dx$</p>
+				<p>$= \int x^1 - x^{1/2} ~dx$</p>
+				<p>$= \frac{1}{2} x^2 - \frac{1}{3/2} x^{3/2} + C$</p>
+				<p>$= \frac{1}{2} x^2 - \frac{2}{3} x^{3/2} + C$</p>
+
+
+				</br>
+				<p>$f'(x) = \int \frac{1}{2} x^2 - \frac{2}{3} x^{3/2} + Cx ~dx$</p>
+				<p>$= \frac{1}{6} x^3 - \frac{2}{3} \left( \frac{2}{5} \right)^{5/2} + \frac{C}{1} x^1 + D$</p>
+				<p>$= \frac{1}{6} x^3 - \frac{4}{15} x^{5/2} + CX + D$</p>
+
+
+				</br>
+				<p>$f(x) = \int \frac{1}{6} x^3 - \frac{4}{15} x^{5/2} + Cx^1 + Dx ~dx$</p>
+
+				<p>$= \frac{1}{24} x^4 - \frac{4}{15} \left( \frac{2}{7} \right) x^{7/2} + \frac{C}{2} x^2 + \frac{D}{1} x^1 + E$</p>
+
+				<p>$= \frac{1}{24} x^4 - \frac{8}{105} x^{7/2} + \frac{C}{2} x^3 + Dx + E$</p>
+
+
+
+	<h2 id="init_value_problems">Initial Value Problems</h2>
+
+		<p>Given the function $f(x) = 2x - 3$, it is easy to find that the derivative is $2$. But if given the function $f'(x) = 2$ and asked to find its integral, it is impossible to get back to the original function $2x - 3$. The constant $-3$ is the constant of integration, and its value gets lost.</p>
+
+		<p>In order to get back to the original function, we need an initial condition, which looks like $y(0) = -3$. Problems that provide one or more initial conditions are called initial value problems.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Given $f'(x) = 2$ and $f(0) = -3$, find $f(x)$</p>
+
+				<p>Integrating $f'(x)$ means we are integrating $2 ~dx$, and we will get $2x + C$. To use our initial condition $f(0) = -3$, we plug the number in the parentheses into $x$ and the number on the right side of the equation into $y$.</p>
+
+				<p>$-3 = 2(0) + C$</p>
+				<p>$-3 = C$</p>
+
+
+
+			<h4>Example:</h4>
+
+				<p>Solve $\frac{dy}{dx} = 2x + 1, y(0) = 3$</p>
+
+			</br>
+				<p>$dy = (2x + 1) ~dx$</p>
+				<p>$\int dy = \int 2x + ~dx$</p>
+				<p>$y = x^2 + x + C$</p>
+				<p>$3 = 0^2 + 0 + C$</p>
+				<p>$C = 3$</p>
+				<p>$y = x^2 + x + 3$</p>
+
+
+			</br>
+			<h4>Example:</h4>
+
+				<p>Find $f(x)$ if $f''(x) = 12x^2 + 6x -4, f(0) = 4, f(1) = 1$</p>
+
+			</br>
+				<p>$f'(x) = \int 12x^2 + 6x - 4dx$</p>
+				<p>$= \frac{12}{3}x^3 + \frac{6}{2}x^2 - \frac{4}{1}x + C$</p>
+				<p>$= 4x^3 + 3x^2 - 4x + C$</p>
+
+				</br>
+				<p>$f(x) = \int 4x^3 + 3x^2 - 4x + C ~dx$</p>
+				<p>$= \frac{4}{4}x^4 + \frac{3}{3}x^3 - \frac{4}{2}x^2 + \frac{C}{1}x + D$</p>
+				<p>$= x^4 + x^3 - 2x^2 + CX + D$</p>
+
+			</br>
+				<p>Plugging in $f(0) = 4$:</p>
+
+				<p>$4 = 0^4 + 0^3 - 2(0)^2 + C(0) + D$</p>
+				<p>$4 = D$</p>
+
+			</br>
+				<p>Plugging in $f(1) = 1$:</p>
+
+				<p>$1 = 1^4 + 1^3 - 2(1)^2 + C(1) + D$</p>
+				<p>$1 = C + D$</p>
+				<p>$1 = C + 4$</p>
+				<p>$-3 = C$</p>
+
+				<p>$f(x) = x^4 + x^3 -2x^2 - 3x + 4$</p>
+
+
+
+	<h2 id="def_ints">Definite Integrals</h2>
+
+		<p>An integral in general finds the area below a curve. An indefinite integral is asking you to find the area under the curve everywhere, i.e., over the domain of the entire function. It is unbounded. A definite integral contains a start and end point, such as $\int_2^5$ if evaluating a range between $2$ and $5$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Evaluate the integral $\int_0^2 3x^2 - 5x + 2dx$</p>
+
+				<p>When we integrate the polynomial, we get:</p>
+
+				<p>$F(x) = (x^3 - \frac{5}{2}x^2 + 2x + C) \bigg|_0^2$</p>
+
+				<p>Evaluating on the interval $[0, 2]$, we get:</p>
+
+				<p>$F(x) = [ 2^3 - \frac{5}{2}(2)^2 + 2(2) + C ] - [ 0^3 - \frac{5}{2}(0)^2 + 2(0) + C ]$</p>
+				<p>$= (8 - 10 + 4 + C) - (0 - 0 + 0 + C)$</p>
+				<p>$= 8 - 10 + 4$</p>
+				<p>$= 2$</p>
+
+				<p>The constant of integration cancels out, leaving a definite value as the final answer. Since this is always the case, $C$ can be ignored when solving a definite integral.</p>
+
+				<p>When we say $F(x) = 2$, it means the area 1) below the graph of $f(x)$, 2) above the x-axis, and 3) between the lines $x=0$ and $x=2$ is equal to $2$ square units. If the area below the graph drops below the x-axis, we treat the area under the x-axis as negative area.</p>
+
+
+		<h3 id="even_odd">Definite Integrals of Even and Odd Functions</h3>
+
+			<p>Sometimes we can simplify a definite integral if we recognize that the function we're integrating is an even or odd function. If neither even nor odd, we proceed as normal. If when substituting $-x$ into the function for $x$, we get back the original function $f(x)$, then the function is even. If we get back to the original function multiplied by $-1$, then the function is odd.</p>
+				<ul>
+					<li>If $f(-x) = f(x)$, the function is even</li>
+					<li>If $f(-x) = -f(x)$, the function is odd</li>
+				</ul>
+
+			<p>In order to use the special even or odd rules for definite integrals, the interval must be in the form $[-a, a]$. In other words, the limits of integration have the same number but with opposite signs.</p>
+
+			<p>When $f(x)$ is even:</p>
+
+			<p>$\int_{-a}^a f(x)dx = 2 \int_0^a f(x)dx$</p>
+
+
+			<p>When $f(x)$ is odd:</p>
+
+			<p>$\int_{-a}^a f(x)dx = 0$</p>
+
+
+		<h3 id="riemann">Riemann Sums</h3>
+
+			<p>Riemann sums are one way to geometrically estimate the area under a curve. They divide the area into lots of thin rectangles, and sum their area. The accuracy of approximation will depend on whether we use the left-endpoints of the rectangles, the right-endpoints, or their midpoints. Midpoint approximations are usually the most accurate.</p>
+
+
+			<h4 id="over_under">Over and Under-Estimation</h4>
+
+				<p>If the function is increasing everywhere in the interval, left endpoints will give an underestimation and right endpoints give an overestimation. If the function is decreasing everywhere in the interval, left endpoints will give an overestimation and right endpoints will give an underestimation. Midpoints will usually give us a better approximation of both increasing and decreasing functions.</p>
+
+				<p>If the function is both increasing and decreasing at different points in the interval, its going to be difficult to determine whether or not we will get an under or over-estimation from using left or right endpoints.</p>
+
+
+			<h4>Steps For Calculating a Riemann Sum</h4>
+				<ol>
+					<li>Find $\Delta x$ if $\Delta x = \frac{b-a}{n}$</li>
+					<li>Divide your interval and separate the x-axis into increments of $\Delta x$</li>
+					<li>Decide whether you will use left endpoints, right endpoints, or midpoints of each of the rectangles created in step 2</li>
+					<li>Evaluate your function at these points, add all of your answers together, and multiply your final answer by $\Delta$ x. This is the Riemann sum for the interval.</li>
+				</ol>
+
+				<p>$A = \sum_{i=1}^n f(x_i) \Delta x$</p>
+
+				<p>where $A$ is area.</p>
+
+
+			<h4>Example, Left Endpoints:</h4>
+
+				<p>Use a Riemann sum and left endpoints to find the area under the curve for $f(x) = \frac{1}{x}$, for the interval $[1,5]$ with $n=4$</p>
+
+				<p>$\Delta x = \frac{b-a}{n} = \frac{5-1}{4} = 1$</p>
+
+				<p>$A = 1[f(1) + f(2) + f(3) + f(4)]$</p>
+
+				<p>$f(1) = \frac{1}{1}$</p>
+				<p>$f(2) = \frac{1}{2}$</p>
+				<p>$f(3) = \frac{1}{3}$</p>
+				<p>$f(4) = \frac{1}{4}$</p>
+
+				<p>$A = \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4}$</p>
+				<p>$A = \frac{12}{12} + \frac{6}{12} + \frac{4}{12} + \frac{3}{12}$</p>
+				<p>$A = \frac{25}{12}$</p>
+
+
+			<h4>Example, Right Endpoints:</h4>
+
+				<p>Use a Riemann sum and right endpoints to find the area under the curve for:</p>
+
+				<p>$f(x) = 2-x^2, 0 \le x \le 2, n=4$</p>
+				<p>$\Delta x = \frac{2-0}{4} = \frac{1}{2}$</p>
+
+					<ul>
+						<li>First Interval: $[0, \frac{1}{2}]$</li>
+						<li>Second Interval: $[\frac{1}{2}, 1]$</li>
+						<li>Third Interval: $[1, \frac{3}{2}]$</li>
+						<li>Fourth Interval: $[\frac{3}{2}, 2]$</li>
+					</ul>
+
+				<p>We take the right endpoints of each interval:</p>
+
+				<p>$R_4 = \Delta x \left[ \frac{7}{4} + 1 - \frac{1}{4} - 2 \right]$</p>
+				<p>$R_4 = \Delta x \left[ \frac{7}{4} + \frac{4}{4} - \frac{1}{4} - \frac{8}{4} \right]$</p>
+				<p>$R_4 = \frac{1}{2} \left[ \frac{1}{2} \right] = \frac{1}{4}$</p>
+
+
+		<h3 id="limit_process">Limit Process to Find Area On [a,b]</h3>
+
+			<p>Using the limit process to find the area of a region is done by taking a Riemann sum. We use the following formulas:</p>
+
+			<p>$\int_a^b f(x)dx = \lim \limits_{n \to \infty} f(x_i) \Delta x$</p>
+			<p>$\Delta x = \frac{b-a}{n}$</p>
+			<p>$x_i = a + i \Delta x$</p>
+			<p>$\sum_{i=1}^n i = \frac{n(n+1)}{2}$</p>
+			<p>$\sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}$</p>
+			<p>$\sum_{i=3}^n i^3 = \frac{n^2(n+1)^2}{4}$</p>
+
+
+		<h4>Example:</h4>
+
+			<p>Use the limit process to find the area of the region between the function and the x-axis over the given interval for $f(x) = 4 - x^2$, on the interval $[1,2]$.</p>
+
+			<p>Step 1: Find $\Delta x$.</p>
+			<p>$\Delta x = \frac{2-1}{n}$</p>
+
+			<p>Step 2: Find $x_i$ by adding the left bound to $i \Delta x$.</p>
+			<p>$x_i = 1 + \frac{i}{n}$</p>
+
+			<p>Step 3: Write the limit of the sum to find the area.</p>
+			<p>$\lim \limits_{n \to \infty} \sum_{i=1}^n f \left( 1 + \frac{i}{n} \right) \frac{1}{n}$</p>
+
+			<p>Next, substitute the $f(x) = 4 - x^2$ into the summation, recalling that the x-value is $1 + \frac{i}{n}$.</p>
+
+			<p>$\lim \limits_{n \to \infty} \sum_{i=1}^n \left[ 4 - \left( 1 + \frac{i}{n} \right)^2 \right] \frac{1}{n}$</p>
+
+			<p>Next, square the expression in the summation, and since the summation is in terms of $i$, remove $\frac{1}{n}$ and place it in front of the summation.</p>
+
+			<p>$\lim \limits_{n \to \infty} \sum_{i=1}^n \left[ 4 - \left( 1 + \frac{2i}{n} + \frac{i^2}{n^2} \right) \right]$</p>
+
+
+			<p>Then distribute the negative inside the summation.</p>
+
+			<p>$\lim \limits_{n \to \infty} \frac{1}{n} \left( 4 - 1 - \frac{2i}{n} - \frac{i^2}{n^2} \right)$</p>
+
+
+			<p>Now, recall that calculating the summation involving $i$, we have the following identities:</p>
+				<ul>
+					<li>For a constant term, $\sum_{i=1}^n a = an$</li>
+					<li>For a term containing $i, \sum_{i=1}^n i = \frac{n(n+1)}{2}$</li>
+					<li>For a term cointaining $i^2, \sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}$</li>
+				</ul>
+
+			<p>Substitute these expressions into the limit of the summation, taking the sum.</p>
+
+			<p>$\lim \limits_{n \to \infty} \frac{1}{n} \left[ 4n - ln - \frac{2}{n} \times \frac{n(n+1)}{2} - \frac{1}{n^2} \times \frac{n(n+1)(2n+1)}{6n} \right]$</p>
+
+			<p>$\lim \limits_{n \to \infty} \frac{1}{n} \left[ 3n - (n+1) - \frac{(n+1)(2n+1)}{6n} \right]$</p>
+
+
+			<p>Distribute and multiply to remove the parentheses.</p>
+
+			<p>$\lim \limits_{n \to \infty} \frac{1}{n} \left[ 3n - n - 1 - \frac{2n^2 + 3n + 1}{6n} \right]$</p>
+
+
+			<p>Distribute the negative and separate the fraction into individual terms.</p>
+
+			<p>$\lim \limits_{n \to \infty} \left[ 2 - \frac{1}{n} - \frac{1}{3} - \frac{1}{2n} - \frac{1}{6n^2} \right]$</p>
+
+
+			<p>Then take the limit.</p>
+
+			<p>$2 - 0 - \frac{1}{3} - 0 - 0 = \frac{5}{3}$.</p>
+
+			<p>The area between $f(x) = 4 - x^2$ and the x-axis in the interval $[1,2]$ is $\frac{5}{3}$.</p>
+
+
+			<p>When using the limit process to find area in the interval $[-a,a]$, if the function is even (i.e., symmetrical about the y-axis), then one may find the area from $0$ to $a$, and then multiply by $2$ as a shortcut to find the total area.</p>
+
+
+		<h3 id="trapezoidal_rule">Trapezoidal Rule</h3>
+
+			<p>With the trapezoidal rule method, we divide the given interval into $n$ subintervals, and then find the width of the subintervals. The formula is:</p>
+
+			<p>$\int_a^b f(x) ~dx \approx \frac{\Delta x}{2} [f(x_0) + 2f(x_1) + 2f(x_2) + \ldots + 2f(x_{n-2}) + 2f(x_{n-1}) + f(x_n)]$</p>
+
+			<p>$a$ and $b$ are the limits of integration, and the endpoints of the interval $\Delta x$ are found with $\frac{b-a}{n}$, where $n$ is the number of trapezoids.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Using $n=4$ and the trapezoidal rule, approximate the value of the integral $\int_2^6 e^{x^2}dx$</p>
+
+				<p>$\Delta x = \frac{6-2}{4} = 1$</p>
+				<p>$\int_2^6 e^{x^2} ~dx = \frac{1}{2}[e^{(2)^2} + 2e^{(3)^2} + 2e^{(4)^2} + 2e^{(5)^2} + e^{(6)^2}]$</p>
+				<p>$\approx 2.16 \times 10^{15}$</p>
+
+				<p>The approximate area is $2.16 \times 10^{15}$ units</p>
+
+
+
+	<h2 id="ftc">Fundamental Theorem of Calculus (FTC)</h2>
+
+		<p>Part 1 of the FTC is the formula that relates the derivative to the integral. It states that:</p>
+
+		<p>If $r(x)$ is continuous on $[a,b]$, then $f(x) = \int_a^x r(t) ~dt$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f'(x) = r(x)$.</p>
+
+		<p>This means that if you take the integral of the function $r(t)$ over the interval $[a,x]$, then the answer you get, $f(x)$, can be differentiated to get back to $r(x)$.</p>
+
+
+			<h4>Rules for Finding the Derivative of Various Integrals:</h4>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Function</th><th>Description</th><th>How to Solve</th></tr></thead><tbody>
+			 <tr><td>$f(x) = \int_a^x f(t)dt$</td><td>Lower limit is a constant, upper limit is variable $x$</td><td>Plug $x$ in for $t$</td></tr>
+			 <tr><td>$f(x) = \int_x^a f(t)dt$</td><td>Upper limit is a constant, lower limit is variable $x$</td><td>Reverse limits of integration and multiply by $-1$, then plug in $x$ for $t$</td></tr>
+			 <tr><td>$f(x) = \int_a^{g(x)} f(t)dt$</td><td>Lower limit is a constant, upper limit is a function</td><td>Plug $g(x)$ in for $t$, then multiply by $\frac{dg}{dx}$</td></tr>
+			 <tr><td>$f(x) = \int_{g(x)}^a f(t)dt$</td><td>Lower limit is a function, upper limit is a constant</td><td>Reverse limits of integration and multiply by $-1$, then plug $g(x)$ in for $t$ and multiply by $\frac{dg}{dx}$</td></tr>
+			 <tr><td>$f(x) = \int_{g(x)}^{h(x)}$</td><td>Both the lower and upper limits are functions</td><td>Split the limits of integration as $\int_{g(x)}^0 f(t)dt + \int_0^{h(x)} f(t)dt$. Reverse limits of integration on $\int_{g(x)}^0 f(t)dt$ and multiply by $-1$, then plug $g(x)$ and $h(x)$ in for $t$, multiplying by $\frac{dg}{dx}$ and $\frac{dh}{dx}$ respectively</td></tr>
+			</tbody></table>
+
+			<h4>Example:</h4>
+
+				<p>Use part 1 of the FTC to find $f'(x)$ for $f(x) = \int_0^{x^2} t^2 - 1 ~dt$</p>
+
+				<p>It follows the pattern of the third integral in the table: $f(x) = \int_a^{g(x)} r(t) ~dt$. So we plug $g(x)$ (the upper bound) in for $t$, then multiply by $\frac{dg}{dx}$ (the derivative of the upper bound).</p>
+
+				<p>$f'(x) = ((x^2) - 1)(2x)$</p>
+				<p>$f'(x) = (x^4-1)(2x)$</p>
+				<p>$f'(x) = 2x^5 - 2x$</p>
+
+
+				<p>Part 2 of the FTC says that:</p>
+
+				<p>$\int_a^b f(x)dx = F(x)\bigg|_a^b = F(b) - F(a)$</p>
+
+				<p>if $f(x)$ is a continuous function on $[a,b]$ and $F(x)$ is the antiderivative of $f(x)$. It tells us that we can figure out the exact value of an indefinite integral (area under the curve) when we know the interval over which to evaluate. The integral of a derivative is just the function itself.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use part 2 of the FTC to find the value of the integral $F(x) = \int_1^3 x^3 ~dx$</p>
+
+				<p>First, we perform the integration:</p>
+
+				<p>$F(x) = \frac{x^4}{4}\bigg|_1^3$</p>
+
+				<p>Next, we plug in the upper and lower limits, subtracting the value at the lower bound from the value at the upper bound</p>
+
+				<p>$F = \frac{3^4}{4} - \frac{1^4}{4}$</p>
+				<p>$F = \frac{81}{4} - \frac{1}{4}$</p>
+				<p>$F = \frac{80}{4}$</p>
+				<p>$F = 20$</p>
+
+
+
+	<h2 id="u_sub">U-Substitution</h2>
+
+		<p>Most integrals need some work before you can begin the integration. They must be transformed or manipulated in order to reduce the function's form into a more simple form. U-substitution is the simplest tool we have to transform integrals. You define $u$ as a differentiable function in terms of the variable in the integral, take the derivative of $u$ to get $du$, and then substitute these values back into your integrals.</p>
+
+		<p>For integrals that contain power functions, try using the base of the power function as the substitution. For integrals containing exponential functions, try using the power for the substitution.</p>
+
+
+		<h4>Example:</h4>
+
+			<p>Evaluate the following integral:</p>
+
+			<p>$\int x(x^2+1)^4 ~dx$</p>
+
+			<p>Let:</p>
+			<p>$u = x^2 + 1$</p>
+			<p>$du = 2x ~dx$</p>
+			<p>$dx = \frac{du}{2x}$</p>
+
+			<p>Substituting back into the integral, we get:</p>
+
+			<p>$\int x(u)^4 \frac{du}{2x}$</p>
+			<p>$\int u^4 \frac{du}{2}$</p>
+			<p>$\frac{1}{2} \int u^4 ~du$</p>
+
+			<p>This is simpler than our original integral, and something we can actually integrate.</p>
+
+			<p>$\frac{1}{2} \left( \frac{1}{5} u^5 \right) + C$</p>
+			<p>$\frac{1}{10} u^5 + C$</p>
+
+			<p>Now, back-substitute to put the answer back in terms of $x$ instead of $u$.</p>
+
+			<p>$\frac{1}{10}(x^2 + 1)^5 + C$</p>
+
+
+		<h4>Example:</h4>
+
+			<p>Evaluate the following integral:</p>
+
+			<p>$\int \frac{x}{x^2+1} ~dx$</p>
+
+			<p>Let:</p>
+			<p>$u = x^2 + 1$</p>
+			<p>$du = 2x ~dx$</p>
+			<p>$dx = \frac{du}{2x}$</p>
+
+			<p>Substituting back into the integral, we get:</p>
+
+			<p>$\int \frac{x}{u} \cdot \frac{du}{2x}$</p>
+			<p>$\int \frac{1}{u} \cdot \frac{du}{2x}$</p>
+			<p>$\frac{1}{2} \int \frac{1}{u} ~du$</p>
+
+			<p>This is simpler than our orginal integral.</p>
+
+			<p>$\frac{1}{2} ln |u| + C$</p>
+
+			<p>Now, back-substitute to put the answer back in terms of $x$ instead of $u$.</p>
+
+			<p>$\frac{1}{2} ln |x^2+1| + C$</p>
+
+
+		<h4>Example:</h4>
+
+			<p>Use u-substitution to evaluate the integral</p>
+
+			<p>$\int e^{sin ~x ~cos ~x} cos ~2x ~dx$</p>
+
+			<p>Let $u = sin ~x ~ cos ~x$, and using the product rule to differentiate:</p>
+
+			<p>$du = \left[ \left( \frac{d}{dx} sin ~x \right) cos ~x + sin ~x \left( \frac{d}{dx} cos ~x \right) \right] ~dx$</p>
+			<p>$du = \left[ cos ~x \cdot cos ~x + sin ~x \cdot (-sin ~x) \right] ~dx$</p>
+			<p>$du = cos^2x - sin^2x ~dx$</p>
+			<p>$du = cos ~2x ~dx$</p>
+
+			<p>Substituting back into the integral, we get:</p>
+
+			<p>$\int e^u ~du$</p>
+			<p>$e^u + C$</p>
+
+			<p>Now, back-substitute to put the answer back in terms of $x$ instead of $u$</p>
+
+			<p>$e^{sin ~x ~cos ~x} + C$</p>
+
+
+		<h3 id="u_sub_def">U-Substitution in Definite Integrals</h3>
+
+			<p>U-substitution in definite integrals is like substitution in indefinite integrals, except that since the variable is changed, the limits of integration must be changed as well.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use u-substitution to evaluate the integral:</p>
+
+				<p>$\int_0^{\pi/2} \frac{cos ~x}{1 + sin^2x} ~dx$</p>
+
+				<p>Let:</p>
+				<p>$u = sin ~x$</p>
+				<p>$du = cos ~x ~dx$</p>
+				<p>$dx = \frac{du}{cos ~x}$</p>
+
+				<p>Since we are dealing with a definite integral, we need to use the equation $u = sin ~x$ to find limits of integration in terms of $u$, instead of $x$.</p>
+
+				<p>$\text{when }x=0,$ </p>
+				<p>$u = sin ~0$</p>
+				<p>$u = 0$</p>
+
+				</br>
+				<p>$\text{when }x=\frac{\pi}{2},$</p>
+				<p>$u = sin \frac{\pi}{2}$</p>
+				<p>$u = 1$</p>
+
+				<p>Substituting back into the integral, we get:</p>
+
+				<p>$\int_0^1 \frac{cos ~x}{1 + u^2} \cdot \frac{du}{cos ~x}$</p>
+				<p>$\int_0^1 \frac{1}{1+u^2} ~du$</p>
+
+				<p>Using this common formula:</p>
+
+				<p>$\int \frac{1}{1+x^2} ~dx = tan^{-1}x + C$</p>
+
+				<p>we take the integral.</p>
+
+				<p>$\int_0^1 \frac{1}{1+u^2} ~du = tan^{-1} u \bigg|_0^1$</p>
+				<p>$\int_0^1 \frac{1}{1+u^2} ~du = tan^{-1} - tan^{-1} 0$</p>
+				<p>$\int_0^1 \frac{1}{1+u^2} ~du = \frac{\pi}{4}$</p>
+
+
+
+	<h2 id="int_by_parts">Integration by Parts</h2>
+
+		<p>When an integral is too complicated to solve with u-substitution, integration by parts should be the next approach. Remembering that the product rule was the method for finding derivatives of functions that are multiplied together, you can think about integration by parts as the method for integrating functions that are multiplied together.</p>
+ 
+		<p>Suppose you want to integrate $\int xe^{-x} ~dx$. You can recognize that there are two functions multiplied together - one being $x$ and the other $x^{-x}$. If you try u-substitution, you won't find anything to cancel in your integral.</p>
+
+		<p>The formula we'll use is derived by integrating the product rule formula, and looks like:</p>
+
+		<p>$\int u ~dv = uv - \int v ~du$</p>
+
+		<p>Everything to the left of the equals sign represents the original function, which means your original function must be composed of $u$ and $dv$. You must identify which part of the original function will be $u$, and which will be $dv$. One strategy is to assign $u$ to the function in the integral whose derivative is simpler than the original $u$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Evaluate the integral:
+
+				<p>$\int x e^{-x} ~dx$
+
+				<p>There are two functions comprising the integral: $x$ and $e^{-x}$. One must be $u$ and the other $dv$.</p>
+
+				<p>$u = x$</p>
+				<p>$dv = e^{-x} ~dx$</p>
+
+				<p>Differentiating $u=x$:</p>
+				<p>$du = 1 ~dx$</p>
+
+				<p>Integrating $dv = e^{-x}dx$:</p>
+				<p>$v = -e^{-x}$</p>
+
+				<p>Plugging all components into the right side of our formula gives the following transformation of our original function.</p>
+
+				<p>$(x)(-e^{-x}) - \int(e^{-x}) 1 ~dx$</p>
+				<p>$-xe^{-x} + \int e^{-x} ~dx$</p>
+
+				<p>Now that we have something we can work with, we integrate.</p>
+
+				<p>$-xe^{-x} + (-e^{-x}) + C$</p>
+				<p>$-xe^{-x} - e^{-x} + C$</p>
+				<p>$-e^{-x} (x+1) + C$</p>
+
+
+		<h3 id="parts_two_times">Integration by Parts Two Times</h3>
+
+			<p>You might need to apply integration by parts several times in a row to get an integral you can easily solve. This applies to integrals like the following:</p>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Integral Type</th><th>Formula</th><th>Action</th></tr></thead><tbody>
+			 <tr><td>Power $\times$ Exponential</td><td>$\int x^n e^x ~dx$</td><td>Set $u=x^n$, apply IBP $n$ times to reduce $x^n$ to $1$</td></tr>
+			 <tr><td>Power $\times$ Trigonometric</td><td>$\int x^n sin ~x ~dx$</td><td>Set $u = x^n$, apply IBP $n$ times to reduce $x^n$ to $1$ (do the same if $cos$ instead of $sin$)</td></tr>
+			 <tr><td>Exponential $\times$ Trigonometric</td><td>$\int e^x sin ~x ~dx$</td><td>Set $u = sin ~x$, apply IBP twice to get back to $sin ~x$, and combine with left-hand side</td></tr>
+			 <tr><td>&nbsp;</td><td>$\int e^x cos ~x ~dx$</td><td>Set $u = cos ~x$, apply IBP twice to get back to $sin ~x$, and combine with left-hand side</td></tr>
+			</tbody></table>
+
+
+			<h4>Example:</h4>
+
+				<p>Use integration by parts to evaluate the integral:</p>
+
+				<p>$\int x^3 cos ~x ~dx$</p>
+
+				<p>First, we'll assign $u$ and $dv$, then differentiate $u$ to get $du$ and integrate $dv$ to get $v$.</p>
+
+				<p>Differentiating $u=x^3$:</p>
+				<p>$du = 3x^2 ~dx$</p>
+
+				<p>Integrating $dv = cos ~x ~dx$:</p>
+				<p>$v = sin ~x$</p>
+
+				<p>Plugging all 4 components into the formula gives:</p>
+
+				<p>$(x^3)(sin ~x) - \int (sin ~x)(3x^2 ~dx)$</p>
+				<p>$x^3 sin ~x - \int 3x^2 sin ~x ~dx$</p>
+
+				<p>What remains inside the integral is not easy to evaluate, so we try integration by parts again.</p>
+
+				<p>Differentiating $u = 3x^2$:</p>
+				<p>$du = 6x ~dx$</p>
+
+				<p>Integrating $dv = sin ~x ~dx$:</p>
+				<p>$v = -cos ~x$</p>
+
+				<p>Plugging in to our last integral gives:</p>
+
+				<p>$x^3 sin ~x - [ (3x^2)(-cos ~x) - \int (-cos ~x)(6x ~dx) ]$</p>
+				<p>$x^3 sin ~x - (-3x^2 ~cos ~x + \int 6x ~cos ~x ~dx)$</p>
+				<p>$x^3 sin ~x + 3x^2 ~cos ~x - \int 6x ~cos ~x ~dx$</p>
+
+				<p>We still don't have an easy integral, so we use integration by parts one more time.</p>
+
+				<p>Differentiating $u=6x$:</p>
+				<p>$du = 6 ~dx$</p>
+
+				<p>Integrating $dv = cos ~x ~dx$:</p>
+				<p>$v = sin ~x$</p>
+
+				<p>Using the integration by parts formula to again transform the integral, we get:</p>
+
+				<p>$x^3 sin ~x + 3x^2 cos ~x - [(6x)(sin ~x) - \int (sin ~x)(6 ~dx)]$</p>
+				<p>$x^3 sin ~x + 3x^2 cos ~x - 6x ~sin ~x + \int 6 sin ~x ~dx$</p>
+
+				<p>Finally we have something we can easily integrate.</p>
+
+				<p>$x^3 sin ~x + 3x^2 cos ~x - 6x ~sin ~x - 6 ~cos ~x + C$</p>
+
+
+
+        </br></br>
+        <p>Here is a link to <a href="calc2_pt2.html">part 2</a></p>
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+<h1>Calculus III, Pt. 5</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#vect_fx_space_curves">Vectors - Vector Functions and Space Curves</a></td><td><a href="#domain_vect_fx">Domain of a Vector Function</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#limit_vect_fx">Limit of a Vector Function</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vect_par_eq_line_seg">Vector and Parametric Equations of a Line Segment</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vect_curve_intersect">Vector Function for the Curve of Intersection of Two Surfaces</a></td></tr>
+ <tr><td><a href="#vect_derivs_integrals">Vectors - Derivatives and Integrals of Vector Functions</a></td><td><a href="#vect_deriv">Derivative of a Vector Function</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#unit_tangent_vect">Unit Tangent Vector</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#param_eqs_tangent_line">Parametric Equations of the Tangent Line</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vect_integral">Integral of a Vector Function</a></td></tr>
+ <tr><td><a href="#vect_arc_curve">Vectors - Arc Length and Curvature</a></td><td><a href="#arc_length">Arc Length of a Vector Function</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#reparam">Reparametrizing the Curve</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#unit_tangent_normal">Unit Tangent and Unit Normal Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#curvature">Curvature</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#max_curvature">Maximum Curvature</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="vect_fx_space_curves">Vectors - Vector Functions and Space Curves</h2>
+
+		<h3 id="domain_vect_fx">Domain of a Vector Function</h3>
+
+				<p>To find the domain of a vector function, $r(t) = \langle a,b,c \rangle$ or $r(t) = a \mathbf{i} + b \mathbf{j} + c \mathbf{k}$, we'll need to find the domain of the individual components $a$, $b$, and $c$. The domain of the vector function is the values for which the domains of $a$, $b$, and $c$ overlap.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the domain of the following vector function:</p>
+
+				<p>$r(t) = \biggl\langle ln(t-1), t^2, \frac{1}{9-t^2} \biggr\rangle$</p>
+
+				<p>The domain of $ln(t-1)$ is:</p>
+
+				<p>$t - 1 \gt 0$</p>
+				<p>$t \gt 1$</p>
+
+				<p>The domain of $t^2$ is all real numbers.</p>
+
+				<p>The domain of $\frac{1}{9-t^2}$ is:</p>
+
+				<p>$9 - t^2 \neq 0$</p>
+				<p>$-t^2 \neq -9$</p>
+				<p>$t^2 \neq -9$</p>
+				<p>$t \neq \pm 3$</p>
+
+				<p>The first component restricts the domain of the entire vector function to $t \gt 1$. The second component doesn't restrict the domain at all. The third component says $t$ cannot include $\pm 3$. $t = -3$ is outside of the domain $t \gt 1$, so we can ignore it.</p>
+
+				<p>The domain of the vector function is $t \gt 1$ but $t \neq 3$.</p>
+
+
+		<h3 id="limit_vect_fx">Limit of a Vector Function</h3>
+
+			<p>To find the limit of a vector function, $r(t) = a(t) \mathbf{i} + b(t) \mathbf{j} + c(t) \mathbf{k}$, we need to take the limit of each term separately.</p>
+
+			<p>$\lim \limits_{t \to x} [ a(t) \mathbf{i} + b(t) \mathbf{j} + c(t) \mathbf{k} ]$</p>
+
+			<p>$= \lim \limits_{t \to x} a(t) \mathbf{i} + \lim \limits_{t \to x} b(t) \mathbf{j} + \lim \limits_{t \to x} c(t) \mathbf{k}$</p>
+
+			<p>$= a(x) \mathbf{i} + b(x) \mathbf{j} + c(x) \mathbf{k}$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the limit of the vector function:</p>
+
+				<p>$\lim \limits_{t \to 0} \left[ (t^2 - 2) \mathbf{i} + ln(t + e) \mathbf{j} + \frac{4t}{sin ~t} \mathbf{k} \right]$</p>
+
+				<p>We'll take the limit of each term separately.</p>
+
+				<p>$\lim \limits_{t \to 0}(t^2 - 2) \mathbf{i} + \lim \limits_{t \to 0} ln(t + e) \mathbf{j} + \lim \limits_{t \to 0} \frac{4t}{sin ~t} \mathbf{k}$</p>
+
+				<p>Evaluating the first two terms as $t \to 0$, we get:</p>
+
+				<p>$(0^2 - 2) \mathbf{i} + ln(0 + e) \mathbf{j} + \lim \limits_{t \to 0} \frac{4t}{sin ~t} \mathbf{k}$</p>
+				<p>$-2 \mathbf{i} + ln(e) \mathbf{j} + \lim \limits_{t \to 0} \frac{4t}{sin ~t}$</p>
+
+				<p>$-2 \mathbf{i} + \mathbf{j} + \lim \limits_{t \to 0} \frac{4t}{sin ~t} \mathbf{k}$</p>
+
+				<p>Because the third term gives $0/0$ when $t \to 0$, we use L'Hopital's rule, replacing the numerator and denominator with their derivatives.</p>
+
+				<p>$-2 \mathbf{i} + \mathbf{j} + \lim \limits_{t \to 0} \frac{4}{cos ~t} \mathbf{k}$</p>
+
+				<p>Evaluating as $t \to 0$, we get:</p>
+
+				<p>$-2 \mathbf{i} + \mathbf{j} + \frac{4}{cos ~0} \mathbf{k}$</p>
+				<p>$-2 \mathbf{i} + \mathbf{j} + \frac{4}{1} \mathbf{k}$</p>
+				<p>$-2 \mathbf{i} + \mathbf{j} + 4 \mathbf{k}$</p>
+
+				<p>This is the limit of the vector function.</p>
+
+
+		<h3 id="vect_par_eq_line_seg">Vector and Parametric Equations of a Line Segment</h3>
+
+			<p>Sometimes we need to find the equation of a line segment when we only have the endpoints of the line segment. The vector equation of the line segment is given by:</p>
+
+			<p>$r(t) = (1-t)r_0 + tr_1$</p>
+
+			<p>where $0 \le t \le 1$ and $r_0$ and $r_1$ are the vector equivalents of the endpoints.</p>
+
+			<p>The parametric equations of the line segment are given by:</p>
+
+			<p>$x = r(t)_1$</p>
+			<p>$y = r(t)_2$</p>
+			<p>$z = r(t)_3$</p>
+
+			<p>where $r(t)_1$, $r(t)_2$, and $r(t)_3$ come from the vector function.</p>
+
+			<p>$r(t) = r(t)_1 \mathbf{i} + r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$</p>
+			<p>$r(t) = \langle r(t)_1, r(t)_2, r(t)_3 \rangle$</p>
+			
+
+			<h4>Example:</h4>
+
+				<p>Find the vector and parametric equations of the following line segment defined by its endpoints.</p>
+
+				<p>$P(1, 2, -1)$</p>
+				<p>$Q(1, 0, 3)$</p>
+
+				<p>We'll convert its endpoints to their vector equivalents.</p>
+
+				<p>$r_0 = \langle 1, 2, -1 \rangle$</p>
+				<p>$r_1 = \langle 1, 0, 3 \rangle$</p>
+
+				<p>Plugging these into the vector formula for the equation of the line segment gives:</p>
+
+				<p>$r(t) = (1-t) \langle 1, ~2, ~-1 \rangle + t \langle 1, 0, 3 \rangle$</p>
+				<p>$r(t) = \langle 1-t, ~2-2t, ~-1+t \rangle + \langle t, 0, 3t \rangle$</p>
+				<p>$r(t) = \langle 1-t+t, ~2-2t+0, ~-1 + t + 3t \rangle$</p>
+				<p>$r(t) = \langle 1, ~2-2t, ~-1 + 4t \rangle$</p>
+
+				<p>We can also write the vector equation as:</p>
+
+				<p>$r(t) = \mathbf{i} + (2 - 2t) \mathbf{j} + (-1 + 4t) \mathbf{k}$</p>
+
+				<p>Now that we have the vector equation of the line segment, we just take its direction numbers, or the coefficients \mathbf{i}, \mathbf{j}, and \mathbf{k} to get the parametric equations of the line segment.</p>
+
+				<p>$x = 1$</p>
+				<p>$y = 2 - 2t$</p>
+				<p>$z = -1 + 4t$</p>
+
+				<p>To summarize:</p>
+
+				<p>Vector Equation: $r(t) \langle 1, ~2-2t, ~-1 + 4t \rangle$</p>
+				<p>Parametric Equations: $x=1$, $y=2-2t$, and $z=1+4t$</p>
+
+
+		<h3 id="vect_curve_intersect">Vector Function for the Curve of Intersection of Two Surfaces</h3>
+
+			<p>When two 3D surfaces intersect each other, the intersection is a curve. We can find the vector equation of that curve using these steps:</p>
+
+			<p>1. Set the curves equal to each other and solve for one of the remaining variables in terms of the other</p>
+
+			<p>2. Define each of the variables in terms of the parameter $t$ to get parametric equations for the intersection curve</p>
+
+			<p>$x = r(t)_1$</p>
+			<p>$y = r(t)_2$</p>
+			<p>$z = r(t)_3$</p>
+
+			<p>3. Generate the vector function that describes the intersection curve using the formulas:</p>
+
+			<p>$r(t) = r(t)_1 \mathbf{i} +  r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$</p>
+			<p>$r(t) = \langle r(t)_1, r(t)_2, r(t)_3 \rangle$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the vector function for the curve of intersection of the following surfaces.</p>
+
+				<p>An ellipsoid $z = \sqrt{ 1 + x^2 - y^2 }$</p>
+				<p>A plane $z = 2 + x$</p>
+
+				<p>Since both curves have $z$ on the left side, we can set the right-hand sides equal to one another and solve for one variable of the remaining variables in terms of each other.</p>
+
+				<p>$\sqrt{ 1 + x^2 - y^2 } = 2 + x$</p>
+				<p>$1 + x^2 - y^2 = (2 + x)^2$</p>
+				<p>$1 + x^2 - y^2 = 4 + 4x + x^2$</p>
+				<p>$-3 - y^2 = 4x$</p>
+				<p>$x = - \frac{3}{4} - \frac{1}{4} y^2$</p>
+
+				<p>We want to define each variable in terms of the parameter $t$, so we'll set $y = t$.</p>
+
+				<p>$x = - \frac{3}{4} - \frac{1}{4} t^2$</p>
+
+				<p>To find $z$ in terms of $t$, we'll plug $x$ in terms of $t$ into $z = 2 + x$.</p>
+
+				<p>$z = 2 + x$</p>
+				<p>$z = 2 - \frac{3}{4} - \frac{1}{4}t^2$</p>
+				<p>$z = \frac{5}{4} - \frac{1}{4}t^2$</p>
+
+				<p>Now we have parametric equations for the curve of intersection, defined by:</p>
+
+				<p>$x = - \frac{3}{4} - \frac{1}{4}t^2$</p>
+				<p>$y = t$</p>
+				<p>$z = \frac{5}{4} - \frac{1}{4}t^2$</p>
+
+				<p>With the parametric equations in hand, we can plug each of them into the formula for the vector function.</p>
+
+				<p>$r(t) = r(t)_1 \mathbf{i} + r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$</p>
+
+				<p>$r(t) = \left( \frac{3}{4} - \frac{1}{4}t^2 - \frac{1}{4}t^2 \right) \mathbf{i} + t \mathbf{j} + \left( \frac{5}{4} - \frac{1}{4}t^2 \right)$</p>
+
+				<p>This is the vector function for the curve of intersection, and can also be written:</p>
+
+				<p>$r(t) = \biggl \langle - \frac{3}{4} - \frac{1}{4}t^2, ~t, ~\frac{5}{4} - \frac{1}{4}t^2 \biggr \rangle$</p>
+
+
+
+	<h2 id="vect_derivs_integrals">Vectors - Derivatives and Integrals of Vector Functions</h2>
+
+		<h3 id="vect_deriv">Derivative of a Vector Function</h3>
+
+			<p>To find the derivative of a vector function, we simply find the derivatives of the coefficients when the vector function is in the form:</p>
+
+			<p>$r(t) = r(t)_1 \mathbf{i} + r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$</p>
+
+			<p>If the vector is in the form $r(t) = \langle r(t)_1, r(t)_2, r(t)_3 \rangle$, it can first be transformed into the form above before taking the derivative.</p>
+
+			<p>$r'(t) = r'(t)_1 \mathbf{i} + r'(t)_2 \mathbf{j} + r'(t)_3 \mathbf{k}$</p>
+			<p>$r'(t) = \langle r'(t)_1, r(t)_2, r(t)_3 \rangle$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the derivative of the vector function:</p>
+
+				<p>$r(t) = \langle t^2, e^{3t}, t^3 ~sin(4t) \rangle$</p>
+
+				<p>The given function is the same as:</p>
+
+				<p>$r(t) = t^2 \mathbf{i} + e^{3t} \mathbf{j} + t^3 ~sin(4t) \mathbf{k}$</p>
+
+				<p>We'll use the product rule to find the derivative of the coefficient $\mathbf{k}$.</p>
+
+				<p>$r'(t) = 2t \mathbf + e^{3t}(3) \mathbf{j} + [3t^2 (sin(4t)) + t^3 (cos(4t)(4))] \mathbf{k}$</p>
+				<p>$r'(t) = 2t \mathbf{i} + 3e^{3t} \mathbf{j} + (3t^2 ~sin(4t) + 4t^3 ~cos(4t))$</p>
+
+				<p>or in the other form:</p>
+
+				<p>$r'(t) = \langle 2t, 3e^{3t}, 3t^2 ~sin(4t) + 4t^3 ~cos(4t) \rangle$</p>
+
+
+		<h3 id="unit_tangent_vect">Unit Tangent Vector</h3>
+
+			<p>To find the unit tangent vector for a vector function, we use the formula:</p>
+
+			<p>$T(t) = \frac{r'(t)}{||r'(t)||}$</p>
+
+			<p>where $r'(t)$ is the derivative of the vector function $r(t)$ and $t$ is given. $||r'(t)||$ is the magnitude of the derivative of the vector function at time $t$.</p>
+
+			<p>$||r'(t)|| = \sqrt{ [r'(t)_1]^2 + [r'(t)_2]^2 + [r'(t)_3]^2 }$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the unit tangent vector of the following vector function at $t=1$.</p>
+
+				<p>$r(t) = 4t^3 \mathbf{i} + 6t \mathbf{j} + 4t ~ln(t) \mathbf{k}$</p>
+
+				<p>We'll start by finding the derivative of the vector function.</p>
+
+				<p>$r'(t) = 12t^2 \mathbf{i} + 6 \mathbf{j} + \left[ (4)(ln(t)) + (4t) \left( \frac{1}{t} \right) \right] \mathbf{k}$</p>
+
+				<p>$r'(t) = 12t^2 \mathbf{i} + 6 \mathbf{j} + [4 ~ln(t) + 4] \mathbf{k}$</p>
+
+				<p>Now we'll find the derivative at $t=1$.</p>
+
+				<p>$r'(1) = 12(1)^2 \mathbf{i} + 6 \mathbf{j} + [4 ~ln(1) + 4] \mathbf{k}$</p>
+				<p>$r'(1) = 12 \mathbf{i} + 6 \mathbf{j} + [4(0) + 4] \mathbf{k}$</p>
+				<p>$r'(1) = 12 \mathbf{i} + 6 \mathbf{j} + 4 \mathbf{k}$</p>
+
+				<p>Now we'll use the values from the derivative to find the magnitude of the vector function at $t=1$ so that we can plug it into the formula for the unit tangent vector.</p>
+
+				<p>$||r'(t)|| = \sqrt{ [r'(t)_1]^2 + [r'(t)_2]^2 + [r'(t)_3]^2 }$</p>
+				<p>$||r'(t)|| = \sqrt{ 12^2 + 6^2 + 4^2 }$</p>
+				<p>$||r'(t)|| = \sqrt{144 + 36 + 16}$</p>
+				<p>$||r'(t)|| = \sqrt{196}$</p>
+				<p>$||r'(t)|| = 14$</p>
+
+				<p>Plugging everything into the formula for the unit tangent vector, we get:</p>
+
+				<p>$T(1) = \frac{ 12 \mathbf{i} + 6 \mathbf{j} + 4 \mathbf{k} }{14}$</p>
+				<p>$T(1) = \frac{12}{14} \mathbf{i} + \frac{6}{14} \mathbf{j} + \frac{4}{14} \mathbf{k}$</p>
+				<p>$T(1) = \frac{6}{7} \mathbf{i} + \frac{3}{7} \mathbf{j} + \frac{2}{7} \mathbf{k}$</p>
+
+				<p>This is the equation for the unit tangent vector.</p>
+
+
+		<h3 id="param_eqs_tangent_line">Parametric Equations of the Tangent Line</h3>
+
+			<p>The parametric equations of the tangent line of a vector function $r(t) = \langle r(t)_1, r(t)_2, r(t)_3 \rangle$ are:</p>
+
+			<p>$x = x_1 + r'(t_0)_1 t$</p>
+			<p>$y = y_1 + r'(t_0)_2 t$</p>
+			<p>$z = z_1 + r'(t_0)_3 t$</p>
+
+			<p>$x_1$, $y_1$, and $z_1$ come from the point $P(x_1, y_1, z_1)$ which is the point of tangency.</p>
+
+			<p>You find $r'(t)_1$, $r'(t)_2$, and $r'(t)_3$ by taking the derivative of the vector. You find $t_0$ by plugging $P(x_1, y_1, z_1)$ into the vector function. Then you find $r'(t_0)_1$, $r'(t_0)_2$, and $r'(t_0)_3$ by plugging $t_0$ into the derivative of the vector function.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the parametric equations of the following tangent line to the vector at point $P$.</p>
+
+				<p>$x = e^t$</p>
+				<p>$y = -t ~cos ~t$</p>
+				<p>$z = sin ~t$</p>
+
+				<p>at $P(1,0,0)$</p>
+
+				<p>Since the point of tangency is $P(1,0,0)$, we can plug that point into the formulas for the parametric equation of the tangent line.</p>
+
+				<p>$x = 1 + r'(t_0)_1 t$</p>
+				<p>$y = 0 + r'(t_0)_2 t$</p>
+				<p>$z = 0 + r'(t_0)_3 t$</p>
+
+				<p>Now we need to find a value for $t_0$. We'll use $x = e^t$, change $t$ to $t_0$, and plug in $x=1$ from $P(1,0,0)$ to get:</p>
+
+				<p>$1 = e^{t_0}$</p>
+				<p>$ln ~1 = ln ~e^{t_0}$</p>
+				<p>$t_0 = 0$</p>
+
+				<p>Plugging $t_0 = 0$ and $y=0$ into $y = -t ~cos ~t$ gives:</p>
+
+				<p>$0 = -0 ~cos ~0$</p>
+				<p>$0 = 0$</p>
+
+				<p>Now we'll plug $t_0 = 0$ and $z=0$ into $z = sin ~t$ and get:</p>
+
+				<p>$0 = sin ~0$</p>
+				<p>$0 = 0$</p>
+
+				<p>We've now shown that $t_0 = 0$ satisfies $x = e^t, y = -t ~cos ~t$ and $z = sin ~t$, so $0$ is the value we want to use for $t_0$. Therefore, the parametric equations of the tangent line become:</p>
+
+				<p>$x = 1 + r'(0)_1 t$</p>
+				<p>$y = r'(0)_2 t$</p>
+				<p>$z = r'(0)_3 t$</p>
+
+				<p>Next we need to find the derivative of the vector function. The original function is:</p>
+
+				<p>$r(t) = \langle e^t, -t ~cos ~t, sin ~t \rangle$</p>
+
+				<p>so its derivative is:</p>
+
+				<p>$r'(t) = \langle e^t, (-1)(cos ~t) + (-1)(-sin ~t), cos(t) \rangle$</p>
+				<p>$r'(t) = \langle e^t, - cos ~t + r ~sin ~t, cos ~t \rangle$</p>
+				<p>$r'(t) = \langle e^t, t ~sin ~t - cos ~t, cos ~t \rangle$</p>
+
+				<p>Plugging $t_0$ into the derivative, we get:</p>
+
+				<p>$r'(0) = \langle e^0, 0 ~sin ~0 - cos ~0, cos ~0 \rangle$</p>
+				<p>$r'(0) = \langle 1, 0-1, 1 \rangle$</p>
+				<p>$r'(0) = \langle 1, -1, 1 \rangle$</p>
+
+				<p>We plug these three values into our parametric equations, which become:</p>
+
+				<p>$x = 1 + 1t$</p>
+				<p>$y = -1t$</p>
+				<p>$z = 1t$</p>
+
+				<p>and these simplify to:</p>
+
+				<p>$x = 1+t$</p>
+				<p>$y = -t$</p>
+				<p>$z = t$</p>
+
+
+		<h3 id="vect_integral">Integral of a Vector Function</h3>
+
+			<p>To find the integral of a vector function, we simply replace each coefficient with its integral.</p>
+
+			<p>$\int r(t) ~dt = \mathbf{i} \int r(t)_1 ~dt + \mathbf{j} \int r(t)_2 ~dt + \mathbf{k} \int r(t)_3 ~dt$</p>
+
+			<p>If the vector function is given as $r(t) = \langle r(t)_1, r(t)_2, r(t)_3 \rangle$, then its integral is:</p>
+
+			<p>$\int r(t) = \langle \int r(t)_1 ~dt, \int r(t)_2 ~dt, \int r(t)_3 ~dt \rangle$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the integral of the following vector function over the interval $[0, \pi]$.</p>
+
+				<p>$r(t) = sin(2t) \mathbf{i} + 2e^{2t} \mathbf{j} + 4t^3 \mathbf{k}$</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = \frac{-cos(2t)}{2} \bigg|_0^{\pi} \mathbf{i} + \frac{2e^{2t}}{2} \bigg|_0^{\pi} \mathbf{j} + \frac{4t^4}{4} \bigg|_0^{\pi} \mathbf{k}$</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = \frac{-cos(2t)}{2} \bigg|_0^{\pi} \mathbf{i} + e^{2t} \bigg|_0^{\pi} \mathbf{j} + t^4 \bigg|_0^{\pi} \mathbf{k}$</p>
+
+				<p>Evaluating over the interval $[0, \pi]$, we get:</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = \left[ \frac{-cos(2 \pi)}{2} - \frac{-cos(2(0))}{2} \right] \mathbf{i} + [e^{2 \pi} - e^2(0)] \mathbf{j} + [\pi^4 - 0^4] \mathbf{k}$</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = \left[ \frac{-cos(2 \pi)}{2} + \frac{cos ~0}{2} \right] \mathbf{i} + (e^{2 \pi} - 1) \mathbf{j} + (\pi^4 - 0) \mathbf{k}$</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = \left( \frac{-1}{2} + \frac{1}{2} \right) \mathbf{i} + (e^{2 \pi} - 1) \mathbf{j} + \pi^4 \mathbf{k}$</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = 0 \mathbf{i} + (e^{2 \pi} - 1) \mathbf{j} + \pi^4 \mathbf{k}$</p>
+				<p>$\int_0^{\pi} r(t) ~dt = (e^{2 \pi}) \mathbf{j} + \pi^4 \mathbf{k}$</p>
+
+				<p>This is the integral of the vector function. We could also write it in the form:</p>
+
+				<p>$\int_0^{\pi} r(t) ~dt = \langle 0, e^{2 \pi} - 1, \pi^4 \rangle$</p>
+
+
+
+	<h2 id="vect_arc_curve">Vectors - Arc Length and Curvature</h2>
+
+		<h3>Arc Length of a Vector Function</h3>
+
+			<p>To find the arc length of a vector function, we use the formula:</p>
+
+			<p>$
+				L = \int_1^b
+				\sqrt{ 
+				\left( \frac{dx}{dt} \right)^2 +
+				\left( \frac{dy}{dt} \right)^2 +
+				\left( \frac{dz}{dt} \right)^2
+				}
+				~dt
+				$
+			</p>
+
+				<ul>
+					<li>$L$ is the arc length of the vector function</li>
+					<li>$[a,b]$ is the interval that defines the arc</li>
+					<li>$\frac{dx}{dt}$, $\frac{dy}{dt}$, and $\frac{dz}{dt}$ are the derivatives of the parametric equations of $x$, $y$, and $z$. The parametric equations are:</li>
+						<ul>
+							<li>$x = r(t)_1$</li>
+							<li>$y = r(t)_2$</li>
+							<li>$z = r(t)_3$</li>
+						</ul>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the arc length of the vector function over the given interval:</p>
+
+				<p>$r(t) = \langle sin(2t), cos(2t), 2t \rangle$</p>
+				<p>on $0 \le t \le 2$</p>
+
+				<p>We'll pull the parametric equations out of the vector function as:</p>
+
+				<p>$x = sin(2t)$</p>
+				<p>$y = cos(2t)$</p>
+				<p>$z = 2t$</p>
+
+				<p>Now take the derivative of each.</p>
+
+				<p>$\frac{dx}{dt} = 2 ~cos(2t)$</p>
+				<p>$\frac{dy}{dt} = -2 ~sin(2t)$</p>
+				<p>$\frac{dz}{dt} = 2$</p>
+
+				<p>Plugging the derivatives and the given interval $0 \le t \le 2$ into the formula for arc length, we get:</p>
+
+				<p>$L = \int_0^2 \sqrt{ [2 ~cos(2t)]^2 + [-2 ~sin(2t)]^2 + (2)^2 } ~dt$</p>
+				<p>$L = \int_0^2 \sqrt{ 4 ~cos^2(2t) + 4 ~sin^2(2t) + 4 } ~dt$</p>
+				<p>$L = \int_0^2 \sqrt{ 4 ~cos^2(2t) + sin^2(2t) + 4 } ~dt$</p>
+
+				<p>Since $cos^2x + sin^2x = 1$, we can simplify the integral to:</p>
+
+				<p>$L = \int_0^2 \sqrt{4(1) + 4} ~dt$</p>
+				<p>$L = \int_0^2 \sqrt{8} ~dt$</p>
+				<p>$L = \int_0^2 \sqrt{4 \cdot 2} ~dt$</p>
+				<p>$L = \int_0^2 2 \sqrt{2} ~dt$</p>
+				<p>$L = 2 \sqrt{2} t \bigg|_0^2$</p>
+
+				<p>Evaluating over the interval, we get:</p>
+
+				<p>$L = 2 \sqrt{2}(2) - 2 \sqrt{2}(0)$</p>
+				<p>$L = 4 \sqrt{2}$</p>
+
+				<p>The arc length of the vector function over the interval $0 \le t \le 2$ is $L = 4 \sqrt{2}$.</p>
+
+
+
+		<h3 id="reparam">Reparametrizing the Curve</h3>
+
+			<p>When we reparametrize a curve, it means that we rewrite it in terms of an indpendent variable. It is common to use the letter $s$ for this variable. Given a vector function, $r(t) = r(t)_1 \mathbf{i} + r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$, the reparametrized curve will be:</p>
+
+			<p>$r[t(s)] = t[t(s)]_1 \mathbf{i} + r[t(s)]_2 \mathbf{j} + r[t(s)]_3 \mathbf{k}$</p>
+
+			<p>To reparametrize the curve with respect to arc length, we'll have to find the arc length of the vector function using:</p>
+
+			<p>$
+				L = \int_a^b \sqrt{  
+				\left( \frac{dx}{dt}^2 \right) +
+				\left( \frac{dy}{dt}^2 \right) + 
+				\left( \frac{dz}{dt}^2 \right)
+				}
+				$
+			</p>
+
+			<p>where $L$ is the arc length of the function, and [a,b] is the interval to evaluate upon. The derivatives are with respect to the parametric equations for $x$, $y$, and $z$. Regardless of how the vector function is expressed, the parametric equations are:</p>
+
+			<p>$x = r(t)_1$</p>
+			<p>$y = r(t)_2$</p>
+			<p>$z = r(t)_3$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Reparametrize the following curve with respect to arc length from $t=0$ in the direction of increasing $t$.</p>
+
+				<p>$r(t) = -2t \mathbf{i} + 4t \mathbf{j} + (2-4t) \mathbf{k}$</p>
+
+				<p>First, we'll use the coefficients from the vector function to generate parametric equations of the vector function.</p>
+
+				<p>$x = -2t$</p>
+				<p>$y = 4t$</p>
+				<p>$z = 2 - 4t$</p>
+
+				<p>Now take the derivatives of these.</p>
+
+				<p>$\frac{dx}{dt} = -2$</p>
+				<p>$\frac{dy}{dt} = 4$</p>
+				<p>$\frac{dz}{dt} = -4$</p>
+
+				<p>Next, we'll plug the derivatives into the arc length formula. The limits of integration will be $[0,t]$, since the problem indicated that the arc length should start at $0$ and head in the direction of increasing $t$.</p>
+
+				<p>$L = \int_0^t \sqrt{ (-2)^2 + (4)^2 + (-4)^2 } ~dt$</p>
+				<p>$L = \int_0^t \sqrt{4 + 16 + 16} ~dt$</p>
+				<p>$L = \int_0^t \sqrt{36} ~dt$</p>
+				<p>$L = \int_0^t 6 ~dt$</p>
+				<p>$L = 6t \bigg|_0^t$</p>
+				<p>$L = 6(t) - 6(0)$</p>
+				<p>$L = 6t$</p>
+
+				<p>Now we'll set arc length equal to the independent variable $s$, and get:</p>
+
+				<p>$s = $6t</p>
+
+				<p>Then solve for $t$.</p>
+
+				<p>$t = \frac{s}{6}$</p>
+
+				<p>We'll substitute the value of t into the original vector function, and get the reparametrized version.</p>
+
+				<p>$
+					r[t(s)] = 
+					-2 \left( \frac{5}{6} \right) \mathbf{i} +
+					4 \left( \frac{5}{6} \right) \mathbf{j} +
+					\left[ 2-4 \left( \frac{5}{6} \right) \right] \mathbf{k}
+					$
+				</p>
+
+				<p>$r[t(s)] = - \frac{1}{3}s \mathbf{i} + \frac{2}{3}s \mathbf{j} + \left( 2 - \frac{2}{3}s \right) \mathbf{k}$</p>
+
+				<p>This is the reparametrized curve in terms of arc length.</p>
+
+
+		<h3 id="unit_tangent_normal">Unit Tangent and Unit Normal Vectors</h3>
+
+			<p>The unit tangent vector $T(t)$ of a vector function $r(t) = r(t)_1 \mathbf{i} + r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$ is the vector that is $1$ unit long and tangent to the vector function at the point $t$.</p>
+
+			<p>$T(t) = \frac{ r'(t) }{ |f'(t)| }$</p>
+
+			<p>$|r'(t)|$ is the magnitude of the derivative of the vector function at time $t$, found as:</p>
+
+			<p>$|r'(t)| = \sqrt{ [r'(t)_1]^2 + [r'(t)_2]^2 + [r'(t)_3]^2 }$</p>
+
+			<p>The unit normal vector $N(t)$ of the same vector function is the vector that is $1$ unit long and perpendicular to the unit tangent vector at the same point $t$.</p>
+
+			<p>$N(t) = \frac{ T'(t) }{ |T'(t) }$</p>
+
+			<p>$|T'(t)|$ is the magnitude of the derivative of the unit tangent vector at time $t$.</p>
+
+			<p>$|T'(t)| = \sqrt{ [T'(t)_1]^2 + [T'(t)_2]^2 + [T'(t)_3]^2 }$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the unit normal vector of the following vector function at $t=1$.</p>
+
+				<p>$r(t) = t \mathbf{i} + t^2 \mathbf{j} + 2 \mathbf{k}$</p>
+
+				<p>We must first take the derivative of the vector function to find $r'(t)$.</p>
+
+				<p>$r(t) = t \mathbf{i} + t^2 \mathbf{j} + 2 \mathbf{k}$</p>
+				<p>$r'(t) = 1 \mathbf{i} + 2t \mathbf{j} + 0 \mathbf{k}$</p>
+				<p>$r'(t) = \mathbf{i} + 2t \mathbf{j}$</p>
+
+				<p>Now we can use $r'(t)$ to find $|r'(t)|$.</p>
+
+				<p>$|r'(t)| = \sqrt{ (1)^2 + (2t)^2 + (0)^2 }$</p>
+				<p>$|r'(t)| = \sqrt{1 + 4t^2}$</p>
+
+				<p>Plugging these into the formula for the unit tangent vector, we get:</p>
+
+				<p>$T(t) = \frac{ r'(t) }{ |f'(t)| }$</p>
+				<p>$T(t) = \frac{ \mathbf{i} + 2t \mathbf{j} }{ \sqrt{ 1 + 4t^2 } }$</p>
+
+				<p>Now that we have an equation for the unit tangent vector, we can use it to find the unit normal vector, given by:</p>
+
+				<p>$N(t) = \frac{ T'(t) }{ |T'(t)| }$</p>
+
+				<p>We'll have to start by taking the derivative of the unit tangent vector to get $T'(t)$, using the quotient rule.</p>
+
+				<p>$T(t) = \frac{ \mathbf{i} + 2t \mathbf{j} }{ \sqrt{1 + 4t^2} }$</p>
+
+				<p>$
+					T'(t) = \frac
+					{ (0 \mathbf{i} + 2 \mathbf{j}) \sqrt{1 + 4t^2} - (\mathbf{i} + 2t \mathbf{j}) \frac{1}{2} (1 + 4t^2)^{-\frac{1}{2}} (8t) }
+					{ 1 + 4t^2 }
+					$
+				</p>
+
+
+				<p>$
+					T'(t) = \frac
+					{ 2 \mathbf{j} \sqrt{1 + 4t^2} - 4t(\mathbf{i} + 2t \mathbf{j}) (1 + 4t^2)^{-frac{1}{2}} }
+					{ 1 + 4t^2 }
+					$
+				</p>
+
+
+				<p>$
+					T'(t) = \sqrt{ 
+					\frac
+					{ 2 \mathbf{j} \sqrt{1 + 4t^2} - \frac{ 4t(\mathbf{i} + 2t \mathbf{j}) }{ \sqrt{1 + 4t^2} } }
+					{ 1 + 4t^2 }
+					}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) = \frac
+					{ \frac{ 2 \mathbf{j} \sqrt{1+4t^2} \sqrt{1+4t^2} }{ \sqrt{1 + 4t^2} } - \frac{ 4t(1 + 2t \mathbf{j}) }{ \sqrt{1 + 4t^2} } }
+					{ 1 + 4t^2 }
+					$
+				</p>
+
+
+				<p>$
+					T'(t) = \frac
+					{ \frac{ 2 \mathbf{j} (1 + 4t^2) }{ \sqrt{1 + 4t^2} } - \frac{ 4t(\mathbf{i} + 2t \mathbf{j}) }{ \sqrt{1 + 4t^2} } }
+					{ 1 + 4t^2 }
+					$
+				</p>
+
+
+				<p>$
+					T'(t) = \frac
+					{ \frac{ 2 \mathbf{j}(1 + 4t^2) - 4t(\mathbf{i} + 2t \mathbf{j}) }{ \sqrt{1 + 4t^2} } }
+					{ 1 + 4t^2 }
+					$
+				</p>
+
+
+				<p>$T'(t) = \frac{ 2 \mathbf{j}(1 + 4t^2) - 4t(\mathbf{i} + 2t \mathbf{j}) }{ (1 + 4t^2)^{\frac{3}{2}} }$</p>
+
+				<p>$T'(t) = \frac{ 2 \mathbf{j} + 8t^2 \mathbf{j} - 4t \mathbf{i} - 8t^2 \mathbf{j} }{ (1 + 4t^2)^\frac{3}{2} }$</p>
+
+				<p>$T'(t) = \frac{ -4t \mathbf{i} + 2 \mathbf{j} }{ (1 + 4t^2)^\frac{3}{2} }$</p>
+
+				<p>Next, we'll solve for $T'(1)$ by plugging $t=1$ into the derivative we just found.</p>
+
+				<p>$T'(1) = \frac{ -4(1) \mathbf{i} + 2 \mathbf{j} }{ (1 + 4t^2)^{\frac{3}{2}} }$</p>
+				<p>$T'(1) = \frac{ -4 \mathbf{i} + 2 \mathbf{j} }{ 5^{\frac{3}{2}} }$</p>
+				<p>$T'(1) = - \frac{4}{5 \sqrt{5}} \mathbf{i} + \frac{2}{5 \sqrt{5}} \mathbf{j}$</p>
+
+				<p>Now we'll find the magnitude $|T'(t)|$.</p>
+
+				<p>$|T'(1)| = \sqrt{ \left( - \frac{4}{5 \sqrt{5}} \right)^2 + \left( \frac{2}{5 \sqrt{5}} \right)^2 + (0)^2 }$</p>
+				<p>$|T'(1)| = \sqrt{ \frac{16}{25(5)} + \frac{4}{25(5)} }$</p>
+				<p>$|T'(1)| = \sqrt{ \frac{20}{125} }$</p>
+				<p>$|T'(1)| = \sqrt{ \frac{4}{25} }$</p>
+				<p>$|T'(1)| = \frac{2}{5}$</p>
+
+				<p>Finally, we'll plug everything we've found into the formula for the unit normal vector.</p>
+
+				<p>$N(t) = \frac{T'(t)}{|T'(t)|}$</p>
+
+				<p>$
+					N(1) = \frac
+					{ - \frac{4}{5 \sqrt{5}} \mathbf{i} + \frac{2}{5 \sqrt{5}} \mathbf{j} }
+					{ \frac{2}{5} }
+					$
+				</p>
+
+				<p>$N(1) = - \frac{4(5)}{5(2) \sqrt{5}} \mathbf{i} + \frac{2(5)}{5(2) \sqrt{5}} \mathbf{j}$</p>
+				<p>$N(1) = - \frac{2}{\sqrt{5}} \mathbf{i} + \frac{1}{\sqrt{5}} \mathbf{j}$</p>
+
+				<p>We can multiply by $\sqrt{5}$ to simplify the equation of the unit normal vector to:</p>
+
+				<p>$N(1) = -2 \mathbf{i} + \mathbf{j}$</p>
+
+				<p>This is the unit normal vector of the vector function $r(t) = t \mathbf{i} + t^2 \mathbf{j} + 2 \mathbf{k}$ at the point $t=1$.</p>
+
+
+		<h3 id="curvature">Curvature</h3>
+
+			<p>To find the curvature $k(t)$ of a vector function $r(t) = r(t)_1 \mathbf{i} + r(t)_2 \mathbf{j} + r(t)_3 \mathbf{k}$, we'll use the equation:</p>
+
+			<p>$k(t) = \frac{ |T'(t)| }{ |r'(t)| }$</p>
+
+			<p>$|t'(t)|$ is the magnitude of the unit tangent vector $T(t)$. To find $k(t)$, we will:</p>
+				<ol>
+					<li>Find $r'(t)$, and use it to:</li>
+					<li>Find $|r'(t)|$ and then use $r'(t)$ and $|r'(t)|$ to:</li>
+					<li>Find $T(t)$, and then use it to:</li>
+					<li>Find $T'(t)$, and then use it to:</li>
+					<li>Find $|T'(t)|$, and use $|r'(t)|$ and $|T'(t)|$ to:</li>
+					<li>Find $k(t)$</li>
+				</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>$r(t) = 4t \mathbf{i} + t^2 \mathbf{j} + 2t \mathbf{k}$</p>
+
+				<p>We'll start by calculating the derivative of the vector function:</p>
+
+				<p>$r'(t) = 4 \mathbf{i} + 2t \mathbf{j} + 2t \mathbf{k}$</p>
+
+				<p>We'll start by calculating the derivative of the vector function:</p>
+
+				<p>$r'(t) = 4 \mathbf{i} + 2t \mathbf{j} + 2 \mathbf{k}$</p>
+
+				<p>Then we'll find $|r'(t)|$</p>
+
+				<p>$|r'(t)| = \sqrt{ (4)^2 + (2t)^2 + (z)^2 }$</p>
+				<p>$|r'(t)| = \sqrt{ (4)^2 + (2t)^2 + (2)^2 }$</p>
+				<p>$|r'(t)| = \sqrt{ 16 + 4t^2 + 4 }$</p>
+				<p>$|r'(t)| = \sqrt{ 4t^2 + 20 }$</p>
+				<p>$|r'(t)| = \sqrt{ 4(t^2 + 5) }$</p>
+				<p>$|r'(t)| = 2 \sqrt{t^2 + 5}$</p>
+
+				<p>Now we'll use the derivative and its magnitude to find an equation for the unit tangent vector $T(t)$.</p>
+
+				<p>$T(t) = \frac{ f'(t) }{ |r'(t)| }$</p>
+				<p>$T(t) = \sqrt{ 4 \mathbf{i} + 2t \mathbf{k} + 2 \mathbf{k} }{ 2 \sqrt{ t^2 + 5 } }$</p>
+
+				<p>$
+					T(t) =
+					\frac{4}{2 \sqrt{t^2 + 5}} \mathbf{i} +
+					\frac{2t}{2 \sqrt{t^2 + 5}} \mathbf{j} +
+					\frac{2}{s \sqrt{t^2 + 5}} \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) =
+					\frac{2}{t^2 + 5} \mathbf{i} +
+					\frac{t}{\sqrt{t^2 + 5}} \mathbf{j} +
+					\frac{1}{\sqrt{t^2 + 5}} \mathbf{k}
+					$
+				</p>
+
+
+				<p>Now we can find the derivative of the unit tangent vector $T'(t)$, using the quotient rule.
+
+				<p>$
+					T'(t) = 
+					\frac{ (0) \sqrt{t^2 + 5} - (2) \left[ \frac{1}{2} (t^2 + 5)^{- \frac{1}{2}} (2t) \right]} {(t^2+5)^2} \mathbf{i} +
+					\frac{ (1) \sqrt{t^2 + 5} - (t) \left[ \frac{1}{2} (t^2 + 5)^{- \frac{1}{2}} (2t) \right]} {(t^2+5)^2} \mathbf{j} + 
+					\frac{ (0) \sqrt{t^2 + 5} - (1) \left[ \frac{1}{2} (t^2 + 5)^{- \frac{1}{2}} (2t) \right]} {(t^2+5)^2} \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) =
+					\frac{ -2t(t^2 + 5)^{- \frac{1}{2}} }{ t^2 + 5 } \mathbf{i} +
+					\frac{ \sqrt{t^2 - 5} - t^2(t^2 + 5)^{- \frac{1}{2}} }{ t^2 + 5 } \mathbf{j} +
+					\frac{ -t(t^2 + 5)^{- \frac{1}{2}} }{ t^2 + 5 } \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) = 
+					- \frac{ 2t }{ (t^2 + 5)^\frac{3}{2} } \mathbf{i} +
+					\frac{ \sqrt{t^2+5} - \frac{t^2}{t^2+5} }{ t^2 + 5 } \mathbf{j} -
+					\frac{ t }{ (t^2 + 5)^{\frac{3}{2}} } \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) =
+					- \frac{ 2t }{ (t^2 + 5)^{\frac{3}{2}} } \mathbf{i} +
+					\frac{ \frac{t^2+5}{\sqrt{t^2+5}} - \frac{t^2}{\sqrt{t^2+5}} }{ t^2 + 5 } \mathbf{j} - 
+					\frac{ t }{ (t^2+5)^\frac{3}{2} } \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) =
+					- \frac{ 2t }{ (t^2 + 5)^{\frac{3}{2}} } \mathbf{i} +
+					\frac{ \frac{t^2 + 5 - t^2}{\sqrt{t^2+5}} }{ t^2 + 5 } \mathbf{j} - 
+					\frac{ t }{ (t^2+5)^\frac{3}{2} } \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) =
+					- \frac{ 2t }{ (t^2 + 5)^{\frac{3}{2}} } \mathbf{i} +
+					\frac{ \frac{5}{\sqrt{t^2+5}} }{ t^2 + 5 } \mathbf{j} - 
+					\frac{ t }{ (t^2+5)^\frac{3}{2} } \mathbf{k}
+					$
+				</p>
+
+
+				<p>$
+					T'(t) =
+					- \frac{2t}{(t^2+5)^\frac{3}{2}} \mathbf{i} +
+					\frac{5}{(t^2+5)^\frac{3}{2}} \mathbf{j} -
+					\frac{t}{(t^2+5)^\frac{3}{2}} \mathbf{k}
+					$
+				</p>
+
+
+				<p>Then we'll find the magnitude of the derivative of the unit tangent vector.</p>
+
+				<p>$|T'(t)| = \sqrt{ [T'(t)_1]^2 + [T'(t)_2]^2 + [T'(t)_3]^2 }$</p>
+
+				<p>$
+					|T'(t)| = \sqrt{
+					\left[ - \frac{2t}{ (t^2 + 5)^{\frac{3}{2}} } \right]^2 +
+					\left[ \frac{5}{ (t^2+5)^\frac{3}{2} } \right]^2 +
+					\left[ - \frac{t}{(t^2 + 5)^\frac{3}{2}} \right]^2 
+					}
+					$
+				</p>
+
+
+				<p>$|T'(t)| = \sqrt{ \frac{4t^2}{(t^2 + 5)^3} + \frac{25}{(t^2 + 5)^3} + \frac{t^2}{(t^2 + 5)^3} }$</p>
+				<p>$|T'(t)| = \sqrt{ \frac{5t^2 + 25}{(t^2 + 5)^3} }$</p>
+				<p>$|T'(t)| = \sqrt{ \frac{5(t^2 + 5)}{(t^2 + 5)^3} }$</p>
+				<p>$|T'(t)| = \sqrt{ \frac{5}{(t^2 + 5)^2} }$</p>
+				<p>$|T'(t)| = \frac{\sqrt{5}}{t^2 + 5}$</p>
+
+				<p>Finally, we can solve for the curvature of the function $k(t)$.</p>
+
+				<p>$k(t) = \frac{ |T'(t)| }{ |r'(t)| }$</p>
+				<p>$k(t) = \frac{ \frac{\sqrt{5}}{t^2+5} }{ 2 \sqrt{t^2 + 5} }$</p>
+				<p>$k(t) = \frac{ \sqrt{5} }{ 2(t^2 + 5)^\frac{3}{2} }$</p>
+
+				<p>This is the curvature of the vector function.</p>
+
+
+		<h3 id="max_curvature">Maximum Curvature</h3>
+
+			<p>Before we can find maximum curvature of a vector function, we must find the curvature $k(t)$. Once found, we take its derivative, set it to $0$, and solve for $t$. If there is only one value for $t$, that value is associated with the maximum curvature. If there is more than one value for $t$, we'll use the second derivative test to determine which one represents maximum curvature.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the maximum curvature of the following vector function with the given curvature:</p>
+
+				<p>$k(t) = 8t^2 - 4t$</p>
+
+				<p>First, we'll find the derivative of k(t).</p>
+
+				<p>$k'(t) = 16t - 4$</p>
+
+				<p>Next, we'll set $k'(t)$ to $0$ and solve for $t$.</p>
+
+				<p>$0 = 16t - 4$</p>
+				<p>$-16t = -4$</p>
+				<p>$t = \frac{-4}{-16}$</p>
+				<p>$t = \frac{1}{4}$</p>
+
+				<p>The maximum curvature occurs when $t = \frac{1}{4}$.</p>
+
+
+
+
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="../diff_eqs/diff_eqs_pt1.html">Differential Equations, Pt. 1</a></p>
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+

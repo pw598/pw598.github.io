@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Calculus II, Pt. 2</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#area_btw_curves">Applications of Integrals - Area Between Curves</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#arc_length">Applications of Integrals - Arc Length</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#avg_value">Applications of Integration - Average Value</a></td><td><a href="#mean_value_theorem">The Mean Value Theorem For Intervals</a></td></tr>
+ <tr><td><a href="#surface_area_revolution">Applications of Integrals - Surface Area of Revolution</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#volume_revolution">Applications of Integrals - Volume of Revolution</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#work">Applications of Integrals - Work</a></td><td><a href="#work_springs">Work Done on Elastic Springs</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#stretch_springs">Work Done to Stretch the Spring</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#compress_springs">Work Done to Compress the Spring</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#empty_tank">Work Done to Empty a Tank</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#work_variable">Work Done By a Variable Source</a></td></tr>
+ <tr><td><a href="#moments">Applications of Integration - Moments and Center of Mass</a></td><td><a href="#hydrostatic">Hydrostatic Pressure and Force</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vertical_motion">Vertical Motion</a></td></tr>
+ <tr><td><a href="#economics">Applications of Integration - Economics</a></td><td><a href="#cons_prod_surplus">Consumer and Producer Surplus</a></td></tr>
+ <tr><td><a href="#prob_density">Applications of Integrals - Probability Density</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="area_btw_curves">Applications of Integrals - Area Between Curves</h2>
+
+		<p>In these kinds of problems, you are given the equations of two curves, and asked to find the area between them. Finding the area is going to require three pieces of information:</p>
+
+		<p>1. Orientation of Curves
+
+			<p>a) If one curve is entirely above another:</p>
+
+			<p>$A = \int_{x=a}^{x=b} f(x) - g(x) ~dx$</p>
+				<ul>
+					<li>$[a,b]$ is the interval upon which we will find the area</li>
+					<li>$f(x)$ is the higher function</li>
+					<li>$g(x)$ is the lower function</li>
+				</ul>
+
+			<p>b) If one is entirely to the right or left of another:</p>
+
+			<p>$A = \int_{y=a}^{y=b} f(y) - g(y) ~dy$</p>
+				<ul>
+					<li>$f(y)$ is the right function</li>
+					<li>$g(y)$ is the left function</li>
+				</ul>
+
+
+		<p>2. The points where the curves intersect, or a given interval on which to evaluate area</p>
+			<ul>
+				<li>a) If your problem doesn't specify an interval, find the points where the curves intersect. They become your interval.</li>
+				<li>b) If an interval is specified, check to see if the curves intersect each other inside the given interval</li>
+			</ul>
+
+
+		<p>3. Which curve is higher or lower, or if the orientation is left-right, then which curve is on which side</p>
+
+		<p>a) If there is a higher-lower switch, use the formula:</p>
+
+		<p>$A = \int_{x=a}^{x=c} f(x) - g(x) dx + \int_{x=c}^{x=b} g(x) - f(x) dx$</p>
+
+		<p>b) If you have a left-right switch, use the following formula:</p>
+
+		<p>$A = \int_{y=a}^{y=c} f(y) - g(y) dy + \int_{y=c}^{y=b} g(y) - f(y) dy$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the area between these curves:</p>
+
+				<p>$y = x^2 - 1$</p>
+				<p>$y = x^4 - x^2$</p>
+
+				<p>$x^4 - x^2$ is the higher function and $x^2 - 1$ is the lower function.</p>
+
+				<p>$A = \int_{x=a}^{x=b} f(x) - g(x) dx$</p>
+
+				<p>Because the question didn't identify an interval, the second step is to find the points of intersection. Since both curves are equal to $y$, we can set them equal to each other and solve for $x$.</p>
+
+				<p>$x^2 - 1 = x^4 - x^2$</p>
+				<p>$x^4 - 2x^2 + 1 = 0$</p>
+				<p>$(x^2 - 1)^2 = 0$</p>
+				<p>$x^2 - 1 = 0$</p>
+				<p>$x^2 = 1$</p>
+				<p>$x = \pm 1$</p>
+
+				<p>The points of intersection are $x=-1$ and $x=1$ so we're trying to find the area enclosed by those points.</p>
+
+				<p>In order to figure out which function is higher, we'll pick an $x$ value between the points of intersection and plug it into the equations of the original functions (we'll use $x=0$).</p>
+
+				<p>$0^2 - 1 = -1$</p>
+				<p>$0^4 - 0^2 = 0$</p>
+
+				<p>$0 \gt -1$, so $x^4 - x^2$ is greater than $x^2 - 1$ between the points of intersection. We now plug these values into the following equation:</p>
+
+				<p>$A = \int_{x=a}^{x=b} f(x) - g(x) dx$</p>
+				<p>$A = \int_{-1}^1 (x^4 - x^2) - (x^2 - 1) dx$</p>
+				<p>$A = \int_{-1}^1 x^4 - 2x^2 + 1 dx$</p>
+				<p>$A = \frac{1}{5}x^5 - \frac{2}{3}x^3 + x \bigg|_{-1}^1$</p>
+				<p>$A = (\frac{1}{5} - \frac{2}{3} + 1) - (- \frac{1}{5} + \frac{2}{3} - 1)$</p>
+				<p>$A = \frac{1}{5} - \frac{2}{3} + 1 + \frac{1}{5} - \frac{2}{3} + 1$</p>
+				<p>$A = \frac{2}{5} - \frac{4}{3} + 2$</p>
+				<p>$A = \frac{6}{15} - \frac{20}{15} + \frac{30}{15}$</p>
+				<p>$A = \frac{16}{15} \text{ square units}$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the area between the following curves:</p>
+
+				<p>$y^2 = 4x$</p>
+				<p>$y = 2x - 4$</p>
+				<p>$y = 2x-4$ is the right curve and $y^2 = 4x$ is the left curve.</p>
+
+				<p>The first equation becomes:</p>
+
+				<p>$x = \frac{y^2}{4}$</p>
+
+				<p>The second equation becomes:</p>
+
+				<p>$x = \frac{y + 4}{2}$</p>
+
+				<p>Setting them equal to each other gives:</p>
+
+				<p>$\frac{y^2}{4} = \frac{y + 4}{2}$</p>
+				<p>$2y^2 = 4(y + 4)$</p>
+				<p>$2y^2 = 4y + 16$</p>
+				<p>$y^2 = 2y + 8$</p>
+				<p>$y^2 - 2y - 8 = 0$</p>
+				<p>$(y+2)(y-4) = 0$</p>
+				<p>$y = -2 \text{ and } y = 4$</p>
+
+				<p>Therefore, we are trying to find the area between $y=-2$ and $y=4$.</p>
+
+				<p>We now pick a y-value between the intersection points and plug it into the original formulas to see which is greater between the intersection points.</p>
+
+				<p>$x = \frac{0^2}{4} = 0$</p>
+				<p>$x = \frac{0 + 4}{2} = 2$</p>
+
+				<p>We see that the second formula belongs to the greater function within the intersection points. Plugging this into the appropriate formula, we get:</p>
+
+				<p>$A = \int{-2}^4 \frac{y + 4}{2} - \frac{y^2}{4} ~dy$</p>
+				<p>$A = \int_{-2}^4 \frac{2(y+4)}{4} - \frac{y^2}{4} ~dy$</p>
+				<p>$A = \frac{1}{4} \int_{-2}^4 2(y+4) - y^2 ~dy$</p>
+				<p>$A = \frac{1}{4} \int_{-2}^4 2y + 8 - y^2 ~dy$</p>
+				<p>$A = \frac{1}{4} (y^2 + 8y - \frac{1}{3}y^3) \bigg|_{-2}^4$</p>
+				<p>$A = \frac{1}{4} \left[ 4^2 + 8(4) - \frac{1}{3}(4)^3 \right] - \frac{1}{4} \left[ -2^2 + 8(-2) - \frac{1}{3}(-2)^3 \right]$</p>
+				<p>$A = \frac{1}{4} \left[ \frac{1}{4} \left( 16 + 32 - \frac{64}{3} \right) - \left( 4 - 16 + \frac{8}{3} \right) \right]$</p>
+				<p>$A = \frac{1}{4} \left( 16 + 32 - \frac{64}{3} - 4 + 16 - \frac{8}{3} \right)$</p>
+				<p>$A = \frac{1}{4} \left( \frac{108}{3} \right)$</p>
+				<p>$A = \frac{108}{12} = 9 \text{ square units }$</p>
+
+
+
+	<h2 id="arc_length">Applications of Integrals - Arc Length</h2>
+
+		<p>The arc length of a function is the length the line of the graph would be if we straightened it (upon some interval). Sometimes the arc length problem will be in the form $y=f(x)$, and other times, $x=g(y)$. If the equation is in the form $y=f(x)$, the interval will be $a \le x \le b$. The equation for arc length is:</p>
+
+		<p>$L = \int_a^b \sqrt{ 1 + \left( \frac{dy}{dx} \right)^2 } ~dx$</p>
+
+		<p>If the equation is in the form $x=g(y)$, the equation for arc length will be:</p>
+
+		<p>$L = \int_c^d \sqrt{ 1 + \left( \frac{dx}{dy} \right)^2 } ~dy$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Calculate the arc length of $y = ln(sec ~x)$ on the interval $0 \le x \le \frac{\pi}{3}$.</p>
+
+				<p>First, we'll calculate $\frac{dy}{dx}$, and then plug it into the arc length formula:</p>
+
+				<p>$\frac{dy}{dx} = \frac{sec ~x ~tan ~x}{sec ~x}$</p>
+				<p>$\frac{dy}{dx} = tan ~x$</p>
+
+				<p>Plugging the derivative into the arc length formula:</p>
+
+				<p>$L = \int_0^{\frac{\pi}{3}} \sqrt{ 1 + (tan ~x)^2 } ~dx$</p>
+				<p>$L = \int_0^{\frac{\pi}{3}} \sqrt{ 1 + tan^2 x } ~dx$</p>
+
+				<p>$sec^2x$ is equal to $1 + tan^2x$, so we get:</p>
+
+				<p>$L = \int_0^{\frac{\pi}{3}} \sqrt{ sec^2x } ~dx$</p>
+				<p>$L = \int_0^{\frac{\pi}{3}} sec ~x ~dx$</p>
+
+				<p>Now, integrate:</p>
+
+				<p>$L = ln |sec(x) + tan(x)| \bigg|_0^{\pi/3}$</p>
+
+				<p>Now we evaluate over the interval and get:</p>
+
+				<p>$L = ln \left| sec \left( \frac{\pi}{3} \right) + tan \left( \frac{\pi}{3} \right) \right| - ln |sec ~0 + tan ~0|$</p>
+
+				<p>$L = 1.32$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Calculate the arc length of the following function over the interval $2 \le y \le 5$.</p>
+
+				<p>$x = \frac{2}{3}(y-1)^{3/2}$</p>
+
+				<p>Since the function is in the form $x = g(y)$, we have to use the formula:</p>
+
+				<p>$L = \int_c^d \sqrt{ 1 + \left( \frac{dx}{dy} \right)^2 } ~dy$</p>
+
+				<p>First, we'll calculate $dx/dy$ and then plug it back into the arc length formula.</p>
+
+				<p>$\frac{dx}{dy} = (y-1)^{\frac{1}{2}}$</p>
+				<p>$L = \int_2^5 \sqrt{ 1 + [(y-1)^\frac{1}{2}]^2 } ~dy$</p>
+				<p>$L = \int_2^5 \sqrt{y} ~dy$</p>
+
+				<p>Now, integrate:</p>
+
+				<p>$L = \frac{2}{3} y^{\frac{3}{2}} \bigg|_2^5$</p>
+
+				<p>Now we evaluate over the interval:</p>
+
+				<p>$L = \frac{2}{3}(5)^{\frac{3}{2}} - \frac{2}{3}(2)^{\frac{3}{2}}$</p>
+				<p>$L = 5.6$</p>
+
+
+
+	<h2 id="avg_value">Applications of Integration - Average Value</h2>
+
+		<p>The formula to find the average value of a function $f(x)$ over the interval $[a,b]$ is:</p>
+
+		<p>$f_{avg} = \frac{1}{b-a} \int_a^b f(x) ~dx$</p>
+
+		<p>Think about the average value of a function as the average height the function attains above the x-axis.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Calculate the average value of the function $f(x) = x^3 - 2x + e^{2x}$ over the interval $[3,7]$:</p>
+
+				<p>$f_{avg} = \frac{1}{7-3} \int_3^7 x^3 - 2x^2 + e^{2x} ~dx$</p>
+				<p>$f_{avg} = \frac{1}{4} \int_3^7 x^3 - 2x^2 + e^{2x} ~dx$</p>
+
+				<p>Next, break the integral apart by term:</p>
+
+				<p>$f_{avg} = \frac{1}{4} \int_3^7 x^3 ~dx + \frac{1}{4} \int_3^7 -2x^2 dx + \frac{1}{4} \int_3^7 e^{2x} ~dx$</p>
+				<p>$f_{avg} = \frac{1}{4} \int_3^7 x^3 ~dx + \frac{2}{4} \int_3^7 x^2 dx + \frac{1}{4} \int_3^7 e^{2x} ~dx$</p>
+
+				<p>Now, integrate:</p>
+
+				<p>$f_{avg} = \frac{1}{4} \left( \frac{x^4}{4} \right) \bigg|_3^7 - \frac{2}{4} \left( \frac{x^3}{3} \right) \bigg|_3^7 + \frac{1}{4} \left( \frac{e^{2x}}{2} \right) \bigg|_3^7$</p>
+
+				<p>$f_{avg} = \frac{x^4}{16} - \frac{x^3}{6} + \frac{e^{2x}}{8} \bigg|_3^7$</p>
+
+				<p>Now we can evaluate on the interval:</p>
+
+				<p>$f_{avg} \left[ \frac{7^4}{16} - \frac{7^3}{6} + \frac{e^{2(7)}}{8} \right] - \left[ \frac{3^4}{16} - \frac{3^3}{6} + \frac{e^{2(3)}}{8} \right]$</p>
+
+				<p>$f_{avg} = 150,367$</p>
+
+
+		<h3 id="mean_value_theorem">The Mean Value Theorem For Intervals</h3>
+
+			<p>The mean value theorem for integrals tells us that, for a continuous function $f(x)$, there is at least one point $c$ inside the interval $[a,b]$ at which the value of the function will be equal to the average value of the function over that interval. This means we can equate the average value of the function over the interval to the value of the function at point $c$.</p>
+
+			<p>$\frac{1}{b-a} \int_a^b f(x) ~dx = f(c)$</p>
+
+			<p>If we multiply both sides by $(b-a)$, we get the mean value theorem for integrals:</p>
+
+			<p>$\int_a^b f(x) ~dx = f(c)(b-a)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the point $c$ that satisfies the mean value theorem for integrals for function $f(x) = 3x^2 - 2x$, on the interval $[1,4]$.</p>
+
+				<p>$\int_1^4 3x^2 - 2x ~dx = (3c^2 - 2c)(4-1)$</p>
+				<p>$\int_1^4 3x^2 - 2x ~dx = 9c^2 - 6c$</p>
+
+				<p>Now we can break up the integral to make it easier to solve:</p>
+
+				<p>$\int_1^4 3x^2 ~dx + \int_1^4 -2x ~dx = 9c^2 - 6c$</p>
+				<p>$3 \int_1^4 x^2 ~dx - 2 \int_1^4 x ~dx = 9c^2 - 6c$</p>
+
+				<p>Now, integrate:</p>
+
+				<p>$\left[ 3 \left( \frac{x^3}{3} \right) - 2 \frac{x^2}{2} \right] \bigg|_1^4 = 9c^2 - 6c$</p>
+				<p>$(x^3 - x^2) \bigg|_1^4 = 9c - 6c$</p>
+
+				<p>Now we can evaluate over the interval:</p>
+
+				<p>$|4^3 - 4^2| - |1^3 - 1^2| = 9c^2 - 6c$</p>
+				<p>$48 = 9c^2 - 6c$</p>
+				<p>$0 = 9c^2 - 6c - 48$</p>
+
+				<p>Now, we solve for $c$:</p>
+
+				<p>$0 = 3 (3c^2 - 2c - 16)$</p>
+				<p>$0 = 3c^2 - 2c - 16$</p>
+				<p>$0 = (3c - 8)(c+2)$</p>
+
+				<p>Setting each of the factors equal to $0$ to individually solve for $c$, we get:</p>
+
+				<p>$3c - 8 = 0$</p>
+				<p>$c = \frac{8}{3}$</p>
+
+				<p>$c+2 = 0$</p>
+				<p>$c = -2$</p>
+
+				<p>Only one of these values, $c=8/3$, falls in the interval $[1,4]$, so it is the only solution.</p>
+
+
+
+	<h2 id="surface_area_revolution">Applications of Integrals - Surface Area of Revolution</h2>
+
+		<p>We can use integrals to find the surface area of the 3D figure that is created when we take a function and rotate it around an axis over a certain interval. The formulas are different depending on the form of the original function and the axis of rotation.</p>
+
+		<p>When the function is in the form $y=f(x)$ and you are rotating around the y-axis, the interval is $a \le x \le b$ and the formula is:</p>
+		<p>$S = \int_a^b 2 \pi x \sqrt{1 + \left( \frac{dy}{dx} \right)^2} ~dx$</p>
+
+		<p>When the function is in the form $y=f(x)$ and you are rotating around the x-axis:</p>
+		<p>$S = \int_a^b 2 \pi y \sqrt{1 + \left( \frac{dy}{dx} \right)^2} ~dx$</p>
+
+		<p>When the function is in the form $x=g(y)$ and you are rotating around the y-axis:</p>
+		<p>$S = \int_c^d 2 \pi x \sqrt{1 + \left( \frac{dx}{dy} \right)^2} ~dy$</p>
+
+		<p>When the function is in form $x=g(y)$ and you are rotating around the x-axis:</p>
+		<p>$S = \int_c^d 2 \pi y \sqrt{1 + \left( \frac{dx}{dy} \right)^2} ~dy$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the area of the surface generated by rotating the function $y = x^3$ about the given axis over the interval $0 \le x \le 3$.</p>
+
+				<p>$S = \int_a^b 2 \pi y \sqrt{1 + \left( \frac{dy}{dx} \right)^2} ~dx$</p>
+				<p>$\frac{dy}{dx} = 3x^2$</p>
+				<p>$S = \int_0^3 2 \pi x^3 \sqrt{1 + (3x^2)^2} ~dx$</p>
+				<p>$S = \int_0^3 2 \pi x^3 \sqrt{1 + 9x^4} ~dx$</p>
+
+				<p>Using u-substitution and setting $u = 1 + 9x^4$ and $du = 36x^3 ~dx$, we calculate:</p>
+
+				<p>$x = \left( \frac{u-1}{9} \right)^{\frac{1}{4}}$</p>
+				<p>$dx = \frac{1}{36x^3} ~du$</p>
+				<p>$dx = \frac{ 1 }{ 36 \left[ \left( \frac{u-1}{9} \right)^{\frac{1}{4}} \right]^3 } ~du$</p>
+
+				<p>Plugging these back into the integral:</p>
+
+				<p>$S = \int_0^3 2 \pi \left[ \left( \frac{u-1}{9} \right)^{\frac{1}{4}} \right]^3 \sqrt{u} \frac{1}{36 \left[ \left( \frac{u-1}{9} \right)^{\frac{1}{4}} \right]^3} ~du$</p>
+
+				<p>$S = \int_0^3 2 \pi \left( \frac{u-1}{9} \right)^{\frac{3}{4}} \sqrt{u} \frac{1}{36 \left( \frac{u-1}{9} \right)^{\frac{3}{4}}} ~du$</p>
+
+				<p>$S = \frac{\pi}{18} \int_0^3 \left( \frac{u-1}{9} \right)^{\frac{3}{4}} \sqrt{u} \frac{1}{\left( \frac{u-1}{9} \right)^{\frac{3}{4}}} ~du $</p>
+ 
+				<p>$S = \frac{\pi}{18} \int_0^3 \sqrt{u} ~du$</p>
+
+				<p>Then integrate.</p>
+
+				<p>$S = \left( \frac{\pi}{18} \right) \left( \frac{2}{3} u^{\frac{3}{2}} \right) \bigg|_0^3$</p>
+				<p>$S = \frac{\pi}{27} u^{\frac{3}{2}} \bigg|_0^3$</p>
+
+				<p>Then plug $u = 1 + 9x^4$ back in for $u$.</p>
+
+				<p>$S = \frac{\pi}{27}(1 + 9x^4)^{\frac{3}{2}} \bigg|_0^3$</p>
+				<p>$S = \frac{\pi}{27} \left[ 1 + 9(3)^4 \right]^{\frac{3}{2}} - [\frac{\pi}{27}(1 + 9(0)^4)^{\frac{3}{2}}]$</p>
+
+
+
+	<h2 id="volume_revolution">Applications of Integrals - Volume of Revolution</h2>
+
+		<p>We can use integrals to find the volume of the 3D object created by rotating a function around either the x-axis (or some other horizontal axis with the equation $y=b$) or around the y-axis (or some other vertical axis with equation $x=a$). We can do this using the disc method, the washer method, or cylindrical shells.</p>
+
+		<p>The disc method formulas we use to find volume of rotation are different depending on the form of the function and the axis of rotation.</p>
+			<ul>
+				<li>If the function is in the form $y=f(x)$ and we're rotating around the x-axis over the interval $[a,b]$, the formula for the volume of the solid is:</li>
+
+				<p>$V = \int_a^b \pi [f(x)]^2 ~dx$</p>
+
+				<li>If the function is in the form $x=g(y)$ and we're rotating around the y-axis over the interval $[c,d]$, the formula for the volume of the solid is:</li>
+			</ul>
+
+		<p>$V = \int_c^d \pi [f(y)]^2 ~dy$</p>
+
+		<p>To use the washer method, the volume generated by rotating the function has to be a ring, with a hole in the middle. In order to generate a volume like this, the region has to be bounded by two functions: either $y = f(x)$ and $y = g(x)$ or $x = f(y)$ and $x = g(y)$.</p>
+			<ul>			
+				<li>If the region is bounded by $y=f(x)$ and $y=g(x)$, and if $f(x) \gt g(x)$, and we are rotating around the x-axis over interval $[a,b]$, then the formula for the volume of the solid is:</li>
+
+				<p>$V = \int_a^b \pi [f(x)]^2 - \pi[g(x)]^2 ~dx$</p>
+			</ul>
+
+			
+			<ul>		
+				<li>If the region is bounded by $x=f(y)$ and $x=g(y)$, and if $f(y) \gt g(y)$, and we are rotating around the y-axis over the interval $[c,d]$, the formula for the volume of the solid is:</li>
+
+				<p>$V = \int_c^d \pi[f(y)]^2 - \pi[g(y)]^2 ~dy$</p>
+			</ul>
+
+
+			<p>The cylindrical shell method rotates the function in a perpendicular fashion. This means that $y=f(x)$ is rotated around the y-axis and $x=g(y)$ is rotated around the x-axis.</p>
+
+			<ul>
+				<li>If the function is in the form $y=f(x)$, and we are rotating around the y-axis over the interval $[a,b]$, the formula for the volume of the solid is:</li>
+
+				<p>$V = \int_a^b 2 \pi x f(x) ~dx$</p>
+			</ul>
+
+			
+
+			<ul>
+				<li>If the function is in the form $x=g(y)$ and we are rotating around the x-axis over the interval $[c,d]$, the formula for the volume of the solid is:</li>
+
+				<p>$V = \int_c^d 2 \pi y f(y) ~dy$</p>
+			</ul>
+
+			
+
+			<img src="img/calc2_fig1.png" style="height: 500px; width:auto;"></br></br>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the volume of the solid created by rotating a cylindrical shell about the y-axis over the interval $[1,2]$, for $y=x^3$.</p>
+
+				<p>$V = \int_a^b 2 \pi x ~f(x) ~dx$</p>
+				<p>$V = \int_1^2 2 \pi x (x^3) ~dx$</p>
+				<p>$V = \int_1^2 2 \pi x^4 ~dx$</p>
+				<p>$V = 2 \pi \int_1^2 x^4 ~dx$</p>
+
+				<p>Integrating, we get:</p>
+
+				<p>$V = 2 \pi \left( \frac{x^5}{5} \right) \bigg|_1^2$</p>
+				<p>$V = \frac{2 \pi x^5}{5} \bigg|_1^2$</p>
+
+
+
+	<h2 id="work">Applications of Integrals - Work</h2>
+
+		<p>To calculate the work done when we lift a weight or mass vertically some distance, we use the formula:</p>
+
+		<p>$W = \int_a^b F(x) ~dx$</p>
+			<ul>
+				<li>$W$ is the work done</li>
+				<li>$F(x)$ is the force equation</li>
+				<li>$[a,b]$ is the starting and ending height of the weight or mass</li>
+			</ul>
+
+		<p>When lifting, the formula for force is $F=mg$, where $g$ is the gravitational constant, $9.8 m/s^2$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Movers are hoisting a piano in order to bring it through a window. The steel cable has a mass of $3kg/m$ and the piano has a mass of $550kg$. Find the work done to lift the piano to the third window, $7m$ above the ground.</p>
+
+				<p>For the piano:</p>
+
+				<p>$F_p = m_p \cdot g = 550 \cdot 9.8 = 5390$</p>
+				<p>$W = \int_a^b F(x) ~dx$</p>
+				<p>$W_p = \int_0^7 5390 ~dx$</p>
+				<p>$W_p = 5390 x \bigg|_0^7$</p>
+				<p>$W_p = 5390(7) - 5390(0)$</p>
+				<p>$W_p = 37,730 J$</p>
+
+				<p>For the cable:</p>
+
+				<p>$F_i = m_i g = 3 \cdot 9.8 = 29.4$</p>
+				<p>$W_c = \int_0^7 29.4 ~dx$</p>
+				<p>$W_c = \frac{29.4}{2} x^2 \bigg|_0^7$</p>
+				<p>$W_c = 14.7x^2 \bigg|_0^7$</p>
+				<p>$W_c = 14.4(7)^2 - 14.7(0)^2$</p>
+				<p>$W_c = 14.7(49)$</p>
+				<p>$W_c = 720.3 J$</p>
+
+				<p>Adding the two together:</p>
+
+				<p>$37,730 + 720.3 = 38,450.3 \text{ Joules}$</p>
+
+
+		<h3 id="work_springs">Work Done on Elastic Springs</h3>
+
+			<p>Every spring has its own constant $k$. This spring constant is part of Hooke's law, which states that $f(x) = kx$. $F(x)$ is the force required to stretch or compress the spring, $k$ is the spring constant, and $x$ is the difference between the natural length and the stretched or compressed length. $k$ must be calculated prior to determining work, unless it is given in the problem.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>A spring has a natural length of $30cm$. A $50 N$ force is required to stretch and hold the spring at a length of $40cm$.</p>
+					<ol>
+						<li>How much work is done to stretch the spring from $42cm$ to $48cm$?</li>
+						<li>How much work is done to compress the spring from $30cm$ to $25 cm$?</li>
+					</ol>
+
+				<p>$F(x) = 50 \text{ and } x = 0.10m$</p>
+				<p>$50 = 0.10k$</p>
+				<p>$k = 500$</p>
+
+				<p>With $k$, we can develop a generic equation for our spring using Hooke's law.</p>
+
+				<p>$F(x) = kx$</p>
+				<p>$F(x) = 500x$</p>
+
+				<p>We use Hooke's law to find $F(x)$, but first need to find $k$. A $50 N$ force is required to stretch and hold the spring at a length of $40cm$, from its actual length of $30m$.</p>
+
+				<p>$F(x) = 50$</p>
+				<p>$x = 0.10m$</p>
+				<p>$50 = 0.10k$</p>
+				<p>$k = 500$</p>
+
+				<p>With $k$, we can develop a generic equation for our spring using Hooke's law</p>
+
+				<p>$F(x) = kx$</p>
+				<p>$F(x) = 500x$</p>
+
+
+		<h3 id="stretch_springs">Work Done to Stretch the Spring</h3>
+
+			<p>To calculate the work required to stretch the spring from $42cm$ to $48cm$, we pretend the spring at its natural length of $30cm$ ends at the origin, which means that stretching it to $42cm$ means we've stretched it to $12$. Stretching to $48cm$ means we've stretched it from the origin to $18cm$.</p>
+
+			<p>$W = \int_{0.12}^{0.18} 500x ~dx$</p>
+			<p>$W = 250x^2 \bigg|_{0.12}^{0.18}$</p>
+			<p>$W = 250(0.18)^2 - 250(0.12)^2$</p>
+			<p>$W = 4.5$</p>
+
+
+		<h3 id="compress_springs">Work Done to Compress the Spring</h3>
+
+			<p>To calculate the work required to compress the spring from $30cm$ to $25cm$, we pretend that the spring ends at the origin, which means that compressing it to $25cm$ means we've compressed it to $-5$, because $25 - 30 = -5$.</p>
+
+			<p>Therefore, the work equation would be:</p>
+
+			<p>$W = \int_a^b F(x) ~dx$</p>
+
+			<p>Converting from $cm$ to $m$, the interval becomes $0$ to $-0.05m$.</p>
+
+			<p>$W = \int_0^{-0.05} 500x ~dx$</p>
+			<p>$W = 250 x^2 \bigg|_0^{-0.05}$</p>
+			<p>$W = 250(-0.05)^2 - 250(0)^2$</p>
+			<p>$W = 0.625$</p>
+
+			<p>The work done to compress a spring with natural length $30cm$ and spring constant $k=500$ from $30cm$ to $25cm$ is $0.625 J$.</p>
+
+
+		<h3 id="empty_tank">Work Done to Empty a Tank</h3>
+
+			<p>These problems are solved by:</p>
+				<ol>
+					<li>Dividing the tank into an infinite number of slices $n$</li>
+					<li>Calculating the work required to remove that slice of substance from the tank</li>
+					<li>Developing an equation to solve for the work needed to empty the entire tank, based on the work that was required to remove the single slice</li>
+				</ol>
+
+			<p>Work equals $force \times distance$, and $force = mg$, where $g$ is the gravitational constant. Mass is equal to density multiplied by volume $m = \delta V$.</p>
+
+			<p>Usually, density is provided by the problem, or is water, which has $density = 1000kg/m^3$.</p>
+
+			<p>We follow these steps:</p>
+				<ol>
+					<li>Find density and volume, then use them to calculate mass</li>
+					<li>Multiply mass by gravitational constant to find force</li>
+					<li>Multiply force $\times$ distance to get work</li>
+				</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>A tank in the shape of an inverted cylindrical cone has a height of $10m$ and base radius of $5m$. It is filled with water to a height of $7m$.</p>
+
+				<p>One slice has a height of $\delta x$. We can call the radius of this slice $r_i$, and can say that the distance from the slice to the top of the tank is $x_i$.</p>
+
+				<p>The volume of a cylinder is given by:</p>
+
+				<p>$V = \pi r_i^2 \delta x$</p>
+
+				<p>If we know that the height of the tank is $10m$, and that the distance between the slice and the top of the tank is $x_i$, then the distance between the slice and the bottom of the tank is $10 - x_i$.</p>
+
+				<p>We set up the equation for $r_i$ using the property of similar triangles, which tells us the following ratios are equal:</p>
+
+				<p>$\frac{r_i}{10 - x_i} = \frac{5}{10}$</p>
+				<p>$r_i = \frac{1}{2}(10 - x_i)$</p>
+
+				<p>Next, we'll solve for volume:</p>
+
+				<p>$V_i = \pi r_i^2 \delta x$</p>
+				<p>$V_i = \pi \left[ \frac{1}{2}(10-x_i) \right]^2 \delta x$</p>
+				<p>$V_i = \frac{\pi}{4}(10 - x_i)^2 \delta x$</p>
+
+				<p>Then, multiply it by density to get an equation for mass.</p>
+
+				<p>$m = \delta V$</p>
+				<p>$m = 1000 \left[ \frac{\pi}{4} (10 - x_i)^2 \delta x \right]$</p>
+				<p>$m_i = 250 \pi (10 - x_i)^2 \delta x$</p>
+
+				<p>With a value for mass, we can calculate force using $F_i = m_i g$.</p>
+
+				<p>$F_i = [250 \pi (10 - x_i)^2 \delta x](9.8)$</p>
+				<p>$F_i = 2450 \pi (10 - x_i)^2 \delta x$</p>
+
+				<p>With a value for force, we can calculate work using $W_i = F_i d$. Remember distance from the slice to the top of the tank is $x_i$.</p>
+
+				<p>$W_i = F_i d$</p>
+				<p>$W_i = [2450 \pi (10 - x_i)^2 \delta x](x_i)$</p>
+				<p>$W_i 2450 \pi x_i (10 - x_i)^2 \delta x$</p>
+
+				<p>At this point we have an equation for the work required to lift a single slice of the water to the top of the tank to remove it. Next step is to modify the work equation to model the work required to remove all of the water. We take the limit as $n \to \infty$.</p>
+
+				<p>$W = \lim \limits_{n \to \infty} \sum_{i=1}^n 2450 \pi x_i (10 - x_i)^2 \delta x$</p>
+
+				<p>This is the same as taking the integral over the given interval, letting $\delta x = dx$. The interval of integration is $[3,10]$ because the top-most slice of water has to be lifted $3m$ to be removed from the tank, and the bottom-most slice has to be lifted $10m$ to be removed from the tank.</p>
+
+				<p>$W = \int_3^{10} 2450 \pi x (10-x)^2 dx$</p>
+				<p>$W = 2450 \pi \int_3^10 x (10 - x)^2 dx$</p>
+				<p>$W = 2450 \pi \int_3^{10} 100x - 20x^2 + x^3 dx$</p>
+				<p>$W = 2450 \pi \left[ 50x^2 - \frac{20x^3}{3} + \frac{x^4}{4} \right] \bigg|_3^10$</p>
+				<p>$W = 2450 \pi \left[ 50(10)^2 - \frac{20(10)^3}{3} + \frac{10^4}{4} \right] - 2450 \pi \left[ 50(3)^2 - \frac{20(3)^3}{3} + \frac{3^4}{4} \right]$</p>
+
+				<p>$W = 4,179,803 ~Joules$</p>
+
+
+		<h3 id="work_variable">Work Done By a Variable Source</h3>
+
+			<p>To calculate the work done when a variable force is applied to lift an object of some mass or weight:</p>
+
+			<p>$W = \int_a^b F(x) dx$</p>
+
+			<p>If $W$ is positive, it means the force is doing work in the given interval. If $W$ is negative, then work needs to be done on the given interval.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the work done to lift a $20kg$ box from the floor to a height of $3m$ when the variable force is $F(x) = 4x^2 - 2x + 3$.</p>
+
+				<p>$W = \int_0^3 4x^2 - 2x + 3 dx$</p>
+				<p>$W = \int_0^3 4x^2 dx + \int_0^3 -2x dx + \int_0^3 3 dx$</p>
+				<p>$W = 4 \int_0^3 x^2 dx - 2\int_0^3 x dx + 3 \int_0^3 1 dx$</p>
+
+				<p>Integrating, we get:</p>
+
+				<p>$W = \left[ 4 \left( \frac{x^3}{3} \right) - 2 \left( \frac{x^2}{2} \right) + 3(x) \right] \bigg|_0^3$</p>
+				<p>$W = \frac{4x^3}{3} - x^2 + 3x \bigg|_0^3$</p>
+				<p>$W = \left[ \frac{4(3)^3}{3} -3^2 + 3(3) \right] - \left[ \frac{4(0)^3}{3} - 0^2 + 3(0) \right]$</p>
+				<p>$W = 36 J$</p>
+
+
+
+	<h2 id="moments">Applications of Integration - Moments and Center of Mass</h2>
+
+		<p>The center of mass of a region is the single point where the system is balanced - for example, if you were to set it on a point. A perfectly symmetrical region has its center of mass right in the center. A region which is not symmetrical will have a center of mass closer to the larger part of the region. When looking for the center of mass of a region, we first calculate the area bounded by the two curves that define the region, and by the given interval. If the problem doesn't specify the interval, use the points of intersection of the curves by setting them equal to one another and solving for $x$. The equation for this area is:</p>
+
+		<p>$A = \int_a^b f(x) - g(x) dx$</p>
+
+		<p>The moments of the system are values that tell us how easily the function can be rotated around the x and y-axes.</p>
+
+		<p>$M_x = \int_a^b \frac{1}{2} ([f(x)]^2 - [g(x)]^2) dx$</p>
+		<p>$M_y = \int_a^b x [f(x) - g(x)] dx$</p>
+
+		<p>Once we have area and the moments of the system, we use both to calculate the coordinates of the center of mass using:</p>
+
+		<p>$\bar{x} = \frac{M_y}{A} = \frac{1}{A} \int_a^b x[f(x) - g(x)] dx$</p>
+		<p>$\bar{x} = \frac{M_y}{A} = \frac{1}{A} \int_a^b \frac{1}{2} ([f(x)]^2 - [g(x)]^2) dx$</p>
+
+
+		<h4>Example:</h4>
+
+			<p>Find the center of mass of the region bounded by the curves over the interval $[0,2]$, for $y=x^4$ and $y=0$.</p>
+
+			<p>$A = \int_0^2 x^4 - 0 dx$</p>
+			<p>$A = \int_0^2 x^4 dx$</p>
+			<p>$A = \frac{1}{5}x^5 \bigg|_0^2$</p>
+			<p>$A = \frac{1}{5}(2)^5 - \frac{1}{5}(0)^5$</p>
+			<p>$A = \frac{32}{5}$</p>
+
+			<p>Now we'll find the moments of the system.</p>
+
+			<p>$M_x = \int_0^2 \frac{1}{2} [(x^4)^2 - 0^2] dx$</p>
+			<p>$M_x = \int_0^2 \frac{1}{2} x^8 dx$</p>
+			<p>$M_x = \frac{1}{2} \int_0^2 x^8 dx$</p>
+			<p>$M_x = \frac{x^9}{18} \bigg|_0^2$</p>
+			<p>$M_x = \frac{2^9}{18} - \frac{0^9}{18}$</p>
+			<p>$M_x = \frac{512}{18}$</p>
+			<p>$M_x = \frac{256}{9}$</p>
+
+			<p>$M_y = \int_0^2 x(x^4 - 0) dx$</p>
+			<p>$M_y = \int_0^2 x^5 dx$</p>
+			<p>$M_y = \frac{x^6}{6} \bigg|_0^2$</p>
+			<p>$M_y = \frac{2^6}{6} - \frac{0^6}{6}$</p>
+			<p>$M_y = \frac{64}{6} = \frac{32}{3}$</p>
+
+			<p>With area and moments of the system, we can find the coordinates of the center of mass.</p>
+
+			<p>$\bar{x} = \frac{M_y}{A}$</p>
+			<p>$\bar{x} = \frac{32/3}{32/5}$</p>
+			<p>$\bar{x} = \left( \frac{32}{3} \right)  \left( \frac{5}{32} \right)$</p>
+			<p>$\bar{x} = \frac{5}{3}$</p>
+			<p>$\bar{y} = \left( \frac{256}{9} \right)  \left( \frac{5}{32} \right)$</p>
+			<p>$\bar{y} = \frac{40}{9}$</p>
+
+			<p>The center of mass of the region bounded by $y=x^4$ and $y=0$ on the interval $[0,2]$ is $(\bar{x}, \bar{y}) = \left( \frac{5}{3}, \frac{40}{9} \right)$.</p>
+
+
+		<h3 id="hydrostatic">Hydrostatic Pressure and Force</h3>
+
+			<p>Hydrostatic force refers to the force exerted on a solid object by a liquid at rest. In these types of problems, the first step will be to solve for hydrostatic pressure using the formula $P = pgd$, where $P$ is hydrostatic pressure, $p$ is density of the liquid, $g$ is the gravitational constant, and $d$ is the depth of the liquid. The units for pressure are Pascals ($Pa$) or $kg/ms^2$. The hydrostatic force is solved for as $F = PA$, where $A$ is the square area of the container, and $P$ is pressure.</p>
+
+			<p>The units for force are Newtons $N$, equivalent to $kg m/s^2$. To solve for hydrostatic force on the end of the container instead of the bottom, or on an upright plate inserted in the container, we use the modified force equation, $F = WAd$, where $W$ is weight.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>A tank is $6m$ wide, $12m$ long, and $4m$ deep. It is filled with water (density $= 1000kg/m^3$) to a depth of $3m$.</p>
+
+				<p>a) Find the hydrostatic pressure at the bottom of the tank.</p>
+
+				<p>$P = pgd$</p>
+				<p>$P = \left( \frac{1000kg}{m^3} \right)  \left( \frac{9.8m}{s^2} \right) (3m)$</p>
+				<p>$P = \frac{29400kg}{ms^2}$</p>
+				<p>$P = 29400 kg/ms^2 = 29400 Pa$</p>
+
+				<p>b) Find the hydrostatic force on the bottom of the tank.</p>
+
+				<p>$A = (6m)(12m) = 72m^2$</p>
+				<p>$F = \left( \frac{29400kg}{ms^2} \right) (72m^2)$</p>
+				<p>$F = \frac{2116800 kg \cdot m}{s^2}$</p>
+				<p>$F = 2.12 \times 10^6 N$</p>
+
+				<p>c) Find the hydrostatic force on one end of the tank</p>
+
+				<p>$F = WAd$</p>
+
+				<p>Since weight is density $\times$ gravity:</p>
+
+				<p>$W = \left( \frac{1000kg}{m^3} \right)  \left( \frac{9.8m}{s^2} \right) = \frac{9800kg}{m^2s^2}$</p>
+
+				<p>Since force at deeper depths is greater than force at shallower depths, we cannot use the area of the entire surface in our force equation, but rather, must divide the surface into small horizontal strips so that we can assume that the force against each strip is roughly equal throughout the strip. Each strip is $6m$ wide and $\delta x$ tall, sitting at a depth of $x_i$. The area of one strip is $A_i = 6 \cdot \delta x$. The force against one strip is $F = WAd$.</p>
+
+				<p>$f_i = (9800)(6 \delta x)(x_i)$</p>
+				<p>$F = \lim \limits_{n \to \infty} \sum_{i=1}^n (9800)(6 \delta x)(x_i)$</p>
+
+				<p>Taking the limit of the force against all of the slices as $n \to \infty$ is the same as taking the integral of force over the interval of depth $[0,3]$.</p>
+
+				<p>$F = \int_0^3 (9800)(6 ~dx)x$</p>
+				<p>$F = 58800 \int_0^3 x ~dx$</p>
+				<p>$F = 58800 \left( \frac{x^2}{2} \right) \bigg|_0^3$</p>
+				<p>$F = 29400x^2 \bigg|_0^3$</p>
+				<p>$F = 29400(3)^2 - 29400(0)^2$</p>
+				<p>$F = 264,600 N$</p>
+
+
+		<h3 id="vertical_motion">Vertical Motion</h3>
+
+			<p>Vertical motion problems deal with an object dropped from some height, or thrown into the air so that it comes back down. The important thing to know is that the derivative of position is velocity, and the derivative of velocity is acceleration (therefore the integral of velocity is position, and the integral of acceleration is velocity).</p>
+
+
+			<h4>Example:</h4>
+
+				<p>A pumpkin is thrown up into the air from the ground with an initial velocity of $v(t_0) = 24 m/s$. The acceleration is due to gravity only (so $-9.8 m/s^2$). The velocity is modeled as $v(t) = at + v_0$. What is the maximum height the pumpkin reaches, and how much time passes before it hits the ground?</p>
+
+				<p>The first part of the question asks us to solve for $x(t_1)$:</p>
+
+				<p>$v(t) = -9.8t + 24$</p>
+				<p>$x(t) = \int -9.8t + 24 dt$</p>
+				<p>$x(t) = \int -9.8t ~dt + \int 24 dt$</p>
+				<p>$x(t) = -9.8 \int t ~dt + 24t + C$</p>
+				<p>$x(t) = -4.9t^2 + 24t + C$</p>
+
+				<p>We know $x(0) = 0$, so we can plug this into the position function in order to solve for $C$.</p>
+
+				<p>$0 = -4.9(0)^2 + 24(0) + C$</p>
+				<p>$C = 0$</p>
+
+				<p>Therefore, the position function is $x(t) = -4.9t^2 + 24t$.</p>
+
+				<p>With the position function in hand, we can work on solving the maximum height of the pumpkin.</p>
+
+				<p>$0 = -9.8 t_1 + 24$</p>
+				<p>$-24 = -9.8 t_1$</p>
+				<p>$t_1 \approx 2.45$</p>
+
+				<p>Now that we know $t \approx 2.45$ when the pumpkin reaches maximum height, we can use $x(t) = -4.9t^2 + 24t$.</p>
+
+				<p>$x(2.45) = -4.9(2.45)^2 + 24(2.45)$</p>
+				<p>$x(2.45) \approx 29.39m$</p>
+
+				<p>To find out how much time passes before the pumpkin hits the ground, we remember that $x(t_2) = 0$ and $x(t) = -4.9t^2 + 24t$.</p>
+
+				<p>$0 = -4.9t_2^2 + 24t_2$</p>
+				<p>$0 = -4.9t(t_2 - 4.9)$</p>
+				<p>$t_2 = 0s or 4.9s$</p>
+
+				<p>$t_0=0$ is the initial position, so $t_2 = 4.9$ corresponds to the pumpkin's final position.</p>
+
+
+
+	<h2 id="economics">Applications of Integration - Economics</h2>
+
+		<table class="tableizer-table">
+		<thead><tr class="tableizer-firstrow"><th>Compounding</th><th>Future Value</th><th>Present Value</th></tr></thead><tbody>
+		 <tr><td>$n$ times annually, single deposit</td><td>$FV = PV \left( 1 + \frac{r}{n} \right)^{nt}$</td><td>$PV = \frac{FV}{\left( 1 + \frac{r}{n} \right)^{nt}}$</td></tr>
+		 <tr><td>continuously, single deposit</td><td>$FV = PV e^{rt}$</td><td>$PV = \frac{FV}{e^{rt}}$</td></tr>
+		 <tr><td>continuously, continuous system</td><td>$FV = \int_0^T S(t) e^{r(T-t)} dt$</td><td>$PV = \int_0^T S(t) e^{-rt} dt$</td></tr>
+		</tbody></table>
+			<ul>
+				<li>$r$ is the yearly rate</li>
+				<li>$n$ is the number of times compounded annually</li>
+				<li>$t$ is years elapsed in the non-continuous case, but in the continuous case, the variable we solve for</li>
+				<li>$T$ is number of years elapsed (in the continuous case)</li>
+			</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the future value after 3 years of an account that has $\$2000$ added to it annually, if the interest rate is $10\%$ compounded continuously (assume no money is withdrawn).</p>
+
+				<p>$S(t) = 2000$</p>
+				<p>$r = 0.1$</p>
+				<p>$T = 3$</p>
+
+				<p>$FV = \int_0^3 2000 e^{0.1(3-t)} dt$</p>
+				<p>$FV = \int_0^3 2000 e^{0.3 - 0.1t} dt$</p>
+				<p>$FV = \int_0^3 2000 e^{0.3} e^{-0.1t} dt$</p>
+				<p>$FV = 2000e^{0.3} \left( \frac{e^{-0.1t}}{-0.1} \right) \int_0^3$</p>
+				<p>$FV = -20000 e^{0.3} (e^{-0.1t}) \bigg|_0^3$</p>
+				<p>$FV = -20000 e^{0.3} [e^{-0.1(3)} - e^{-0.1(0)}]$</p>
+				<p>$FV = \$7020$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>You deposit $\$10K$ every years for $5$ years into a new bank account. Interest is compounded continuously at $8\%$. What is the present value?</p>
+
+				<p>$S(t) = 10,000$</p>
+				<p>$r = 0.08$</p>
+				<p>$T = 5$</p>
+
+				<p>$PV = \int_0^5 e^{-0.08t} dt$</p>
+				<p>$PV = 10,000 \left( \frac{e^{-0.08t}}{-0.08} \right) \bigg|_0^5$</p>
+				<p>$PV = -125,000(e^{-0.08t}) \bigg|_0^5$</p>
+				<p>$PV = -125,000 [ e^{-0.08(5)} - e^{-0.08(0)} ]$</p>
+				<p>$PV = \$41,209.99$</p>
+
+
+		<h3 id="cons_prod_surplus">Consumer and Producer Surplus</h3>
+
+			<p>Consumer and producer surplus are values that a company can calculate to see when they have excess demand or production. Consumer surplus is calculated as:</p>
+
+			<p>$CS = \int_0^{q_e} D(q) ~dq - p_e q_e$</p>
+
+			<p>Producer surplus is calculated as:</p>
+
+			<p>$PS = p_e q_e - \int_0^{q_e} S(q) ~dq$</p>
+				<ul>
+					<li>$D(q)$ is the demand curve</li>
+					<li>$S(q)$ is the supply curve</li>
+					<li>$p_e$ is the equilibrium price</li>
+					<li>$q_e$ is the equilibrium quantity</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find equilibrium quantity and price, and then consumer and producer surplus for:</p>
+
+				<p>$D(q) = -0.25q + 13$</p>
+				<p>$S(q) = 0.05q^2 - 2$</p>
+
+				<p>If we set the supply curve equal to the demand curver, the resulting $q$ value will be the equilibrium quantity $q_e$.</p>
+
+				<p>$-0.25q + 13 = 0.05q^2 - 2$</p>
+				<p>$0 = 0.05q^2 + 0.25q - 15$</p>
+				<p>$0 = 5q^2 + 25q - 1500$</p>
+				<p>$0 = (5q + 100)(q-15)$</p>
+				<p>$q = -20 \text{ or } 15$</p>
+
+				<p>Since the equilibrium quantity must be positive, $q_e = 15$ is the equilibrium quantity for the given demand and supply curves. Now we can solve for the equilibrium price $p_e$, by plugging q_e into either formula.</p>
+
+				<p>$5(15) = 0.05(15)^2 - 2$</p>
+				<p>$5(15) = 9.25$</p>
+
+				<p>Then, to solve for consumer surplus, we'll plug the demand curve plus the equilibrium price and quantity into the consumer surplus formula.</p>
+
+				<p>$CS = \int_0^{15} -0.25q + 13 ~dq - 138.75$</p>
+				<p>$CS = \left( \frac{-0.25q^2}{2} + 13q \right) \bigg|_0^{15} - 138.75$</p>
+				<p>$CS = (-0.125q^2 + 13q) \bigg|_0^{15} - 138.75$</p>
+				<p>$CS = -0.125(15)^2 + 13(15) - [-0.125(0)^2 + 13(0)] - 138.75$</p>
+				<p>$CS = 28.125$</p>
+
+				<p>Now we can solve for producer surplus by plugging the supply curve and equilibrium price and quantity into the producer surplus equation.</p>
+
+				<p>$PS = (9.25)(15) - \int_0^{15} 0.05q^2 - 2 ~dq$</p>
+				<p>$PS = 138.75 - \int_0^15 0.05q^2 - 2 ~dq$</p>
+				<p>$PS = 138.75 - \left( \frac{0.05q^3}{3} - 2q \right) \bigg|_0^{15}$</p>
+				<p>$PS = 138.75 - [0.017(15)^3 - 2(15)] - [0.017(0)^3 - 2(0)]$</p>
+				<p>$PS = 111.375$</p>
+
+
+
+	<h2 id="prob_density">Applications of Integrals - Probability Density</h2>
+
+		<p>A probability density function must meet these criteria:</p>
+			<ol>
+				<li>$f(x) \ge 0$ for all values of $x$</li>
+				<li>$\int_{-\infty}^{\infty} f(x) ~dx = 1$</li>
+			</ol>
+
+		<p>The equation for probability density is:</p>
+
+		<p>$P(a \ge X \ge b) = \int_a^b f(x) ~dx$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Show that $f(x)$ is a probability density function and find $P(1 \le X \le 4)$.</p>
+
+				<p>$f(x) = \left( \frac{x^3}{5000} \right)(10-x), \text{ for } 0 \le X \le 10$</p>
+
+				<p>The first criteria is satisfied because $0 \le x \le 10$. We need to verify that $\int_{-\infty}^{\infty} f(x) dx = 1$. We can set the interval to $[0,10]$ since it is only in this interval that the equation doesn't equal $0$.</p>
+
+				<p>$\int_{-\infty}^{\infty} f(x) ~dx = \int_0^10 \left( \frac{x^3}{5000} \right) (10 - x)  ~dx$</p>
+				<p>$\int_{-\infty}^{\infty} f(x) ~dx = \int_0^10 \frac{x^3}{500} - \frac{x^4}{5000} ~dx$</p>
+				<p>$\int_{-\infty}^{\infty} f(x) ~dx = \int_0^{10} \frac{x^3}{500} dx + \int_0^{10} - \frac{x^4}{5000} ~dx$</p>
+				<p>$\int_{-\infty}^{\infty} f(x) ~dx = \frac{x^4}{2000} - \frac{x^5}{25,000} \bigg|_0^{10}$</p>
+				<p>$\int_{-\infty}^{\infty} f(x) ~dx = \left[ \frac{10^4}{2000} - \frac{10^5}{25,000} \right] - \left[ \frac{0^4}{2000} - \frac{0^5}{25,000} \right]$</p>
+
+				<p>$\int_{-\infty}^{\infty} f(x) ~dx = 1$</p>
+
+				<p>The next part of the problem is solving for $P(1 \le X \le 4)$</p>
+
+				<p>$P(1 \le X \le 4) = \int_1^4 \left( \frac{x^3}{5000} \right) (10 - x) ~dx$</p>
+				<p>$P(1 \le X \le 4) = \int_1^4 \frac{x^3}{500} - \frac{x^4}{5000} ~dx$</p>
+				<p>$P(1 \le X \le 4) = \int_1^4 \frac{x^3}{500} ~dx + \int_0^{10} - \frac{x^4}{5000} ~dx$</p>
+				<p>$P(1 \le X \le 4) = \frac{x^4}{2000} - \frac{x^5}{25000} \bigg|_1^4$</p>
+				<p>$P(1 \le X \le 4) = \left[ \frac{4^4}{2000} - \frac{4^5}{25000} \right] - \left[ \frac{1^4}{2000} - \frac{1^5}{250000} \right]$</p>
+
+				<p>$P(1 \le X \le 4) = 0.0866$</p>
+
+
+
+
+        </br></br>
+        <p>Here is a link to <a href="calc2_pt3.html">part 3</a></p>
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Calculus III, Pt. 2</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#pds_lin_approx">Partial Derivatives - Linear Approximation and Linearizing</a></td><td><a href="#lin_approx">Linear Approximation in Two Variables</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#lin_multivar">Linearization of a Multivariable Function</a></td></tr>
+ <tr><td><a href="#pds_gradient_vect">Partial Derivatives - Gradient Vectors</a></td><td><a href="#gradient_vect">Gradient Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#grad_vect_tangent_plane">Gradient Vectors and the Tangent Plane</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#max_rate_chg">Maximum Rate of Change and Its Direction</a></td></tr>
+ <tr><td><a href="#pds_tangent_normal">Partial Derivatives - Tangent Planes and Normal Lines</a></td><td><a href="#normal_line">Normal Line to the Surface</a></td></tr>
+ <tr><td><a href="#pds_opt">Partial Derivatives - Optimization</a></td><td><a href="#second_deriv_test">Second Derivative Test</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#local_extrema_saddle">Local Extrema and Saddle Points</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#global_extrema">Global Extrema</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#extreme_value_theorem">Extreme Value Theorem</a></td></tr>
+ <tr><td><a href="#pds_applied_opt">Partial Derivatives - Applied Optimization</a></td><td><a href="#max_prod">Maximum Product of 3 Real Numbers</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#min_dist_pt_plane">Minimum Distance from a Point to a Plane</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#points_closest_cone">Points on the Cone Closest to a Given Point</a></td></tr>
+ <tr><td><a href="#pds_lagrange">Partial Derivatives - Lagrange Multipliers</a></td><td><a href="#lagrange">Lagrange Multipliers</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#2d_1con">Two Dimensions, One Constraint</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#3d_1con">Three Dimensions, One Constraint</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#3d_2con">Three Dimensions, Two Constraints</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="pds_lin_approx">Partial Derivatives - Linear Approximation and Linearizing</h2>
+
+		<p>Linear approximation equations can help approximate a function's value when finding the exact value would be difficult. The linear approximation equation is like a tangent line equation. It intersects the function at the point of tangency, and helps us estimate the value of the function near the point of tangency.</p>
+
+
+		<h3 id="lin_approx">Linear Approximation in Two Variables</h3>
+
+			<p>We can use the linear approximation formula:</p>
+
+			<p>$L(x,y) = f(a,b) + \frac{\partial f}{\partial x}(a,b)(x-a) + \frac{\partial f}{\partial y}(a,b)(y-b)$</p>
+				<ul>
+					<li>$(a,b)$ is the given point</li>
+					<li>$f(a,b)$ is the value of the function at $(a,b)$</li>
+					<li>$\frac{\partial f}{\partial x}(a,b)$ is the partial derivative of f with respect to $x$ at $(a,b)$</li>
+					<li>$\frac{\partial f}{\partial y}(a,b)$ is the partial derivative of f with respect to $y$ at $(a,b)$</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the linear approximation of the multivariable function:</p>
+
+				<p>$f(x,y) = 6x^3 - 2xy^2, \text{ at } (1,2)$</p>
+
+				</br>
+
+				<p>$f(1,2) = 6(1)^3 - 2(1)(2)^2$</p>
+				<p>$f(1,2) = 6 - 2(4)$</p>
+				<p>$f(1,2) = -2$</p>
+
+				<p>Then we need to find the partial derivatives of the function with respect to $x$ and $y$.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 18x^2 - 2y^2$</p>
+				<p>$\frac{\partial f}{\partial x}(1,2) = 18(1)^2 - 2(2)^2$</p>
+				<p>$\frac{\partial f}{\partial x}(1,2) = 10$</p>
+
+				<p>and</p>
+
+				<p>$\frac{\partial f}{\partial y} = -4xy$</p>
+				<p>$\frac{\partial f}{\partial y}(1,2) = -4(1)(2)$</p>
+				<p>$\frac{\partial f}{\partial y}(1,2) = -8$</p>
+
+				<p>Plugging the slope in each direction, $(a,b)$, and $f(a,b)$ into the linear approximation formula, we get:</p>
+
+				<p>$L(x,y) = -2 + (10)(x-1) + (-8)(y-2)$</p>
+				<p>$L(x,y) = -2 + 10x - 10 - 8y + 16$</p>
+				<p>$L(x,y) = 10x - 8y + 4$</p>
+
+				<p>This is the linear approximation of the given function at the given point.
+
+
+		<h3 id="lin_multivar">Linearization of a Multivariable Function</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find the linearization of the following multivariable function at the following point.</p>
+
+				<p>$f(x,y) = 1 + x ~ln(xy - 5) \text{ at } (2,3)$</p>
+
+				<p>The equation for the linearization of a function is the same as what we used for the linear approximation in two variables.</p>
+
+				<p>$L(x,y) = f(a,b) + \frac{\partial f}{\partial x}(a,b)(x-a) + \frac{\partial f}{\partial y}(a,b)(y-b)$</p>
+				<p>$\frac{\partial f}{\partial x} = (1) ~ln(xy - 5) + (x) \left[ \frac{1}{xy-5} y \right]$</p>
+				<p>$\frac{\partial f}{\partial x}(2,3) = ln(2(3)-5) + \frac{(2)(3)}{(2)(3) - 5}$</p>
+				<p>$\frac{\partial f}{\partial x}(2,3) = ln(6-5) + \frac{6}{6 - 5}$</p>
+				<p>$\frac{\partial f}{\partial x}(2,3) = \frac{6}{1} = 6$</p>
+
+				<p>$\frac{\partial f}{\partial y} = x \frac{1}{xy-5} x$</p>
+				<p>$\frac{\partial f}{\partial y} = \frac{x^2}{xy-5}$</p>
+				<p>$\frac{\partial f}{\partial y}(2,3) = \frac{4}{6-5} = \frac{4}{1} = 4$</p>
+
+				<p>Our last step before we can plug everything we found into our linearization equation is to find $(a,b)$ by plugging the point we are given to our original function.</p>
+
+				<p>$f(2,3) = 1 + 2 ~ln(6-5)$</p>
+				<p>$f(2,3) = 1 + 2 ~ln(1)$</p>
+				<p>$f(2,3) = 1$</p>
+
+				</br>
+
+				<p>$L(x,y) = 1 + 6(x-2) + 4(y-3)$</p>
+				<p>$L(x,y) = 1 + 6x - 12 + 4y - 12$</p>
+				<p>$L(x,y) = 6x + 4y - 23$</p>
+
+
+
+	<h2 id="pds_gradient_vect">Partial Derivatives - Gradient Vectors</h2>
+
+		<h3 id="gradient_vect">Gradient Vectors</h3>
+
+			<p>To find the gradient (a.k.a. the gradient vector) of a two variable function, we'll use the formula:</p>
+
+			<p>$\nabla f = \biggl\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \biggr\rangle$</p>
+
+			<p>This gives a vector-valued function that describes the function's gradient everywhere. To find the gradient at a particular point, we evaluate at that point.</p>
+
+			<p>$\nabla f(x,y) = \biggl\langle \frac{\partial f}{\partial x}(x,y), \frac{\partial f}{\partial y}(x,y) \biggr\rangle$</p>
+
+			<p>The maximal directional derivative is given by the magnitude of the gradient.</p>
+
+			<p>$||\nabla f|| = ||a,b|| = \sqrt{a^2 + b^2}$</p>
+
+			<p>where $a$ and $b$ come from $\nabla f(x,y) = \langle a,b \rangle$</p>
+
+			<p>The gradient $\nabla f$ always points in the direction of the maximal directional derivative. We can modify the formula to accomodate more variables as needed.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the maximal directional derivative and the direction in which it occurs, for:</p>
+
+				<p>$f(x,y) = x^3 + 2x^2y + 4y^2, \text{ at } P(1,1)$</p>
+
+				<p>We'll start with the partial derivatives of the given function $f$.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 3x^2 + 4xy$</p>
+				<p>$\frac{\partial f}{\partial y} = 2x^2 + 8y$</p>
+
+				<p>The gradient of the function in general is:</p>
+
+				<p>$\nabla f = \biggl\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \biggr\rangle$</p>
+				<p>$\nabla f = \langle 3x^2 + 4xy, 2x^2 + 8y \rangle$</p>
+
+				<p>To find the gradient at the point we are interested in, we'll plug in $P(1,1)$.</p>
+
+				<p>$\nabla f(1,1) = \langle 3(1)^2 + 4(1)(1), 2(1)^2 + 8(1) \rangle$</p>
+				<p>$\nabla f(1,1) = \langle 7,10 \rangle$</p>
+
+				<p>To find the maximal directional derivative, we take the magnitude of the gradient that we found.</p>
+
+				<p>$|| \nabla f || = ||a,b|| = \sqrt{a^2 + b^2}$</p>
+				<p>$||7,10|| = \sqrt{(7)^2 + (10)^2}$</p>
+				<p>$||7,10|| = \sqrt{149}$</p>
+
+				<p>The maximal directional derivative always point in the direction of the gradient, so the maximal directional derivative is $||7,10|| = \sqrt{149}$, and it points toward $\nabla f(1,1) = \langle 7,10 \rangle$.</p>
+
+
+		<h3 id="grad_vect_tangent_plane">Gradient Vectors and the Tangent Plane</h3>
+
+			<p>We learned that to find the gradient vector at a specific point, we use the formula:</p>
+
+			<p>$\nabla f(x,y,z) = \biggl\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \biggr\rangle$</p>
+
+			<p>where $(x,y,z)$ is the point we are interested in. If the result of evaluating the gradient vector at the point $(x,y,z)$ gives us $\nabla f(x,y,z) = \langle a,b,c \rangle$, then $a$, $b$, and $c$ represent the slope of the orginal function in the $x$, $y$, and $z$ directions.</p>
+
+			<p>Therefore, if interested in finding the equation of the tangent plane at $P(x_0, y_0, z_0)$, then we plug the values of $a$, $b$, and $c$, along with the point $P(x_0, y_0, z_0)$ into the formula for the equation of the tangent plane.</p>
+
+			<p>$a(x-x_0) + b(y-y_0) + c(z-z_0) = 0$</p>
+
+			<p>where $a, b, c$ come from $\nabla f(x,y,z) = \langle a,b,c \rangle$ and $x_0, y_0, z_0$ come from the given point $P(x_0, y_0, z_0)$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the gradient vector of the function and use it to find the equation of the tangent plane at $P(3,4,-287)$.</p>
+
+				<p>$s^4 - 5x^3y - y^2 + 3y^4 + z = 6$</p>
+
+				<p>First, rearrange the function.</p>
+
+				<p>$f(x,y,z) = x^4 - 5x^3y - y^2 + 3y^4 + z - 6$</p>
+
+				<p>Now we'll start with the partial derivatives of the given function $f$.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 4x^3 - 15x^2y$</p>
+				<p>$\frac{\partial f}{\partial y} = -5x^3 - 2y + 12y^3$</p>
+				<p>$\frac{\partial f}{\partial z} = 1$</p>
+
+				<p>To find the gradient vector at the point we are interested in, we'll plug the partial derivatives into the formula for the gradient vector, and then evaluate at the point of interest.</p>
+
+				<p>$\nabla f(x,y,z) = \biggl\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \biggr\rangle$</p>
+
+				<p>$\nabla f(x,y,z) = \langle 4x^3 - 15x^2y, -5x^3 - 2y + 12y^3, 1 \rangle$</p>
+
+				<p>Evaluating at $P(3,4,-287)$, we get:</p>
+
+				<p>$\nabla f(3,4,-287) = \langle 4(3)^3 - 15(3)^2(4), -5(3)^3 - 2(4) + 12(4)^3, 1 \rangle$</p>
+				<p>$\nabla f(3,4,-287) = \langle -432, 625, 1 \rangle$</p>
+
+				<p>Now we have everything needed to find the equation of the tangent plane.</p>
+
+				<p>$a(x-x_0) + b(y-y_0) + c(z-z_0) = 0$</p>
+				<p>$-432(x-3) + 625(y-4) + 1(z + 287) = 0$</p>
+				<p>$-432x + 1296 + 625y - 2500 + z + 287 = 0$</p>
+				<p>$-432x + 625y + z = 917$</p>
+
+
+		<h3 id="max_rate_chg">Maximum Rate of Change and Its Direction</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find the maximum rate of change of the following function at the given point.</p>
+
+				<p>$f(x,y) = sin(xy) \text{ at } (1,0)$</p>
+
+				<p>The first thing we need to do is find the gradient vector. Then, we'll use it to find the maximum rate of change. The maximum rate of change will always occur in the gradient direction of the gradient vector.</p>
+
+				<p>First, we'll take partial derivatives. We'll use the chain rule, and treat $sin$ as our outside function and $xy$ as our inside function.</p>
+
+				<p>$\frac{\partial f}{\partial x} = cos(xy) \cdot y = y ~cos(xy)$</p>
+				<p>$\frac{\partial f}{\partial y} = cos(xy) \cdot x = x ~cos(xy)$</p>
+
+				<p>Our gradient vector is the partial derivative with respect to $x$ and with respect to $y$.</p>
+
+				<p>$\nabla f(x,y) = \langle y ~cos(xy), x ~cos(xy) \rangle$</p>
+				<p>$\nabla f(1,0) = \langle 0,1 \rangle$</p>
+
+				<p>$|\nabla f(1,0)| = \sqrt{0^2 + 1^2}$</p>
+
+				<p>The max rate of change is equal to 1, and that maximum rate of change occurs in the direction of the gradient vector, which is the vector $\langle 0,1 \rangle$.</p>
+
+
+
+	<h2 id="pds_tangent_normal">Partial Derivatives - Tangent Planes and Normal Lines</h2>
+
+		<p>The tangent plane is the 3D version of the tangent line. It is a flat surface that intersects the graph at only one point. To find the equation of the tangent plane to a 3D function at a specific point, use the formula:</p>
+
+		<p>$z - z_1 = \frac{\partial z}{\partial x}(x_1, y_1, z_1)(x-x_1) + \frac{\partial z}{\partial y}(x_1, y_1, z_1)(y-y_1)$</p>
+
+		<p>where</p>
+
+		<p>$\frac{\partial z}{\partial x}(x_1, y_1, z_1)$ is the partial derivative of $z$ with respect to $y$ at the point $(x_1, y_1, z_1)$.</p>
+
+		<p>There are 3 steps to managing tangent plane problems:</p>
+			<ol>
+				<li>Find the partial derivatives of the function with respect to each variable</li>
+				<li>Evaluate the partial derivatives at the given point to find the slope in each direction</li>
+				<li>Plug the slopes and the given point into the formula for the equation of the tangent plane</li>
+			</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the equation of the tangent plane of the following function and given point.</p>
+
+				<p>$z = 3 + \frac{x^2}{16} + \frac{y^2}{9}, \text{ at } P(-4,3,5)$</p>
+
+				<p>We'll start by finding partial derivatives of the function $z$ with respect to $x$ and $y$.</p>
+
+				<p>$\frac{\partial z}{\partial x} = \frac{2x}{16}$</p>
+				<p>$\frac{\partial z}{\partial x} = \frac{x}{8}$</p>
+
+				<p>and</p>
+
+				<p>$\frac{\partial z}{\partial y} = \frac{2y}{9}$</p>
+
+				<p>Plugging the given point $P(-4,3,5)$ into the partial derivatives, we'll get values for the slope in our direction.</p>
+
+				<p>$\frac{\partial z}{\partial x} ~P(-4,3,5) = \frac{-4}{8} = \frac{-1}{2}$</p>
+				<p>$\frac{\partial z}{\partial y} ~P(-4,3,5) = \frac{2(3)}{9} = \frac{2}{3}$</p>
+
+				<p>Now we'll plug the slope in each direction and the point $P(-4,3,5)$ into the formula for the equation of the tangent plane.</p>
+
+				<p>$z - z_1 = \frac{\partial z}{\partial x} (x_1, y_1, z_1)(x-x_1) + \frac{\partial z}{\partial y}(x_1, y_1, z_1)(y-y_1)$</p>
+				<p>$z - 5 = - \frac{1}{2}[x - (-4)] + \frac{2}{3}(y-3)$</p>
+				<p>$z - 5 = - \frac{1}{2}(x+4) + \frac{2}{3}y - 2$</p>
+				<p>$z - 5 = - \frac{1}{2}x - 2 + \frac{2}{3}y - 2$</p>
+				<p>$z = - \frac{1}{2}x = \frac{2}{3}y + 1$</p>
+
+
+		<h3 id="normal_line">Normal Line to the Surface</h3>
+
+			<p>The normal line to the surface of the tangent plane is the line which is set at $90^{\circ}$ from the surface. In order to find the equation of the normal line to a tangent plane, we aren't required to first find the equation of the tangent plane, but both the normal line and tangent plane use the derivatives of the original function and the point of tangency.</p>
+
+			<p>The tangent plane is given by:</p>
+
+			<p>$\frac{\partial f}{\partial x}(x_0, y_0, z_0)(x-x_0) + \frac{\partial f}{\partial y}(x_0, y_0, z_0)(y-y_0) + \frac{\partial f}{\partial z}(x_0, y_0, z_0)(z-z_0) = 0$</p>
+
+			<p>where $(x_0, y_0, z_0)$ is the point of tangency.</p>
+
+			<p>The normal line to the surface is given by:</p>
+
+			<p>$\frac{x - x_0}{\partial f / \partial x} = \frac{y - y_0}{\partial f / \partial y} = \frac{z - z_0}{\partial f / \partial z}$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>For the function $x^2 + y^2 + 2z^2 - 36$</p>
+					<ul>
+						<li>Find the equation of the tangent plane at the point $P(-1,2,4)$</li>
+						<li>Find the normal line to the tangent plane at the point $P(-1,2,4)$</li>
+					</ul>
+
+				<p>We must find the partial derivatives of the function $f$ with respect to each variable at the point $P(-1,2,4)$.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 2x$</p>
+				<p>$\frac{\partial f}{\partial x}(-1,2,4) = 2(-1)$</p>
+				<p>$\frac{\partial f}{\partial x}(-1,2,4) = -2$</p>
+
+				<p>and</p>
+
+				<p>$\frac{\partial f}{\partial y} = 2y$</p>
+				<p>$\frac{\partial f}{\partial y}(-1,2,4) = 2(2) = 4$</p>
+
+				<p>$\frac{\partial f}{\partial z} = 4z$</p>
+				<p>$\frac{\partial f}{\partial z}(-1,2,4) = 4(4) = 16$</p>
+
+				<p>Plugging the slope in each direction and the point $P(-1,2,4)$ into the equation of the tangent plane gives:</p>
+
+				<p>$-2[x - (-1)] + 4(y-2) + 16(z-4) = 0$</p>
+				<p>$-2(x+1) + 4(y - 2) + 16(z-4) = 0$</p>
+				<p>$-2x - 2 + 4y - 8 + 16z - 64 = 0$</p>
+				<p>$-2x + 4y + 16z = 74$</p>
+				<p>$-x + 2y + 8z = 37$</p>
+
+				<p>To find the normal line to the tangent plane $-x + 2y + 8z = 37$ at the point $P(-1,2,4)$ into the symmetric formula:</p>
+
+				<p>$\frac{x-x_0}{\partial f / \partial x} = \frac{y-y_0}{\partial f / \partial y} = \frac{z-z_0}{\partial f / \partial z}$</p>
+				<p>$\frac{x - (-1)}{-2} = \frac{y-2}{4} = \frac{z-4}{16}$</p>
+				<p>$\frac{x+1}{-2} = \frac{y-2}{4} = \frac{z-4}{16}$</p>
+
+				<p>This is the normal line to the plane for the tangent plane $-x + 2y + 8z = 37$.</p>
+
+
+
+	<h2 id="pds_opt">Partial Derivatives - Optimization</h2>
+
+		<p>Optimization is the process of finding the absolute highest and lowest points of a function. With multivariable functions, it is about finding the highest and lowest points along the 3D surface.</p>
+
+
+		<h3 id="second_deriv_test">Second Derivative Test</h3>
+
+			<p>As with single variable functions, we can use the second derivative test with multivariable functions to classify any critical points that the function has.</p>
+
+			<p>To use the second derivative test, we'll take the partial derivatives of the function with respect to each variable, then set them equal to $0$ and use them as a system of equations to solve for the coordinates of all possible points.</p>
+
+			<p>$D(x,y) = \frac{\partial^2 f}{\partial x^2} \cdot \frac{\partial^2 f}{\partial y^2} - \left( \frac{\partial^2 f}{\partial x \partial y} \right)^2$</p>
+
+			<p>If $D(x,y) \lt 0$, then $f$ has a saddle point at $(x,y)$.</p>
+			<p>If $D(x,y) = 0$, then the test is inconclusive</p>
+			<p>If $D(x,y) \gt 0$, then:</p>
+				<ul>
+					<li>If $\frac{\partial^2 f}{\partial x^2} \gt 0$ then $f$ has a local minimum at $(x,y)$</li>
+					<li>If $\frac{\partial^2 f}{\partial x^2} \lt 0$, then $f$ has a local maximum at $(x,y)$</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find and classify the critical points of the following function:</p>
+
+				<p>$f(x,y) = 6 + x^3 + y^3 - 3xy$</p>
+
+				<p>We'll start by finding the first-order partial derivatives.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 3x^2 - 3y$</p>
+				<p>$\frac{\partial f}{\partial y} = 3y^2 - 3x$</p>
+
+				<p>Setting both to $0$ and using them as a system of simultaneous equations to find the critical points gives:</p>
+
+				<table class="tableizer-table">
+				 <tr><td>$3x^2 - 3y = 0$</td><td>$3y - 3x = 0$</td></tr>
+				 <tr><td>$3x^2 = 3y$</td><td>&nbsp;</td></tr>
+				 <tr><td>$y = x^2$</td><td>&nbsp;</td></tr>
+				 <tr><td>&nbsp;</td><td>$3(x^2)^2 - 3x = 0$</td></tr>
+				 <tr><td>&nbsp;</td><td>$3x^4 - 3x = 0$</td></tr>
+				 <tr><td>&nbsp;</td><td>$3x(x^3 - 1) = 0$</td></tr>
+				 <tr><td>&nbsp;</td><td>$x = 0 or x = 1$</td></tr>
+				 <tr><td>$y = (0)^2, y = (1)^2$</td><td>&nbsp;</td></tr>
+				 <tr><td>$y = 0, y = 1$</td><td>&nbsp;</td></tr>
+				 <tr><td>$(0,0), (1,1)$</td><td></td></tr>
+				</tbody></table>
+
+				<p>Plugging these into the second derivative test formula, we get:</p>
+
+				<p>$D(x,y) = \frac{\partial^2 f}{\partial x} \cdot \frac{\partial^2 f}{\partial y} - \left( \frac{\partial^2 f}{\partial x \partial y} \right)^2$</p>
+
+				<p>$D(x,y) = (6x)(6y) - (-3)^2$</p>
+				<p>$D(x,y) = 36xy - 9$</p>
+
+				<p>Now we can use the equation for $D(x,y)$ to test our critical points one at a time. </p>
+
+				<p>For $(0,0)$;</p>
+					<ul>
+						<li>$D(0,0) = 36(0)(0) - 9 $</li>
+						<li>$D(0,0) = -9$</li>
+					</ul>
+
+				<p>Since $-9 \lt 0$, the function has a saddle point at $(0,0)$.</p>
+
+				<p>For $(1,1)$:</p>
+					<ul>	
+						<li>$D(1,1) = 36(1)(1) - 9$</li>
+						<li>$D(1,1) = 27$</li>
+					</ul>
+
+				<p>Since $27 \gt 0$, we must look at $\partial^2 f / \partial x^2$ to evaluate $(1,1)$ further.</p>
+
+				<p>$\frac{\partial^2 f}{\partial x^2} = 6x$</p>
+				<p>$\frac{\partial^2 f}{\partial x^2}(1,1) = 6$</p>
+
+				<p>Since $6 \gt 0$, the function has a local minimum at $(1,1)$.</p>
+
+				<p>To summarize, there is a saddle point at $(0,0)$, and a local minimum at $(1,1)$.</p>
+
+
+		<h3 id="local_extrema_saddle">Local Extrema and Saddle Points</h3>
+
+			<p>The way we'll find local maxima and minima is using the second derivative test. In order to use that test, we'll need to find all the second order partial derivatives of $f(x,y)$, which requires first finding all the first-order partial derivatives.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the local maxima and minima of the following function.</p>
+
+				<p>$f(x,y) = x^3 - 12xy + 8y^3$</p>
+
+				</br>
+				<p>$\frac{\partial f}{\partial x} = 3x^2 - 12y$</p>
+				<p>$\frac{\partial^2 f}{\partial x^2} = 6x$</p>
+
+				</br>
+				<p>$\frac{\partial f}{\partial y} = -12x + 24y^2$</p>
+				<p>$\frac{\partial^2 f}{\partial y^2} = 48y$</p>
+
+				</br>
+				<p>$\frac{\partial^2 f}{\partial x \partial y} = -12$</p>
+
+				<p>Now that we have the first and second order partial derivatives, the next step is to find critical points of this 3D function. We start by setting the first order partial derivatives to $0$.</p>
+
+				<p>$3x^2 - 12y = 0$</p>
+				<p>$x^2 - 4y = 0$</p>
+
+				<p>and</p>
+
+				<p>$-12x + 24y^2 = 0$</p>
+				<p>$x + 2y^2 = 0$</p>
+
+				<p>Now we want to use these equations as a system of simultaneous equations. We can start by solving $12x - 24y^2 = 0$ for $x$.</p>
+
+				<p>$12x - 24y^2 = 0$</p>
+				<p>$2y^2 = x$</p>
+
+				<p>Then plug that value of $x$ into the other equation, and solve for $y$.</p>
+
+				<p>$x^2 - 4y = 0$</p>
+				<p>$(2y^2)^2 - 4y = 0$</p>
+				<p>$4y(y^3 - 1) = 0$</p>
+				<p>$y = 0 or y = 1$</p>
+
+				<p>Now we need to find corresponding values of $x$ for both of these $y$ values, plugging them into $2y^2 = x$.</p>
+
+				<p>$x = 2(0)^2$</p>
+				<p>$x = 0$</p>
+
+				<p>and</p>
+
+				<p>$x = 2(1)^2$</p>
+				<p>$x = 2$</p>
+
+				<p>In order to use the second derivative test to evaluate these critical points, to see whether or not either is a local minimum or maximum, we need to plug these points into the second order partial derivatives.</p>
+
+				<p>$\frac{\partial^2 f}{\partial x^2} = 6x$</p>
+				<p>$\frac{\partial^2 f}{\partial x^2}(0,0) = 0$</p>
+				<p>$\frac{\partial^2 f}{\partial x^2}(2,1) = 12$</p>
+
+				</br>
+
+				<p>$\frac{\partial^2 f}{\partial y^2} = 48y$</p>
+				<p>$\frac{\partial^2 f}{\partial y^2}(0,0) = 0$</p>
+				<p>$\frac{\partial^2 f}{\partial y^2}(2,1) = 48$</p>
+
+				</br>
+
+				<p>$\frac{\partial^2 f}{\partial x \partial y} = -12$</p>
+				<p>$\frac{\partial^2 f}{\partial x \partial y}(0,0) = -12$</p>
+				<p>$\frac{\partial^2 f}{\partial x \partial y}(2,1) = -12$</p>
+
+				</br>
+
+				<p>$D(0,0) = 0 \cdot 0 - (-12)^2$</p>
+				<p>$D(0,0) = -144$</p>
+
+				<p>Because $-144 \lt 0$, point $(0,0)$ is a saddle point; neither a minima nor maxima.</p>
+
+				<p>$D(2,1) = 12 \cdot 48 - (-12)^2$</p>
+				<p>$D(2,1) = 432$</p>
+
+				<p>Because $432 \gt 0$, we look at the partial derivative of x at point $(2,1)$. Because its value of $12$ is greater than $0$, we conclude that the point $(2,1)$ is a local minimum.</p>
+
+
+		<h3 id="global_extrema">Global Extrema</h3>
+
+			<p>Here we will use the second derivative test to find the global extrema of a function.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the global extrema of the following function.</p>
+
+				<p>$f(x,y) = 2x^2 + 3y^2 - 12x - 6y + 9$</p>
+
+				<p>Start by finding the partial derivatives.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 4x - 12$</p>
+				<p>$\frac{\partial f}{\partial y} = 6y - 6$</p>
+
+				<p>We set both of these equal to $0$ and solve for our variables.</p>
+
+				<p>$4x - 12 = 0$</p>
+				<p>$4x = 12$</p>
+				<p>$x = 3$</p>
+
+				</br>
+
+				<p>$6y - 6 = 0$</p>
+				<p>$6y = 6$</p>
+				<p>$y = 1$</p>
+
+				<p>This generates the critical point $(3,1)$. We want to use the second derivative test to see whether this point represents a local minimum or maximum. Because it is the only critical point, this is the only point upon which the function changes direction, and will be the global minimum or maximum. If we had multiple critical points, we would need to test each one and then plug them back into the original function to see which critical point represents the higher or lower value.</p>
+
+				<p>We'll need to plug $(3,1)$ into the following formula for $D$.</p>
+
+				<p>$D = (D_{xx})(D_{yy}) - (D_{xy})^2$</p>
+
+				<p>This means $D$ is equal to the second order partial derivative of $f$ with respect to $x$, multiplied by the second order derivative of $f$ with respect to $y$, minus the mixed second-order partial derivative.</p>
+
+				<p>$\frac{\partial^2 f}{\partial x^2} = 4$</p>
+				<p>$\frac{\partial^2 f}{\partial y^2} = 6$</p>
+				<p>$\frac{\partial^2 f}{\partial x \partial y} = 0$</p>
+
+				</br>
+
+				<p>$D = (4)(6) - (0)^2$</p>
+				<p>$D = 24$</p>
+
+				<p>If there were multiple critical points, the second order partial derivatives would still include variables, in which case we would need to plug the critical point into the second order partial derivatives, before plugging them into the formula for $D$. In this case we have a value of $D=24$ for the critical point $(3,1)$.</p>
+
+				<p>Since $D \gt 0$, we have to look at the second order partial derivative for $x$. It equals $4$, which is greater than $0$, so the critical point $(3,1)$ represents a local minimum. Because it is the only critical point, it is also the global minimum.</p>
+
+
+		<h3 id="extreme_value_theorem">Extreme Value Theorem</h3>
+
+			<p>In this problem, we will discuss how to find global extremes of a multivariable function, given that this function has been defined for some domain $D$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the global extrema of the following function in the following domain.</p>
+
+				<p>$f(x,y) = x^2 + y^2 + x^2y + 4$</p>
+				<p>$D = {|x| \le 1, |y| \le 1}$</p>
+
+				<p>There will be 3 steps in examining the domain space for critical points: 1) examining the middle, 2) examining the edges, and 3) examining the corners.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 2x + 2y$</p>
+				<p>$\frac{\partial f}{\partial y} = 2y + x^2$</p>
+
+				<p>In order to find critical points, we'll need to solve one of these equations for one of our variables. We'll start arbitrarily with the second equation.</p>
+
+				<p>$\frac{\partial f}{\partial y} = 2y + x^2$</p>
+				<p>$2y = -x^2$</p>
+				<p>$y = - \frac{1}{2}x^2$</p>
+
+				</br>
+
+				<p>$\frac{\partial f}{\partial x} = 2x + 2xy$</p>
+				<p>$2x + 2x \left( - \frac{1}{2} x^2 \right) = 0$</p>
+				<p>$2x - x^3 = 0$</p>
+				<p>$x(2-x^2) = 0$</p>
+				<p>$x = 0 \text{ or } x = \pm \sqrt{2}$</p>
+
+				<p>However, $\pm \sqrt{2}$ is outside of the domain, so we only consider $x=0$.</p>
+
+				<p>$y = - \frac{1}{2}x^2$</p>
+				<p>$y = - \frac{1}{2}(0)^2$</p>
+
+				<p>The only critical point is $(0,0)$. We'll plug this into the original function.</p>
+
+				<p>$f(0,0) = (0)^2 + (0)^2 + (0)^2(0) + 4$</p>
+				<p>$f(0,0) = 4$</p>
+
+				<p>Next, we'll test the corners of the domain.</p>
+
+				<p>$f(1,1) = (1)^2 + (1)^2 + (1)^2(1) + 4$</p>
+				<p>$f(1,1) = 7$</p>
+
+				</br>
+
+				<p>$f(1,-1) = (1)^2 + (-1)^2 + (1)^2(-1) + 4$</p>
+				<p>$f(1,-1) = 5$</p>
+
+				</br>
+
+				<p>$f(-1,-1) = (-1)^2 + (-1)^2 + (-1)^2(-1)$</p>
+				<p>$f(-1,-1) = 5$</p>
+
+				</br>
+
+				<p>$f(-1,1) = (-1)^2 + (1)^2 + (-1)^2(1) + 4$</p>
+				<p>$f(-1,1) = 7$</p>
+
+				<p>We'll label the edges as follows:</p>
+
+				<p>$D_1$: corresponds to the line between $(-1,-1)$ and $(1,-1)$</p>
+				<p>$D_2$: corresponds to the line between $(1,-1)$ and $(1,1)$</p>
+				<p>$D_3$: corresponds to the line between $(-1,1)$ and $(1,1)$</p>
+				<p>$D_4$: corresponds to the line between $(-1,-1)$ and $(-1,1)$</p>
+
+				</br>
+
+				<p>$D_1: f(x,-1) = x^2 + 1 - x^2 + 4 = 5$</p>
+				<p>$D_2: f(1,y) = 1 + y^2 + y + 4$</p>
+				<p>$D_2: f(1,y) = y^2 + y + 5$</p>
+
+				<p>Because the $y$ variable remains, we take the partial derivative with respect to $y$, and set it to zero.</p>
+
+				<p>$\frac{\partial f}{\partial y}(1,y) = 2y + 1 = 0$</p>
+				<p>$2y = -1$</p>
+				<p>$y = - \frac{1}{2}$</p>
+
+				<p>This provides the critical point $\left( 1, - \frac{1}{2} \right)$</p>
+
+				<p>$D_3: f(x,1) = x^2 + 1 + x^2 + 4$</p>
+				<p>$D_3: f(x,1) = 2x^2 + 5$</p>
+
+				</br>
+
+				<p>$\frac{\partial f}{\partial x} = 4x = 0$</p>
+				<p>$x = 0$</p>
+
+				<p>This provides the critical point $(0,1)$.</p>
+
+				<p>$D_4: f(-1,y) = 1 + y^2 + y + 4 = 0$</p>
+				<p>$D_4: f(-1,y) = y^2 + y = 5$</p>
+
+				<p>$\frac{\partial f}{\partial y} = 2y + 1 = 0$</p>
+				<p>$2y = -1$</p>
+				<p>$y = - \frac{1}{2}$</p>
+
+				<p>This provides the critical point $\left( 1, - \frac{1}{2} \right)$</p>
+
+				<p>Now to test the critical points:</p>
+
+				<p>$f(0,1) = 1 + 4 = 5$</p>
+				<p>$f \left( -1, - \frac{1}{2} \right) = 1 + \frac{1}{4} - \frac{1}{2} + 4 = 4 \frac{3}{4}$</p>
+				<p>$f \left( 1, - \frac{1}{2} \right) = 1 + \frac{1}{4} - \frac{1}{2} + 4 = 4 \frac{3}{4}$</p>
+				<p>$f(0,0) = 4$</p>
+				<p>$f \left( \pm 1, - \frac{1}{2} \right) = 4 \frac{3}{4}$</p>
+				<p>$f(0,1), f(\pm 1, 1) = 5$</p>
+				<p>$f(\pm 1, 1) = 7$</p>
+
+				<p>There is a global minimum at point $(0,0)$, equal to $4$.</p>
+
+				<p>There are maxima at points $(\pm 1, 1)$, equal to $7$.</p>
+
+
+
+	<h2 id="pds_applied_opt">Partial Derivatives - Applied Optimization</h2>
+
+		<h3 id="max_prod">Maximum Product of 3 Real Numbers</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find 3 positive numbers with sum $100$, and the maximum product of these 3 numbers.</p>
+
+				<p>$x + y + z = 100$</p>
+				<p>$p = xyz$</p>
+
+				<p>To maximize the equation for the product, we need to reduce it to at most two variables, by solving the top equation for one of these variables, and then plugging it into the second equation.</p>
+
+				<p>$z = 100 - x - y$</p>
+				<p>$p = xy(100 - x - y)$</p>
+				<p>$f(x,y) = 100xy - x^2y - xy^2$</p>
+				<p>$\frac{\partial f}{\partial x} = 100y - 2xy - y^2$</p>
+				<p>$\frac{\partial f}{\partial y} = 100x - x^2 - 2xy$</p>
+				<p>$\frac{\partial^2 f}{\partial x^2} = -2y$</p>
+				<p>$\frac{\partial^2 f}{\partial y^2} = -2x$</p>
+				<p>$\frac{\partial^2 f}{\partial x \partial y} = 100 - 2x - 2y$</p>
+
+				<p>Now, what we're looking to do is use our first order partial derivatives to find critical points of $f(x,y)$. We'll do that by solving this as a system of equations.</p>
+
+				<p>$\frac{\partial f}{\partial x} = 100y - 2xy - y^2$</p>
+				<p>$\rightarrow y(100 - 2x - y) = 0$</p>
+
+				<p>$\frac{\partial f}{\partial y} = 100x - x^2 - 2xy$</p>
+				<p>$\rightarrow x(100 - x - 2y) = 0$</p>
+
+				<p>We'll find values of $y$ that satisfy the first equation above, then plug these into the second equation to find corresponding values of $x$.</p>
+
+				<p>$y(100 - 2x - y) = 0$</p>
+				<p>$y = 0 \text{ or } y = 100 - 2x$</p>
+
+				</br>
+				<p>For $x = 0$:</p>
+				<p>$x(100 - x - 2y) = 0$</p>
+				<p>$x(100 - x - 2(0)) = 0$</p>
+				<p>$x(100 - x) = 0$</p>
+				<p>$x = 0 \text{ or } x = 100$</p>
+
+				</br>
+				<p>For $x = 100$:</p>
+				<p>$x(100 - x - 2y) = 0$</p>
+				<p>$x(100 - x - 2)(100 - 2x)) = 0$</p>
+				<p>$x(100 - x - 200 + 4x) = 0$</p>
+				<p>$x(-100 + 3x) = 0$</p>
+				<p>$3x = 100$</p>
+				<p>$x = \frac{100}{3}$</p>
+
+				</br>
+				<p>$y = 100 - 2x$</p>
+				<p>$y = 100 - \frac{200}{3}$</p>
+				<p>$y = \frac{100}{3}$</p>
+
+				<p>We have generated four critical points:</p>
+
+				<p>$\left( \frac{100}{3}, \frac{100}{3} \right)$</p>
+				<p>$(0,100)$</p>
+				<p>$(0,0)$</p>
+				<p>$(100,0)$</p>
+
+				<p>Three of them contain zeros, and therefore cannot be a solution to the original question, leaving critical point $\left( \frac{100}{3}, \frac{100}{3} \right)$. We will use the second derivative test to ensure that this is indeed a maximum.
+
+				<p>$D = (D_xx)(D_yy) - D(xy)^2$
+
+				<p>$
+					D = 
+					\left( -2 \left( \frac{100}{3} \right) \right)
+					\left( -2 \left( \frac{100}{3} \right) \right)
+					- 
+					\left( 100 - 2 \left(\frac{100}{3} \right) - 2 \left( \frac{100}{3} \right) \right)
+					$
+				</p>
+
+				<p>$D = \left( - \frac{}{} \right) \left( - \frac{}{} \right) - \left( 100 - \frac{200}{3} - \frac{200}{3} \right)$</p>
+				<p>$D = \frac{40000}{9} - \left( \frac{10000}{9} \right)$</p>
+				<p>$D = \frac{30000}{9}$</p>
+
+				<p>The answer is greater than zero, so we have to look at the partial derivative with respect to x, evaluated at the critical point.</p>
+
+				<p>$\frac{\partial^2 f}{\partial^2 x} \left( \frac{100}{3} \right) \left( \frac{100}{3} \right) = - \frac{200}{3}$</p>
+
+				<p>$\frac{-200}{3} \lt 0$, so there is a maximum at the critical point found.</p>
+
+				<p>Now to find $z$, using the equation $z = 100 - x - y$.</p>
+
+				<p>$z = 100 - \frac{100}{3} - \frac{100}{3}$</p>
+				<p>$z = \frac{100}{3}$</p>
+
+				<p>The 3 numbers with sum $100$ and maximum product are $\left( \frac{100}{3}, \frac{100}{3}, \frac{100}{3} \right)$.</p>
+
+
+		<h3 id="min_dist_pt_plane">Minimum Distance from a Point to a Plane</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find the smallest distance between a point $(2,1,1)$ and a plane $x + 2y + 2z = 11$.</p>
+
+				<p>Recall that when $ax + by + cz + d = 0$, given a point $P(x_0, y_0, z_0)$, then:</p>
+
+				<p>$D = \frac{ | ax_0 + by_0 + cz_0 + d | }{ \sqrt{ a^2 + b^2 + c^2 } }$</p>
+
+				<p>We'll rewrite $x + 2y + 2z = 11$ so that the constant is on the left side.</p>
+
+				<p>$x + 2y + 2z - 11 = 0$</p>
+
+				<p>We then plug this and the given point into the distance formula.</p>
+
+				<p>$D = \frac{ | (1)(2) + (2)(1) + (2)(1) + (-11) | }{ \sqrt{ 1^2 + 2^2 + 2^2 } }$</p>
+				<p>$D = \frac{ | 2 + 2 + 2 + 11 | }{ \sqrt{ 1 + 4 + 4 } }$</p>
+				<p>$D = \frac{|-5|}{\sqrt{9}}$</p>
+				<p>$D = \frac{5}{\sqrt{9}}$</p>
+				<p>$D = \frac{5}{3}$</p>
+
+
+		<h3 id="points_closest_cone">Points on the Cone Closest to a Given Point</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find the point on the cone $z^2 = x^2 + y^2$ closest to the point $(4,2,0)$.</p>
+
+				<p>Recall the distance formula:</p>
+
+				<p>$D = \sqrt{ (x - x_1)^2 + (y - y_1)^2 + (z - z_1)^2 }$</p>
+
+				<p>We want to eliminate one of the variables by expressing it in terms of the others (knowing that $z^2 = x^2 + y^2$).</p>
+
+				<p>$D = \sqrt{ (x - 4)^2 + (y - 2)^2 + z^2 }$</p>
+				<p>$D = \sqrt{ (x - 4)^2 + (y - 2)^2 + x^2 + y^2 }$</p>
+				<p>$D^2 = (x-4)^2 + (y - 2)^2 + x^2 + y^2$</p>
+				<p>$D^2 = (x^2 - 8x + 16) + y^2 - 4y + 4 + x^2 + y^2$</p>
+				<p>$D^2 = 2x^2 - 8x + 2y^2 - 4y + 20$</p>
+
+				<p>Now we take the partial derivatives, and set their equations to $0$.</p>
+
+				<p>$\frac{\partial D^2}{\partial x} = 4x - 8 = 0$</p>
+				<p>$4x = 8$</p>
+				<p>$x = 2$</p>
+
+				</br>
+
+				<p>$\frac{\partial D^2}{\partial y} = 4y - 4 = 0$</p>
+				<p>$4y = 4$</p>
+				<p>$y = 1$</p>
+
+				<p>This tells us there is a critical point $(2,1)$. We then plug it into the formula for $z^2$.</p>
+
+				<p>$z^2 = x^2 + y^2$</p>
+				<p>$z^2 = 4 + 1$</p>
+				<p>$z^2 = 5$</p>
+				<p>$z = \pm \sqrt{5}$</p>
+
+				<p>This tells us two points on the cone are equidistant; they are $(2,1,5)$ or $(2,1,-5)$.</p>
+
+				<p>If we want to use the second derivative test to verify that this critical point represents the shortest distance between the given point and the cone, find the partial derivatives and plug them into the formula for the second derivative test.</p>
+
+				<p>$D^2_{xx} = 4$</p>
+				<p>$D^2_{yy} = 4$</p>
+				<p>$D^2_{xy} = 0$</p>
+
+				<p>$SDT = 4 \cdot 4 - (0)^2$</p>
+				<p>$SDT = 16$</p>
+
+				<p>Because the second derivative test gives a result greater than $0$, we have to look at the second order partial derivative with respect to $x$. It is greater than $0$, so the point is a minimum, proving shortest distance to the cone.</p>
+
+
+
+	<h2 id="pds_lagrange">Partial Derivatives - Lagrange Multipliers</h2>
+
+		<h3 id="lagrange">Lagrange Multipliers</h3>
+
+			<p>Sometimes we are asked to find and classify the critical points of a multivariable function that is subject to a secondary constraint equation.</p>
+				<ul>
+					<li>Multivariable Functions: $z = f(x,y)$</li>
+					<li>Constraint Equation = $g(x,y) = c$</li>
+				</ul>
+
+			<p>To find the critical points of a function like this one, we can use the Lagrange multiplier $\lambda$ to develop a system of simultaneous equations that will allow us to solve for critical points.</p>
+				<ol>
+					<li>Bring the constant $c$ in $g(x,y)$ to the left-hand side, so that you end up with two functions in the forms of $f(x,y)$ and $g(x,y)$.</li>
+					<li>Take the partial derivatives of $f(x,y)$ and $g(x,y)$.</li>
+					<li>Multiply the partial derivatives of $g(x,y)$ by $\lambda$.</li>
+					<li>Create the system of simultaneous equations $\frac{\partial f}{\partial x} = \frac{\partial g}{\partial x} \lambda$ and $\frac{\partial f}{\partial y} = \frac{\partial g}{\partial y} \lambda$.</li>
+					<li>Solve both equations for $\lambda$, then set them equal to each other.</li>
+					<li>Solve for one variable in terms of the other, then plug the original constraint equation in to find values for both $x$ and $y$.</li>
+					<li>Use the second derivative test to classify the critical point</li>
+				</ol>
+
+			<p>$D(x,y,\lambda) = \frac{\partial^2 f}{\partial x^2} \cdot \frac{\partial^2 f}{\partial y^2} - \left( \frac{\partial^2 f}{\partial x \partial y} \right)^2$</p>
+
+			<p>If $D(x,y) \lt 0$, then $f$ has a saddle point at $(x,y)$.</p>
+			<p>If $D(x,y) = 0$, then the test is inconclusive</p>
+			<p>If $D(x,y) \gt 0$, then:</p>
+				<ul>
+					<li>If $\frac{\partial^2 f}{\partial x^2} \gt 0$, $f$ has a local minimum at $(x,y)$</li>
+					<li>If $D(x,y) \gt 0$, and $\frac{\partial^2 f}{\partial x^2} \lt 0$, then $f$ has a local maximum at $(x,y)$</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the maximum and minimum of the following function with the given constraint.</p>
+
+				<p>$f(x,y) = x^2 + 2y^2 - 120, \text{ with constraint } 2y - 4x = 24$</p>
+
+				<p>We need to set the constraint equation equal to $0$ to get it into the same form as our function.</p>
+
+				<p>$g(x,y) = 2y - 4x - 24$</p>
+
+				<p>Now we can find the partial derivatives of the function $f(x,y)$ and the constraint equation $g(x,y)$.</p>
+
+				<p>For $f(x,y)$:</p>
+
+				<p>$\frac{\partial f}{\partial x} = 2x \text{ and } \frac{\partial f}{\partial y} = 4y$</p>
+
+				<p>For $g(x,y)$:</p>
+
+				<p>$\frac{\partial g}{\partial x} = -4 \text{ and } \frac{\partial g}{\partial y} = 2$</p>
+
+				<p>We'll multiply the partial derivatives of the constraint equation by $\lambda$, and get:</p>
+
+				<p>$\frac{\partial g}{\partial x} \lambda = -4 \lambda \text{ and } \frac{\partial g}{\partial y} \lambda = 2 \lambda$</p>
+
+				<p>Next, create the system of simultaneous equations.</p>
+
+				<p>$\frac{\partial f}{\partial x} = \frac{\partial g}{\partial x} \lambda$</p>
+				<p>$2x = -4 \lambda$</p>
+				<p>$\lambda = - \frac{x}{2}$</p>
+
+				<p>and</p>
+
+				<p>$\frac{}{} = \frac{}{} \lambda$</p>
+				<p>$4y = 2 \lambda$</p>
+				<p>$\lambda = 2y$</p>
+
+				<p>With two equations for $\lambda$, we can set them equal to one another, and solve for $y$ in terms of $x$.</p>
+
+				<p>$2y = - \frac{x}{2}$</p>
+				<p>$y = - \frac{x}{4}$</p>
+
+				<p>Plugging this y-value into the constraint equation and solving for $x$, we get:</p>
+
+				<p>$2y - 4x = 24$</p>
+				<p>$2 \left( - \frac{x}{4} \right) - 4x = 24$</p>
+				<p>$- \frac{x}{2} - 4x = 24$</p>
+				<p>$-x - 8x = 48$</p>
+				<p>$-9x = 48$</p>
+				<p>$x = - \frac{48}{9}$</p>
+
+				<p>Now we can plug this real-number value of $x$ into the equation to find a real-number value of $y$.</p>
+
+				<p>$2y - 4 \left( - \frac{48}{9} \right) = 24$</p>
+				<p>$2y + \frac{192}{9} = 24$</p>
+				<p>$2y + \frac{64}{3} = 24$</p>
+				<p>$6y + 64 = 72$</p>
+				<p>$6y = 8$</p>
+				<p>$y = \frac{4}{3}$</p>
+
+				<p>This tells us that our single critical point is:</p>
+
+				<p>$\left( - \frac{48}{9}, \frac{4}{3} \right)$</p>
+
+				<p>Now, to classify this critical point, we'll find the second-order partial derivatives of $f$.</p>
+
+				<p>$\frac{\partial^2 f}{\partial x^2} = 2$</p>
+				<p>$\frac{\partial^2 f}{\partial y^2} = 4$</p>
+				<p>$\frac{\partial^2 f}{\partial x \partial y} = 0$</p>
+
+				<p>Plug the second-order partial derivatives into the second derivative test formula.</p>
+
+				<p>$D(x,y,\lambda) = \frac{\partial^2 f}{\partial x^2} \cdot \frac{\partial^2 f}{\partial y^2} - \left( \frac{\partial^2 f}{\partial x \partial y} \right)^2$</p>
+
+				<p>$D(x,y,\lambda) = (2)(4)-(0)^2$</p>
+				<p>$D(x,y,\lambda) = 8$</p>
+
+				<p>Since we have no variables remaining in $D(x,y,\lambda)$, we'll have the same result for all possible points. Because $D \gt 0$, we have to look at $\partial^2 f / \partial x^2$.</p>
+
+				<p>$\frac{\partial^2 f}{\partial x^2} \left( - \frac{48}{9}, \frac{4}{3} \right) = 2$</p>
+
+				<p>Since $2 \gt 0$, the function has a local minimum at this critical point.</p>
+
+
+		<h3 id="2d_1con">Two Dimensions, One Constraint</h3>
+
+			<p>Find any extrema of $f(x,y) = x^2 + y^2$ subject to $2x + 6y = 2000$.</p>
+
+			<p>Recall that:</p>
+
+			<p>$D(x,y,\lambda) = \left( \frac{\partial^2 f}{\partial x^2} \right) \left( \frac{\partial^2 f}{\partial y^2} \right) - \left( \frac{\partial^2 f}{\partial x \partial y} \right)^2$</p>
+
+			<p>The first thing we want to do is rewrite the constraint equation to make it an equation for $g(x,y)$.</p>
+
+			<p>$2x + 6y - 2000 = 0$</p>
+			<p>$g(x,y) = 2x + 6y - 2000$</p>
+
+			<p>The next thing we're going to do is find the first order partial derivatives of both $f$ and $g$.</p>
+
+			<p>$\frac{\partial f}{\partial x} = 2x$</p>
+			<p>$\frac{\partial f}{\partial y} = 2y$</p>
+			<p>$\frac{\partial g}{\partial x} = 2$</p>
+			<p>$\frac{\partial g}{\partial y} = 6$</p>
+
+			<p>With these partial rules in place, we introduce $\lambda$.</p>
+
+			<p>$2x = 2 \lambda$</p>
+			<p>$2y = 6 \lambda$</p>
+
+			<p>Now we solve for $\lambda$ in one of these equations, and plug the result into the other equation.</p>
+
+			<p>$2x = 2 \lambda$</p>
+			<p>$x = \lambda$</p>
+
+			</br>
+
+			<p>$2y = 6 \lambda$</p>
+			<p>$2y = 6x$</p>
+			<p>$y = 3x$</p>
+
+			<p>With this solved for $y$ in terms of $x$, we can take the $y$ value and plug it into the constraint equation.</p>
+
+			<p>$2x + 6y = 2000$</p>
+			<p>$2x + 6(3x) = 2000$</p>
+			<p>$2x + 18x = 2000$</p>
+			<p>$20x = 2000$</p>
+			<p>$x = 100$</p>
+
+			<p>We can now plug $x=100$ into the equation for $y$.</p>
+
+			<p>$y = 3(100)$</p>
+			<p>$y = 300$</p>
+
+			<p>We have found the critical point $(100,300)$, and will plug that into the second derivative test.</p>
+
+			<p>$\frac{\partial^2 f}{\partial x} = 2$</p>
+			<p>$\frac{\partial^2 f}{\partial y} = 3$</p>
+			<p>$\frac{\partial^2 f}{\partial x \partial y} = 0$</p>
+
+			<p>$D(x,y,\lambda) = (2)(2) - (0)^2 = 4$</p>
+
+			<p>Because $4 \gt 0$, we look at the partial derivative with respect to $x$. Since $2 \gt 0$, the critical point represents a local minimum.</p>
+
+		<h3 id="3d_1con">Three Dimensions, One Constraint</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find the extrema of the following function subject to the following constraint equation.</p>
+
+				<p>$f(x,y,z) = xyz$</p>
+				<p>$x^2 + y^2 + z^2 = 3$</p>
+
+				</br>
+				<p>$g(x,y,z) = x^2 + y^2 + z^2 - 3$</p>
+
+				</br>
+				<p>$\frac{\partial f}{\partial x} = yz$</p>
+				<p>$\frac{\partial f}{\partial y} = xz$</p>
+				<p>$\frac{\partial f}{\partial z} = xy$</p>
+
+				</br>
+				<p>$\frac{\partial g}{\partial x} = 2x$</p>
+				<p>$\frac{\partial g}{\partial y} = 2y$</p>
+				<p>$\frac{\partial g}{\partial z} = 2z$</p>
+
+				<p>We take the corresponding partial derivatives of both functions and set them equal to each other with the multiplier $\lambda$.</p>
+
+				<p>$yz = 2x \lambda$</p>
+				<p>$xz = 2y \lambda$</p>
+				<p>$xy = 2z \lambda$</p>
+				<p>$xyz = 2x^2 \lambda$</p>
+				<p>$xyz = 2y^2 \lambda$</p>
+				<p>$xyz = 2x^2 \lambda$</p>
+
+				</br>
+				<p>$2x^2 = 2y^2 = 2z^2$</p>
+				<p>$x^2 = y^2 = z^2$</p>
+				<p>$x^2 + x^2 + x^2 = 3$</p>
+				<p>$3x^2 = 3$</p>
+				<p>$x^2 = 1$</p>
+				<p>$x = \pm 1$</p>
+				<p>$y = \pm 1$</p>
+				<p>$z = \pm 1$</p>
+
+				<p>There are 8 critical points. The function is going to have a local maximum at $1$ and is going to reach that value at:</p>
+
+				<p>$(1,1,1)$</p>
+				<p>$(1,-1,-1)$</p>
+				<p>$(-1,1,-1)$</p>
+				<p>$(-1,-1,1)$</p>
+
+				<p>and there will be a local minimum of $-1$ at:</p>
+
+				<p>$(-1,-1,-1)$</p>
+				<p>$(1,1,-1)$</p>
+				<p>$(1,-1,1)$</p>
+				<p>$(-1,1,1)$</p>
+
+
+		<h3 id="3d_2con">Three Dimensions, Two Constraints</h3>
+
+			<h4>Example:</h4>
+
+				<p>Find any extrema of $f(x,y,z) = x^2 + y^2 + z^2$ if $x + y + z = 1$ and $x + 2y + 3z = 6$.</p>
+
+				<p>$g(x,y,z) = x + y + z - 1$</p>
+				<p>$h(x,y,z) = x + 2y 3z - 6$</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>$\frac{\partial f}{\partial x} = 2x$</th><th>$\frac{\partial g}{\partial x} = 1$</th><th>$\frac{\partial h}{\partial x} = 1$</th></tr></thead><tbody>
+				 <tr><td>$\frac{\partial f}{\partial y} = 2y$</td><td>$\frac{\partial g}{\partial y} = 1$</td><td>$\frac{\partial h}{\partial y} = 2$</td></tr>
+				 <tr><td>$\frac{\partial f}{\partial z} = 2z$</td><td>$\frac{\partial g}{\partial z} = 1$</td><td>$\frac{\partial h}{\partial z} = 3$</td></tr>
+				</tbody></table>
+
+				<p>$2x = \lambda + \mu$</p>
+				<p>$2y = \lambda + 2 \mu$</p>
+				<p>$2z = \lambda + 3 \mu$</p>
+
+				</br>
+				<p>$x = \frac{\lambda + \mu}{2}$</p>
+				<p>$y = \frac{\lambda + 2 \mu}{2}$</p>
+				<p>$z = \frac{\lambda + 3 \mu}{2}$</p>
+
+				<p>Now that we have values equal to $x$, $y$, and $z$, we'll plug them into our constraint equations.</p>
+
+				<p>$\frac{\lambda + \mu}{2} + \frac{\lambda + 2 \mu}{2} + \frac{\lambda + 3 \mu}{2} = 1$</p>
+				<p>$\lambda + \mu + \lambda + 2 \mu + \lambda + 3 \mu = 2$</p>
+				<p>$3 \lambda + 6 \mu = 2$</p>
+
+				</br>
+				<p>$\frac{\lambda + \mu}{2} + 2 \left( \frac{\lambda + \mu}{2} \right) + 3 \left( \frac{\lambda - 3 \mu}{2} \right) = 6$</p>
+				<p>$\frac{\lambda + \mu}{2} + \frac{2 \lambda + 4 \mu}{2} + \frac{3 \lambda + 9 \mu}{2} = 6$</p>
+				<p>$\lambda + \mu + 2 \lambda + 4 \mu + 3 \lambda + 9u = 12$</p>
+				<p>$6 \lambda + 14 \mu = 12$</p>
+				<p>$3 \lambda + 7 \mu = 6$</p>
+
+				</br>
+				<p>$(3 \lambda + 6 \mu = 2) - (3 \lambda + 7 \lambda = 6) = -\mu - 4$</p>
+				<p>$\mu = 4$</p>
+
+				</br>
+				<p>$3 \lambda + 6(4) = 2$</p>
+				<p>$3 \lambda + 24 = 2$</p>
+				<p>$3 \lambda = -22$</p>
+				<p>$\lambda = - \frac{22}{3}$</p>
+
+				</br>
+
+				<p>$x = \frac{ \frac{-22}{3} + \frac{12}{3} }{2} = \frac{ \frac{-10}{3} }{2} = - \frac{10}{3} \cdot \frac{1}{2} = - \frac{10}{6} = \frac{-5}{3}$</p>
+
+				<p>$y = \frac{ \frac{-22}{3} + \frac{24}{3} }{2} = \frac{ \frac{2}{3} }{2} = \frac{2}{3} \cdot \frac{1}{2} = \frac{1}{3}$</p>
+
+				<p>$z = \frac{ \frac{-22}{3} + \frac{36}{3} }{2} = \frac{ \frac{14}{3} }{2} = \frac{14}{3} \cdot \frac{1}{2} = \frac{14}{6} = \frac{7}{3}$</p>
+
+				<p>$x = - \frac{5}{3}, y = \frac{1}{3}, z = \frac{7}{3}$</p>
+
+				<p>$[\mu = 4, \lambda = \frac{-22}{3}]$</p>
+
+				<p>$
+					f \left( - \frac{5}{3}, \frac{1}{3}, \frac{7}{3} \right) = 
+					\left(- \frac{5}{3} \right)^2 + 
+					\left( \frac{1}{3} \right)^2 + 
+					\left( \frac{7}{3} \right)^2
+					$
+				</p>
+
+				<p>$= \frac{25}{9} + \frac{1}{9} + \frac{49}{9}$</p>
+				<p>$= \frac{75}{9} = \frac{25}{3}$</p>
+
+				<p>$\frac{25}{3}$ is the value of the function at its extrema. $x^2 + y^2 + z^2$ is a paraboloid that opens upward, so $\frac{25}{3}$ must be a minimum of the function, because there is no maximum of the function.</p>
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="calc3_pt3.html">part 3</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+

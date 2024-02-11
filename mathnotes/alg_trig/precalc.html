@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+        
+
+
+
+
+<h1>Pre-Calculus</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#complex_nums">Complex Numbers</td><td><a href="#imag_nums">Imaginary Numbers</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#simplifying">Simplifying Powers of Imaginary Numbers</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#ops_complex_nums">Operations on Complex Numbers</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#complex_conj">The Complex Conjugate</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#complex_roots">Roots of Complex Numbers</td></tr>
+ <tr><td><a href="#matrices">Matrices</td><td><a href="#sys_with_matrices">Representing Systems with Matrices</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#row_ops">Simple Row Operations</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#gauss_jordan">Gauss-Jordan Elimination and Reduced Row Echelon Form</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#matrix_mult">Matrix Multiplication</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#transformations">Transformations</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#determinant">The Determinant</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#matrix_inverse">Matrix Inverses</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#solving_inv_matrices">Solving Systems with Inverse Matrices</td></tr>
+ <tr><td><a href="#partial_frac">Partial Fractions</td><td><a href="#frac_decomp">Fraction Decomposition</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#distinct_linear_fact">Distinct Linear Factors</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#repeated_linear_fact">Repeated Linear Factors</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#distinct_quad_fact">Distinct Quadratic Factors</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#repeated_quad_fact">Repeated Quadratic Factors</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#mixed_fact">Mixed Factors</td></tr>
+</tbody></table>
+
+
+	<h2 id="complex_nums">Complex Numbers</h2>
+
+		<h3 id="imag_nums">Imaginary Numbers</h3>
+
+			<p>The complex number system is based on the imaginary unit $i$. The imaginary number is defined as $i^2 = -1$ or $i = \sqrt{-1}$.</p>
+
+			<p>Without imaginary numbers, we have no way to find the value of $x$ in an equation like $x^2 = -16$, as the square root of a negative number isn't defined in the real number system.</p>
+
+
+			<h3 id="simplifying">Simplifying Powers of Imaginary Numbers</h3>
+
+				<p>A natural extension of the definition of the imaginary number $i$ is that the powers of $i$ follow a cyclical pattern.</p>
+
+				<p>$i^0 = 1$</p>
+				<p>$i^1 = \sqrt{-1}$</p>
+				<p>$i^2 = -1$</p>
+				<p>$i^3 = -i$</p>
+
+				</br>
+				<p>$i^4 = 1$</p>
+				<p>$i^5 = \sqrt{-1}$</p>
+				<p>$i^6 = -1$</p>
+				<p>$i^7 = -i$</p>
+
+				<p>This pattern extends to the negative powers as well. Because the pattern is predictable, we can simplify any power of $i$ just by pulling out the largest power that is divisible by $4$. For instance:</p>
+
+				<p>$i^{202}$</p>
+				<p>$= i^{200} \cdot i^2$</p>
+				<p>$= (i^{4})^{50} \cdot i^2$</p>
+				<p>$= (1)^{50} \cdot i^2$</p>
+				<p>$= 1 \cdot i^2$</p>
+				<p>$= i^2$</p>
+				<p>$= -1$</p>
+
+
+		<h3 id="ops_complex_nums">Operations on Complex Numbers</h3>
+
+			<p>Complex numbers include all of the real numbers, and all of the imaginary numbers. The standard form of a complex number is $z = a + bi$. The real part of the complex number, $a$, can also be described as $Re(z)$. The imaginary part, $b$, can be described as $Im(z)$. A pure imaginary number is one where $a$ or $Re(z)$ is equal to zero.</p>
+
+			<p>To add or subtract two complex numbers, we deal with the real parts and imaginary parts separately. For example, the sum $(-2 + 17i) + (6 - 8i) = 4 + 9i$.</p>
+
+
+			<h4>Multiplication:</h4>
+
+				<p>Complex numbers are binomials by definition, so we use the FOIL method (first, outer, inner, last) to multiply their terms.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the product of $-6 + 2i$ and $4 - 5i$.</p>
+
+				<p>$(6 + 2i)(4 - 5i)$</p>
+				<p>$= (-6)(4) + (-6)(-5i) + (2i)(4) + (2i)(-5i)$</p>
+				<p>$= -24 + 38i + 10i^2$</p>
+
+				<p>Because $i^2 = -1$, we get:</p>
+
+				<p>$= -24 + 38i - 10(-1)$</p>
+				<p>$= 24 + 38i + 10$</p>
+
+				<p>Multiplying a real number by a complex number looks like $3 \times 4i = 12i$. Multiplying two imaginary produces an $i^2$ term, and therefore results in a real number. For example:</p>
+
+				<p>$3i \times 4i = 12i^2 = 12(-1) = -12$</p>
+
+				<p>The product of $i$ and $-i$ is:</p>
+
+				<p>$i(-i)$</p>
+				<p>$= -(i^2)$</p>
+				<p>$= -(-1)$</p>
+				<p>$= 1$</p>
+
+				<p>Just like with real numbers, multiplying a complex number by zero produces a zero.</p>
+
+
+			<h4>Division:</h4>
+
+				<p>When we divide a complex number by a real number, we get:</p>
+
+				<p>$\frac{a + bi}{c} \to \frac{a}{c} + \frac{bi}{c} \to \frac{a}{c} + \frac{b}{c} i$</p>
+
+				<p>$\frac{a}{c}$ is now the real part of the complex number, $\frac{b}{c}$ is the imaginary part</p>
+
+				<p>When we divide a complex number by a pure imaginary number, it looks like this:</p>
+
+				<p>$\frac{a + bi}{ci} \to \frac{a}{ci} + \frac{bi}{ci} \to \frac{a}{c}i^{-1} + \frac{b}{c}$</p>
+				<p>$\to \frac{a}{c}(-i) + \frac{b}{c} \to - \frac{a}{c}i + \frac{b}{c} \to \frac{b}{c} - \frac{a}{c}i$</p>
+
+				<p>After the division, $\frac{b}{c}$ is now the real part of the complex number, and $\frac{a}{c}$ the imaginary part.</p>
+
+
+		<h3 id="complex_conj">The Complex Conjugate</h3>
+
+			<p>What about when we divide the full complex binomial $z = a + bi$ by another complex binomial $z = c + di$?</p>
+
+			<p>$\frac{a + bi}{c + di}$</p>
+
+			<p>The conjugate of a binomial is the same two terms of the binomial, but with the opposite sign between them. The complex conjugate is the same concept, but with complex binomials. The complex conjugate of $3 + 4i$ is $3 - 4i$, or more generally, the complex conjugate of $a + bi$ is $a - bi$.</p>
+
+			<p>To simplify the quotient of two complex numbers, we need to multiply both the numerator and denominator of the fraction by the complex conjugate of the denominator.</p>
+
+			<p>$\frac{a + bi}{c + di} \left( \frac{c - di}{c - di} \right)$</p>
+			<p>$= \frac{ (a + bi) (c - di) }{ (c + di) (c - di) }$</p>
+
+			<p>Then we separately FOIL the numerator and denominator:</p>
+
+			<p>$= \frac{ ac - adi + bci - bdi^2 }{ c^2 - cdi + cdi - d^2 i^2 }$</p>
+
+			<p>When we multiply by the complex conjugate like this, the two terms in the middle of the denominator cancel each other out.</p>
+
+			<p>$= \frac{ ac - adi + bci - bdi^2 }{ c^2 - d^2 i^2 }$</p>
+			<p>$= \frac{ ac - adi + bci - bd (-1) }{ c^2 + d^2 (-1) }$</p>
+			<p>$= \frac{ ac - adi + bci + bd }{ c^2 + d^2 }$</p>
+			<p>$= \frac{ac + bd}{c^2 + d^2} + \frac{bc - ad}{c^2 + d^2} i$</p>
+
+			<p>The first fraction is the real number part, and the second is the imaginary part. When we divide two complex number binomials, the result will be a complex number binomial.</p>
+
+
+		<h3 id="complex_roots">Roots of Complex Numbers</h3>
+
+			<p>To find the roots of a complex number, we start with a complex number in polar form, $z = r(cos \theta + i ~sin ~\theta)$. Once in polar form, its $n^{th}$ roots are given in radians by:</p>
+
+			<p>$\sqrt[n]{2} = \sqrt[n]{r} \left[ cos \left( \frac{\theta + 2 \pi k}{n} \right) + i ~sin \left( \frac{\theta + 2 \pi k}{n} \right) \right]$</p>
+
+			<p>or in degrees by:</p>
+
+			<p>$\sqrt[n]{2} = \sqrt[n]{r} \left[ cos \left( \frac{\theta + 360^{\circ}}{n} \right) + i ~sin \left( \frac{\theta + 360^{\circ}}{n} \right) \right]$</p>
+
+			<p>What does it mean to find the $n^{th}$ roots? If finding the $5^{th}$ roots of a complex number, it means finding the set of values that, when raised to the $5^{th}$ power, are equal to the complex number. There are always $n$ of the $n^{th}$ roots - e.g., $3$ if looking for the $3^{rd}$ roots, $5$ if looking for the $5^{th}$ roots, etc.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the $4^{th}$ roots of the following complex number:</p>
+
+				<p>$z = 81(cos ~180^{\circ} + i ~sin ~180^{\circ})$</p>
+
+				<p>Because we're looking for 4th roots, we know there will be $4$ of them given by $k = 0, 1, 2, 3$.</p>
+
+				<p>$\sqrt[n]{z} = \sqrt[n]{r} \left[ cos \left( \frac{\theta + 360^{\circ} k}{n} \right) + i ~sin \left( \frac{\theta + 360^{\circ} k}{n} \right) \right]$</p>
+
+				<p>$\sqrt[4]{z} = \sqrt[4]{r} \left[ cos \left( \frac{\theta + 360^{\circ} k}{4} \right) + i ~sin \left( \frac{\theta + 360^{\circ} k}{4} \right) \right]$</p>
+
+				<p>For the given complex number, $r = 81$ and $\theta = 180^{\circ}$.</p>
+
+				<p>$\sqrt[4]{z} = \sqrt[4]{81} \left[ cos \left( \frac{180^{\circ} + 360^{\circ} k}{4} \right) + i ~sin \left( \frac{180^{\circ} + 360^{\circ} k}{4} \right) \right]$</p>
+
+				<p>Next, we'll find values for $k = 0, 1, 2, 3$.</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>k</th><th>Formula</th><th>Result</th></tr></thead><tbody>
+				 <tr><td>$k = 0$</td><td>$\sqrt[4]{2}_{k=0}$</td><td>$\frac{ 3 \sqrt{2} }{ 2 } + \frac{ 3 \sqrt{2} }{ 2 } i$</td></tr>
+				 <tr><td>$k = 1$</td><td>$\sqrt[4]{2}_{k=1}$</td><td>$- \frac{ 3 \sqrt{2} }{ 2 } + \frac{ 3 \sqrt{2} }{ 2 } i$</td></tr>
+				 <tr><td>$k = 2$</td><td>$\sqrt[4]{2}_{k=2}$</td><td>$- \frac{ 3 \sqrt{2} }{ 2 } - \frac{ 3 \sqrt{2} }{ 2 } i$</td></tr>
+				 <tr><td>$k = 3$</td><td>$\sqrt[4]{2}_{k=3}$</td><td>$\frac{ 3 \sqrt{2} }{ 2 } - \frac{ 3 \sqrt{2} }{ 2 } i$</td></tr>
+				</tbody></table>
+
+				<p>Notice how these $4^{th}$ roots divide the circle with radius $3$ into four equal parts.</p>
+
+      	<img src="img/precalc_fig1.png" style="height: 250px; width:auto;"></br></br>
+
+
+
+	<h2 id="matrices">Matrices</h2>
+
+		<h3 id="sys_with_matrices">Representing Systems with Matrices</h3>
+
+			<p>We can use matrices to solve systems of equations. When we use a matrix to represent a system of linear equations, we call it an augmented matrix. Each row in the augmented matrix represents one equation in the system, and each column represents a different variable. For instance, given the linear system:</p>
+
+			<p>$3x + 2y = 7$</p>
+			<p>$x - 6y = 0$</p>
+
+			<p>The augmented matrix for the system would be:</p>
+
+			<p>$
+				\begin{bmatrix} 
+				3 & 2 & 7 \\
+				1 & -6 & 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Looking at the columns, we can see that the values from the first column are the coefficients on $x$, the values from the second columns are the coefficients on $y$, and the values from the third equation are the constants that come from the right side of each equation.</p>
+
+
+			<h4>Checking the Order</h4>
+
+				<p>We want to be sure that we have all the variables in the same order, and constants grouped together on the same side of the equation.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Express the following system of linear equations as a matrix called $B$.</p>
+
+				<p>$2x + 3y - z = 11$</p>
+				<p>$7y = 6 - x - 42$</p>
+				<p>$-8z + 3 = y$</p>
+
+				<p>Before doing anything, we will reorder the equation such that x, y, and z are on the left side, and the constants are on the right side.</p>
+
+				<p>$2x + 3y - z = 11$</p>
+				<p>$x + 7y + 4z = 6$</p>
+				<p>$-y - 8z = -3$</p>
+
+				<p>Plugging the coefficients and constraints into an augmented matrix gives:</p>
+
+				<p>$
+					B = 
+					\begin{bmatrix} 
+					x_1 & y_1 & z_1 & C_1 \\
+					x_2 & y_2 & z_2 & C_2 \\
+					x_3 & y_3 & z_3 & C_3 \\
+					\end{bmatrix} 
+					$
+				</p>
+
+
+				<p>$
+					B = 
+					\begin{bmatrix} 
+					2 & 3 & -1 & 11 \\
+					1 & 7 & 4 & 6 \\
+					0 & -1 & -8 & -3 \\
+					\end{bmatrix} 
+					$
+				</p>
+
+
+		<h3 id="row_ops">Simple Row Operations</h3>
+
+			<h4>Switching Two Rows</h4>
+
+				<p>We can switch any two rows in a matrix without changing the value of the matrix.</p>
+
+			<h4>Multiplying a Row by a Constant</h4>
+
+				<p>We can multiply any row by any non-zero constant without changing the value of the matrix. As an example, if we multiply through the first row of the following matrix by 2, it does not actually change the value of the matrix.</p>
+
+			<p>$
+				\begin{bmatrix} 
+				3 & 2 & 7 \\
+				1 & -6 & 0 \\
+				\end{bmatrix} 
+
+				\to 
+				\begin{bmatrix} 
+				2 \cdot 3 & 2 \cdot 2 & 2 \cdot 7 \\
+				1 & -6 & 0 \\
+				\end{bmatrix} 
+
+				\to 
+				\begin{bmatrix} 
+				6 & 4 & 14 \\
+				1 & -6 & 0 \\
+				\end{bmatrix} 
+				$
+			</p>
+
+			<p>We can apply scalars to as many rows as we like, and they do not need to be equal to each other (but they must be non-zero).</p>
+
+
+		<h3 id="gauss_jordan">Gauss-Jordan Elimination and Reduced Row Echelon Form</h3>
+
+			<p>A matrix is in row-echelon form if:</p>
+				<ol>
+					<li>All rows consisting of only zeroes are at the bottom of the matrix</li>
+					<li>The first non-zero entry in each row sits in a column to the right of the first non-zero entries in all the rows above it. i.e., the non-zero entries sit in a staircase pattern.</li>
+				</ol>
+
+			<p>A $3 \times 3$ augmented matrix in row echelon form can look like:</p>
+
+			<p>$
+				\begin{bmatrix} 
+				4 & 1 & 0 \\
+				0 & 2 & 5 \\
+				0 & 0 & -3
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>The first non-zero entry in each row is called a pivot or pivot entry. Any column that houses a pivot entry is called a pivot column. A matrix is said to be in reduced-row echelon form (RREF) if:</p>
+				<ol>
+					<li>It is in echelon form</li>
+					<li>All pivot entries are equal to 1</li>
+					<li>All non-pivot entries in the matrix are equal to zero, other than the constants in the far-right column</li>
+				</ol>
+
+			<p>Reduced-row echelon form for a $3 \times 3$ matrix looks like:</p>
+
+			<p>$
+				\begin{bmatrix} 
+				1 & 0 & 0 & C_1 \\
+				0 & 1 & 0 & C_2 \\
+				0 & 0 & 1 & C_3 \\
+				\end{bmatrix} 
+				$
+			</p>
+
+			<p>If we've put the matrix into RREF and then pull back out the linear equations represented by the RREF matrix, we get:</p>
+
+
+			<p>$1x + 0y + 0z = C_1$</p>
+			<p>$0x + 1y + 0z = C_2$</p>
+			<p>$0x + 0y + 1z = C_3$</p>
+
+
+			<p>In other words, from RREF, we have the values of each variable, and we've solved the system.</p>
+
+			<p>Gaussian-Jordan elimination is an algorithm to get the matrix all the way to RREF:</p>
+				<ol>
+					<li>Optional - pull out any scalars for each row in the matrix</li>
+					<li>If the first entry in the first row is $0$, swap that first row with another row that has a non-zero entry in its first column; otherwise, move to step 3.</li>
+					<li>Multiply through the first row by a scalar to make the leading entry equal to $1$</li>
+					<li>Add scaled multiples of the first row to every other row in the matrix until every entry in the first column, other than the leading 1 in the first row, is a $0$.</li>
+					<li>Repeat from step 2 until the matrix is in reduced-row echelon form</li>
+				</ol>
+
+
+		<h3 id="matrix_mult">Matrix Multiplication</h3>
+
+			<p>Matrix addition and subtraction are done element-wise, but matrix multiplication follows a different looking process. Matrix multiplication is not commutative $(AB \neq BA)$, but it is associative:</p>
+
+			<p>$(AB)C = A(BC)$</p>
+
+			<p>as well as distributive:</p>
+
+			<p>$A(B+C) = AB + AC$</p>
+
+			<p>Order depends on dimensions. We need the same number of columns in the first matrix as rows in the second matrix, so the inner dimensions should match when written side by side.</p>
+
+			<p>When we multiply one matrix by another, we multiply the rows in the first matrix by the columns in the second matrix. Say we want to multiply the following matrices $A$ and $B$.</p>
+
+			<p>$
+				A = 
+				\begin{bmatrix}
+				2 & 6 \\
+				3 & -1 \\
+				\end{bmatrix}
+				$
+
+				$
+				B = 
+				\begin{bmatrix}
+				-4 & -2 \\
+				1 & 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>If the first and second rows in $A$ we call $R_1$ and $R_2$, and the first and second columns of $B$ we call $C_1$ and $C_2$, then the product of $A$ and $B$ is:
+
+			<p>$
+				AB = 
+				\begin{bmatrix}
+				R_1C_1 & R_1C_2 \\
+				R_2C_1 & R_2C_2 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+		<h3 id="dot_prod">The Dot Product</h3>
+
+			<p>The dot product is the tool we use to multiply an entire row of one matrix by an entire column of another matrix.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>The product of above matrices A and B is:
+
+				<p>$
+					AB = 
+					\begin{bmatrix}
+					2 & 6 \\
+					3 & -1 \\
+					\end{bmatrix}
+
+					\cdot
+
+					\begin{bmatrix}
+					-4 & -2 \\
+					1 & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					AB = 
+					\begin{bmatrix}
+					R_1C_1 & R_1C_2 \\
+					R_2C_1 & R_2C_2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					AB = 
+					\begin{bmatrix}
+					2(-4) + 6(1)  &  2(-2) + 6(0) \\
+					3(-4) + (-1)(1)  &  3(-2) + (-1)(0) \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					AB = 
+					\begin{bmatrix}
+					-8 + 6  &  -4 + 0 \\
+					-12 + (-1)  &  -6 + 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					AB = 
+					\begin{bmatrix}
+					-2 & -4 \\
+					-13 & -6 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+		<h3 id="transformations">Transformations</h3>
+
+			<p>Matrices can be useful at describing what would otherwise be complex changes to 2D space. For instance, shifting every point in the coordinate plane vertically by $2$ units, and stretching it out horizontally by $5$ units. Matrices let us apply this transformation in the form of a transformation matrix.
+
+			<p>Say we have a vector:
+
+			<p>$
+				\mathbf{a} = 
+				\begin{bmatrix}
+				3 \\
+				2 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>and apply a transformation matrix of
+
+			<p>$
+				\begin{bmatrix}
+				-2 & 4 \\
+				3 & 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Then the transformation of $\mathbf{a}$ by $M$ will be the multiplication of $\mathbf{a}$ by $M$.
+
+			<p>$
+				M \mathbf{a} = 
+				\begin{bmatrix}
+				-2 & 4 \\
+				3 & 0 \\
+				\end{bmatrix}
+
+				\begin{bmatrix}
+				3 \\
+				2 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>$
+				M \mathbf{a} = 
+				\begin{bmatrix}
+				-2(3) + 4(2) \\
+				3(3) + 0(2) \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>$
+				M \mathbf{a} = 
+				\begin{bmatrix}
+				-6 + 8 \\
+				9 + 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>$
+				M \mathbf{a} = 
+				\begin{bmatrix}
+				2 \\
+				9 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>This means that the values in matrix $M$ cause the vector $\mathbf{a} = (3,2)$ to transform into the vector $M \mathbf{a} = (2,9)$.</p>
+
+			<p>If instead of being given the single point or vector $\mathbf{a}$, we'd been given a set of points that represent the vertices of a figure, a transformation matrix will apply the transform to the points of that figure.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>The graph shows a unit vector $(1,0)$ transformed ot the light blue vector landing at $(-5,-2)$, and a unit vector $(0,1)$ transformed to the red vector at $(2,3)$. Find the matrix that did the transformation.</p>
+
+      	<img src="img/precalc_fig2.png" style="height: 250px; width:auto;"></br></br>
+
+
+				<p>Since the light blue vector points to $(-5,-2)$, this represents the first column of the matrix.
+
+				<p>$
+					\begin{bmatrix}
+					-5 & \_\_ \\
+					2 & \_\_ \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>The red vector points to $(2,3)$, representing the second column of the matrix.
+
+				<p>$
+					\begin{bmatrix}
+					-2 & 2 \\
+					-2 & 3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+		<h3 id="determinant">The Determinant</h3>
+
+			<p>To indicate the determinate of a matrix, we surround that matrix with straight lines rather than braces. For a $2 \times 2$ matrix, we multiply the value in the upper left by the value in the lower right, then subtract the product of the upper right and lower left. For example,
+
+			<p>$
+				|M| = 
+
+				det 
+				\left( 
+				\begin{bmatrix}
+				-2 & 4 \\
+				3 & 0 \\
+				\end{bmatrix}
+				\right)
+
+				= (-2)(0) - (4)(3)
+				= -12
+				$
+			</p>
+
+
+		<h3 id="matrix_inverse">Matrix Inverses</h3>
+
+			<p>Multiplying a matrix by its inverse will result in the identity matrix. Given matrix M as:
+
+			<p>$
+				M = 
+				\begin{bmatrix}
+				a & b \\
+				c & d \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>its inverse is given by:
+
+			<p>$
+				M^{-1} = \frac{1}{|M|}
+				\begin{bmatrix}
+				d & -b \\
+				-c & a \\
+				\end{bmatrix}
+
+				= 
+
+				\frac{1}{ad - bc}
+				\begin{bmatrix}
+				d & -b \\
+				-c & a \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>The formula for the inverse matrix is a fraction with a numerator of $1$, and the determinant as a denominator, multiplied by another matrix. The other matrix is called the adjugate of $M$.</p>
+
+			<p>A fraction is undefined when its denominator equals $0$, so when the determinant is equal to $0$, the matrix is invertible. If a matrix does not have an inverse, it is called singular.</p>
+
+
+		<h3 id="solving_inv_matrices">Solving Systems with Inverse Matrices</h3>
+
+			<p>Consider the generic system of equations:
+
+			<p>$ax + by = f$
+			<p>$cx + dy = g$
+
+			<p>We can represent a linear system like this as the coefficient matrix, multiplied by the column vector $(x,y)$, set equal to the column vector $(f,g)$.
+
+			<p>$
+				\begin{bmatrix}
+				a & b \\
+				c & d \\
+				\end{bmatrix}
+
+				\begin{bmatrix}
+				x \\
+				y \\
+				\end{bmatrix}
+
+				= 
+
+				\begin{bmatrix}
+				f \\
+				g \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>If we call the coefficient matrix $M$, rename the column vector $(x,y)$ as $\mathbf{a}$, and rename the column vector $(f,g)$ as $\mathbf{b}$, then we can say that this equation is equivalent to $M \mathbf{a} = \mathbf{b}$.</p>
+
+			<p>If we multiply both sides by $M^{-1}$, we get:</p>
+
+			<p>$M^{-1}M \mathbf{a} = M^{-1} \mathbf{b}$</p>
+			<p>$I \mathbf{a} = M^{-1} \mathbf{b}$</p>
+			<p>$\mathbf{a} = M^{-1} \mathbf{b}$</p>
+
+			<p>We now have an equation that's solved for $\mathbf{a}$, which is representing the column vector $(x,y)$, the solution to the system.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use an inverse matrix to solve the system:
+
+				<p>$3x - 4y = 6$
+				<p>$-2x + y = -9$
+
+
+				<p>$
+					\begin{bmatrix}
+					a & b \\
+					c & d \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					x \\
+					y \\
+					\end{bmatrix}
+
+					= 
+
+					\begin{bmatrix}
+					f \\
+					g \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					3 & -4 \\
+					2 & 1 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					x \\
+					y \\
+					\end{bmatrix}
+
+					= 
+
+					\begin{bmatrix}
+					6 \\
+					-9 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Find the inverse of the coefficients matrix:</p>
+
+				<p>$
+					M = 
+					\begin{bmatrix}
+					3 & -4 \\
+					-2 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					M^{-1} = \frac{1}{ 3(1) - (-2)(-4) }
+					\begin{bmatrix}
+					1 & 4 \\
+					2 & 3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					M^{-1} = - \frac{1}{5}
+					\begin{bmatrix}
+					1 & 4 \\
+					2 & 3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					M^{-1} = 
+					\begin{bmatrix}
+					- \frac{1}{5}  &  - \frac{4}{5} \\
+					- \frac{2}{5}  &  - \frac{3}{5} \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Then the solution to the system is:</p>
+
+				<p>$\mathbf{a} = M^{-1} \mathbf{b}$</p>
+
+				<p>$
+					\mathbf{a} = 
+					\begin{bmatrix}
+					- \frac{1}{5}  &  - \frac{4}{5} \\
+					- \frac{2}{5}  &  - \frac{3}{5} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					6 \\
+					-9 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					\mathbf{a} = 
+					\begin{bmatrix}
+					- \frac{1}{5}(6)  &  - \frac{4}{5}(-9) \\
+					- \frac{2}{5}(6)  &  - \frac{3}{5}(-9) \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$
+					\mathbf{a} = 
+					\begin{bmatrix}
+					- \frac{6}{5}  &  - \frac{36}{5} \\
+					- \frac{12}{5}  &  - \frac{27}{5} \\
+					\end{bmatrix}
+
+					= 
+
+					\begin{bmatrix}
+					\frac{30}{5} \\
+					\frac{15}{5} \\
+					\end{bmatrix}
+
+					= 
+
+					\begin{bmatrix}
+					6 \\
+					3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We conclude that $x=6$ and $y=3$.</p>
+
+
+
+	<h2 id="partial_frac">Partial Fractions</h2>
+
+		<h3 id="frac_decomp">Fraction Decomposition</h3>
+
+			<p>Partial fractions decomposition is a tool to use and rewrite rational functions. Recall that rational fractions are fractions in which both the numerator and denominator are polynomial functions.</p>
+
+			<p>Given the rational function:</p>
+
+			<p>$f(x) = \frac{2x + 1}{x^2 - 3x + 2}$</p>
+
+			<p>we can use partial fractions decomposition to rewrite $f(x)$ as:</p>
+
+			<p>$f(x) = \frac{5}{x-2} - \frac{3}{x-1}$</p>
+
+			<p>We can work backwards to prove that this decomposition is equivalent to the original function by finding a common denominator.</p>
+
+			<p>$f(x) = \frac{5(x-1)}{(x-2)(x-1)} - \frac{3(x-2)}{(x-1)(x-2)}$</p>
+
+			<p>Combining the fractions:</p>
+
+			<p>$f(x) = \frac{5(x-1) - 3(x-2)}{(x-1)(x-2)}$</p>
+
+			<p>and then simplifying:</p>
+
+			<p>$f(x) = \frac{5x - 5 - 3x + 6}{x^2 - 2x - x + 2} = \frac{2x + 1}{x^2 - 3x + 2}$</p>
+
+
+		<h3 id="distinct_linear_fact">Distinct Linear Factors</h3>
+
+			<p>Now let's look at how to use partial fractions decomposition when the denominator of a rational function is the product of distinct linear factors, such as $(x-1)(x-2)$.</p>
+
+			<p>A linear factor only contains variables that are raised to the first power. If a factor contains an $x^2$ term, it is quadratic. If there is a constant coefficient in front of the factor set, we can pull that out of the fraction, but must remember to include it when giving the final answer.</p>
+
+
+			<h4>Setting up the Decomposition</h4>
+
+				<p>Once we've factored the denominator of the rational function as completely as possible, and determined that the denominator is the product of distinct linear factors, we can set up the decomposition equation. The left side of the decomposition equation will always be the factored form of the original rational function. The right side of the decomposition equation will be a sum of separate fractions, where the denominator of each fraction is one of the distinct linear factors, and the numerator is a unique constant. For example:</p>
+
+				<p>$f(x) = \frac{2x+1}{x(x-1)(x-2)} = \frac{A}{x} + \frac{B}{x-1} + \frac{C}{x-2}$</p>
+
+
+			<h4>How to Solve for the Constants</h4>
+				<ol>
+					<li>Set each distinct linear factor equal to $0$, and solve the equation for $x$</li>
+					<li>If we're trying to solve for $A$, remove the distinct linear factor associated with $A$ from the factored form of the original function</li>
+					<li>Evaluate the new function at the value of $x$ that we solved for in step 1</li>
+				</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Rewrite the following function as its partial fractions decomposition</p>
+
+				<p>$f(x) = \frac{2x+1}{(x-1)(x-2)}$</p>
+
+				<p>$\frac{2x+1}{(x-1)(x-2)} = \frac{A}{x-1} + \frac{B}{x-2}$</p>
+
+				<p>To solve for $A$, we'll set $x - 1 = 0$ to find $x=1$. We'll remove the $x-1$ factor from the original factored function:</p>
+
+				<p>$\frac{2x+1}{x-2}$</p>
+
+				<p>Then we'll evaluate this modified function at the $x=1$ value we just found.</p>
+
+				<p>$\frac{2x+1}{x-2} = \frac{2(1)+1}{1-2} = \frac{3}{-1} = -3$</p>
+
+				<p>To solve for $B$, we'll set $x - 2 = 0$ to find $x=2$. We'll remove the $x-2$ factor from the original factored function.</p>
+
+				<p>$\frac{2x+1}{x-1}$</p>
+
+				<p>Then we'll evaluate this modified function at the $x=2$ value we just found.</p>
+
+				<p>$\frac{2x+1}{x-1} = \frac{2(2)+1}{2-1} = \frac{5}{1} = 5$</p>
+
+				<p>Plugging $A=-3$ and $B=5$ back into the partial fractions decomposition gives:</p>
+
+				<p>$f(x) = \frac{A}{x-1} + \frac{B}{x-2}$</p>
+				<p>$f(x) = \frac{3}{x-1} + \frac{5}{x-2}$</p>
+				<p>$f(x) = \frac{5}{x-2} + \frac{3}{x-1}$</p>
+
+
+		<h3 id="repeated_linear_fact">Repeated Linear Factors</h3>
+
+			<p>Factors are repeated when they are equivalent; e.g., $(x-1)(x-1)$. The left side of the decomposition equation will always be the factored form of the original rational function. The right side of the decomposition equation will be a sum of separate fractions, where the denominators are the descending powers of the repeated linear factor, and the numerators are unique constants. For example:</p>
+
+			<p>$\frac{x-3}{(x-1)(x-1)(x-1)} = \frac{A}{x-1} + \frac{B}{(x-1)^2} + \frac{C}{(x-1)^3}$</p>
+
+			<p>If the original denominator had been $(x-1)^6$, we would have 6 terms and 6 powers on the right side.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Rewrite the following function as its partial fractions decomposition:</p>
+
+				<p>$f(x) = \frac{3x-2}{(x+1)(x+1)}$</p>
+
+				<p>Because the linear factor $x+1$ is raised to the power of $2$, we'll need to include the second and first powers of the factor in the decomposition.</p>
+
+				<p>$\frac{3x-2}{(x+1)^2} = \frac{A}{x+1} + \frac{B}{(x+1)^2}$</p>
+
+				<p>Now that we have the decomposition equation, we'll combine the fractions on the right side by finding a common denominator.</p>
+
+				<p>$\frac{3x-2}{(x+1)^2} = \frac{A(x+1)}{(x+1)(x+1)} + \frac{B}{(x+1)^2}$</p>
+				<p>$= \frac{A(x+1)}{(x+1)^2} + \frac{B}{(x+1)^2}$</p>
+				<p>$= \frac{A(x+1) + B}{(x+1)^2}$</p>
+
+				<p>Because the denominators are equivalent, that means the numerators must also be equivalent, so we'll set the numerators equal to one another.</p>
+
+				<p>$3x - 2 = A(x+1) + B$</p>
+
+				<p>The linear factor $x+1$ is equal to $0$ when $x=-1$, so we'll evaluate this equation at $x=-1$ in order to solve for $B$.</p>
+
+				<p>$3(-1) - 2 = A(-1 + 1)B$</p>
+				<p>$-3 - 2 = B$</p>
+				<p>$B = -5$</p>
+
+				<p>We'll plug this back into the numerator equation and then solve for $A$.</p>
+
+				<p>$3x - 2 = A(x+1) - 5$</p>
+				<p>$3x + 3 = A(x+1)$</p>
+				<p>$3(x+1) = A(x+1)$</p>
+				<p>$A = 3$</p>
+
+				<p>Plugging $A=3$ and $B=-5$ back into the partial fractions decomposition gives:</p>
+
+				<p>$f(x) = \frac{3}{x+1} - \frac{5}{(x+1)^2}$</p>
+
+
+		<h3 id="distinct_quad_fact">Distinct Quadratic Factors</h3>
+
+			<p>Factors are linear when they contain first degree $x$ terms, but are quadratic when they contain a second degree term, like $(x^2+1)(x^2+3)$.</p>
+
+			<p>Again, the left side of the decomposition equation will always be the factored form of the original rational function, and the right side of the decomposition equation will be a sum of separate functions, where the denominator of each fraction is one of the distinct quadratic factors, and the numerator is a unique expression in the form $Ax+B$, $Cx+D$, etc. For example:</p>
+
+			<p>$\frac{x^2 + 2x - 3}{(x^2+1)(x^2+3)} = \frac{Ax+B}{x^2+1} + \frac{Cx+D}{x^2+3}$</p>
+
+
+			<h4>How to Solve for the Constants</h4>
+				<ol>
+					<li>Combine the fractions on the right side of the equation by finding a common denominator equivalent to the function's original denominator</li>
+					<li>Once the denominators on both sides are equivalent, set the numerators equal to each other</li>
+					<li>Simplify the equation and equate coefficients to build a system of equations that can be solved for the constants</li>
+				</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Rewrite the following function as its partial fractions decomposition.</p>
+
+				<p>$f(x) = \frac{x+4}{(x^2+3)(x^2+1)}$</p>
+				<p>$\frac{x+4}{(x^2+3)(x^2+1)} = \frac{Ax+B}{x^2+3} + \frac{Cx+D}{x^2+1}$</p>
+
+				<p>We'll combine the fractions on the right side by finding a common denominator.</p>
+
+				<p>$\frac{x+4}{(x^2+3)(x^2+1)} = \frac{ Ax + B(x^2+1) }{ (x^2+3)(x^2+1) } + \frac{ (Cx+D)(x^2+3) }{ (x^2+3)(x^2+1) }$</p>
+				<p>$\frac{x+4}{(x^2+3)(x^2+1)} = \frac{ (Ax+B)(x^2+1) + (Cx+D)(x^2+3) }{ (x^2+3)(x^2+1) }$</p>
+
+				<p>Once the denominators on both sides are equivalent, we'll set the numerators equal to each other.</p>
+
+				<p>$x+4 = (Ax+B)(x^2+1) + (Cx+D)(x^2+3)$</p>
+				<p>$x+4 = Ax^3 + Ax + Bx^2 + B + Cx^3 + 3Cx + Dx^2 + 3D$</p>
+
+				<p>Then group like terms and factor:</p>
+
+				<p>$x+4 = (A+C)x^3 + (B+D)x^2 + (A + 3C)x + (B + 3D)$</p>
+
+				<p>If we think about this equation as:</p>
+
+				<p>$0x^3 + 0x^2 + 1x + 4 = (A+C)x^3 + (B+D)x^2 + (A + 3C)x + (B + 3D)$</p>
+
+				<p>then we can equate coefficients to build a system of equations.</p>
+
+				<p>$A + C = 0$</p>
+				<p>$A + 3C = 1$</p>
+
+				</br>
+
+				<p>$B + D = 0$</p>
+				<p>$B + 3D = 4$</p>
+
+				<p>Solving this system of equations gives:</p>
+
+				<p>$A = - \frac{1}{2}$</p>
+				<p>$B = -2$</p>
+				<p>$C = \frac{1}{2}$</p>
+				<p>$D = 2$</p>
+
+				<p>Plugging these back into the partial fractions decomposition gives:</p>
+
+				<p>$f(x) = \frac{Ax+B}{x^2+3} + \frac{Cx+D}{x^2+1}$</p>
+				<p>$f(x) = \frac{ - \frac{1}{2}x - 2 }{ x^2 + 3 } + \frac{ \frac{1}{2}x + 2 }{ x^2 + 1 }$</p>
+				<p>$f(x) = - \frac{1}{2} \left( \frac{x+4}{x^2+3} \right) + \frac{1}{2} \left( \frac{x+4}{x^2+1} \right)$</p>
+				<p>$f(x) = \frac{1}{2} \left( \frac{x+4}{x^2+1} \right) - \frac{1}{2} \left( \frac{x+4}{x^2+3} \right)$</p>
+
+
+		<h3 id="repeated_quad_fact">Repeated Quadratic Factors</h3>
+
+			<p>Once we've factored the denominator of the rational function as completely as possible, and determined that the denominator is the product of repeated quadratic factors, we can set up the decomposition equation.</p>
+
+			<p>The left side of the decomposition equation will always be the factored form of the original rational function. The right side will be a sum of separate functions, where the denominators are the descending powers of the repeated quadratic factors, and the numerators expressed in the form $Ax+B$, $Cx+D$, etc. For example:</p>
+
+			<p>$\frac{2x-3}{(2x^2+5)(2x^2+5)(2x^2+5)} = \frac{Ax+B}{(2x^2+5)} + \frac{Cx+D}{(2x^2+5)^2} + \frac{Ex+F}{(2x^2+5)^3}$</p>
+
+			<p>If the original denominator had been $(2x^2+5)^5$ instead, we would include fractions for each of the 5 powers.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Rewrite the following function as its partial fractions decomposition.</p>
+
+				<p>$f(x) = \frac{x^3 - 2x^2}{(x^2+1)(x^2+1)}$</p>
+
+				<p>These are repeated quadratic factors, so we'll set up the decomposition as:</p>
+
+				<p>$\frac{x^3 - 2x^2}{(x^2+1)(x^2+1)} = \frac{Ax+B}{x^2+1} + \frac{Cx+D}{(x^2+1)^2}$</p>
+
+				<p>We'll combine the fractions on the right side of the equation by finding a common denominator equivalent to the function's original denominator.</p>
+
+				<p>$\frac{x^3 - 2x^2}{(x^2+1)(x^2+1)}  = \frac{Ax+B(x^2+1)}{(x^2+1)(x^2+1)} + \frac{Cx+D}{(x^2+1)^2}$</p>
+				<p>$= \frac{Ax+B(x^2+1)}{(x^2+1)} + \frac{Cx+D}{(x^2+1)^2}$</p>
+				<p>$= \frac{ (Ax+B)(x^2+1) + Cx + D }{ (x^2+1)^2 }$</p>
+
+				<p>Now that the denominators are equivalent, we can set the numerators equal to one another.</p>
+
+				<p>$x^3 - 2x^2 = (Ax+B)(x^2+1) + Cx + D$</p>
+
+				<p>Expand the right side of the equation, then collect like terms and factor.</p>
+
+				<p>$x^3 - 2x^2 = Ax^3 + Ax + Bx^2 + B + Cx + D$</p>
+				<p>$x^3 - 2x^2 = Ax^3 + Bx^2 + (A+C)x + (B+D)$</p>
+
+				<p>If we equate coefficients from the left and right sides, we get a system of equations:</p>
+
+				<p>$A = 1$</p>
+				<p>$B = -2$</p>
+				<p>$A+C = 0$</p>
+				<p>$B+D = 0$</p>
+
+				<p>Solving the system of equations gives:</p>
+
+				<p>$A = 1$</p>
+				<p>$B = -2$</p>
+				<p>$C = -1$</p>
+				<p>$D = 2$</p>
+
+				<p>Plugging these into the partial fractions decomposition gives:</p>
+
+				<p>$f(x) = \frac{Ax+B}{x^2+1} + \frac{Cx+D}{(x^2+1)^2}$</p>
+				<p>$f(x) = \frac{1x-2}{x^2+1} + \frac{-1x+2}{(x^2+1)^2}$</p>
+				<p>$f(x) = \frac{x-2}{x^2+1} - \frac{x-2}{(x^2+1)^2}$</p>
+
+
+		<h3 id="mixed_fact">Mixed Factors</h3>
+
+			<p>We've looked at partial fractions decomposition when we have the product of:</p>
+				<ul>
+					<li>Distinct Linear Factors</li>
+					<li>Repeated Linear Factors</li>
+					<li>Distinct Quadratic Factors</li>
+					<li>Repeated Quadratic Factors</li>
+				</ul>
+
+			<p>It's common to find these factors mixed together as part of the same denominator of a rational function.</p>
+
+
+			<h4>Setting Up The Decomposition</h4>
+				<ul>
+					<li>Any distinct linear factors get their own fraction, and we'll pair each one with a unique constant $A$, $B$, $C$, etc.</li>
+					<li>Any repeated linear factor set needs to be broken into a set of fractions, each with a different power of the linear factor, from the first power of the factor up to the power of the original factor set, and then each paired with a constant $A$, $B$, $C$, etc.</li>
+					<li>Any distinct quadratic factors each get their own fraction, and are paired with a unique expression, $Ax+B$, $Cx+D$, etc.</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Rewrite the following function as its partial fractions decomposition.</p>
+
+				<p>$f(x) = \frac{ 4x^4 - 23x^3 + 36x^2 - 48x + 18 }{ x(x-3)^2 (x^2+2) }$</p>
+
+				<p>The denominator is factored as far as it can be, and we have a distinct linear factor, a set of repeated linear factors, and a distinct quadratic factor. So the partial fractions decomposition will be set up as:</p>
+
+				<p>$\frac{ 4x^4 - 23x^3 + 36x^2 - 48x + 18 }{ x(x-3)^2 (x^2+2) } = \frac{A}{x} + \frac{B}{x-3} + \frac{C}{(x-3)^2} + \frac{Dx+E}{x^2+2}$</p>
+
+				<p>To solve for $A$, we'll remove the factor x from the left side, then evaluate what remains on the left side at $x=0$.</p>
+
+				<p>$\frac{ 4x^4 - 23x^3 + 36x^2 - 48x + 18 }{ (x-3)^2 (x^2+2) } = \frac{ 4(0)^4 - 23(0)^3 + 36(0)^2 - 48(0) + 18 }{ (0-3)^2 (0^2+2) }$</p>
+
+				<p>$= \frac{18}{9(2)} = 1$</p>
+				<p>$A = 1$</p>
+
+				<p>To solve for the other constants, we'll find a common denominator on the right side, then combine the fractions.</p>
+
+				<p>$\frac{ 4x^4 - 23x^3 + 36x^2 - 48x + 18 }{ x(x-3)^2 (x^2+2) } = \frac{1}{x} + \frac{B}{x-3} + \frac{C}{(x-3)^2} + \frac{Dx+E}{x^2+2}$</p>
+
+				<p>$= \frac{ (x-3)^2 (x^2+2) }{ x(x-3)^2 (x^2+2) } + \frac{ Bx(x-3) (x^2+2) }{ x(x-3)^2 (x^2+2) } + \frac{ Cx(x^2+2) }{ x(x-3)^2 (x^2+2) } + \frac{ (Dx+E) x(x-3)^2 }{ x(x-3)^2 (x^2+2) }$</p>
+
+				<p>$= \frac{ (x-3)^2 (x^2+2) + Bx(x-3)(x^2+2) + Cs(x^2+2) + (Dx+E)x (x-3)^2 }{ x(x-3)^2 (x^2+2) }$</p>
+
+				<p>Because the denominators are equivalent, we can set the numerators equal to each other.</p>
+
+				<p>$4x^4 - 23x^3 + 36x^2 - 48x + 18$</p>
+				<p>$= (x-3)^2 (x^2+2) + Bx(x-3) (x^2+2) + Cx(x^2+2) + (Dx+E)x (x-3)^2$</p>
+				<p>$= (x^2 - 6x + 9) (x^2+2) + (Bx^2 - 3Bx) (x^2+2) + Cx^3 + 2x + (Dx^2 + Ex) (x^2 - 6x + 9)$</p>
+				<p>$= x^4 + 2x^2 - 6x^3 - 12x + 9x^2 + 18 + Bx^4 + 2Bx^2 - 3Bx^3 - 6Bx + Cx^3 + 2Cx + Dx^4 - 6Dx^3 + 9Dx^2 + Ex^3 - 6Ex^2 + 9Ex$</p>
+				<p>$= (1 + B + D)x^4 + (-6 - 3B + C - 6D + E)x^3 + (2 + 9 + 2B + 9D - 6E)x^2 + (-12 -6B + 2C + 9E)x + 18$</p>
+
+				<p>We can equate coefficients on either side of the equation to build a system of equations.</p>
+
+				<p>$1 + B + D = 4$</p>
+				<p>$-6 - 3B + C - 6D + E = -23$</p>
+				<p>$2 + 9 + 2B + 9D - 6E = 36$</p>
+				<p>$-12 -6B + 2C + 9E = -48$</p>
+				<p>$18 = 18$</p>
+
+				<p>Simplifying the first four equations of the system gives:</p>
+
+				<p>$B + D = 3$</p>
+				<p>$3B - C + 6D - E = 17$</p>
+				<p>$2B + 9D - 6E = 25$</p>
+				<p>$6B - 2C - 9E = 36$</p>
+
+				<p>Using matrix multiplication to solve the system, we get:</p>
+
+				<p>$A = 1$</p>
+				<p>$B = 2$</p>
+				<p>$C = -3$</p>
+				<p>$D = 1$</p>
+				<p>$E = -2$</p>
+
+				<p>We can then plug these into the partial fractions decomposition equation.</p>
+
+				<p>$f(x) = \frac{A}{x} + \frac{B}{x-3} + \frac{C}{(x-3)^2} + \frac{Dx+E}{x^2+2}$</p>
+				<p>$f(x) = \frac{1}{x} + \frac{2}{x-3} + \frac{-3}{(x-3)^2} + \frac{1x + (-2)}{x^2 + 2}$</p>
+				<p>$f(x) = \frac{1}{x} + \frac{2}{x-3} + \frac{3}{(x-3)^2} + \frac{x-2}{x^2+2}$</p>
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

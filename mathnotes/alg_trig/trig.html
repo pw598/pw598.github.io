@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Trigonometry</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#trig_ids">Trigonometric Identities</td><td><a href="#basic_ids">Basic Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#reciprocal_ids">Reciprocal Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#pythagorean_ids">Pythagorean Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#undefined">When Trigonometric Functions are Undefined</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#coterminal">Coterminal Angles</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#reference">Reference Angles</td></tr>
+ <tr><td><a href="#angles_in_circles">Angles in Circles</td><td><a href="#arc_length">Arc Length</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#area_circular_sector">Area of a Circular Sector</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#linear_angular_velocity">Linear and Angular Velocity</td></tr>
+ <tr><td><a href="#inv_trig_fx">Inverse Trigonometric Functions</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#additional_trig_ids">Additional Trigonometric Identities</td><td><a href="#sum_diff_ids">Sum-Difference Identities for Sine and Cosine</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cofunction_ids">Cofunction Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sum_diff_ids_tangent">Sum-Difference Identities For Tangent</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#double_angle_ids">Double-Angle Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#half_angle_ids">Half-Angle Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#prod_sum_ids">Product-to-Sum Identities</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sum_prod_ids">Sum-to-Product Identities</td></tr>
+ <tr><td><a href="#law_sines_cosines">The Law of Sines and Cosines</td><td><a href="#law_sines">The Law of Sines</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#area_law_sines">Area From the Law of Sines</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#law_cosines">Law of Cosines</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#heron">Heron's Formula For Area of a Triangle</td></tr>
+</tbody></table>
+
+
+	<h2 id="trig_ids">Trigonometric Identities</h2>
+
+		<h3 id="basic_ids">Basic Identities</h3>
+
+			<p>$sin ~\theta = \frac{opposite}{hypotenuse}$</p>
+			<p>$cos ~\theta = \frac{adjacent}{hypotenuse}$</p>
+			<p>$tan ~\theta = \frac{opposite}{adjacent}$</p>
+			<p>$tan ~\theta = \frac{sin ~\theta}{cos ~\theta}$</p>
+
+			<p>In the unit circle, the radius (hypotenuse) is always $1$, in which case:</p>
+
+			<p>$sin ~\theta = \frac{y}{r}$</p>
+			<p>$cos ~\theta = \frac{x}{r}$</p>
+			<p>$tan ~\theta = \frac{y}{x}$</p>
+
+
+		<h3 id="reciprocal_ids">Reciprocal Identities</h3>
+
+			<p>Cosecant is the reciprocal of sine, and vice versa. Secant is the reciprocal of cosine, and vice versa; and cotangent is the reciprocal of tangent, and vice versa.</p>
+
+			<p>$csc ~\theta = \frac{1}{sin ~\theta} = \frac{hypotenuse}{opposite} = \frac{r}{y}$</p>
+			<p>$sec ~\theta = \frac{1}{cos ~\theta} = \frac{hypotenuse}{opposite} = \frac{r}{x}$</p>
+			<p>$cot ~\theta = \frac{1}{tan ~\theta} = \frac{adjacent}{opposite} = \frac{x}{y} = \frac{cos ~\theta}{sin ~\theta}$</p>
+
+
+		<h3 id="pythagorean_ids">Pythagorean Identities</h3>
+
+			<p>With the unit circle, if we start with the Pythagorean theorem, we can substitute $a = x = cos ~\theta$, $b = y = sin ~\theta$, and $c = r = 1$.</p>
+
+			<p>$a^2 + b^2 = c^2$</p>
+			<p>$(sin ~\theta)^2 + (cos ~\theta)^2 = 1^2$</p>
+			<p>$sin^2 \theta + cos^2\theta = 1$</p>
+
+			<p>For tangent, we can derive:</p>
+
+			<p>$1 + tan^2 \theta = sec^2 \theta$</p>
+			<p>$sec^2 \theta - tan^2 \theta = 1$</p>
+
+			<p>With tangent, we can derive:</p>
+
+			<p>$1 + tan^2 \theta = sec^2 \theta$</p>
+			<p>$sec^2 \theta - tan^2 \theta = 1$</p>
+
+			<p>With cotangent, we can derive:</p>
+
+			<p>$1 + cot^2 \theta = csc^2 \theta$</p>
+			<p>$csc^2 \theta - cot^2 \theta = 1$</p>
+
+			<p>So with the Pythagorean identities, we can:</p>
+				<ul>
+					<li>Find sine given cosine, or vice versa</li>
+					<li>Find cosecant given cotangent, or vice versa</li>
+					<li>Find secant given tangent, or vice versa</li>
+					<li>Find cosecant or secant given sine and cosine</li>
+				</ul>
+
+
+		<h3 id="undefined">When Trigonometric Functions are Undefined</h3>
+
+			<p>Trigonometric functions can be undefined at quadrantal angles; i.e., when either the x-axis or y-axis coordinate is $0$. At a coordinate of $(-1,0)$ or $(1,0)$, $sin ~\theta = 0$, and at a coordinate of $(0,1)$ or $(0,-1)$, $cos ~\theta = 0$. This means that other functions for which sine or cosine is in the denominator, the function becomes undefined at these points.</p>
+
+      <img src="img/trig_undefined_table.png" style="height: 175px; width:auto;"></br></br>
+
+
+		<h3 id="coterminal">Coterminal Angles</h3>
+
+			<p>Angles are said to be coterminal if they differ by $2 \pi$ or $360^{\circ}$; i.e., when $\alpha = \theta + n360^{\circ}$ or $\alpha = \theta + n 2 \pi$.</p>
+
+
+		<h3 id="reference">Reference Angles</h3>
+
+			<p>A reference angle for an angle $\theta$ in standard position is the positive angle formed by the x-axis and the terminal side of $\theta$. Reference angles are always positive and acute. The measure of the reference angle will depend on the quadrant of the angle.</p>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>$\theta$'s Quadrant</th><th>$\beta$ in Radians</th><th>$\beta$ in Degrees</th></tr></thead><tbody>
+			 <tr><td>I</td><td>$\beta = \theta$</td><td>$\beta = \theta$</td></tr>
+			 <tr><td>II</td><td>$\beta = \pi - \theta$</td><td>$\beta = 180{^\circ} - \theta$</td></tr>
+			 <tr><td>III</td><td>$\beta = \theta - r$</td><td>$\beta = \theta - 180^{\circ}$</td></tr>
+			 <tr><td>IV</td><td>$\beta = 2 \pi - \theta$</td><td>$360^{\circ} - \theta$</td></tr>
+			</tbody></table>
+
+
+
+	<h2 id="angles_in_circles">Angles in Circles</h2>
+
+		<h3 id="arc_length">Arc Length</h3>
+
+			<p>Arc length is given by $s = r \theta$, where $s$ is the length of the arc, $r$ is the radius of a circle, and $\theta$ is the central angle that carves out that particular arc.</p>
+
+
+		<h3 id="area_circular_sector">Area of a Circular Sector</h3>
+
+			<p>When $\theta$ is defined in radians, the area of a circular sector is $A = \frac{1}{2}r^2 \theta$. In degrees, $A = \left( \frac{\pi}{360} \right) r^2 \theta$.</p>
+
+
+		<h3 id="linear_angular_velocity">Linear and Angular Velocity</h3>
+
+			<h4>Speed and Velocity</h4>
+
+				<p>Velocity is defined by two factors: magnitude and direction. A positive velocity indicates movement forward, and negative indicates backward. Speed is only the magnitude portion of velocity, and is always positive. Linear velocity tells us how fast the length of an arc is changing. Imagine the arc of a circle. If the angle that creates the arc is growing, such that the length of the arc is increasing, then linear velocity will be posiitve, because the length of the arc is increasing over time.</p>
+
+				<p>$v = \frac{S}{t}$</p>
+					<ul>
+						<li>$r$ is linear velocity</li>
+						<li>$s$ is arc length</li>
+						<li>$t$ is time</li>
+					</ul>
+
+				<p>While linear velocity gives the rate of change of the arc length, angular velocity tells us the rate of change of the interior angle; i.e., the rate at which the central angle is swept out as we move around the circle. The formula for angular velocity is:</p>
+
+				<p>$\omega = \frac{\theta}{t}$</p>
+					<ul>
+						<li>$\omega$ is the angular velocity</li>
+						<li>$\theta$ is the radian measure of the interior angle at time $t$</li>
+					</ul>
+
+				<p>Angular speed and angular velocity use the same formula; the difference between the two is that angular speed is a scalar and angular velocity is a vector.</p>
+
+
+			<h4>Relating Linear and Angular Velocity</h4>
+
+				<p>To relate linear velocity and angular velocity to each other, we can use the arc length formula $s = r \theta$, by first subtituting $r \theta$ into the linear velocity formula for $s$.</p>
+
+				<p>$v = \frac{s}{t} = r \frac{\theta}{t}$</p>
+
+				<p>Then, because we know that angular velocity is $\omega = \frac{\theta}{t}$, we can replace $\frac{\theta}{t}$ with $\omega$.</p>
+
+				<p>$v = \frac{s}{t} = r \frac{\theta}{t} = \omega$</p>
+
+				<p>i.e., angular velocity is the quotient of linear velocity and the radius of the circle.</p>
+
+
+
+	<h2 id="inv_trig_fx">Inverse Trigonometric Functions</h2>
+
+		<p>Equations are inverses of one another when the $x$ and $y$ values are switched. For instance, the inverse of $y=x^2$ is $x=y^2$. Their curves are reflections of each other over the diagonal line $y=x$.</p>
+
+		<p>If we take the inverse of $y = sin ~\theta$, we're really switching $y$ and $\theta$, and get $\theta = sin ~y$. We're asking 'what angle $\theta$ do we get for a given y-value?'.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>In both radians and degrees, use the unit circle to find the set of angles whose sine is $\frac{1}{2}$.
+
+				<p>On the unit circle, we know that the y-value in the coordinate point is the value that gives the sine of the angle. Therefore, we need to find angles where the corresponding point has a y-value equal to $\frac{1}{2}$. Those angles are $\frac{\pi}{6}$ and $\frac{5 \pi}{6}$. To give the full set of angles, we have to give all the angles that are coterminal with these two.</p>
+
+				<p>$\theta = \frac{\pi}{6} = 2n \pi \text{ and } \theta = \frac{5 \pi}{6} + 2n \pi$</p>
+				<p>$\theta = 30^{\circ} + n(360^{\circ}) \text{ and } \theta = 150^{\circ} + n(360^{\circ})$</p>
+
+				<p>We know that $x = sin ~y$ is the inverse sine relation, but usually like to express equations for $y$ in terms of $x$. We do that by applying the inverse sine to both sides of the equation. We indicate the inverse sine as $sin^{-1}$ or $arcsin$.</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Trigonometric Function</th><th>Inverse</th></tr></thead><tbody>
+				 <tr><td>$y = sin ~x$</td><td>$y = sin^{-1}x \text{ or } arcsin ~x$</td></tr>
+				 <tr><td>$y = cos ~x$</td><td>$y = cos^{-1}x \text{ or } arccos ~x$</td></tr>
+				 <tr><td>$y = tan ~x$</td><td>$y = tan^{-1}x \text{ or } arctan ~x$</td></tr>
+				 <tr><td>$y = csc ~x$</td><td>$y = csc^{-1}x \text{ or } arccsc ~x$</td></tr>
+				 <tr><td>$y = sec ~x$</td><td>$y = sec^{-1}x \text{ or } arcsec ~x$</td></tr>
+				 <tr><td>$y = cot ~x$</td><td>$y = cot^{-1}x \text{ or } arccot ~x$</td></tr>
+				</tbody></table>
+
+
+
+	<h2 id="additional_trig_ids">Additional Trigonometric Identities</h2>
+
+		<h3 id="sum_diff_ids">Sum-Difference Identities for Sine and Cosine</h3>
+
+			<p>When we want to find the sine or cosine of the sum or difference of two angles, we can use the sum-difference identities. For two angles $\theta$ and $\alpha$, the sum-difference identities for sine are:</p>
+
+			<p>$sin(\theta + \alpha) = sin ~\theta ~cos ~\theta + cos ~\theta ~sin ~\alpha$</p>
+			<p>$sin(\theta - \alpha) = sin ~\theta ~cos ~\theta - cos ~\theta ~sin ~\alpha$</p>
+
+			<p>And the sum-difference identities for cosine are:</p>
+
+			<p>$cos(\theta + \alpha) = cos ~\theta ~cos ~\alpha - sin ~\theta ~sin ~\alpha$</p>
+			<p>$cos(\theta - \alpha) = cos ~\theta ~cos ~\alpha + sin ~\theta ~sin ~\alpha$</p>
+
+
+		<h3 id="cofunction_ids">Cofunction Identities</h3>
+
+			<p>Cofunction identities give a relationship between sine and cosine, secant and cosecant, and tangent and cotangent. The graph of $y = sin ~x$ shifted to the left by $\frac{\pi}{2}$ units looks exactly like the graph of $y = cos ~x$, and the same is true of tangent and cotangent, as well as secant and cosecant. This is the premise of cofunction identities.</p>
+
+			<p>$sin ~\theta = cos \left( \frac{\pi}{2} - \theta \right)$</p>
+			<p>$cos ~\theta = sin \left( \frac{\pi}{2} - \theta \right)$</p>
+			<p>$tan ~\theta = cot \left( \frac{\pi}{2} - \theta \right)$</p>
+			<p>$csc ~\theta = sec \left( \frac{\pi}{2} - \theta \right)$</p>
+			<p>$sec ~\theta = csc \left( \frac{\pi}{2} - \theta \right)$</p>
+			<p>$cot ~\theta = tan \left( \frac{\pi}{2} - \theta \right)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find an angle $\theta$ that satisfies the equation $sec \frac{3 \pi}{4} = csc ~\theta$</p>	
+
+				<p>$sec ~\theta = csc \left( \frac{\pi}{2} \right)$</p>
+				<p>$csc \left( \frac{\pi}{2} - \frac{3 \pi}{4} \right)$</p>
+				<p>$= csc \left( \frac{\pi}{2} \left( \frac{2}{2} \right) - \frac{3 \pi}{4} \right)$</p>
+				<p>$= csc \left( \frac{2 \pi}{4} - \frac{3 \pi}{4} \right)$</p>
+				<p>$= csc \left( \frac{\pi}{4} \right)$</p>
+
+				<p>So the angle $\theta$ that satisfies the equation is $\theta = - \frac{\pi}{4}$. This tells us that the secant of the angle $\frac{3 \pi}{4}$ has the same value as cosecant of the angle $\frac{- \pi}{4}$.</p>
+
+
+		<h3 id="sum_diff_ids_tangent">Sum-Difference Identities For Tangent</h3>
+
+			<p>In the same way that we had sum-difference identities for the sine and cosine functions, we also have a sum identity and difference identity for the tangent function, derived from the sine and cosine sum-difference identities.</p>
+
+			<p>$tan(\theta + \alpha) = \frac{ tan ~\theta + tan ~\alpha }{ 1 - tan ~\theta ~tan ~\alpha }$</p>
+			<p>$tan(\theta - \alpha) = \frac{ tan ~\theta - tan ~\alpha }{ 1 + tan ~\theta ~tan ~\alpha }$</p>
+
+
+		<h3 id="double_angle_ids">Double-Angle Identities</h3>
+
+			<p>Very often, we'll handle trigonometric functions with an angle of something like $2 \theta$. We'll usually want to convert this to get the $2$ out of the angle, but we cannot simply say that $sin 2 \theta$ is the same as $2 ~sin ~\theta$. The way we can get the $2$ out of the argument is by using the double-angle identities, which are derived from the sum identities.</p>
+
+			<p>To build the double-angle identity for sine, we start with the sum identity for sine, and replace $\alpha$ with $\theta$.</p>
+
+			<p>$sin(\theta + \alpha) = sin ~\theta ~cos ~\alpha + cos ~\theta ~sin ~\alpha$</p>
+			<p>$sin(\theta + \theta) = sin ~\theta ~cos ~\theta + cos ~\theta ~sin ~\theta$</p>
+			<p>$sin(2 \theta) = sin ~\theta ~cos ~\theta + cos ~\theta ~sin ~\theta$</p>
+			<p>$sin(2 \theta) = 2 ~sin ~\theta ~cos ~\theta$</p>
+
+			<p>Similarly, we build the double-angle for cosine by starting with the sum identity, and replacing $\alpha$ with $\theta$.</p>
+
+			<p>$cos(\theta + \alpha) = cos ~\theta ~cos ~\alpha - sin ~\theta ~sin ~\theta$</p>
+			<p>$cos(\theta + \theta) = cos ~\theta ~cos ~\theta - sin ~\theta ~sin ~\theta$</p>
+			<p>$cos2 \theta = cos^2 \theta - sin^2 \theta$</p>
+
+			<p>The complete left of double-angle identities, including the alternate forms of the double-angle identity for cosine, are:</p>
+
+			<p>$sin2 \theta = 2 ~sin ~\theta ~cos ~\theta$</p>
+			<p>$tan2 \theta = \frac{2 ~tan ~\theta}{1 - tan^2 \theta}$</p>
+
+			<p>$cos2 \theta = cos^2 \theta - sin^2 \theta$</p>
+			<p>$cos2 \theta = 1 - 2 ~sin^2 \theta$</p>
+			<p>$cos2 \theta = 2 ~cos^2 \theta - 1$</p>
+
+
+		<h3 id="half_angle_ids">Half-Angle Identities</h3>
+
+			<p>Half-angle identities allow us to rewrite a trigonometric function when the argument is $\theta/2$, transforming it to just $\theta$. We can build these from the double-angle identities.</p>
+
+			<p>To find the half-angle identity for sine, we start with the double-angle identity for cosine, and solve it for $sin ~\theta$.</p>
+
+			<p>$cos ~2 \theta = 1 - 2 ~sin^2 \theta$</p>
+			<p>$2 ~sin^2 \theta + cos^2 \theta = 1$</p>
+			<p>$2 ~sin^2 \theta = 1 - cos ~2 \theta$</p>
+			<p>$sin^2 \theta = \frac{1 - cos ~2 \theta}{2}$</p>
+			<p>$sin ~\theta = \pm \sqrt{ \frac{1 - cos ~2 \theta}{2} }$</p>
+
+			<p>We'll replace $2 \theta$ with $\alpha$.</p>
+
+			<p>$sin \frac{\alpha}{2} = \pm \sqrt{ \frac{1 + cos ~\alpha}{2} }$</p>
+
+			<p>We build the half-angle identity for cosine in the same way, but start with its double-angle identity instead. The half-angle identities can be summarized as follows.</p>
+
+			<p>$cos \frac{\theta}{2} = \pm \sqrt{ \frac{1 + cos ~\theta}{2} }$</p>
+			<p>$sin \frac{\theta}{2} = \pm \sqrt{ \frac{1 - cos ~\theta}{2} }$</p>
+			<p>$tan \frac{\theta}{2} = \pm \frac{ \sqrt{1 - cos ~\theta} }{ \sqrt{1 + cos ~\theta} }$</p>
+			<p>$tan \frac{\theta}{2} = \frac{sin ~\theta}{1 + cos ~\theta}$</p>
+			<p>$tan \frac{\theta}{2} = \frac{1 - cos ~\theta}{sin ~\theta}$</p>
+
+			<p>The sign we choose will depend on the quadrant of the angle. For instance, using the half-angle cosine identity, cosine is positive in the first and fourth quadrants and negative in the second and third quadrants.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>If $\pi \lt \theta \lt 3 \pi/2$ and $cos ~\theta = \frac{-\sqrt{6}}{7}$</p>
+
+				<p>If we substitute $cos ~\theta = \frac{-\sqrt{6}}{7}$ into the half-angle identity for cosine, we get:</p>
+
+				<p>$cos \frac{\theta}{2} = \pm \sqrt{ \frac{1 + cos ~\theta}{2} }$</p>
+				<p>$cos \frac{\theta}{2} = \pm \sqrt{ \frac{ 1 + \left( \frac{\sqrt{6}}{7} \right) }{2} }$</p>
+				<p>$cos \frac{\theta}{2} = \pm \sqrt{ \frac{ \frac{7-\sqrt{6}}{7} }{2} }$</p>
+				<p>$cos \frac{\theta}{2} = \pm \sqrt{ \frac{7 - \sqrt{6}}{14} }$</p>
+
+				<p>If we also substitute $cos ~\theta = \frac{-\sqrt{6}}{7}$ into the half-angle identity for sine, we get:</p>
+
+				<p>$sin \frac{\theta}{2} = \pm \sqrt{ \frac{1 - cos ~\theta}{2} }$</p>
+				<p>$sin \frac{\theta}{2} = \pm \sqrt{ \frac{ 1 - \left( \frac{ \sqrt{-6}}{7} \right) }{2} }$</p>
+				<p>$sin \frac{\theta}{2} = \pm \sqrt{ \frac{ \frac{7+\sqrt{6}}{7} }{2} }$</p>
+				<p>$sin \frac{\theta}{2} = \pm \sqrt{ \frac{7 + \sqrt{6}}{14} }$</p>
+
+				<p>Now to figure out the quadrant of $\frac{\theta}{2}$. We were told that $\theta$ is in the third quadrant, $\pi \lt \theta \lt 3 \pi/2$. We'll divide through the inequality by $2$ to change $\theta$ into $\frac{\theta}{2}$.</p>
+
+				<p>$\frac{\pi}{2} \lt \frac{\theta}{2} \lt \frac{3 \pi}{4}$</p>
+
+				<p>The bounds $[\frac{\pi}{2}, \frac{3 \pi}{4}]$ define space only in the second quadrant, so $\frac{\theta}{2}$ must be in the second quadrant.</p>
+
+
+		<h3 id="prod_sum_ids">Product-to-Sum Identities</h3>
+
+			<p>Sometimes we'll have the product of trigonometric functions and want to break up the product into a sum of difference. For instance, given the product $sin ~\theta ~cos ~\alpha$, we can rewrite it as:</p>
+
+			<p>$\frac{1}{2}[sin(\theta + \alpha) + sin(\theta - \alpha)]$</p>
+
+			<p>The four product-to-sum identities are as follows:</p>
+
+			<p>$sin ~\theta ~cos ~\alpha = \frac{1}{2}[ sin(\theta + \alpha) + sin(\theta - \alpha) ]$</p>
+			<p>$cos ~\theta ~sin ~\alpha = \frac{1}{2}[ sin(\theta + \alpha) - sin(\theta - \alpha) ]$</p>
+			<p>$cos ~\theta ~cos ~\alpha = \frac{1}{2}[ cos(\theta + \alpha) + cos(\theta - \alpha) ]$</p>
+			<p>$sin ~\theta ~sin ~\alpha = \frac{1}{2}[ cos(\theta - \alpha) - cos(\theta + \alpha) ]$</p>
+
+			<p>These product-to-sum identities can help eliminate sine or cosine from the expression, putting it completely in terms of one or the other.</p>
+
+
+		<h3 id="sum_prod_ids">Sum-to-Product Identities</h3>
+
+			<p>Similarly, there are 4 sum-to-product identities:</p>
+
+			<p>$sin ~\theta + sin ~\alpha = 2 ~sin \left( \frac{\theta + \alpha}{2} \right) ~cos \left( \frac{\theta - \alpha}{2} \right)$</p>
+			<p>$sin ~\theta - sin ~\alpha = 2 ~cos \left( \frac{\theta + \alpha}{2} \right) ~sin \left( \frac{\theta - \alpha}{2} \right)$</p>
+			<p>$cos ~\theta + cos ~\alpha = 2 ~cos \left( \frac{\theta + \alpha}{2} \right) ~cos \left( \frac{\theta - \alpha}{2} \right)$</p>
+			<p>$cos ~\theta + cos ~\alpha = 2 ~sin \left( \frac{\theta + \alpha}{2} \right) ~sin \left( \frac{\theta - \alpha}{2} \right)$</p>
+
+
+
+	<h2 id="law_sines_cosines">The Law of Sines and Cosines</h2>
+
+		<h3 id="law_sines">The Law of Sines</h3>
+
+			<p>For any triangle with vertices $A$, $B$, and $C$, where side $a$ is opposite angle $A$, side $b$ opposite $B$, and side $c$ is opposite angle $C$, the law of sines says:</p>
+
+			<p>$\frac{a}{sin ~A} = \frac{b}{sin ~B} = \frac{c}{sin ~C}$</p>
+
+			<p>It is equivalent to write these with the numerators and denominators flipped:</p>
+
+			<p>$\frac{sin ~A}{a} = \frac{sin ~B}{b} = \frac{sin ~C}{c}$</p>
+
+			<p>It's usually easiest to set up the equation such that the value we're trying to solve for is in the numerator. Note that these are pairwise equivalent for any two terms of the above equations as well.</p>
+
+      <img src="img/trig_table1.png" style="height: 400px; width:auto;"></br></br>
+
+			<p>In the SAA case, we know two adjacent angles and a side opposite one of those angles. In the ASA case, we know two adjacent angles and the side between them. Either way, to solve these kinds of triangles, we'll start by using $A + B + C = 180^{\circ}$ to find the measure of the remaining unknown angle. Once we know all three angles, we'll use the law of sines to find the length of the two remaining unknown sides.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Solve the triangle that has angles $38^{\circ}$ and $64^{\circ}$ where the length of the side opposite the third angle is $55$.</p>
+
+				<p>$A + B + C = 180^{\circ}$</p>
+				<p>$38^{\circ} + 64^{\circ} + c = 180^{\circ}$</p>
+				<p>$C = 180^{\circ} - 38^{\circ} - 64^{\circ}$</p>
+				<p>$C = 78^{\circ}$</p>
+
+				<p>The known side is opposite the third angle $C$, so we'll say $c=55$.</p>
+
+				<p>$\frac{a}{sin ~380^{\circ}} = \frac{b}{sin ~64^{\circ}} = \frac{55}{sin ~78^{\circ}}$</p>
+
+				<p>We'll just use the first and third parts of the 3-part equation to solve for $a$.</p>
+
+				<p>$\frac{a}{sin ~38^{\circ}} = \frac{55}{sin ~78^{\circ}}$</p>
+				<p>$a = \frac{55 ~sin ~38^{\circ}}{sin ~78^{\circ}}$</p>
+				<p>$a \approx 34.6$</p>
+
+
+			<h4>The Ambiguous Case of the Law of Sines</h4>
+
+				<p>The ambiguous case of the law of sines occurs in a SSA triangle for which we know the length of the two sides of the triangle, and a non-included angle (one of the angles not between the two known sides). In this case, 0, 1, or 2 triangles are possible, depending on the lengths of the two known sides and the measure of the one known angle.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Let's start with a case where one triangle is possible. A triangle has one side with length $3$ and another with length $5$. The angle opposite the side with length $5$ is $40^{\circ}$. Complete the triangle.</p>
+
+				<p>$\frac{3}{sin ~A} = \frac{5}{sin ~40^{\circ}} = \frac{c}{sin ~C}$</p>
+
+				<p>Use just the first two parts of this equation in order to solve for $A$.</p>
+
+				<p>$\frac{3}{sin ~A} = \frac{5}{sin ~40^{\circ}}$</p>
+				<p>$3 = \frac{5}{sin ~40^{\circ}}(sin ~A)$</p>
+				<p>$3 ~sin ~40^{\circ} = 5 ~sin ~A$</p>
+				<p>$sin ~A = \frac{3 ~sin ~40^{\circ}}{5}$</p>
+				<p>$sin ~A \approx 0.386$</p>
+				<p>$A \approx arcsin(0.386)$</p>
+				<p>$A \approx 22.7^{\circ}$</p>
+
+				<p>Since the sum of the interior angles of any triangle is $180^{\circ}$, the measure of the third interior angle $C$ is approximately:</p>
+
+				<p>$C \approx 180^{\circ} - 40^{\circ} - 22.7^{\circ}$</p>
+				<p>$C \approx 117.3^{\circ}$</p>
+
+				<p>Use the second and third parts of the 3-part equation to solve for $c$.</p>
+
+				<p>$\frac{5}{sin ~40^{\circ}} = \frac{c}{sin ~C}$</p>
+				<p>$\frac{5}{sin ~40^{\circ}} \approx \frac{c}{sin ~117.3^{\circ}}$</p>
+				<p>$c \approx \frac{5}{sin ~40^{\circ}}(sin ~117.3^{\circ})$</p>
+				<p>$c \approx 6.91$</p>
+
+				<p>The side lengths of the triangle are $a=3$, $b=5$, and $c \approx 6.91$. The angle measures are $A \approx 22.7^{\circ}$, $B = 40^{\circ}$, and $C = 117.3^{\circ}$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Let's do an example where no triangle is possible. Solve the triangle with side lengths $0.68$ and $0.92,$ if angle $C = 118^{\circ}$ is opposite the side with length $0.68$.</p>
+
+				<p>$\frac{a}{sin ~A} = \frac{0.92}{sin ~B} = \frac{0.68}{sin ~118^{\circ}}$</p>
+
+				<p>Use the second and third parts of this 3-part equation to solve for $B$.</p>
+
+				<p>$\frac{0.92}{sin ~B} = \frac{0.68}{sin ~118^{\circ}}$</p>
+				<p>$0.92 = \frac{0.68}{sin ~118^{\circ}}(sin ~B)$</p>
+				<p>$0.92 ~sin ~118^{\circ} = 0.68 ~sin ~B$</p>
+				<p>$sin ~B = \frac{0.92 ~sin ~118^{\circ}}{0.68}$</p>
+				<p>$sin ~B \approx 1.195$</p>
+
+				<p>The sine of any angle must have a value on the interval $[-1,1]$. Because we are getting $sin ~B \approx 1.195$, a triangle with the given measurements is impossible.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Now an example where two triangles are possible. Solve the triangle with side lengths $41$ and $54$, where the angle opposite $a=41$ is $38^{\circ}$.</p>
+
+				<p>$\frac{sin ~38^{\circ}}{41} = \frac{sin ~B}{54} = \frac{sin ~C}{c}$</p>
+
+				<p>We'll use the first two parts of the equation to solve for the angle $B$.</p>
+
+				<p>$\frac{sin ~38^{\circ}}{41} = \frac{sin ~B}{54}$</p>
+				<p>$sin ~B = \frac{54 ~sin ~38^{\circ}}{41}$</p>
+				<p>$sin ~B \approx 0.811$</p>
+
+				<p>We could find $sin ~B \approx 0.811$ in both the first and second quadrants, since these are the quadrants where sine is positive. To find the value of angle $B$ in the first quadrant, we'll apply the inverse sine function to both sides to cancel the sine on the left and solve for $B$.</p>
+
+				<p>$B \approx arcsin(0.811)$</p>
+				<p>$B \approx 54^{\circ}$</p>
+
+				<p>To find the other possible value of $B$ in the second quadrant, we'll subtract $B \approx 54^{\circ}$ from $180^{\circ}$.</p>
+
+				<p>$B' \approx 180^{\circ} - 54^{\circ}$</p>
+				<p>$B' \approx 126^{\circ}$</p>
+
+				<p>Then the remaining angle is either:</p>
+
+				<p>$C \approx 180^{\circ} - 38^{\circ} - 54^{\circ}$</p>
+				<p>$C \approx 88^{\circ}$</p>
+
+				<p>or</p>
+
+				<p>$C' \approx 180^{\circ} - 38^{\circ} - 126^{\circ}$</p>
+				<p>$C' \approx 16^{\circ}$</p>
+
+				<p>Finally, we can find the measure of the remaining side:</p>
+
+				<p>$\frac{sin ~38^{\circ}}{41} \approx \frac{sin ~54^{\circ}}{54} \approx \frac{sin ~88^{\circ}}{c}$</p>
+				<p>$0.015 \approx 0.015 \approx \frac{sin ~88^{\circ}}{c}$</p>
+				<p>$c \approx \frac{sin ~88^{\circ}}{0.015}$</p>
+				<p>$c \approx 67$</p>
+
+				<p>or,</p>
+			
+				<p>$\frac{sin ~38^{\circ}}{41} \approx \frac{sin ~126^{\circ}}{54} \approx \frac{sin ~16^{\circ}}{c'}$</p>
+				<p>$0.015 \approx 0.015 \approx \frac{sin ~16^{\circ}}{c'}$</p>
+				<p>$c' = \frac{sin ~16^{\circ}}{0.015}$</p>
+				<p>$c' \approx 18$</p>
+
+				<p>Triangle 1: $A = 38^{\circ}, B \approx 54^{\circ}, C \approx 88^{\circ}, a = 41, b = 54, c = 67$</p>
+
+				<p>Triangle 2: $A = 38^{\circ}, B' \approx 126^{\circ}, C' \approx 16^{\circ}, a = 41, b = 54, c \approx 18$</p>
+
+
+		<h3 id="area_law_sines">Area From the Law of Sines</h3>
+
+			<p>From the law of sines, we can find formulas that give the area of an oblique triangle. Given any oblique triangle, with angles $A$, $B$, $C$, and side lengths $a$, $b$, and $c$, the area will be:</p>
+
+			<p>$A = \left( \frac{1}{2} \right)ah$</p>
+
+			<p>where $a$ is the base and $h$ is the height. By the definition of sine, the height is $h = b ~sin ~C$. Therefore, we can write the area formula as:</p>
+
+			<p>$a = \left( \frac{1}{2} \right) ab ~sin C$</p>
+
+			<p>If we choose either of the other two sides as a base, we can write similar formulas for the area:</p>
+
+			<p>$A = \frac{1}{2} ab ~sin ~C$</p>
+			<p>$A = \frac{1}{2} ac ~sin ~B$</p>
+			<p>$A = \frac{1}{2} bc ~sin ~A$</p>
+
+			<p>What matters is that we use two sides, and the angle opposite the side we didn't use. That happens to be the angle between the two sides we did choose.</p>
+
+
+		<h3 id="law_cosines">Law of Cosines</h3>
+
+			<p>We've talked about the SAA or ASA case and the SSA ambiguous case which require the law of sines. In the SAS and SSS cases, both require the law of cosines.</p>
+
+			<p>For any triangle with vertices $A$, $B$, and $C$, where side a is opposite angle $A$, side b is opposite angle $B$, and side $c$ is opposite angle $C$, the law of cosines says that:</p>
+
+			<p>$c^2 = a^2 + b^2 - 2ab ~cos ~C$</p>
+			<p>$b^2 = a^2 + c^2 - 2ac ~cos ~B$</p>
+			<p>$a^2 = b^2 + c^2 - 2bc ~cos ~A$</p>
+
+			<p>All three formulas are the same and can be used interchangably. These can be solved for the cosine functions:</p>
+
+			<p>$cos ~C = \frac{ a^2 + b^2 - c^2 }{ 2ab }$</p>
+			<p>$cos ~B = \frac{ a^2 - b^2 + c }{ 2ac }$</p>
+			<p>$cos ~A = \frac{ -a^2 + b^2 + c }{ 2bc }$</p>
+
+			<p>The Pythagorean theorem is a special case of the law of cosines where one angle is $90^{\circ}$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Solve the triangle that has side lengths $11$, $6$, and $9$.</p>
+
+				<p>$a^2 = b^2 + c^2 - 2bc ~cos ~A$</p>
+				<p>$11^2 = 6^2 + 9^2 - 2(6)(9) ~cos ~A$</p>
+				<p>$121 = 36 + 81 - 108 ~cos ~A$</p>
+				<p>$4 = -108 ~cos ~A$</p>
+				<p>$cos ~A = - \frac{1}{27}$</p>
+				<p>$cos \approx -0.037$</p>
+
+				<p>Solve for $A$ by applying the inverse cosine function to both sides.</p>
+
+				<p>$A \approx arccos(-0.037)$</p>
+				<p>$A \approx 92^{\circ}$</p>
+
+				<p>The easiest way to get the next angle will be to plug in the law of sines.</p>
+
+				<p>$\frac{sin ~A}{a} = \frac{sin ~B}{b} = \frac{sin ~C}{c}$</p>
+				<p>$\frac{sin ~92^{\circ}}{11} = \frac{sin ~B}{6} = \frac{sin ~C}{9}$</p>
+
+				<p>Use the first and second parts of this three-part equation to solve for $B$.</p>
+
+				<p>$\frac{sin ~92^{\circ}}{11} = \frac{sin ~B}{6}$</p>
+				<p>$sin ~B = \frac{6 ~sin ~92^{\circ}}{11}$</p>
+				<p>$sin ~B \approx 0.5451$</p>
+
+				<p>Solve for $B$ by applying the inverse sine function to both sides.</p>
+
+				<p>$B \approx arcsin(0.5451)$</p>
+				<p>$B \approx 33^{\circ}$</p>
+
+				<p>Once we have the first two angles, we can find the third by subtracting the other two from $180^{\circ}$.</p>
+
+				<p>$C = 180^{\circ} - A - B$</p>
+				<p>$C \approx 180^{\circ} - 92^{\circ} - 33^{\circ}$</p>
+				<p>$C \approx 55^{\circ}$</p>
+
+				<p>The given triangle is defined by:</p>
+
+				<p>$a = 11, b = 6, c = 9, A \approx 92^{\circ}, B \approx 33^{\circ}, C \approx 55^{\circ}$</p>
+
+
+		<h3 id="heron">Heron's Formula For Area of a Triangle</h3>
+
+			<p>When we know the lengths of all 3 sides of a triangle, we can find its area using Heron's formula.</p>
+
+			<p>$Area = \sqrt{ s(s-a)(s-b)(s-c) }$</p>
+
+			<p>where $a$, $b$, and $c$ are the side lengths of the triangle, and $s$ is one half the perimeter of the triangle.</p>
+
+			<p>$s = \frac{1}{2}(a + b + c)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Apply Heron's formula to find the area of the triangle that has side lengths $16$, $19$, and $7$.</p>
+
+				<p>Let $a = 16$, $b = 19$, and $c = 7$</p>
+
+				<p>$s = \frac{1}{2}(16 + 19 + 7)$</p>
+				<p>$s = \frac{1}{2}(35 + 7)$</p>
+				<p>$s = \frac{1}{2}(42)$</p>
+				<p>$s = 21$</p>
+
+				</br>
+
+				<p>$Area = \sqrt{ s(s-a)(s-b)(s-c) }$</p>
+				<p>$= \sqrt{ 21(21-16)(21-19)(21-7) }$</p>
+				<p>$= \sqrt{ 21(5)(2)(14) }$</p>
+				<p>$= \sqrt{ 21(140) }$</p>
+				<p>$= \sqrt{2940} \approx 54.2$</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+      </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

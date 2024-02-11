@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+<h1>Calculus I, Pt. 1</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#limits">Limits</a></td><td><a href="#one_sided_lim">One-Sided Limits</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#lim_formal_def">Formal Definition of a Limit</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#lim_combinations">Limits of Combinations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#point_disc">Point Discontinuities</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#squeeze">The Squeeze (a.k.a. Sandwich) Theorem</a></td></tr>
+ <tr><td><a href="#derivatives">Derivatives</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#deriv_rules">Rules for Finding Derivatives</a></td><td><a href="#power_rule">The Power Rule</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#product_rule">The Product Rule</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#quotient_rule">The Quotient Rule</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#reciprocal_rule">The Reciprocal Rule</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#trig_functions">Trigonometric Functions</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#exp_deriv_rules">Exponential Derivative Rules</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#log_derivs">Logarithmic Derivatives</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#chain_rule">The Chain Rule</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#inverse_trig_derivs">Inverse Trigonometric Derivatives</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#hyperbolic_derivs">Hyperbolic Derivatives</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#inverse_hyper_derivs">Inverse Hyperbolic Derivatives</a></td></tr>
+</tbody></table>
+
+
+    <h2 id="limits">Limits</h2>
+
+        <p>The limit of a function is the value the function approaches at a given value of $x$, regardless of where the function actually reaches that value.</p>
+
+        <p>Consider $f(x) = x + 1$. The number $6$ is the limit of the function at $x=5$, because $6$ is the value that the function approaches as $x$ gets closer and closer to $5$. The notation is:</p>
+
+        <p>$\lim \limits_{x \to 5} (x+1) = 6$</p>
+
+        <p>Generalized, we say the limit of $f(x)$ as $x$ approaches $a$ is $L$.</p>
+
+        <p>$\lim \limits_{x \to a} f(x) = L$</p>
+
+
+        <h3 id="one_sided_lim">One-Sided Limits</h3>
+
+            <p>The limit of a function from the left side is notated as $\lim \limits_{x \to a-}$. If from the right side, $\lim \limits_{x \to a+}$. The general limit (with no sign indicating direction) can only exist if 3 conditions are met:</p>
+                <ol>
+                    <li>The left-hand limit exists</li>
+                    <li>The right-hand limit exists</li>
+                    <li>The left and right-hand limits are equal</li>
+                </ol>
+
+
+        <h3 id="lim_formal_def">Formal Definition of a Limit</h3>
+
+            <p>$\lim \limits_{x \to a} = L$ if for every $\epsilon \gt 0$, there is some $\delta \gt 0$, such that:</p>
+
+            <p>$|f(x) - L| = \epsilon \text{ whenever } 0 \lt |x - a| < \delta$</p>
+
+            <p>The limit of the function as we get close to $a$ is equal to $L$ if for any positive value of $\epsilon$ (i.e., any distance we move away from $L$), there is some associative interval defined by $\delta$, where we can move a distance of $\delta$ from $a$ such that the value of $f(x)$ will fall inside the $\epsilon$ boundaries whenever we pick an $x$ value within the delta boundaries.</p>
+
+
+        <h3 id="lim_combinations">Limits of Combinations</h3>
+
+            <p>Assume that $f(x) = x+1$ and $g(x) = x^2 - 4$. We could find the limit for a combination like:</p>
+
+            <p>$\lim \limits_{x \to 1} [f(x) + g(x)]$</p>
+
+            <p>If the limits of two functions at the same value both exist, then we can define 5 kinds of combinations:</p>
+
+            <p>$\lim \limits_{x \to a} [c f(x)] = c \lim \limits_{x \to a} f(x)$</p>
+
+            <p>$\lim \limits_{x \to a} [f(x) \pm g(x)] = \lim \limits_{x \to a} f(x) \pm \lim \limits_{x \to a} g(x)$</p>
+
+            <p>$\lim \limits_{x \to a} [f(x)g(x)] = \lim \limits_{x \to a} f(x) \lim \limits_{x \to a} g(x)$</p>
+
+            <p>$\lim \limits_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim f(x)}{\lim g(x)}, \text{ for} \lim \limits_{x \to a} g(x) = 0$</p>
+
+            <p>$\lim \limits_{x \to a} [f(x)]^n = [\lim \limits_{x \to a} f(x)]^n \text{ for any real numbered n}$</p>
+
+
+            <p>There are two ways to find the limit of a combination:</p>
+                <ol>
+                    <li>Find the combination of the functions, then take the limit of the combination</li>
+                    <li>Take the limit of each function, then find the combination of the limits</li>
+                </ol>
+
+
+        <h3 id="point_disc">Point Discontinuities</h3>
+
+            <p>A function with a removable point discontinuity may have something like a denominator potentially equal to zero, but one that can be taken away by cancelling common factors in the equation. For example:</p>
+
+            <p>$f(x) = \frac{x^2 + 11x + 28}{x + 4}$</p>
+            <p>$= \frac{(x+4)(x+7)}{x+4}$</p>
+            <p>$= x + 7$</p>
+
+            <p>Note that there is no longer a condition that $x \neq -4$</p>
+
+
+        <h3 id="squeeze">The Squeeze (a.k.a. Sandwich) Theorem</h3>
+
+            <p>The squeeze theorem allows us to find the limit of a function at a particular point, even when the function is undefined at that point. It does so by showing that our function can be 'squeezed' between two other functions at a given point, and proving that the limits of these other functions are equal. Assume that our original function is $h(x)$, and that it is squeezed between two other functions, $f(x)$ and $g(x)$.</p>
+
+            <p>$f(x) \le h(x) \le g(x)$</p>
+
+            <p>Also, assume that the limits of the other two functions are equal as we approach the point $c$ that we are interested in.</p>
+
+            <p>$\lim \limits_{x \to c} f(x) = \lim \limits_{x \to c} g(x) = L$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Evaluate $\lim \limits_{x \to 0} x^2 sin \left( \frac{1}{x} \right)$</p>
+
+                <p>Substituting, factoring, and the conjugate method will not help - but we know that the sine function oscillates between $0$ and $1$.</p>
+
+                <p>$-1 \le sin \left( \frac{1}{x} \right) \le 1$</p>
+
+                <p>The goal now is to manipulate the inequality until the function in the center is identical to the original function. To get there, we'll multiply through by $x^2$.</p>
+
+                <p>$-x^2 \le sin \left( \frac{1}{x} \right) \le x^2$</p>
+
+                <p>Both of these squeezing functions have a well-defined limit as $x \to 0$:</p>
+
+                <p>$\lim \limits_{x \to 0} -x^2 = -0^2 = 0$</p>
+                <p>$\lim \limits_{x \to 0} x^2 = 0^2 = 0$</p>
+
+                <p>Since these two functions have the same limit as $x \to 0$, and we know the original function is squeezed between the other two, there is no possible limit of the original function other than the value of the squeezing functions at that point. Therefore:</p>
+
+                <p>$\lim \limits_{x \to 0} x^2 sin \left( \frac{1}{x} \right) = 0$</p>
+
+
+
+    <h2 id="derivatives">Derivatives</h2>
+
+        <p>The derivative is the answer to how we find the slope of a function at a particular point. It provides the instantaneous rates of change for a function. The definition of the derivative at $x=c$ is:</p>
+
+        <p>$f'(c) = \lim \limits_{x \to 0} \frac{ f(c + \Delta x) - f(c) }{ \Delta x }$</p>
+
+        <p>also written as:</p>
+        <p>$f'(x) _{h \to 0} = \frac{ f(x+h) - f(x) }{ h }$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $f(x) = x^2 - 5x + 6$</p>
+
+                <p>$f(x) = x^2 - 5x + 6$</p>
+                <p>$f(x+h) = (x+h)^2 - 5(x+h) + 6$</p>
+
+                </br>
+                <p>$f'(x) = \lim \limits_{h \to 0} \frac{ x^2 + 2xh + h^2 - 5x - 5h + 6 - x^2 + 5x - 6 }{ h }$</p>
+                <p>$= \lim \limits_{h \to 0} \frac{ h^2 + 2xh - 5h }{ h }$</p>
+                <p>$= \lim \limits_{h \to 0} h + 2x - 5$</p>
+                <p>$= 2x - 5$</p>
+
+
+
+    <h2 id="deriv_rules">Rules for Finding Derivatives</h2>
+
+        <h3 id="power_rule">The Power Rule</h3>
+
+            <p>The power rule tells us that for power functions, we multiply the exponent by the coefficient, and then subtract $1$ from the exponent. Formally, for any function of the form $ax^n$, the derivative will be:</p>
+
+            <p>$\frac{d}{dx}(ax^n) = (a \cdot n)x^{n-1}$</p>
+
+            <p>For example, $\frac{d}{dx} 3x^4 = 12x^3$</p>
+
+            <p>We can use the power rule to find the derivatives of polynomials. For example:</p>
+
+            <p>$f(x) = 7x^3 + 2x^2 - 3x$</p>
+
+            </br>
+            <p>$f'(x) = 7(3)x^{3-1} + 2(2)x^{2-1} + 3(1)x^{1-1}$</p>
+            <p>$f'(x) = 21x^2 + 4x^1 - 3x^0$</p>
+            <p>$f'(x) = 21x^2 + 4x - 3$</p>
+
+            <p>The power rule tells us that the derivative of a constant is $0$. For example, $7 = 7x^0$, and the derivative of $7x^0$ is $-7(0) x^{0-1}$. $0$ is multiplying the constant, so $0$ is the derivative.</p>
+
+            <p>The power rule can also be used toward negative powers, e.g.,</p>
+
+            <p>$y = x^{-3} + 2x^{-6}$</p>
+            <p>$y' = -3x^{-4} + -12x^{-7}$</p>
+            <p>$y' = -\frac{3}{x^4} - \frac{12}{x^7}$</p>
+
+            <p>And it can be used for fractional powers, e.g.,</p>
+
+            <p>$y = x^{3/2} + 6x^{-1/4}$</p>
+            <p>$y' = \frac{3}{2} x^{1/2} + 6 \left( -\frac{1}{4} \right) x^{-5/4}$</p>
+            <p>$y' = \frac{3}{2} x^{1/2} - \frac{3}{2x^{5/4}}$</p>
+
+            <p>Some other basic derivative rules are:</p>
+                <ul>
+                    <li>Constant Rule: $\frac{d}{dx} a = 0$</li>
+                </br>
+                    <li>Constant Multiple Rule: $\frac{d}{dx} a f(x) = a f'(x)$</li>
+                </br>                    
+                    <li>Sum Rule: $\frac{d}{dx} (f(x) + g(x)) = f'(x) + g'(x)$</li>
+                </br>                    
+                    <li>Difference Rule: $\frac{d}{dx} (f(x) - g(x)) = f'(x) - g'(x)$</li>
+                </ul>
+
+
+        <h3 id="product_rule">The Product Rule</h3>
+
+            <p>Given a function like $y = f(x)g(x)$, the product rule says that its derivative will be:</p>
+
+            <p>$y' = f(x)g'(x) + f'(x)g(x)$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>$y = x^2(6x^3)$</p>
+                <p>$f(x) = x^2, ~~f'(x) = 2x$</p>
+                <p>$g(x) = 6x^3, ~~g'(x) = 18x^2$</p>
+
+                </br>
+                <p>$y' = f(x)g'(x) + f'(x)g(x)$</p>
+                <p>$y' = x^2(18x^2) + (2x)(6x^3)$</p>
+                <p>$y' = 18x^4 + 12x^4$</p>
+                <p>$y' = 30x^4$</p>
+
+
+            <p>We can extend the product rule to as many terms as we have multiplied together in the original function. If $y = f(x)g(x)h(x)$,</p>
+            <p>$y' = f'(x)g(x)h(x) + f(x)g'(x)h(x) + f(x)g(x)h'(x)$</p>
+
+
+
+        <h3 id="quotient_rule">The Quotient Rule</h3>
+
+            <p>The quotient rule says the derivative of a quotient is given by:</p>
+
+            <p>$\frac{d}{dx} \left( \frac{f(x)}{g(x)} \right) = \frac{ f'(x)g(x) - f(x)g'(x) }{ [g(x)]^2 }$</p>
+
+
+            <h4>Example:</h4>
+
+            <p>$y = \frac{x^4}{6x^2}$</p>
+            <p>$f(x) = x^4, ~~f'(x) = 4x^3$</p>
+            <p>$g(x) = 6x^2, ~~g'(x) = 12x$</p>
+
+            </br>
+            <p>$y' = \frac{ 4x^3 (6x^2) - x^4 (12x) }{ (6x^2)^2 }$</p>
+            <p>$y' = \frac{ 24x^5 - 12x^5 }{ 36x^4 }$</p>
+            <p>$y' = \frac{12x^5}{36x^4}$</p>
+
+
+        <h3 id="reciprocal_rule">The Reciprocal Rule</h3>
+
+            <p>Assuming the numerator of a quotient is constant,</p>
+
+            <p>$\frac{a}{g(x)}$</p>
+            <p>$y = \frac{ a }{ g(x) }$</p>
+            <p>$y' = \frac{ (0)g(x) - ag'(x) }{ [g(x)]^2 }$</p>
+            <p>$y' = \frac{ -ag'(x) }{ [g(x)]^2 }$</p>
+
+            <p>This is a simplified version of the quotient rule that applies only to quotients in which the numerator is a constant.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Consider the function:</p>
+
+                <p>$y = \frac{1}{2x+1} + \frac{5}{3x-1}$</p>
+
+                <p>For the first fraction, $a=1$, so $-a = -1$, the denominator is $2x + 1$, and the denominator's derivative is $2$. For the second fraction, $a=5$ so $-a = -5$, the denominator is $3x-1$, and the denominator's derivative is $3$.</p>
+
+                <p>$y' = \frac{ -1(2) }{ (2x+1)^2 } + \frac{ -5(3) }{ (3x-1)^2 }$</p>
+                <p>$y' = \frac{ 2 }{ (2x+1)^2 } - \frac{ 15 }{ (3x-1)^2 }$</p>
+
+
+
+        <h3 id="trig_functions">Trigonometric Functions</h3>
+
+            <p>There are 6 basic trigonometric functions, and we should know the derivative of each</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = sin ~x$</td><td>$y' = cos ~x$</td></tr>
+             <tr><td>$y = cos ~x$</td><td>$y' = - sin ~x$</td></tr>
+             <tr><td>$y = tan ~x$</td><td>$y = sec^2 x$</td></tr>
+             <tr><td>$y = cot ~x$</td><td>$y' = - csc^2 x$</td></tr>
+             <tr><td>$y = sec ~x$</td><td>$y' = sec ~x ~tan ~x$</td></tr>
+             <tr><td>$y = csc ~x$</td><td>$y' = -csc ~x ~cot ~x$</td></tr>
+            </tbody></table>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 4 ~cos ~x$.</p>
+
+                <p>$y' = 4 (-sin ~x) = -4 ~sin ~x$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 8x^5 - 9 ~cot ~x$.</p>
+
+                <p>$y' = 8(5)x^5-1 - 9(-csc^2 x)$</p>
+                <p>$= 40x^4 + 9 ~csc^2 x$</p>
+
+
+
+        <h3 id="exp_deriv_rules">Exponential Derivative Rules</h3>
+        
+                <p>Exponential and logarithmic functions have their own set of derivative rules. In power functions, the base is a variable, and the exponent is a constant. But in exponential functions, the base is a constant and the exponent is the variable.</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = e^x$</td><td>$y' = e^x$</td></tr>
+             <tr><td>$y = a^x$</td><td>$y' = a^x (ln ~a)$</td></tr>
+            </tbody></table>
+
+            </br>
+            <p>There is actually no difference between these derivative formulas. When we take the derivative of $y = e^x$, we get $y = e^x (ln ~e)$, which simplifies to $y' = e^x$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 42^x$</p>
+
+                <p>$y' = a^x (ln ~a)$</p>
+                <p>$y' = 42^x (ln ~42)$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 3e^x$</p>
+
+                <p>$y' = 3e^x$</p>
+
+
+
+        <h3 id="log_derivs">Logarithmic Derivatives</h3>
+
+            <p>The log functions and their derivative are given as:</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = log_a x$</td><td>$y' = \frac{1}{x ln ~a}$</td></tr>
+             <tr><td>$y = ln x$</td><td>$y' = \frac{1}{x}$</td></tr>
+            </tbody></table>
+
+            </br>
+            <p>There is actually no difference between these formulas. $y = ln ~x$ is the same as $y = log_e x$, for which the derivative is $y' = \frac{1}{x ~ln ~e}$. $ln ~e = 1$, giving us the simplification of $y' = \frac{1}{x}$.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 6 ~log_8 x$</p>
+
+                <p>$y' = \frac{1}{x ~ln ~a} = 6 \left( \frac{1}{x ~ln ~8} \right) = \frac{6}{x ~ln ~8}$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 5 ~ln ~x$</p>
+
+                <p>$y' = \frac{1}{x} = 5 \left( \frac{1}{x} \right) = \frac{5}{x}$</p>
+
+
+
+        <h3 id="chain_rule">The Chain Rule</h3>
+
+            <p>The chain rule lets us calculate derivatives of nested functions like $y = g[f(x)]$ where $g[f(x)]$ is the outside function and $f(x)$ is the inside function. The derivative of this nested function is:</p>
+
+            <p>$y = g' [f(x)] f'(x)$</p>
+
+            <p>Notice that we took the derivative first of the outside function, $g[f(x)]$, and then multiplied that result by the derivative of the inside function.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $f(x) = \sqrt{2x+1}$</p>
+
+                <p>$f(x) = (2x + 1)^{\frac{1}{2}}$</p>
+                <p>$f'(x) = \frac{1}{2}(2x + 1)^{-\frac{1}{2}}$</p>
+
+                <p>Now, we need to apply the chain rule, which means multiplying this result by the derivative of the inside function $2x+1$. The derivative of this is $2$, so we multiply the result thus far by $2$.</p>
+
+                <p>$f'(x) = (2x + 1)^{-\frac{1}{2}}$</p>
+                <p>$f'(x) = \frac{1}{\sqrt{2x+1}}$</p>
+
+
+            <h4>Chain Rule with Trigonometric, Logarithmic, and Exponential Functions</h4>
+
+                <p>We have been using the chain rule implicitly all along. For example, with a basic trigonometric function like $y = cos ~x$, $x$ acts like an inside function. We take the derivative of the $cos$ part to get $-sin$, but then have to multiply by the derivative of the inside function. The derivative of the inside function $x$ is $1$, so the derivative of $y = cos ~x$ actually looks like:</p>
+
+                <p>$y = cos ~x$</p>
+                <p>$y' = (-sin ~x)(1)$</p>
+                <p>$y' = -sin ~x$</p>
+
+                <p>Examples of finding the derivative of more complex functions are:</p>
+
+                <p>$y = sin(2x)$</p>
+                <p>$y' = 2 ~cos (2x)$</p>
+
+                </br>
+                <p>$y = sec(3x^2)$</p>
+                <p>$y' = 6 ~x ~sec(3x^2) tan(3x^2)$</p>
+
+                <p>If we modify our trigonometric derivative rules to account for the chain rule, they look like this:</p>
+
+                <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+                 <tr><td>$y = sin(g(x))$</td><td>$y' = g'(x)(cos(g(x)))$</td></tr>
+                 <tr><td>$y = cos(g(x))$</td><td>$y' = g'(x)(-sin(g(x)))$</td></tr>
+                 <tr><td>$y = tan(g(x))$</td><td>$y' = g'(x)(sec^2g(x)))$</td></tr>
+                 <tr><td>$y = cot(g(x))$</td><td>$y' = g'(x)(-csc^2g(x)))$</td></tr>
+                 <tr><td>$y = sec(g(x))$</td><td>$y' = g'(x)(sec(g(x)) tan(g(x)) )$</td></tr>
+                 <tr><td>$y = csc(g(x))$</td><td>$y' = g'(x)(-csc(g(x)) cot(g(x)) )$</td></tr>
+                </tbody></table>
+
+                <br>
+                <p>The inside function of a trigonometric function is its argument, the inside function of an exponential function is its exponent, and the inside function of a logarithmic function is its argument</p>
+
+                <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+                 <tr><td>$y = e^{g(x)}$</td><td>$y' = e^{g(x)} g'(x)$</td></tr>
+                 <tr><td>$y = a^{g(x)}$</td><td>$y' = a^{g(x)} (ln ~a) (g'(x)$</td></tr>
+                 <tr><td>$y = log_a g(x)$</td><td>$y' = \frac{1}{g(x) ln ~a} g'(x)$</td></tr>
+                 <tr><td>$y = ln ~g(x)$</td><td>$y' = \frac{1}{g(x)} g'(x)$</td></tr>
+                </tbody></table>
+
+
+            <br>
+            <h4>Example:</h4>
+
+                <p>Find the derivative of $y = 42^{6x}$.</p>
+
+                <p>$a = 42$ and the exponent is $6x$</p>
+
+                <p>$y' = a^{g(x)} (ln ~a) g'(x)$</p>
+                <p>$y' = 42^{6x} (ln(42)) (6)$</p>
+                <p>$y' = 6(42)^{6x} (ln (42))$</p>
+
+
+        <h3 id="inverse_trig_derivs">Inverse Trigonometric Derivatives</h3>
+
+            <p>To find a function's inverse, we change the places of the $x$ and $y$ variables in the function's equation. The inverse of $y = x^3$ is $x = y^3$. The inverse of $y = 3x^2 - 6x + 2$ is $x = 3y^2 - 6y + 2$. A function and its inverse will be reflections of each other over the line $y=x$.</p>
+
+            <p>The inverse of $y = sin ~x$ is $x = sin ~y$. To solve for $y$, we take the inverse sine of both sides.</p>
+
+            <p>$x = sin ~y$</p>
+            <p>$sin^{-1}(x) = sin^{-1} (sin ~y)$</p>
+            <p>$sin^{-1}(x) = y$</p>
+            <p>$y = sin^{-1} ~x$</p>
+
+            <p>Remember that $-1$ is not an exponent in this case. Although $x^{-1} = \frac{1}{x}$, it is also the case that $sin -\frac{1}{2} \neq \frac{1}{sin ~x}$. This is why some prefer the arcsine notation to $sin^{-1}$.</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = sin^{-1} ~x$</td><td>$y' = \frac{1}{ \sqrt{1-x^2} }$</td></tr>
+             <tr><td>$y = cos^{-1} ~x$</td><td>$y' = - \frac{1}{ \sqrt{1-x^2} }$</td></tr>
+             <tr><td>$y = tan^{-1} ~x$</td><td>$y' = \frac{1}{ 1+x^2 }$</td></tr>
+             <tr><td>$y = sec^{-1} ~x$</td><td>$y' = \frac{1}{ |x| \sqrt{x^2-1} }$</td></tr>
+             <tr><td>$y = csc^{-1} ~x$</td><td>$y' = - \frac{1}{ |x| \sqrt{x^2-1} }$</td></tr>
+             <tr><td>$y = cot^{-1} ~x$</td><td>$y' = - \frac{1}{ 1+x^2 }$</td></tr>
+            </tbody></table>
+
+            </br>
+            <p>But if the argument of the trigonometric function is anything other than $x$, applying the chain rule means we'll be multiplying by something other than $1$, affecting the value of the derivative.</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = sin^{-1}[g(x)]$</td><td>$y' = \frac{ g'(x) }{ \sqrt{1-[g(x)]} }$</td></tr>
+             <tr><td>$y = cos^{-1}[g(x)]$</td><td>$y' = \frac{ g'(x) }{ \sqrt{1-[g(x)]^2} }$</td></tr>
+             <tr><td>$y = tan^{-1}[g(x)]$</td><td>$y' = \frac{ g'(x) }{ 1+[g(x)]^2 }$</td></tr>
+             <tr><td>$y = csc^{-1}[g(x)]$</td><td>$y' = - \frac{ g'(x) }{ |g(x)| \sqrt{[g(x)]^2 - 1} }$</td></tr>
+             <tr><td>$y = sec^{-1}[g(x)]$</td><td>$y' = \frac{ g'(x) }{ |g(x)| \sqrt{[g(x)]^2-1} }$</td></tr>
+             <tr><td>$y = cot^{-1}[g(x)]$</td><td>$y' = \frac{ g'(x) }{ 1+[g(x)]^2 }$</td></tr>
+            </tbody></table>
+
+
+        </br>
+        <h3 id="hyperbolid_derivs">Hyperbolic Derivatives</h3>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = sinh ~x$</td><td>$y' = cosh ~x$</td></tr>
+             <tr><td>$y = cosh ~x$</td><td>$y' = sinh ~x$</td></tr>
+             <tr><td>$y = tanh ~x$</td><td>$y' = sech^2 ~x$</td></tr>
+             <tr><td>$y = csch ~x$</td><td>$y' = -csch ~x ~ coth ~x$</td></tr>
+             <tr><td>$y = sech ~x$</td><td>$y' = -sech ~x ~ tanh ~x$</td></tr>
+             <tr><td>$y = coth~ x$</td><td>$y' = -csch^2 ~x$</td></tr>
+            </tbody></table>
+
+            <h4>Example:</h4>
+
+                <p>Find the derivative of the hyperbolic function $y = 9 ~tanh(x^5)$</p>
+
+                <p>$y' = sech^2[g(x)][g'(x)]$</p>
+                <p>$y' = 9 ~sech^2(x^5)(5x^4)$</p>
+                <p>$y' = 45 x^4 ~sech^2 (x^5)$</p>
+
+
+        </br>
+        <h3 id="inverse_hyper_derivs">Inverse Hyperbolic Derivatives</h3>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Function</th><th>Derivative</th></tr></thead><tbody>
+             <tr><td>$y = sinh[g(x)]$</td><td>$y' = cosh[g(x)][g'(x)]$</td></tr>
+             <tr><td>$y = cosh[g(x)]$</td><td>$y' = sinh[g(x)][g'(x)]$</td></tr>
+             <tr><td>$y = tanh[g(x)]$</td><td>$y' = sech^2[g(x)][g'(x)]$</td></tr>
+             <tr><td>$y = csch[g(x)]$</td><td>$y' = - csch[g(x)] coth[g(x)][g'(x)]$</td></tr>
+             <tr><td>$y = sech[g(x)]$</td><td>$y' = sech[g(x)] tanh[g(x)][g'(x)]$</td></tr>
+             <tr><td>$y = coth[g(x)]$</td><td>$y' = - csch^2[g(x)][g'(x)]$</td></tr>
+            </tbody></table>
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="calc1_pt2.html">part 2</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

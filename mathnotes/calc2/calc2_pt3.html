@@ -1,0 +1,1781 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+
+
+<h1>Calculus II, Pt. 3</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#param_curves">Parametric Curves</td><td><a href="#param_curve_deriv">Derivative of a Parametric Curve</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#tangent_param_curve">Tangent Line to the Parametric Curve</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#area_param_curve">Area Under a Parametric Curve</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#arclength_param_curve">Arc Length of a Parametric Curve</td></tr>
+ <tr><td><a href="#vol_rev_param_curve">Volume of Revolution with Parametric Curves</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#polar_curve">Polar Curves</td><td><a href="#dist_polar_pts">Distance Between Polar Points</td></tr>
+ <tr><td></td><td><a href="#calc_polar_curve">Calculus with Polar Curves</td></tr>
+ <tr><td></td><td><a href="#intersect_polar_curve">Intersection of Polar Curves</td></tr>
+ <tr><td><a href="#sequences">Sequences</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#partial_sums">Partial Sums</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#geom_series">Geometric Series</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#telescoping_series">Telescoping Series</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#basic_converg_test">Basic Convergence Tests</td><td><a href="#integral_test">Integral Test</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#p_series_test">P-Series Test</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#nth_term_test">$n^{th}$ Term Test</td></tr>
+ <tr><td><a href="#comparison_tests">Comparison Tests</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#error_remainder">Error or Remainder of a Series</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#seq_ratio_root">Sequences and Series - Ratio and Root Tests</td><td><a href="#root_test">Root Test</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#abs_cond_converg">Absolute and Conditional Convergence</td></tr>
+ <tr><td><a href="#seq_alt_series">Sequences and Series - Alternating Series</td><td><a href="#alt_series_est">Alternating Series Estimation Theorem</td></tr>
+ <tr><td><a href="#seq_power_series">Sequences and Series - Power Series</td><td><a href="#power_series_mult">Power Series Multiplication</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#power_series_div">Power Series Division</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#power_series_diff">Power Series Differentiation</td></tr>
+ <tr><td><a href="#seq_taylor">Sequences and Series - Taylor Series</td><td><a href="#taylors_ineq">Taylor's Inequality</td></tr>
+ <tr><td><a href="#mac_series">Maclaurin Series</td><td><a href="#sum_of_mac_series">Sum of the Maclaurin Series</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#radius_interval">Radius and Interval of Convergence of a Maclaurin Series</td></tr>
+</tbody></table>
+
+
+  <h2 id="param_curves">Parametric Curves</h2>
+
+    <p>So far, we have been dealing with rectangular equations, which usually give $y$ in terms of $x$. This section introduces parametric equations, with which we have two seperate equations to define $x$ and $y$, both in terms of a parameter value $t$, such as:</p>
+
+    <p>$x = cos ~t$</p>
+    <p>$y = sin ~t$</p>
+
+    <p>Given a parametric curve where one function is defined by an equation for $x$ and an equation for $y$, we can eliminate the parametric value in a few different ways:</p>
+      <ol>
+        <li>Solve each equation for the parameter $t$, then set the equations equal to one another</li>
+        <li>Solve one equation for the parameter $t$, then plug that value into the second equation</li>
+        <li>Solve each equation for part of an identity, then plug both values into the identity</li>
+      </ol>
+
+
+      <h4>Example:</h4>
+
+        <p>Using method 2, eliminate the parameter from the following equations:</p>
+
+        <p>$x = 2t^2 + 6$</p>
+        <p>$y = 5t$</p>
+
+        <p>First, we'll solve the easier one:</p>
+
+        <p>$t = \frac{y}{5}$</p>
+
+        <p>Plugging this into the equation for $x$:</p>
+
+        <p>$x = 2 \left( \frac{y}{5} \right)^2 + 6$</p>
+        <p>$x = \frac{2y^2}{25} + 6$</p>
+        <p>$25x = 2y^2 + 150$</p>
+        <p>$25x - 2y^2 = 150$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Using method 3, eliminate the parameter from:</p>
+
+        <p>$x = e^t$</p>
+        <p>$y = e^{4t}$</p>
+
+        <p>$y = e^{ab}$ is the same as $y = (e^a)^b$. We can take $y = e^{4t}$ and rewrite it as $y = (e^t)^4$. Since $x = e^t$, we can substitute $x$ into $y = (e^t)^4$ for $e^t$.</p>
+
+        <p>$y = x^4$</p>
+
+        <p>Because we have $e^t$ in the original equation, which is greater than $0$ for all $t$, we require that $x \gt 0$.</p>
+
+
+    <h3 id="param_curve_deriv">Derivative of a Parametric Curve</h3>
+
+      <p>Given a parametric curve where our function is defined by equations $x = f(t)$ and $y = g(t)$, we calculate the derivative as:</p>
+
+      <p>$\frac{dy}{dx} = \frac{dy/dt}{dx/dt}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the derivative of the parametric curve for:</p>
+
+        <p>$x = 3t^4 - 6$</p>
+        <p>$y = 2e^{4t}$</p>
+
+      </br>
+        <p>$\frac{dy}{dt} = 8e^{4t}$</p>
+        <p>$\frac{dx}{dt} = 12t^3$</p>
+
+        <p>$\frac{dy}{dx} = \frac{8e^{4t}}{12t^3} = \frac{2e^{4t}}{3t^3}$</p>
+
+        <p>To find the second derivative of a parametric curve, we find the first derivative using:</p>
+
+        <p>$\frac{dy}{dx} = \frac{dy/dt}{dx/dt}$</p>
+
+        <p>And then plug it into this formula:</p>
+
+        <p>$\frac{d^2y}{dx^2} = \frac{ \frac{d}{dt} \left( \frac{dy}{dx} \right) }{ \frac{dx}{dt} }$</p>
+
+
+    <h3 id="tangent_param_curve">Tangent Line to the Parametric Curve</h3>
+
+      <p>We use the same point-slope formula to define the equation of the tangent line to the parametric curve that we used to define the tangent line to a cartesian curve.</p>
+
+      <p>$y - y_1 = m(x - x_1)$</p>
+
+      <p>where $m$ is the slope and $(x,y)$ is the point where the tangent line intersects the curve.</p>
+
+      <p>To find the slope, we use the formula for the derivative of a parameteric curve:</p>
+
+      <p>$m = \frac{dy}{dx} = \frac{dy/dt}{dx/dt}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the tangent line(s) to the parametric curve represented by:</p>
+
+        <p>$x = t^5 - 4t^3$</p>
+        <p>$y = t^2$</p>
+        <p>$at ~(0,4)$</p>
+
+        </br>
+        <p>$\frac{dx}{dt} = 5t^4 - 12t^2$</p>
+        <p>$\frac{dy}{dt} = 2t$</p>
+        <p>$\frac{dy}{dx} = \frac{2t}{5t^4 - 12t^2}$</p>
+
+        <p>We need to plug the given point into the derivative we just found, but the given point is a Cartesian point, and to plug the given point into the derivative, we need to convert it from a cartesian point into a parametric value for $t$. To do this, we'll plug the given point into both of the original parametric equations, and look for matching solutions.</p>
+
+        <p>$x = t^5 - 4t^3$</p>
+        <p>$0 = t^5 - 4t^3$</p>
+        <p>$0 = t^3(t^2 - 4)$</p>
+
+        </br>
+        <p>$y = t^2$</p>
+        <p>$4 = t^2$</p>
+        <p>$t = \pm 2$</p>
+
+        </br>
+        <p>$t = 0, \pm 2$</p>
+
+        <p>For a parameter to be valid, it has to be a solution in both equations, so $t = \pm 2$.</p>
+
+        <p>To solve for each tangent line, we'll plug $t = \pm 2$ into the derivative equation we found above. For $t=2$:</p>
+
+        <p>$f(2) = \frac{2(2)}{5(2)^4 - 12(2)^2}$</p>
+        <p>$f(2) = \frac{4}{80-48} = \frac{1}{8}$</p>
+
+        <p>For $t=-2$,</p>
+
+        <p>$t(-2) = \frac{2(-2)}{5(-2)^4 - 12 - (-2)^2}$</p>
+        <p>$f(-2) = \frac{-4}{80-48} = -\frac{1}{8}$</p>
+
+        <p>Finally, plugging the slopes we found and the given point $(0,4)$ into the point-slope formula for the equation of the line, we get the following two tangent lines:</p>
+
+        <p>$y - y_1 = m(x - x_1)$</p>
+        <p>$y - 4 = \frac{1}{8}(x - 0)$</p>
+        <p>$y = \frac{1}{8}x + 4$</p>
+        <p>$y - 4 = - \frac{1}{8}(x - 0)$</p>
+        <p>$y = - \frac{1}{8}x + 4$</p>
+
+
+    <h3 id="area_param_curve">Area Under a Parametric Curve</h3>
+
+      <p>We'll find the area under the curve using the integral formula:</p>
+
+      <p>$A = \int_{\alpha}^{\beta} y(t) x'(t) ~dt$</p>
+
+      <p>$y(t)$ is $g(t)$, and $x'(t)$ is the derivative of $x = f(t)$. This will provide the function that represents area under the curve, but to find a number value, we'll need to use a definite integral by defining an interval for the area.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the function that defines the area under the curve for:</p>
+
+        <p>$x = 2 \theta - cos ~\theta$</p>
+        <p>$y = 2 + sin ~\theta$</p>
+
+        <p>We treat $\theta$ just like we did $t$ in previous examples.</p>
+
+        <p>$x'(\theta) = 2 + sin ~\theta$</p>
+
+        <p>Plugging $y(\theta)$ and $x'(\theta)$ into the area formula:</p>
+
+        <p>$A = \int (2 + sin ~\theta)(2 + sin ~\theta) ~d \theta$</p>
+        <p>$A = \int 4 + 4 ~sin ~\theta + sin^2 ~\theta ~d \theta$</p>
+
+        <p>Using the formula:</p>
+
+        <p>$sin^2 \theta = \frac{1}{2}(1 - cos ~2 \theta)$</p>
+
+        <p>we'll make a substitution for $sin^2 \theta$.</p>
+
+        <p>$A = \int 4 + 4 ~sin ~\theta + \frac{1}{2}(1 - cos ~2 \theta) ~d \theta$</p>
+        <p>$A = \int 4 + 4 ~sin ~\theta + \frac{1}{2} - \frac{1}{2} ~cos 2 \theta ~d \theta$</p>
+        <p>$A = \int \frac{9}{2} + 4 ~sin ~\theta - \frac{1}{2} ~cos ~2 \theta ~d \theta$</p>
+        <p>$A = \int \frac{9}{2} ~d \theta + \int 4 ~sin~\theta ~d \theta - \int \frac{1}{2} ~cos 2~ \theta ~d \theta$</p>
+        <p>$A = \frac{9}{2} \theta - 4 ~cos ~\theta - \frac{1}{4} ~sin ~2 \theta$</p>
+
+
+    <h3 id="arclength_param_curve">Arc Length of a Parametric Curve</h3>
+
+      <p>The arc length of a parametric curve over the interval $\alpha \le t \le \beta$ is given by:</p>
+
+      <p>$L = \int_{\alpha}^{\beta} \sqrt{ \left( \frac{dx}{dt} \right)^2 \left( \frac{dy}{dt} \right)^2 } dt$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the length of the parametric curve represented by:
+
+        <p>$x = 5 ~sin ~t$
+        <p>$y = 5 ~cos ~t$
+        <p>$\text{for } 0 \le t \le 2 \pi$
+
+        <p>We need to find the derivatives of the parametric equations.
+
+        <p>$\frac{dx}{dt} = 5 ~cos ~t$
+        <p>$\frac{dy}{dt} = 5 ~sin ~t$
+
+        <p>The limits of integration are given in the problem, so we go ahead and plug everything into the arc length formula.
+
+        <p>$L = \int_0^{2 \pi} \sqrt{ (5 ~cos ~t)^2 + (-5 ~sin ~t)^2 } ~dt$
+        <p>$L = \int_0^{2 \pi} \sqrt{ 25 ~cos^2 t + 25 ~sin^2 t } ~dt$
+        <p>$L = \int_0^{2 \pi} \sqrt{ 25 (cos^2 t + sin^2 t) } ~dt$
+
+        <p>Since $cos^2t + sin^2t = 1$, we get:
+
+        <p>$L = \int_0^{2 \pi} \sqrt{25(1)} dt$
+        <p>$L = \int_0^{2 \pi} 5 dt$
+        <p>$L = 5t \bigg|_0^{2 \pi}$
+        <p>$L = 5(2 \pi) - 5(0)$
+        <p>$L = 10 \pi$
+
+
+
+  <h2 id="vol_rev_param_curve">Volume of Revolution with Parametric Curves</h2>
+
+    <p>We can find the volume of revolution generated by revolving the area enclosed by two parametric curves.</p>
+
+    <p>For rotation around the x-axis:</p>
+
+    <p>$V_x = \int_{\alpha}^{\beta} \pi y^2 \frac{dx}{dt} ~dt$</p>
+
+    <p>For rotation around the y-axis:</p>
+
+    <p>$V_x = \int_{\alpha}^{\beta} \pi x^2 \frac{dy}{dt} ~dt$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the volume of revolution of the parametric curve for:</p>
+
+        <p>$x = 3t^2 + 4$</p>
+        <p>$y = t^4$</p>
+        <p>$\text{for } 0 \le t \le 2, \text{ rotated around the y-axis}$</p>
+
+        <p>$\frac{dy}{dt} = 4t^3$</p>
+
+        <p>$V_y = \int_0^2 \pi (3t^2 + 4)^2 (4t^3) ~dt$</p>
+        <p>$V_y = 4 \pi \int_0^2 t^3 (3t^2 + 4)^2 ~dt$</p>
+        <p>$V_y = 4 \pi \int_0^2 t^3 (9t^4 + 24t^2 + 16) ~dt$</p>
+        <p>$V_y = 4 \pi \int_0^2 9t^7 + 24t^5 + 16t^3 dt$</p>
+        <p>$V_y = 4 \pi \left( \frac{9t^8}{8} + \frac{24t^6}{6} + \frac{16t^4}{4} \right) \bigg|_0^2$</p>
+        <p>$V_y = 4 \pi \left( \frac{9t^8}{8} + 4t^6 + 4t^4 \right) \bigg|_0^2$</p>
+        <p>$V_y = 4 \pi \left[ \frac{9(2)^8}{8} + 4(2)^6 + 4(2)^4 \right] - 4 \pi \left[ \frac{9(0)^8}{8} + 4(0)^6 + 4(0)^4 \right] $</p>
+        <p>$V_y = 4 \pi [9(2)^5 + 256 + 64]$</p>
+        <p>$V_y = 2432 \pi$</p>
+
+
+
+  <h2 id="polar_curve">Polar Curves</h2>
+
+    <p>In rectangular coordinates $(x,y)$, the x-value tells how far to move to the left or right along the x-axis, and the y-value tells how far to move up or down the vertical axis. In polar coordinates $(r, \theta)$, the $r$ value tells how far to move in a straight line from the origin, and $\theta$ describes the angle between the positive direction of the x-axis and the point $(r, \theta)$.</p>
+
+    <p>To convert rectangular coordinates to polar, we use the following conversion formulas:</p>
+
+    <p>$x^2 + y^2 = r^2$</p>
+    <p>$x = r ~cos ~\theta$</p>
+    <p>$x = r ~sin ~\theta$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Convert this rectangular equation to polar:</p>
+
+        <p>$x^2 - 3x + y^2 + 2y = 0$</p>
+
+        <p>Use $r^2 = x^2 + y^2$.</p>
+
+        <p>$x^2 + y^2 - 3x + 2y = 0$</p>
+        <p>$r^2 - 3x + 2y = 0$</p>
+
+        <p>Then use $x = r ~cos ~\theta$ and $y = r ~sin ~\theta$.</p>
+
+        <p>$r^2 - 3r ~cos ~\theta + 2r ~sin ~\theta = 0$</p>
+        <p>$r^2 = 3r ~cos ~\theta - 2r ~sin ~\theta$</p>
+        <p>$r = 3 ~cos ~\theta - 2 ~sin ~\theta$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Convert the polar equation $r = 3 ~cos ~\theta$ to rectangular:</p>
+
+        <p>$x = r ~cos ~\theta$</p>
+        <p>$cos ~\theta = \frac{x}{r}$</p>
+        <p>$r = 3 \left( \frac{x}{r} \right)$</p>
+        <p>$r^2 = 3x$</p>
+
+        <p>Then use $r^2 = x^2 + y^2$.</p>
+
+        <p>$x^2 + y^2 = 3x$</p>
+        <p>$x^2 - 3x + y^2 = 0$</p>
+
+
+    <h3 id="dist_polar_pts">Distance Between Polar Points</h3>
+
+      <p>To find the distance between two polar coordinates, we have two options:</p>
+
+      <p>Option 1. Convert to cartesian coordinates using:</p>
+
+      <p>$x = r ~cos ~\theta$</p>
+      <p>$y = r ~sin ~\theta$</p>
+
+      <p>and then use the distance formula from the cartesian coordinate system:</p>
+
+      <p>$D = \sqrt{ (x_2 - x_1)^2 - (y_2 - y_1)^2 }$</p>
+
+      <p>Option 2. Use the distance formula from the polar coordinate system:</p>
+
+      <p>$D = \sqrt{ r_1^2 + r_2^2 - 2 r_1 r_2 ~cos (\theta_1 - \theta_2)}$</p>
+
+
+
+  <h2 id="calc_polar_curve">Calculus with Polar Curves</h2>
+
+    <h3>Vertical and Horizontal Tangent Lines to the Polar Curve</h3>
+
+      <p>We find equations of the vertical and horizontal tangent lines to a polar curve by the following steps:
+
+      <p>Step 1. Convert the polar equation into rectangular equations using the conversion formulas $x = r ~cos ~\theta$ and $y = r ~ sin ~\theta$.
+
+      <p>Step 2. Find the slope of the tangent line $m$ using the formula:
+
+      <p>$m = \frac{dy}{dx} = \frac{dy/~d \theta}{dx/~d \theta}$
+
+      <p>Step 3. Find horizontal tangent lines:
+        <ul>
+          <li>Set $m = 0$ and solve for $\theta$</li>
+          <li>Plug these values of $\theta$ into the original polar equation to find associated values of $r$</li>
+          <li>Pair up values of $r$ and $\theta$ to find the coordinate points where the polar equation has horizontal tangent lines</li>
+        </ul>
+
+
+      <p>Step 4. Find vertical tangent lines
+        <ul>
+          <li>Find the values of $\theta$ where $m$ is undefined</li>
+          <li>Plug these values of $\theta$ into the original polar equation to find associated values of $r$</li>
+          <li>Pair up values of $r$ and $\theta$ to find the coordinate points where the polar equation has vertical tangent lines</li>
+        </ul>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the points on the polar curve where the graph of the tangent line is vertical with horizontal for $r = 2 ~sin ~\theta$.
+
+        <p>We'll convert to a rectangular equation using $x = r ~cos ~\theta$ and $y = r ~sin ~\theta$:</p>
+
+        <p>$x = 2 ~sin ~\theta ~cos ~\theta$</p>
+        <p>$y = 2 ~sin ~\theta ~sin ~\theta$</p>
+        <p>$y = 2 ~sin^2 \theta$</p>
+
+        <p>We'll find the derivatives $dy/d \theta$ and $dx/d \theta$.</p>
+
+        <p>$\frac{dy}{~d \theta} = 4 ~sin ~\theta ~cos ~\theta$</p>
+        <p>$\frac{dx}{~d \theta} = 2(2 ~sin ~\theta ~cos ~\theta)$</p>
+
+        <p>Because $2 ~sin ~\theta ~cos ~\theta = sin(2 \theta)$:</p>
+
+        <p>$\frac{dy}{~d \theta} = 2 ~sin ~\theta$</p>
+        <p>$\frac{dx}{~d \theta} = 2 ~cos ~\theta ~cos ~\theta - 2 ~sin ~\theta ~sin ~\theta$</p>
+        <p>$\frac{dx}{~d \theta} = 2 (cos^2 \theta - sin^2 \theta)$</p>
+
+        <p>And because $cos^2 \theta - sin^2 \theta = cos(2 \theta)$:</p>
+
+        <p>$\frac{dx}{~d \theta} = 2 ~cos(2 \theta)$</p>
+
+        <p>Plugging both derivatives into the formula for $\frac{dy}{dx}$:</p>
+
+        <p>$\frac{dy}{dx} = \frac{2 ~sin(2 \theta)}{2 ~cos(2 \theta)} = \frac{sin(2 \theta)}{cos(2 \theta)}$</p>
+
+        <p>Horizontal tangent lines exist where $\frac{dy}{dx} = 0$, and in order for this to happen, the numerator must be $0$.</p>
+
+        <p>$sin(2 \theta) = 0$</p>
+        <p>$2 \theta = 0$</p>
+        <p>$\theta = 0$</p>
+
+        <p>or</p>
+
+        <p>$2 \theta = \pi$</p>
+        <p>$\theta = \frac{\pi}{2}$</p>
+
+        <p>To find the $r$ values associated with these $\theta$ values, plug them back into the original polar equation.</p>
+
+        <p>$r = 2 ~sin ~\theta$</p>
+        <p>$r = 2 ~sin(0)$</p>
+        <p>$r = 2(0)$</p>
+        <p>$r = 0$</p>
+
+        <p>and</p>
+
+        <p>$r = 2 ~sin ~\theta$</p>
+        <p>$r = 2 ~sin \left( \frac{\pi}{2} \right)$</p>
+        <p>$r = 2(1)$</p>
+        <p>$r = 2$</p>
+
+        <p>We can say that $r = 2 ~sin ~\theta$ has horizontal tangent lines at $(0,0)$ and $(2, \frac{\pi}{2})$.</p>
+
+        <p>Vertical tangent lines exist where $\frac{dy}{dx}$ is undefined. In order for $\frac{dy}{dx}$ to be undefined, the denominator must be $0$.</p>
+
+        <p>$cos(2 \theta) = 0$</p>
+        <p>$2 \theta = \frac{\pi}{2}$</p>
+        <p>$\theta = \frac{\pi}{4}$</p>
+
+        <p>or </p>
+
+        <p>$2 \theta = \frac{3 \pi}{2}$</p>
+        <p>$\theta = \frac{3 \pi}{4}$</p>
+
+        <p>To find the r-values associated with these $\theta$ values, we'll plug them back into the original polar equation:</p>
+
+        <p>$r = 2 ~sin ~\theta$</p>
+        <p>$r = 2 ~sin \frac{\pi}{4}$</p>
+        <p>$r = \sqrt{2} \cdot \frac{\sqrt{2}}{2}$</p>
+        <p>$r = \sqrt{2}$</p>
+
+        <p>and</p>
+
+        <p>$r = 2 ~sin ~\theta$</p>
+        <p>$r = 2 ~sin \left( \frac{3 \pi}{4} \right)$</p>
+        <p>$r = 2 \cdot \left( - \frac{\sqrt{2}}{2} \right)$</p>
+        <p>$r = - \sqrt{2}$</p>
+
+        <p>We can say that $r = 2 ~sin ~\theta$ has vertical tangent lines at $\left( \sqrt{2}, \frac{\pi}{4} \right)$ and $\left( - \sqrt{2}, \frac{3 \pi}{4} \right)$.</p>
+ 
+
+    <h3 id="intersect_polar_curve">Intersection of Polar Curves</h3>
+
+      <p>To find the points of intersection for two polar curves:</p>
+        <ol>
+          <li>Solve both curves for $r$</li>
+          <li>Set the two curves equal to each other</li>
+          <li>Solve for $\theta$</li>
+        </ol>
+
+      <p>We might get more or fewer intersection points than actually exist. To verify that we've found all intersection points, and only real intersection points, we can graph our curves and visually confirm. Converting polar equations to rectangular equations ensures that we find all points of intersection, and only real points of intersection.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the points of intersection of the following polar curves:</p>
+
+        <p>$r = sin ~\theta$</p>
+        <p>$r = 1 - sin ~\theta$</p>
+
+        <p>To find the points of intersection, we'll set them equal to each other and solve for $0$:</p>
+
+        <p>$sin ~\theta = 1 - sin ~\theta$</p>
+        <p>$2 ~sin ~\theta = 1$</p>
+        <p>$sin ~\theta = \frac{1}{2}$</p>
+        <p>$\theta = \frac{\pi}{6}, \frac{5 \pi}{6}$</p>
+
+        <p>To find the values of $r$ that are associated with these values of $\theta$, we'll plug the $\theta$ values back into either of the original polar curves.</p>
+
+        <p>$r = sin ~\theta$</p>
+
+        <p>For $\theta \frac{\pi}{6}$,</p>
+
+        <p>$r = sin \frac{\pi}{6}$</p>
+        <p>$r = \frac{1}{2}$</p>
+
+        <p>For $\theta = \frac{5 \pi}{6}$,</p>
+
+        <p>$r = sin \frac{5 \pi}{6}$</p>
+        <p>$r = \frac{1}{2}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the points of intersection of the following polar curves, using rectangular notation:</p>
+
+        <p>$r = cos ~\theta$</p>
+        <p>$r = 2 - cos ~\theta$</p>
+
+        <p>$x = r ~cos ~\theta$</p>
+        <p>$cos ~\theta = \frac{x}{r}$</p>
+
+        <p>Plugging $\frac{x}{r}$ into the given polar equations for $cos ~\theta$, we get:</p>
+
+        <p>$r = cos ~\theta$</p>
+        <p>$r = \frac{x}{r}$</p>
+        <p>$x = r^2$</p>
+
+        <p>$r = 2 - cos ~\theta$</p>
+        <p>$r = 2 - \frac{x}{r}$</p>
+        <p>$x = 2r - r^2$</p>
+
+        <p>We've gotten rid of $\theta$, but now need to get rid of $r$, which we'll do using the conversion formula</p>
+
+        <p>$r^2 = x^2 + y^2$</p>
+        <p>$r = \sqrt{x^2 + y^2}$</p>
+
+        <p>$x = r^2$</p>
+        <p>$x = x^2 + y^2$</p>
+        <p>$x^2 + y^2 - x = 0$</p>
+
+        <p>and</p>
+
+        <p>$x = 2r - r^2$</p>
+        <p>$x = 2 \sqrt{x^2 + y^2} - (x^2 + y^2)$</p>
+        <p>$x = 2 \sqrt{x^2 + y^2} - x^2 - y^2$</p>
+        <p>$x^2 + y^2 - 2 \sqrt{x^2 + y^2} + x = 0$</p>
+
+        <p>Since both of our rectangular equations are equal to $0$, we can set them equal to each other.</p>
+
+        <p>$x^2 + y^2 - x = x^2 + y^2 - 2 \sqrt{x^2 + y^2} + x$</p>
+        <p>$-x = -2 \sqrt{x^2 + y^2} + x$</p>
+        <p>$-2 \sqrt{x^2 + y^2} = -2x$</p>
+        <p>$\sqrt{x^2 + y^2} = x$</p>
+
+        <p>Since we found that $x^2 + y^2 = x$ when we were converting $r = cos ~\theta$ to rectangular coordinates, we can say:</p>
+
+        <p>$\sqrt{x} = x$</p>
+        <p>$x = x^2$</p>
+        <p>$x^2 - x = 0$</p>
+        <p>$x(x-1) = 0$</p>
+        <p>$x = 0,1$</p>
+
+        <p>To find the y-values associated with these x-values, we'll plug them into $x^2 + y^2 = 0$.</p>
+
+        <p>For $x = 0$:</p>
+
+        <p>$0^2 + y^2 - 0 = 0$</p>
+        <p>$y = 0$</p>
+
+        <p>For $x = 1$:</p>
+
+        <p>$1^2 + y^2 - 1 = 0$</p>
+        <p>$y = 0$</p>
+
+        <p>Putting our values together, we know the points of intersection are $(0,0)$ and $(1,0)$. We need to convert these rectangular coordinate points back into polar coordinates.</p>
+
+        <p>$r = \sqrt{x^2 + y^2}$</p>
+        <p>$\theta = tan^{-1} \left( \frac{y}{x} \right)$</p>
+
+        <p>Plugging the rectangular coordinate points into these formulas, we get:</p>
+
+        <p>For $(0,0)$:</p>
+
+        <p>$r = \sqrt{0^2 + 0^2} = 0$</p>
+        <p>$\theta = tan^{-1}\left( \frac{0}{0} \right)$</p>
+
+        <p>Since the equation for $\theta$ is undefined, the rectangular point $(0,0)$ cannot be defined in polar coordinates and therefore isn't a polar point of intersection.</p>
+
+        <p>For $(1,0)$:</p>
+
+        <p>$r = \sqrt{1^2 + 0^2}$</p>
+        <p>$r = 1$</p>
+        <p>$\theta = tan^{-1} \left( \frac{0}{1} \right)$</p>
+        <p>$\theta = 0$</p>
+
+        <p>The only point of intersection of the given polar curves is the polar point $(1,0)$</p>
+
+        <img src="img/calc2_fig2.png" style="height: 175px; width:auto;"></br></br>
+
+
+
+  <h2 id="sequences">Sequences</h2>
+
+    <p>A sequence is a list of terms in a specific order, and is denoted by $a_n$. A series is the sum of a sequence, and is denoted by $\sum_{n=b}^c a_n$.</p>
+
+    <p>A sequence always either converges or diverges. It converges if the limit of the sequence exists as $n \to \infty$. If the limit of the sequence does not exist as $n \to \infty$, we say it diverges.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Say whether or not the following sequence converges and find the limit if it does.</p>
+
+        <p>$a_n = \frac{sin^2(n)}{3^n}$</p>
+
+        <p>We can use the squeeze theorem, and start by evaluating the numerator of $a_n$. We know the sine function exists between $-1$ and $1$, so we can say that:</p>
+
+        <p>$-1 \le sin(n) \le 1$</p>
+
+        <p>We also know that when the sine function is squared, it only exists between $0$ and $1$.</p>
+
+        <p>$0 \le sin^2(n) \le 1$</p>
+
+        <p>We can multiply the above inequality by $\frac{1}{3^n}$ to make it match our original sequence.</p>
+
+        <p>$(0 \le sin^2(n) \le 1) \frac{1}{3^n}$</p>
+        <p>$\frac{0}{3^n} \le \frac{sin^2(n)}{3^n} \le \frac{1}{3^n}$</p>
+        <p>$0 \le \frac{sin^2(n)}{3^n} \le \frac{1}{3^n}$</p>
+
+        <p>Now we have our original sequence bounded by two values. When we take the limit as $n \to \infty$, $\frac{1}{3^n}$ on the right side of the inequality will approach $0$.</p>
+
+        <p>$0 \le \lim \limits_{n \to \infty} \frac{sin^2(n)}{3^n} \le \lim \limits_{n \to \infty} \frac{1}{3^n}$</p>
+        <p>$0 \le \lim \limits_{n \to \infty} \frac{sin^2(n)}{3^n} \le 0$</p>
+
+        <p>Since the limit of the sequence is bounded by two real numbers, this means our limit exists and our sequence converges. Finally, we can take the limit of our sequence as it appraoches infinity.</p>
+
+        <p>$\lim \limits_{n \to \infty} \frac{sin^2(n)}{3^n} = \frac{k}{\infty}$</p>
+
+        <p>where $k$ represents the constant from $0$ to $1$ that we derived from the inequality $0 \le sin^2(n) \le 1$. We get $\infty$ in the denominator because as $n \to \infty$, $3^n$ will approach $\infty$. Since we have a constant in the numerator and an infinitely large value in the denominator, we know that:</p>
+
+        <p>$\lim \limits_{n \to \infty} \frac{sin^2(n)}{3^n} = 0$</p>
+
+        <p>We conclude that the sequence $a_n = \frac{sin^2(n)}{3^n}$ converges and that its limit as $n \to \infty = 0$</p>
+
+        <p>$\lim \limits_{n \to \infty} \frac{sin^2(n)}{3^n} = \lim \limits_{n \to \infty} a_n = 0$</p>
+
+
+      <h4>Increasing, Decreasing, and Non-Monotonic</h4>
+
+        <p>If a sequence is monotonic, it is always increasing or always decreasing. The fastest way to make a guess about the behavior of a sequence is to calculate the first few terms and see if it is increasing, decreasing, or non-monotonic.</p>
+
+
+
+  <h2 id="partial_sums">Partial Sums</h2>
+
+    <p>A normal series is given by $\sum_{n=1}^{\infty} a_n$, where $a_n$ is a sequence whose $n$ values increase by increments of $1$. A partial sums sequence is called $s_n$, and its $n$ values increase by additive increments. A normal series is related to its corresponding partial sums sequence by:</p>
+
+    <p>$\sum_{n=1}^{\infty} a_n = \lim \limits_{n \to \infty} s_n$</p>
+
+    <p>This allows us to work backwards from the partial sums sequence to the original series $a_n$.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the sum of the sequence of the partial sums for $s_n = 1 - 2(0.4)^n$</p>
+
+        <p>$\sum_{n=1}^{\infty} a_n = \lim \limits_{n \to \infty} 1 - 2(0.4)^{\infty}$</p>
+
+        <p>When $0.4$ is raised to the power of $\infty$, it will eventually approach $0$.</p>
+
+        <p>$\sum_{n=1}^{\infty} a_n = 1 - 2(0) = 1$</p>
+
+
+
+  <h2 id="geom_series">Geometric Series</h2>
+
+    <p>Geometric series are series in which the ratio of successive terms is constant. We multiply each term by the same number to get the next term. For example:</p>
+
+    <p>$\frac{1}{3}, \frac{1}{9}, \frac{1}{27}, \ldots$</p>
+
+    <p>The standard form of a geometric series is $\sum_{n=1}^{\infty} ar^{n-1}$ or $\sum_{n=0}^{\infty}$. Given either form, if $|r| \lt 1$ then the series converges. If $r \ge 1$, then the series diverges. For the sum of a geometric series, we can use the values of $a$ and $r$ plus the following formulas:</p>
+
+    <p>$\sum_{n=1}^{\infty} ar^{n-1} = \frac{a}{1-r}$</p>
+    <p>$\sum_{n=0}^{\infty} ar^n = \frac{a}{1-r}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Calculate the sum of the following geometric series:</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{2^{n-1}}{3^n}$</p>
+
+        <p>Answer:</p>
+
+        <p>Via simple exponential rules:</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{2^{n-1}}{3^n} = \sum_{n=0}^{\infty} \frac{2^n 2^-1}{3^n}$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{2^{n-1}}{3^n} = \sum_{n=0}^{\infty} 2^{-1} \left( \frac{2^n}{3^n} \right)$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{2^{n-1}}{3^n} = \sum_{n=0}^{\infty} \frac{1}{2} \left( \frac{2}{3} \right)^n$</p>
+
+        <p>Now that we have the series in the right form, we can say that:</p>
+
+        <p>$\sum_{n=0}^{\infty} ar^n = \frac{1}{2} \left( \frac{2}{3} \right)^n$</p>
+
+        <p>where $a = \frac{1}{2}$ and $r = \frac{2}{3}$. The sum of the geometric series is given by:</p>
+
+        <p>$\sum_{n=0}^{\infty} ar^{n} = \frac{a}{1-r}$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{1}{2} \left( \frac{2}{3} \right)^n = \frac{1/2}{1 - 2/3}$</p>
+        <p>$= \frac{1/2}{3/3 - 2/3}$</p>
+        <p>$= \frac{1/2}{1/3}$</p>
+        <p>$= \frac{1}{2} \cdot \frac{3}{1}$</p>
+        <p>$= \frac{3}{2}$</p>
+
+        <p>We could also have found the sum by expanding the series through its first few terms and identifying values for $a$ and $r$.</p>
+
+
+
+  <h2 id="telescoping_series">Telescoping Series</h2>
+
+    <p>Telescoping series are series in which all but the first and last terms cancel out. To determine whether a series is telescoping, we'll need to calculate at least the first few terms. If we get a real number for $s$ as the limit as $n \to \infty$ of $s_n$, we conclude that the series converges; otherwise, diverges.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>$\sum_{n=1}^{\infty} \frac{1}{n} - \frac{1}{n+1}$</p>
+
+        <p>$s = \lim \limits_{n \to \infty} s_n = \sum_{n=1}^{\infty} \frac{1}{n} - \frac{1}{n+1}$</p>
+
+        <p>$
+          s = \lim \limits_{n \to \infty} \left[ 
+          \left( 1 - \frac{1}{2} \right) + 
+          \left( \frac{1}{2} - \frac{1}{3} \right) + 
+          \left( \frac{1}{3} - \frac{1}{4} \right) + 
+          \left( \frac{1}{4} - \frac{1}{5} \right) + \ldots +
+          \left( \frac{1}{n} - \frac{1}{n+1} \right)
+          \right]
+          $
+        </p>
+
+        <p>We see that the second half of the first term will cancel with the first half of the second term, etc., so the series is telescoping. Cancelling everything but the first half of the first term and the second half of the last term gives an expression for the series of partial sums.</p>
+
+        <p>$s = \lim \limits_{n \to \infty} s_n = \lim \limits_{n \to \infty} 1 - \frac{1}{n+1}$</p>
+
+        <p>Now to see if the series converges as $n \to \infty$:</p>
+
+        <p>$s = \lim \limits_{n \to \infty} 1 - \frac{1}{n+1}$</p>
+        <p>$s = \lim \limits_{n \to \infty} 1 - \frac{1/n}{\frac{n}{n} + \frac{1}{n}}$</p>
+        <p>$s = \lim \limits_{n \to \infty} 1 - \frac{1/n}{1 + \frac{1}{n}}$</p>
+        <p>$s = 1 - \frac{0}{1+0}$</p>
+        <p>$s = 1 - 0 = 1$</p>
+
+        <p>The sum of a telescoping series is:</p>
+
+        <p>$\sum_{n=1}^{\infty} a_n = \lim \limits_{n \to \infty} s_n$</p>
+
+
+      <h4>Limit vs. Sum of the Series</h4>
+
+        <p>Sometimes it is easy to forget that there is a difference between the limit of an infinite series and the sum of an infinite series. The limit is the value the series' terms are approaching as $n \to \infty$. The sum of a series is the value of all the series' terms added together.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the limit and sum of the series:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{2^{3n}}{64^{n/2}}$</p>
+
+        <p>Answer:</p>
+
+        <p>$= \lim \limits_{n \to \infty} \frac{(2^3)^n}{(64^{1/2})^n}$</p>
+        <p>$= \lim \limits_{n \to \infty} \frac{8^n}{\sqrt{64}^n}$</p>
+        <p>$= \lim \limits_{n \to \infty} \frac{8^n}{8^n}$</p>
+        <p>$= \lim \limits_{n \to \infty} 1 = 1$</p>
+
+        <p>To find the sum, we'll expand the series:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{2^{3n}}{64^{n/2}} = \frac{2^{3(1)}}{64^{1/2}} + \frac{2^{3(2)}}{64^{2/2}} + \ldots$</p>
+        <p>$= \frac{2^3}{\sqrt{64}} + \frac{2^6}{\sqrt{64}^2} + \ldots$</p>
+        <p>$= \frac{8}{8} + \frac{64}{64} + \ldots$</p>
+        <p>$= 1 + 1 + \ldots = \infty$</p>
+
+
+
+  <h2 id="basic_converg_test">Basic Convergence Tests</h2>
+
+    <h3 id="integral_test">Integral Test</h3>
+
+      <p>The integral test for convergence is only valid for series that are:</p>
+        <ol>
+          <li>Positive (all terms are positive)</li>
+          <li>Decreasing (each term is less than the one prior)</li>
+          <li>Continuous (defined everywhere in its domain)</li>
+
+      <p>Given the series $\sum_{n=1}^{\infty} a_n$, we set $f(x) = a_n$ and evaluate the integral $\int_1^{\infty} f(x) ~dx$.</p>
+
+      <p>If the value of the integral converges to a real number, then the series also converges. If it diverges to infinity, then the series also diverges. To confirm whether the series is positive, decreasing, and continuous, we'll find the first several terms.</p>
+
+      <p>$\frac{3}{1^2} + \frac{3}{2^2} + \frac{3}{3^2} + \frac{3}{4^2}$</p>
+      <p>$= 3 + \frac{3}{4} + \frac{1}{3} + \frac{3}{16}$</p>
+
+      <p>The series is positive, decreasing, and continuous. We can use the integral test to say whether the series converges or diverges.</p>
+
+      <p>$\int_1^{\infty} \frac{3}{x^2} ~dx$</p>
+      <p>$= \int_1^{\infty} 3x^{-2} ~dx$</p>
+      <p>$= \frac{3x^{-1}}{-1} \bigg|_1^{\infty}$</p>
+      <p>$= -3x^{-1} \bigg|_1^{\infty}$</p>
+      <p>$= - \frac{3}{x} \bigg|_1^{\infty}$</p>
+      <p>$= - \frac{3}{\infty} - \left( - \frac{3}{1} \right)$</p>
+      <p>$= 0 + 3 = 3$</p>
+
+      <p>Since the integral converges to a real number, we know that the series also converges. Note that the value found for the integral is not necessarily equal to the limit or sum of the squares.</p>
+
+
+    <h3 id="p_series_test">P-Series Test</h3>
+
+      <p>If we have a series $a_n$ in the form $a_n = \sum_{n=1}^{\infty} \frac{1}{n^p}$, then we can use the p-series test for convergence to say whether or not $a_n$ will converge. The test says that $a_n$ will converge when $p \gt 1$, and diverge when $p \le 1$.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the p-series test to say whether or not the following series converges:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{a}{\sqrt{n}}$</p>
+
+        <p>We need the format of the series to match the format above:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{a}{\sqrt{n}} = \sum_{n=1}^{\infty} \frac{1}{n^{1/2}}$</p>
+
+        <p>The test tells us that $a_n$ diverges when $p \le 1$, so we can say that this series diverges.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the p-series test to say whether or not the following series converges:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{1}{\sqrt[3]{n^4}}$</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{1}{\sqrt[3]{n^4}} = \sum_{n=1}^{\infty} \frac{1}{(n^4)^{1/3}} = \sum_{n=1}^{\infty} \frac{1}{n^{4/3}}$</p>
+
+
+
+    <h3 id="nth_term_test">$n^{th}$ Term Test</h3>
+
+      <p>When the terms of a series decrease toward $0$, we say the series is converging. Otherwise, diverging. The <sup>n^th</sup> term test is inspired by this idea, though it can only test for divergence (and not be used to confirm convergence). The test says that if $\lim \limits_{n \to \infty} a_n \neq 0$, then $\sum a_n$ diverges. In other words. if we take the limit as $n \to \infty$, and the result is non-zero, then the series diverges. Otherwise, the test is inconclusive.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the $n^{th}$ term test to show whether the following series diverges.</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{4n^3 - 4}{3n^3 + 2}$</p>
+
+        <p>Taking the limit, we get:</p>
+
+        <p>$\lim \limits_{n \to \infty} \frac{4n^3 - 4}{3n^3 + 2}$</p>
+
+        <p>We'll simplify the limit by dividing each term in the fraction by the variable of the highest degree, $n^3$.</p>
+
+        <p>$\lim \limits_{n \to \infty} \frac{4n^3 - 4}{3n^3 + 2} \left( \frac{1/n^3}{1/n^3} \right)$</p>
+        <p>$= \lim \limits_{n \to \infty} \frac{ \frac{4n^3}{n^3} - \frac{4}{n^3} }{ \frac{3n^3}{n^3} + \frac{2}{n^3} }$</p>
+        <p>$= \lim \limits_{n \to \infty} \frac{ 4 - \frac{4}{n^3} }{ 3 + \frac{2}{n^3} }$</p>
+        <p>$= \frac{ 4 - \frac{4}{\infty^3} }{ 3 + \frac{2}{\infty^3} }$</p>
+        <p>$= \frac{4-0}{3+0} = \frac{4}{3}$</p>
+
+
+
+  <h2 id="comparison_tests">Comparison Tests</h2>
+
+    <p>The comparison test for convergence lets us determine the convergence or divergence of the given series $a_n$ by comparing it to a similar but simpler comparison series $b_n$. The original series $a_n$ is diverging if $a_n$ is greater than or equal to the comparison series $b_n$ and both series are positive, $a_n \ge b_n \ge 0$, and the comparison series $b_n$ is diverging. If $a_n \lt a_n$, the test is inconclusive.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the comparison test to say whether or not the following series converges.</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{n}{\sqrt{n^5} + n}$</p>
+
+        <p>For a comparison series, we will use $b_n = \frac{n}{\sqrt{n^5}}$.</p>
+
+        <p>$b_n = \frac{n}{n^{5/2}}$</p>
+        <p>$b_n = n^{1 - 5/2}$</p>
+        <p>$b_n = n^{-3/2}$</p>
+        <p>$b_n = \frac{1}{n^{3/2}}$</p>
+
+
+        <p>We can see the simplified version of $b_n$ is a p-series, where $p=3/2$. This tells us that $b_n$ converges. We need to show that $0 \le a_n \le b_n$ to prove that the original series $a_n$ is also converging. To verify, we check a few points.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>n</th><th>$a_n$ Formula</th><th>$a_n$ Value</th><th>$b_n$ Formula</th><th>$b_n$ Value</th></tr></thead><tbody>
+         <tr><td>$n = 1$</td><td>$\frac{1}{\sqrt{1^5}} + 1$</td><td>$\frac{1}{2}$</td><td>$\frac{1}{1^{3/2}}$</td><td>$1$</td></tr>
+         <tr><td>$n = 4$</td><td>$\frac{4}{\sqrt{4^5}} + 4$</td><td>$\frac{1}{9}$</td><td>$\frac{4}{4^{3/2}}$</td><td>$\frac{1}{8}$</td></tr>
+         <tr><td>$n = 9$</td><td>$\frac{5}{\sqrt{5^5}} + 5$</td><td>$\frac{1}{28}$</td><td>$\frac{5}{5^{3/2}}$</td><td>$\frac{1}{27}$</td></tr>
+        </tbody></table>
+
+        <p>We see that $a_n \le b_n$, so we can say that $a_n$ converges.</p>
+
+
+
+  <h2 id="error_remainder">Error or Remainder of a Series</h2>
+
+    <p>Imagine you need to find the sum of a series, but don't have a formula you can use. What if you knew that the sum of the first 5 terms was only 0.00001 less than the sum of the entire series? This is called the error or remainder of the estimate, and can be found as follows:</p>
+      <ol>
+        <li>Estimate the total sum by calculating a partial sum for the series</li>
+        <li>Use the comparison test to say whether the series converges or diverges</li>
+        <li>Use the integral test to solve for the remainder</li>
+      </ol>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the first 6 terms to estimate the remainder of the series:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{n}{2n^4 + 3}$</p>
+
+        <p>First, we find the sum of the first six terms</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{n}{2n^4 + 3} = \frac{1}{2(1)^4 + 3} + \frac{2}{2(2)^4 + 3} + ... + \frac{6}{2(6)^4 + 3}$</p>
+        <p>$= 0.2 + 0.0571 + 0.0185 + 0.0078 + 0.00040 + 0.0023$</p>
+        <p>$= 0.2897$</p>
+
+        <p>Next, we need to use the comparison test to see if $a_n$ converges or diverges. We will need to create a similar comparison series $b_n$. We can use the same numerator of $n$, and for the denominator, we can use $n^4$. The comparison $b_n$ will be:</p>
+
+        <p>$b_n = \frac{n}{n^4}$</p>
+        <p>$b_n = \frac{1}{n^3}$</p>
+
+        <p>This is a p=series where p=3. This tells us that $b_n$ converges.</p>
+
+        <p>To use the comparison test to show that $a_n$ also converges, we have to show that $0 \le a_n \le b_n$. We'll find some of the first few values of $b_n$ and compare them to $a_n$.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>n</th><th>Formula</th><th>Result</th></tr></thead><tbody>
+         <tr><td>$n=1$</td><td>$\frac{1}{1^3}$</td><td>$1$</td></tr>
+         <tr><td>$n=2$</td><td>$\frac{1}{2^3}$</td><td>$\frac{1}{8}$</td></tr>
+         <tr><td>$n=3$</td><td>$\frac{1}{3^3}$</td><td>$\frac{1}{27}$</td></tr>
+        </tbody></table>
+
+        <p>These show that $0 \le a_n \le b_n$, so $a_n$ converges.</p>
+
+        <p>Now, we use the integral test to find the remainder of the series $a_n$ after the first 6 terms $T_6$.</p>
+
+        <p>$R_6 \le T_6 \le \int_6^{\infty} b_n ~dx = \int_6^{\infty} f(x) ~dx$</p>
+        <p>$R_6 \le T_6 \le \int_6^{\infty} b_n ~dx = \int_6^{\infty} \frac{1}{x^3} ~dx$</p>
+        <p>$R_6 \le T_6 \le \int_6^{\infty} b_n ~dx = \int_6^{\infty} x^{-3} ~dx$</p>
+        <p>$R_6 \le \frac{x^{-2}}{-2} \bigg|_6^{\infty}$</p>
+        <p>$R_6 \le \lim \limits_{a \to \infty} \frac{x^{-2}}{-2} \bigg|_6^a$</p>
+        <p>$R_6 \le \lim \limits_{a \to \infty} - \frac{1}{2x^2} \bigg|_6^9$</p>
+        <p>$R_6 \le \lim \limits_{a \to \infty} - \frac{1}{2a^2} - \left( - \frac{1}{2(6)^2} \right)$</p>
+        <p>$R_6 \le \lim \limits_{a \to \infty} \frac{1}{2(6)^2} - \frac{1}{2a^2}$</p>
+        <p>$R_6 \le \lim \limits{a \to \infty} \frac{1}{72} - \frac{1}{2a^2}$</p>
+        <p>$R_6 \le \frac{1}{72} - \frac{1}{2 \infty}^2$</p>
+        <p>$R_6 \le \frac{1}{72} - 0$</p>
+        <p>$R_6 \le \frac{1}{72}$</p>
+        <p>$R_6 \le 0.0139$</p>
+
+        <p>The sixth partial sum of the series $a_n$ is $s_6 \approx 0.2897$, with convergence or divergence of a series $a_n$ using the limit.</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{1_n + 2}{a_n} \right|$</p>
+
+        <p>We can say that:</p>
+          <ul>
+            <li>The series converges absolutely if $L \lt 1 $</li>
+            <li>The series diverges if $L \gt 1$ or if or $L$ is infinite</li>
+            <li>The test is inconclusive if $L=1$</li>
+          </ul>
+
+
+
+  <h2 id="seq_ratio_root">Sequences and Series - Ratio and Root Tests</h2>
+
+    <p>The ratio test is most often used when our series includes a factorial or something raised to the $n^{th}$ power.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the ratio test to say whether the series converges or diverges</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{n^3}{4^n}$</p>
+
+        <p>To use the ratio test, we need to solve for the limit.</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right|$</p>
+
+        <p>and then evaluate the value of $L$.</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{ \frac{(n+1)^3}{4^{n+1}} }{ \frac{n^3}{n^4} } \right|$</p>
+
+        <p>We can drop the absolute value bars since all of our terms will be positive</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \frac{(n+1)^3}{4^{n+1}} \left( \frac{4^n}{n^3} \right)$</p>
+
+        <p>Grouping like bases together, we get:</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \frac{(n+1)^3}{n^3} \left( \frac{4^n}{4^{n+1}} \right)$</p>
+        <p>$L = \lim \limits_{n \to \infty} \frac{(n+1)^3}{n^3} (4^{n - (n+1)})$</p>
+        <p>$L = \lim \limits_{n \to \infty} \frac{(n+1)^3}{n^3}(4^{-1})$</p>
+        <p>$L = \lim \limits_{n \to \infty} \frac{(n+1)^3}{n^3}(\frac{1}{4})$</p>
+        <p>$L = \lim \limits_{n \to \infty}  \frac{1}{4} \lim \limits_{n \to \infty} \frac{(n+1)^3}{n^3}$</p>
+        <p>$L = \frac{1}{4} \lim \limits_{n \to \infty} \frac{n^2 + 3n^2 + 3n + 1}{n^3} \left( \frac{1/n^3}{1/n^3} \right)$</p>
+        <p>$L = \frac{1}{4} \lim \limits_{n \to \infty} \frac{ \frac{n^3}{n^3} + \frac{3n^2}{n^3} + \frac{3n}{n^3} + \frac{1}{n^3} }{ n^3 / n^3 }$</p>
+
+        <p>$L = \frac{1}{4} \lim \limits_{n \to \infty} \frac{ 1 + \frac{3}{n} + \frac{3}{n^2} + \frac{1}{n^3} }{ n^3 / n^3 }$</p>
+        <p>$L = \frac{1}{4} \lim \limits_{n \to \infty} \frac{ 1 + \frac{3}{n} + \frac{3}{n^2} + \frac{1}{n^3} }{ 1 }$</p>
+        <p>$L = \frac{1}{4} \frac{ 1 + \frac{3}{\infty} + \frac{3}{\infty} + \frac{1}{\infty} }{ 1 }$</p>
+        <p>$L = \frac{1}{4} \frac{1+0+0+0}{1} = \frac{1}{4}$</p>
+
+        <p>Since $L \lt 1$, we say that the original series $a_n$ changes absolutely.</p>
+
+
+    <h3 id="root_test">Root Test</h3>
+
+      <p>The root test for convergence lets us determine the convergence or divergence of a series $a_n$ using the limit:</p>
+
+      <p>$L = \lim \limits_{n \to \infty} \sqrt[n]{|a_n|}$</p>
+        <ul>
+          <li>The series converges absolutely if $L \lt 1$</li>
+          <li>The series diverges if $L \gt 1$ or $L$ is infinite</li>
+          <li>The test is inconclusive if $L = 1$</li>
+        </ul>
+
+      <p>The root test is used most often when the series includes something raised to the $n^{th}$ power.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the root test to say whether the following series converges or diverges:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{6^n}{(n+2)^n}$</p>
+
+        <p>To use the root test, we need to solve for the limit.</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \sqrt[n]{|a_n|}$</p>
+
+        <p>And then evaluate the value of $L$:</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \sqrt[n]{ \left| \frac{6^n}{(n+2)^n} \right| }$</p>
+        <p>$L = \lim \limits_{n \to \infty} \sqrt[n]{ \frac{6^n}{(n + 2)^n} }$</p>
+        <p>$L = \lim \limits_{n \to \infty} \left[ \frac{6^n}{(n+2)^n} \right]^{1/n}$</p>
+        <p>$L = \lim \limits_{n \to \infty} \left[ \left( \frac{6}{n+2} \right)^n \right]^{1/n}$</p>
+        <p>$L = \lim \limits_{n \to \infty} \left( \frac{6}{n+2} \right)^{n/n}$</p>
+        <p>$L = \lim \limits_{n \to \infty} \frac{6}{n+2}$</p>
+        <p>$L = \frac{6}{\infty + 2}$</p>
+        <p>$L = \frac{6}{\infty} = 0$</p>
+
+        <p>$L \lt 1$, so we can say that the original series $a_n$ converges absolutely.</p>
+
+
+    <h3 id="abs_cond_converg">Absolute and Conditional Convergence</h3>
+
+      <p>Sometimes we are asked to say whether the series converges conditionally or absolutely. A series converges conditionally if $a_n$ converges but $|a_n|$ diverges, i.e. $a_n \neq |a_n|$ for all possible values of $n$. A series converges absolutely if $a_n$ and $|a_n|$ both converge; i.e., $a_n = |a_n|$, for all possible values of $n$.</p>
+
+      <p>The ratio and root tests both use absolute value bars. If we can drop the absolute value bars because the expression inside will be positive anyway, then we know that the series converges absolutely. If we cannot drop the absolute value bars because the expression inside could be negative, then we know the series converges conditionally.</p>
+
+
+
+  <h2 id="seq_alt_series">Sequences and Series - Alternating Series</h2>
+
+    <p>The alternating series test for convergece lets us say whether an alternating series,</p>
+
+    <p>$\sum_{n=1}^{\infty} (-1)^{n-1} a_n, \text{ where } a_n \gt 0$</p>
+
+    <p>is converging or diverging. The alternating series test tells us that an alternating series converges if $0 \lt a_{n+1} \lt 0$. Separate the series $a_n$ from the $-1$ part that makes it alternating.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the alternating series test to say whether the following series is converging or diverging:</p>
+
+        <p>$\sum_{n=5}^{\infty} \frac{(-1)^{n-3} \sqrt{n}}{n+4}$</p>
+
+        <p>First, separate the series from the $-1$.</p>
+
+        <p>$\sum_{n=5}^{\infty} (-1)^{n-3} \frac{\sqrt{n}}{n+4}$</p>
+
+        <p>Matching this up to the standard form of an alternating series given above, we can say the series is:</p>
+
+        <p>$a_n = \frac{\sqrt{n}}{n+4}$</p>
+
+        <p>Now we need to show that $0 \lt a_{n+1} \lt a_n$ for all values of $n$, and that $\lim \limits_{n \to \infty} a_n = 0$. Let's check the first few terms of the series to see if it looks like $0 \lt a_{n+1} \lt a_n$.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>$n$</th><th>&nbsp;</th><th>$a_n$</th><th>&nbsp;</th><th>$a_{n+1}$</th></tr></thead><tbody>
+         <tr><td>$n = 5$</td><td>$\frac{ \sqrt{5} }{5+4}$</td><td>$\frac{ \sqrt{5} }{9}$</td><td>$\frac{ \sqrt{5+1} }{5 + 1 + 4}$</td><td>$\frac{ \sqrt{6} }{10}$</td></tr>
+         <tr><td>$n = 6$</td><td>$\frac{ \sqrt{6} }{6+4}$</td><td>$\frac{ \sqrt{6} }{10}$</td><td>$\frac{ \sqrt{6+1} }{6 + 1 + 4}$</td><td>$\frac{ \sqrt{7} }{11}$</td></tr>
+         <tr><td>$n = 7$</td><td>$\frac{ \sqrt{7} }{7+4}$</td><td>$\frac{ \sqrt{7} }{11}$</td><td>$\frac{ \sqrt{7+1} }{7 + 1 + 4}$</td><td>$\frac{ \sqrt{8} }{12}$</td></tr>
+         <tr><td>$n = 8$</td><td>$\frac{ \sqrt{8} }{8+4}$</td><td>$\frac{ \sqrt{8} }{12}$</td><td>$\frac{ \sqrt{8+1} }{8 + 1 + 4}$</td><td>$\frac{ \sqrt{9} }{13}$</td></tr>
+        </tbody></table>
+
+        <p>We can see that the terms of $a_n$ and $a_{n+1}$ will always be positive with $n \ge 5$. The final step is to verify that $\lim \limits_{n \to \infty} a_n = 0$.</p>
+
+        <p>$\lim \limits_{n \to \infty} a_n = \lim \limits_{n \to \infty} \frac{\sqrt{n}}{n+4}$</p>
+        <p>$= \frac{\sqrt{\infty}}{\infty + 4} = \frac{\sqrt{\infty}}{\infty}$</p>
+
+        <p>Since the numerator will be significantly smaller than the denominator, we can say that $\lim \limits_{n \to \infty} a_n = 0$. Since we've shown that $0 \lt a_n+1 \lt a_n$, and that $\lim \limits_{n \to \infty} = 0$, we can say that the series converges.</p>
+
+
+    <h3 id="alt_series_est">Alternating Series Estimation Theorem</h3>
+
+      <p>The alternating series estimation theorem gives us a way to approximate the sum of an alternating series with a remainder or error that we can calculate. To use this theorem, the series must follow two rules:</p>
+        <ol>
+          <li>The series must be decreasing, $b_n \ge b_{n+1}$</li>
+          <li>The limit of the series must be zero: $\lim \limits_{n \to \infty} b_n = 0$</li>
+        </ol>
+
+      <p>Once we confirm that our alternating series meets these two conditions, we can calculate the error using:</p>
+
+      <p>$|R_n| = |s - s_n| \le b_{n+1}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Approximate the sum of the series to 3 decimal places:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{n-1}n }{ 10^n }$</p>
+
+        <p>We'll calculate the first few terms of the series until we have a stable answer to 3 decimal places.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>n</th><th>Formula</th><th>Value</th></tr></thead><tbody>
+         <tr><td>$n = 1$</td><td>$a_1 = \frac{ (-1)^{1-1}(1) }{ 10^1 }$</td><td>$a_1 = 0.1$</td></tr>
+         <tr><td>$n = 2$</td><td>$a_1 = \frac{ (-1)^{2-1}(2) }{ 10^2 }$</td><td>$a_2 = -0.02$</td></tr>
+         <tr><td>$n = 3$</td><td>$a_1 = \frac{ (-1)^{3-1}(3) }{ 10^3 }$</td><td>$a_3 = 0.003$</td></tr>
+         <tr><td>$n = 4$</td><td>$a_1 = \frac{ (-1)^{4-1}(4) }{ 10^4 }$</td><td>$a_4 = -0.0004$</td></tr>
+         <tr><td>$n = 5$</td><td>$a_1 = \frac{ (-1)^{5-1}(5) }{ 10^5 }$</td><td>$a_5 = 0.00005$</td></tr>
+        </tbody></table>
+
+        <p>We need to sum these terms until we can see that the third decimal point is not changing</p>
+
+        <p>$a_1 + a_2 = s_2 = 0.08$</p>
+        <p>$s_3 = s_2 + a_3 = 0.083$</p>
+        <p>$s_4 = s_3 + a_4 = 0.0826$</p>
+
+        <p>Our approximation to 3 decimal places is $0.083$.</p>
+
+        <p>To use the alternating series estimation theorem, we need to show that the series is decreasing $b_n \ge b_{n+1}$. Pulling out $b_n$ from the given series, we get:</p>
+
+        <p>$b_n = \frac{n}{10^n}$</p>
+        <p>$b_{n+1} = \frac{n+1}{10^{n+1}}$</p>
+
+        <p>Now we can calculate the first 3 terms for both $b_n$ and $b_{n+1}$.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>$n$</th><th>Formula for $b_n$</th><th>$b_n$</th><th>Formula for $b_{n+1}$</th><th>$b_{n+1}$</th></tr></thead><tbody>
+         <tr><td>$n = 1$</td><td>$\frac{1}{10^1}$</td><td>$\frac{1}{10}$</td><td>$\frac{1+1}{10^1 + 1}$</td><td>$\frac{1}{50}$</td></tr>
+         <tr><td>$n = 2$</td><td>$\frac{2}{10^2}$</td><td>$\frac{1}{50}$</td><td>$\frac{2+1}{10^2 + 1}$</td><td>$\frac{3}{1000}$</td></tr>
+         <tr><td>$n = 3$</td><td>$\frac{3}{10^3}$</td><td>$\frac{3}{1000}$</td><td>$\frac{3+1}{10^3 + 1}$</td><td>$\frac{1}{2500}$</td></tr>
+        </tbody></table>
+
+        <p>$b_n \le b_{n+1}$, so $b_n$ is decreasing. Next, we need to show that $\lim \limits_n \to \infty b_n = 0$. When we look at $lim \frac{n}{10^n}$, we see that the denominator will increase much faster than the numerator, therefore $\lim \limits_{n \to \infty} \frac{n}{10^n} = 0$.</p>
+
+        <p>Our series meets the two criteria necessary for using the alternating series criteria necessary for using the alternating series estimation theorem. We'll use the inequality:</p>
+
+        <p>$|R_n| - |s - s_n| \le b_{n+1}$</p>
+
+        <p>We get:</p>
+
+        <p>$|R_3| = |s - s_3| \le b_{3+1}$</p>
+        <p>$|R_3| \le b_4$</p>
+        <p>$|R_3| \le \frac{4}{10^4}$</p>
+        <p>$|R_3| \le \frac{1}{2500}$</p>
+        <p>$|R_3| \le 0.0004$</p>
+
+        <p>The approximate sum of the series to 3 decimal places is $0.083$ with an error of $|R_3| = 0.0004$.</p>
+
+
+
+  <h2 id="seq_power_series">Sequences and Series - Power Series</h2>
+
+    <p>We can convert functions into a power series using the standard form of a power series.</p>
+
+    <p>$\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n$</p>
+
+    <p>The interval of convergence of the series $a \lt x \lt b$ will be the set of values for which the series is converging. The radius of convergence of the series $R = \frac{b-a}{2}$ will always be half of the interval of convergence.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the power series representation, then find the radius and interval of convergence for:</p>
+
+        <p>$f(x) = \frac{x}{8 + x^2}$</p>
+
+        <p>We need to find a power series representation, by manipulating the function into the form $\frac{1}{1-x}$.</p>
+
+        <p>First, we'll factor $x$ out of the numerator.</p>
+
+        <p>$\frac{1}{1-x} = (x) \frac{1}{8+x^2}$</p>
+
+        <p>Next, remove $8$ from the denominator:</p>
+
+        <p>$\frac{1}{1-x} = (x) \frac{1}{1 + \left( 1 + \frac{x^2}{8} \right)}$</p>
+        <p>$\frac{1}{1-x} = \left( \frac{x}{8} \right) \frac{1}{1 + x^2/8}$</p>
+
+        <p>Now, make the sign in between the terms in the denominator negative.</p>
+
+        <p>$\frac{1}{1-x} = \left( \frac{x}{8} \right) \frac{1}{1 - \left( - \frac{x^2}{8} \right)}$</p>
+
+        <p>We see that $\frac{-x^2}{8}$ is the value of $x$ from the standard form of the power series, so we'll plug that into the power series formula.</p>
+
+        <p>$\sum_{n=0}^{\infty} \left( - \frac{x^2}{8} \right)^n$</p>
+
+        <p>Our power series is also multiplied by the $\frac{x}{8}$ that was factored out, and we'll need to multiply the sum by this term.</p>
+
+        <p>$\frac{x}{8} \sum_{n=0}^{\infty} \left( - \frac{x^2}{8} \right)^n$</p>
+
+        <p>Now we can simplify:</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{x}{8} \left( - \frac{x^2}{8} \right)^n$</p>
+        <p>$= \sum_{n=0}^{\infty} \frac{x^1(-1)^n}{8^1} \left( \frac{x^{2n}}{8^n} \right)$</p>
+        <p>$= \sum_{n=0}^{\infty} \frac{ (-1)^n x^{2n+1} }{ 8^{n+1} }$</p>
+
+        <p>This is the power series representation of the function.</p>
+
+        <p>To find the radius of convergence, we need to identify $a_n$ from the power series representation we just found.</p>
+
+        <p>$a_n = \frac{ (-1)^n x^{2n + 1} }{ 8^{n+1} }$</p>
+        <p>$a_n = \frac{ (-1)^{n+1} x^{2(n+1) + 1} }{ 8^(n+1) + 1 }$</p>
+        <p>$a_{n+1} = \frac{ (-1)^{n+1 x^{2n + 2 + 1}} }{ 8^{n+1+1} }$</p>
+        <p>$a_{n+1} = \frac{ -(-1)^{n+1} x^{2n + 3} }{ 8^{n+2} }$</p>
+
+        <p>We can use the ratio test to say whether or not the series converges. The ratio test tells us that:</p>
+
+        <p>If $L = \lim \limits_{n \to \infty} \left| \frac{a_n+1}{a_n} \right|$, then</p>
+          <ul>
+            <li>the series converges absolutely if $L \lt 1$</li>
+            <li>the series diverges if $L \gt 1$ or $L$ is infinite</li>
+            <li>the test is inconclusive if $L = 1$</li>
+          </ul>
+
+        <p>Plugging $a_n$ and $a_{n+1}$ into the formula for $L$ from the ratio test, we get:</p>
+
+        <p>$
+          L = \lim \limits_{n \to \infty} 
+          \left| 
+          \frac
+          { \frac{ (-1)^{n+1} x^{2n+3} }{ 8^n + 2 } }
+          { \frac{ (-1)^n x^{2n+1} }{ 8^{n+1} } }
+          \right|
+          $
+        </p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{(-1)^{n+1} x^{2n+3} }{ 8^{n+2} } \left( \frac{8^{n+1}}{(-1)^n x^{2n+1}} \right) \right|$</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{(-1)^{n+1}}{(-1)^n} \cdot \frac{8^{n+1}}{8^{n+2}} \cdot \frac{x^{2n+3}}{x^{2n+1}} \right|$</p>
+
+        <p>$L = \lim \limits_{n \to \infty} | (-1)^{n+1-n} \cdot 8^{n+1-(n+2) \cdot x^{2n + 3 - (2n+1)}} |$</p>
+        <p>$L = \lim \limits_{n \to \infty} | (-1)^1 \cdot 8^{n + 1 - n - 2} \cdot x^{2n + 3 - 2n - 1} |$</p>
+        <p>$L = \lim \limits_{n \to \infty} | (-1) \cdot 8^{-1} \cdot x^2 |$</p>
+        <p>$L = \lim \limits_{n \to \infty} | \frac{(-1)x^2}{8} |$</p>
+
+        <p>We can drop the $-1$ due to the absolute brackets:</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{x^2}{8} \right|$</p>
+
+        <p>We no longer have $n$ in this function, which means the limit as $n \to \infty$ will have no effect, so we can remove it.</p>
+
+        <p>$L = \left| \frac{x^2}{8} \right|$</p>
+
+        <p>The ratio test tells us that $L$ will converge when $L \lt 1$, so we generate the following inequality:</p>
+
+        <p>$\left| \frac{x^2}{8} \right| \lt 1$</p>
+        <p>$|x^2| \lt 8$</p>
+        <p>$-\sqrt{8} \lt x \lt \sqrt{8}$</p>
+
+        <p>Based on this inequality, the radius of convergence is $R = \sqrt{8}$.</p>
+
+        <p>The interval of convergence is given by the inequality $- \sqrt{8} \lt x \lt \sqrt{8}$, but we still need to test the endpoints of the interval to say whether the series converges at one or both of them. We'll start by testing $x = - \sqrt{8}$.</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{8^{n+1}}$</p>
+        <p>$= \sum_{n=0}^{\infty} \frac{(-1)^n (-\sqrt{8})^{2n+1}}{8^{n+1}}$</p>
+        <p>$= \sum_{n=0}^{\infty} \frac{ (-1)^n [-(8)^(1/2)]^2n [-(8)^{1/2}] }{ 8^n 8^1 }$</p>
+        <p>$= \sum_{n=0}^{\infty} \frac{ (-1)^n (8)^n [-(8)^{1/2}] }{ 8^n 8^1 }$</p>
+        <p>$= \sum_{n=0}^{\infty} \frac{ (-1)^n (-\sqrt{8}) }{ 8 }$</p>
+        <p>$= \sum_{n=0}^{\infty} - \frac{\sqrt{8}}{8}(-1)^n$</p>
+        <p>$= - \frac{\sqrt{8}}{8} \sum_{n=0}^{\infty} (-1)^n$</p>
+        <p>$= - \frac{\sqrt{8}}{8} [(-1)^0 + (-1)^1 + (-1)^2 + (-1)^3]+ (-1)^4 + \ldots]$</p>
+        <p>$= - \frac{\sqrt{8}}{8} (1 - 1 + 1 - 1 + 1 - \ldots)$</p>
+
+        <p>This is a geometric series with $r = -1$. The geometric series test tells us that the series will converge if $|r| \lt 1$.</p>
+
+        <p>$|-1| \lt 1$</p>
+        <p>$1 \lt 1$</p>
+
+        <p>Since $1$ is not less than $1$, the series diverges, which means it is divergent at endpoint $x = - \sqrt{8}$. Now we'll test $x = \sqrt{8}$.</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{x^{2n+1}}{8^{n+1}}$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{(-1)^n(\sqrt{8})^{2n+1}}{8^{n+1}}$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{(-1)^n 8^{n + 1/2}}{8^{n+1}}$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^n 8^{n + 1/2 - (n+1)}$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^n 8^{n + 1/2 - (n+1)}$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^n 8^{n + 1/2 - n - 1}$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^n 8^{-1/2}$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{1}{\sqrt{8}}(-1)^n$</p>
+        <p>$\frac{1}{\sqrt{8}} \sum_{n=0}^{\infty} (-1)^n$</p>
+
+        <p>This is a divergent geometric series. Since the series is divergent at both end points, the interval of convergence is $-\sqrt{8} \lt x \lt \sqrt{8}$.</p>
+
+
+    <h3 id="power_series_mult">Power Series Multiplication</h3>
+
+      <p>Sometimes a function we're given is the product of two other functions, like:</p>
+
+      <p>$f(x) = \frac{cos ~x}{1-x}$</p>
+
+      <p>This function is the product of two other functions:</p>
+
+      <p>$f(x) = \frac{1}{1-x} \cdot cos ~x$</p>
+
+      <p>If we already know the power series representations of $g(x) = cos ~x$ and $h(x) = \frac{1}{1-x}$, we can multiply the expanded power series together to find a power series representation of $f(x)$. We know from a table to standard Maclaurin series (which can be found <a href="https://mathworld.wolfram.com/MaclaurinSeries.html">here</a>) that:</p>
+
+      <p>$cos ~x \approx 1 - \frac{1}{2}x^2 + \frac{1}{24}x^4 - \frac{1}{720}x^6 + \ldots$</p>
+      <p>$\frac{1}{1-x} \approx 1 +  x + x^2 + x^3 + \ldots$</p>
+
+      <p>We can say that:</p>
+
+      <p>$f(x) \approx (1 - \frac{1}{2}x^2 + \frac{1}{24}x^2 + \frac{1}{720}x^6)(1 + x + x^2 + x^3)$</p>
+
+      <p>Multiplying power series together is like multiplying two simple polynomials together. We use the distributive property from algebra.</p>
+
+
+    <h3 id="power_series_div">Power Series Division</h3>
+
+      <p>Sometimes we'll want to use polynomial long division to simplify a function but either the numerator or denominator (or both) is not a polynomial.</p>
+
+      <p>The simpliest way to do this for the non-polynomial is to find a similar, known power series expansion and then modify it to match the non-polynomial function.</p>
+
+
+    <h3 id="power_series_diff">Power Series Differentiation</h3>
+
+      <p>Sometimes we can generate the power series reprsentatino of a function by manipulating a standard power series like:</p>
+
+      <p>$\frac{1}{1-x} = 1 + x + x^2 + x^3 + \ldots = \sum{n=0}^{\infty} x^n$</p>
+
+      <p>And then differentiating the result to get the left side of the equation to match exactly the function we've been given. We must differentiate all 3 parts of the equation. We can also use the power series representation to find the radius and interval of convergence.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Differentiate to find a power series representation for the function:</p>
+
+        <p>$f(x) \frac{1}{(1+x)^2}$</p>
+
+        <p>The function we've been given is similar to the known power series:</p>
+
+        <p>$\frac{1}{1-x} = 1 + x + x^2 + x^3 + \ldots = \sum_n^{\infty} x ^n$</p>
+
+        <p>We need to manipulate this non power series so that it matches the function in our problem. First, we'll change the denominator of the known power series by replacing $x$ with $-x$.</p>
+
+        <p>$\frac{1}{1-(-x)} = 1 + (-x) + (-x)^2 + (-x)^3 + \ldots = \sum_{n=0}^{\infty} x^n$</p>
+        <p>$\frac{1}{1+x} = 1 - x + x^2 - x^3 + \ldots = \sum_{n=0}^{\infty} (-1)^n x^n$</p>
+
+        <p>Differentiating every part of the equation with respect to $x$, we get:</p>
+
+        <p>$\frac{0(1+x) - (1)(1)}{(1+x)^2} = 0 - 1 + 2x - 3x^2 + \ldots = \sum_{n=0}^{\infty} (-1)^n x^n$</p>
+
+        <p>Differentiating every part of the equation with respect to x, we get:</p>
+
+        <p>$\frac{0(1+x)-(1)(1)}{(1 + x)^2} = 0 - 1 + 2x - 3x^2 + \ldots = \sum_{n=0}^{\infty} (-1)^n nx^{n-1}$</p>
+        <p>$\frac{-1}{(1 + x)^2} = 0 - 1 + 2x - 3x^2 + \ldots = \sum_{n=0}^{\infty} (-1)^n nx^{n-1}$</p>
+
+        <p>To make the left side of the equation identical to the given function, we just multiply by $-1$.</p>
+
+        <p>$\frac{1}{(1+x)^2} = 1 - 2x + 3x^2 + \ldots = -1^1 \sum_{n=0}^{\infty}(-1)^{n+1} nx^{n-1}$</p>
+        <p>$\frac{1}{(1+x)^2} = 1 - 2x + 3x^2 + \ldots = \sum_{n=0}^{\infty}(-1)^{n+1} nx^{n-1}$</p>
+
+        <p>Now that the left side of the equation is identical to the given function, we want to use the right side as a power series. If possible, we want the exponent of $x$ to just be $n$. To make that happen, we can substitute $n+1$ for $n$.</p>
+
+        <p>$\sum_{n=0}^{\infty}(-1)^{n+1} nx^{n-1}$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^{(n+1)+1} (n+1)x^{(n+1)-1}$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^{n+2} (n+1)x^n$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^2 (-1)^n (n+1) x^n$</p>
+        <p>$\sum_{n=0}^{\infty} (-1)^n (n+1) x^n$</p>
+
+
+
+  <h2 id="seq_taylor">Sequences and Series - Taylor Series</h2>
+
+    <p>We know how to use the power series, $\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n$, to find a polynomial representation of a function. But sometimes we cannot easily do so. Taylor series let us find a series representation for any function. To create a Taylor series representation for a function, we'll need $a$, the value about which the function is defined, and $n$, the degree to which we want to evaluate the function.</p>
+
+    <p>The coefficient on each term in the Taylor polynomial takes the form:</p>
+
+    <p>$\frac{ f^{(n)} (a) }{n!} (x-a)^n$</p>
+
+    <table class="tableizer-table">
+    <thead><tr class="tableizer-firstrow"><th>$n$</th><th>$n!$</th><th>$f^{(n)}(x)$</th><th>$f^{(n)}(a)$</th><th>$\frac{ f^{(n)}(a) }{n!}$</th></tr></thead><tbody>
+     <tr><td>0</td><td>1</td><td>$f(x)$</td><td>$f(a)$</td><td>$\frac{f(a)}{1}$</td></tr>
+     <tr><td>1</td><td>1</td><td>$f'(x)$</td><td>$f'(a)$</td><td>$\frac{f'(a)}{1}$</td></tr>
+     <tr><td>2</td><td>2</td><td>$f''(x)$</td><td>$f''(a)$</td><td>$\frac{f''(a)}{2}$</td></tr>
+     <tr><td>3</td><td>6</td><td>$f'''(x)$</td><td>$f'''(a)$</td><td>$\frac{f'''(a)}{6}$</td></tr>
+     <tr><td>4</td><td>24</td><td>$f''''(x)$</td><td>$f''''(a)$</td><td>$\frac{f''''(a)}{24}$</td></tr>
+    </tbody></table>
+
+    <p>Sometimes we'll be asked for the radius and interval of convergence of a Taylor series. To find these, we'll have to find a power series representation for the Taylor series. Once this is done, we'll identify $a_n$ and $a_{n+1}$ and plug them into the limit formula from the ratio test in order to say where the series is convergent.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the third-degree Taylor series about $a=3$ for $f(x) = ln(2x)$.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>n</th><th>n!</th><th>f^{(n)}(x)</th><th>f^{(n)}(a)</th><th>\frac{ f^{(n)}(a) }{n!}</th></tr></thead><tbody>
+         <tr><td>$0$</td><td>$1$</td><td>$ln(2x)$</td><td>$ln ~6$</td><td>$ln ~6$</td></tr>
+         <tr><td>$1$</td><td>$1$</td><td>$\frac{1}{x}$</td><td>$\frac{1}{3}$</td><td>$\frac{1}{3}$</td></tr>
+         <tr><td>$2$</td><td>$2$</td><td>$- \frac{1}{x^2}$</td><td>$- \frac{1}{9}$</td><td>$- \frac{1}{18}$</td></tr>
+         <tr><td>$3$</td><td>$6$</td><td>$\frac{2}{x^3}$</td><td>$\frac{2}{27}$</td><td>$\frac{1}{81}$</td></tr>
+        </tbody></table>
+
+        <p>Now we attach the coefficients in the far right column to the $(x-a)^n$ part of the Taylor series formula.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>n</th><th>Formula</th><th>Simplified</th></tr></thead><tbody>
+         <tr><td>$0$</td><td>$\frac{ f^{(n)}(a) }{n!}(x-a)^n$</td><td>$ln ~6$</td></tr>
+         <tr><td>$1$</td><td>$\frac{1}{3}(x-3)^1$</td><td>$\frac{1}{3}(x-3)$</td></tr>
+         <tr><td>$2$</td><td>$- \frac{1}{18}(x-3)^2$</td><td>$- \frac{1}{81}(x-3)^3$</td></tr>
+         <tr><td>$3$</td><td>$\frac{1}{81}(x-3)^3$</td><td>$\frac{1}{81}(x-3)^3$</td></tr>
+        </tbody></table>
+
+        <p>Putting all of the terms together, we get:</p>
+
+        <p>$ln ~6 + \frac{1}{3}(x-3) - \frac{1}{18}(x-3)^2 + \frac{1}{81}(x-3)^3$</p>
+
+
+
+    <h3 id="taylors_ineq">Taylor's Inequality</h3>
+
+      <p>Taylor's inequality states that for a function $f(x)$:</p>
+
+      <p>$\text{If } |f^{n+1}(x)| \le M, \text{ for } |x-a| \le d,$</p>
+      <p>$\text{Then } |R_n(x)| \le \frac{M}{(n+1)!} |x-a|^{n+1} \text{ for } |x-a| \le d$</p>
+
+      <p>This is a tool to find the remainder of a series. We can use Taylor's inequality to find that remainder and say whether or not the $n^{th}$ degree polynomial is a good approximation of the functions actual value. Sometimes we can use Taylo's inequality to show that the remainder is $0$.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use Taylor's inequality to show that the Maclaurin series representation of the function is equal to the original function for $f(x) = sin ~x.$</p>
+
+        <p>Using a table of common Maclaurin series, we know that the power series representation of the Maclaurin series for $f(x) = sin ~x$.</p>
+
+        <p>$sin ~x = \sum_{n=0}^{\infty} \frac{ (-1)^n x^{2n+1} }{ (2n + 1)! }$</p>
+
+        <p>Since we are dealing with a Maclaurin series, $a=0$, and we can adjust the inequality theorem to substitute $0$ for $a$.</p>
+
+        <p>$\text{If } |f^{n+1}(x)| \le M, \text{ for } |x-0| \le d,$</p>
+        <p>$\text{Then } |R_n(x)| \le \frac{M}{(n+1)!} |x-0|^{n+1} \text{ for } |x-0| \le d$</p>
+
+        <p>Next, we'll take the first few derivatives of $f(x) = sin ~x$ in order to plug a value in for $f^{n+1}(x)$.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>n</th><th>Formula</th></tr></thead><tbody>
+         <tr><td>$0$</td><td>$f'(x) = cos ~x$</td></tr>
+         <tr><td>$1$</td><td>$f''(x) = - sin ~x$</td></tr>
+         <tr><td>$2$</td><td>$f'''(x) = - cos ~x$</td></tr>
+         <tr><td>$3$</td><td>$f''''(x) = sin ~x$</td></tr>
+        </tbody></table>
+
+        <p>Since we'll be taking the absolute value of $f^{n+1}(x)$, we can say that:</p>
+
+        <p>$|f^{(n+1)}(x)| = cos ~x$</p>
+
+        <p>or</p>
+
+        <p>$|f^{(n+1)}(x)| = sin ~x$</p>
+
+        <p>We know that $cos ~x$ and $sin ~x$ only exist between $-1$ and $1$, so we can say:</p>
+
+        <p>$-1 \le |f^{(n+1)}(x)| \le 1$</p>
+
+        <p>And since we are dealing with absolute bars, we can change the lower bound to $0$.</p>
+
+        <p>$0 \le |f^{(n+1)}(x)| \le 1$</p>
+
+        <p>The inequality tells us that the value of $|f^{(n+1)}(x)|$ is somewhere on the interval $[0,1]$. Let's pick a few values in the interval and plug them into the first inequality from Taylor's inequality.</p>
+
+        <table class="tableizer-table">
+        <thead><tr class="tableizer-firstrow"><th>$|f^{n+1}(x)|$</th><th>$|f^{n+1}(x)| \le M$</th></tr></thead><tbody>
+         <tr><td>$0$</td><td>$0 \le M$</td></tr>
+         <tr><td>$\frac{1}{3}$</td><td>$\frac{1}{3} \le M$</td></tr>
+         <tr><td>$\frac{3}{4}$</td><td>$\frac{3}{4} \le M$</td></tr>
+         <tr><td>$1$</td><td>$1 \le M$</td></tr>
+        </tbody></table>
+
+        <p>If we pick $|f^{n+1}(x)| = 1$, then we know that $M$ will always be greater than or equal to any value in the interval. Therefore, as a rule, we'll always pick the right-hand side of the interval, which in this case is $1$.</p>
+
+        <p>$\text{If } |f^{n+1}(x)| \le 1 \text{ for } |x| \le d$</p>
+        <p>$\text{Then } |R_n(x)| \le \frac{1}{(n+1)!}|x|^{n+1} \text{ for } |x| \le d$</p>
+
+        <p>With Taylor's inequality simplified after plugging in $a=0$ and $M=1$, we'll use the squeeze theorem to evaluate the remainder inequality.</p>
+
+        <p>$R_n(x) \le \frac{1}{(n+1)!} |x|^{n+1}$</p>
+        <p>$\lim \limits_{n \to \infty} |R_n(x)| \le \lim \limits_{n \to \infty} \frac{1}{(n+1)!} |x|^{n+1}$</p>
+        <p>$\lim \limits_{n \to \infty} |R_n(x)| \le \frac{1}{(\infty + 1)!} |x|^{\infty + 1}$</p>
+        <p>$\lim \limits_{n \to \infty} |R_n(x)| \le 0 \cdot |x|^{\infty}$</p>
+        <p>$\lim \limits_{n \to \infty} |R_n(x)| \le 0$</p>
+
+        <p>By definition, a remainder cannot be negative, so:</p>
+
+        <p>$\lim \limits_{n \to \infty} |R_n(x)| = 0$</p>
+
+
+
+  <h2 id="mac_series">Maclaurin Series</h2>
+
+    <p>A Maclaurin series is the specific instance of the Taylor series when $a=0$. This means we use the formula:</p>
+
+    <p>$\frac{ f^{(n)}(a) }{ n! } (x-a)^n$</p>
+
+    <p>Which simplifies when a=0, to:</p>
+
+    <p>$\frac{ f^{(n)}(0) }{} x^n$</p>
+
+    <p>A table of Maclaurin series can be found <a href="https://mathworld.wolfram.com/MaclaurinSeries.html">here:</a></p>
+
+    <table class="tableizer-table">
+    <thead><tr class="tableizer-firstrow"><th>$n$</th><th>$n!$</th><th>$f^{(n)}(x)$</th><th>$f^{(n)}0$</th><th>$\frac{f^{(n)}0}{n!}$</th></tr></thead><tbody>
+     <tr><td>$0$</td><td>$1$</td><td>$sin(3x)$</td><td>$sin(3 \cdot 0) = 0$</td><td>$\frac{0}{1} = 0$</td></tr>
+     <tr><td>$1$</td><td>$1$</td><td>$3 ~cos(3x)$</td><td>$3 ~cos(3 \cdot 0) = 3$</td><td>$\frac{3}{1} = 3$</td></tr>
+     <tr><td>$2$</td><td>$2$</td><td>$-9 ~sin(3x)$</td><td>$-9 ~sin(3 \cdot 0) = 0$</td><td>$\frac{0}{2} = 0$</td></tr>
+     <tr><td>$3$</td><td>$6$</td><td>$-27 ~cos(3x)$</td><td>$-27 ~cos(3 \cdot 0) = -27$</td><td>$- \frac{27}{6} = - \frac{27}{6}$</td></tr>
+     <tr><td>$4$</td><td>$24$</td><td>$81 ~sin(3x)$</td><td>$81 ~sin(3 \cdot 0) = 0$</td><td>$\frac{0}{24} = 0$</td></tr>
+     <tr><td>$5$</td><td>$120$</td><td>$243 ~cos(3x)$</td><td>$243 ~cos(3 \cdot 0) = 243$</td><td>$\frac{243}{120} = \frac{81}{40}$</td></tr>
+     <tr><td>$6$</td><td>$720$</td><td>$-729 ~sin(3x)$</td><td>$-729 ~sin(3 \cdot 0) = -2187$</td><td>$- \frac{2187}{5040} = - \frac{243}{560}$</td></tr>
+    </tbody></table>
+
+    <table class="tableizer-table">
+    <thead><tr class="tableizer-firstrow"><th>$n$</th><th>$\frac{ f^{(n)} }{ n! } x^n$</th><th>Result</th></tr></thead><tbody>
+     <tr><td>$0$</td><td>$0x^0$</td><td>$0$</td></tr>
+     <tr><td>$1$</td><td>$3x^1$</td><td>$3x$</td></tr>
+     <tr><td>$2$</td><td>$0x^2$</td><td>$0$</td></tr>
+     <tr><td>$3$</td><td>$- \frac{27}{6} x^3$</td><td>$- \frac{27}{6} x^3$</td></tr>
+     <tr><td>$4$</td><td>$0x^4$</td><td>$0$</td></tr>
+     <tr><td>$5$</td><td>$\frac{81}{40} x^5$</td><td>$\frac{81}{40} x^5$</td></tr>
+     <tr><td>$6$</td><td>$0x^6$</td><td>$0$</td></tr>
+     <tr><td>$7$</td><td>$\frac{243}{560} x^7$</td><td>$- \frac{243}{560} x^7$</td></tr>
+    </tbody></table>
+
+    <p>Putting the terms together, we get the $7^{th}$ degree Maclaurin series</p>
+
+    <p>$3x - \frac{27}{6}x^3 + \frac{81}{40}x^5 - \frac{243}{560}x^7$</p>
+
+
+    <h3 id="sum_of_mac_series">Sum of the Maclaurin Series</h3>
+
+      <h4>Example:</h4>
+
+        <p>Find the sum of the following Maclaurin series:</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{ (-1)^n 4^n \pi^{2n} }{ 2n }!$</p>
+
+        <p>From a table of standard Maclaurin series, we know the sum of the Maclaurin series of $cos ~x$ is:</p>
+
+        <p>$cos ~x = \sum_{n=0}^{\infty} \frac{ (-1)^n x^{2n} }{ (2n )! }$</p>
+
+        <p>Since this is similar to the series we are given, we want to manipulate the given series until it matches the standard series.</p>
+
+        <p>We'll start by changing the 4-based term so that its exponent becomes $2n$, like the exponent in the standard series.</p>
+
+        <p>$\sum_{n=0}^{\infty} \frac{ (-1)^n 4^n \pi^{2n} }{ (2n)! }$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{ (-1)^n)(2^2)^n \pi^{2n} }{ (2n)! }$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{ (-1)^n 2^{2n} \pi^{2n} }{ (2n)! }$</p>
+        <p>$\sum_{n=0}^{\infty} \frac{ (-1)^n (2 \pi)^{2n} }{ (2n)! }$</p>
+
+        <p>The given series now matches the standard series for $cos ~x$, except that $x = 2 \pi$. Knowing that $x = 2 \pi$, we can make the substitution on the left side of the formula for the sum of the Maclaurin series of $cos ~x$.</p>
+
+        <p>$cos ~x = \sum_{n=0}^{\infty} \frac{ (-1)^n (2 \pi)^{2n} }{ (2n)! }$</p>
+        <p>$cos(2 \pi) = \sum_{n=0}^{\infty} \frac{ (-1)^n (2 \pi)^{2n} }{ (2n)! }$</p>
+        <p>$1 = \sum_{n=0}^{\infty} \frac{ (-1)^n (2 \pi)^{2n} }{ (2n)! }$</p>
+
+        <p>We know that $cos(2 \pi) = 1$, so since the right side of this equation is equal to the sum of the given series, we can say that the sum of the given series is $1$.</p>
+
+
+    <h3 id="radius_interval">Radius and Interval of Convergence of a Maclaurin Series</h3>
+
+      <p>In order to find the radius and interval of convergence of a Maclaurin series, we'll first have to find a power series representation for the Maclaurin series. Once we have it represented as a power series, we'll identify $a_n$ and $a_{n+1}$, and plug them into the limit formula from the ratio test in order to say where the series is convergent, and give the radius of convergence.</p>
+
+      <p>Then, we'll use the radius of convergence to find the interval of convergence, making sure to test the endpoints of the interval to verify whether or not the series converges at one or both endpoints.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the radius and interval of convergence of the Maclaurin series of the function $f(x) = ln(1 + 2x)$.</p>
+
+        <p>Using a table of common Maclaurin series, we know that the power series reprsentation for $f(x) = ln(1+x)$ is:</p>
+
+        <p>$ln(1+x) = \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} x^n$</p>
+
+        <p>Since our series has a $3x$ in place of $x$, we'll make that substitution on both sides of the equation and get a power series representation for the given function.</p>
+
+        <p>$ln(1 + 2x) = \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} (2x)^n$</p>
+
+        <p>Now that we have a power series representation for the given function, we are able to find the radius of convergence using the ratio test. Since the ratio test tells us that a series converges if $L \lt 1$ when:</p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right|$</p>
+
+        <p>we just need to find $a_n$ and $a_{n+1}$, and then plug them into the equation for $L$.</p>
+
+        <p>$\frac{(-1)^{n+1}}{n} (2x)^n$</p>
+        <p>$a_{n+1} = \frac{(-1)^{n+2}}{n+1} (2x)^{n+1}$</p>
+
+        <p>Plugging these into the equation for $L$ from the ratio test, we get:</p>
+
+        <p>$
+          L = 
+          \lim \limits_{n \to \infty}
+          \left|
+          \frac
+          { \frac{ (-1)^{n+2} (2x)^{n+1} }{ n+1 } }
+          { \frac{ (-1)^{n+1} (2x)^n }{ n } }
+          \right|
+          $
+        </p>
+
+        <p>$
+          L = \lim \limits_{n \to \infty} \left| 
+          \frac{ (-1)^{n+2} (2x)^{n+1} }{ n+1 } 
+          \left[
+          \frac{ n }{ (-1)^{n+1} (2x)^n }
+          \right]
+          \right|
+          $
+        </p>
+
+        <p>$
+          L = \lim \limits_{n \to \infty} \left| 
+          \frac{ (-1)^{n+2} }{ (-1)^{n+1} } \cdot 
+          \frac{ (2x)^{n+1} }{ (2x)^n } \cdot 
+          \frac{ n }{ n+1 } 
+          \right|
+          $
+        </p>
+
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{ (-1)^{n+2-(n+1)} (2x)^{n+1-n} n }{ n+1 } \right|$</p>
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{ (-1)^{n+2-n-1} (2x)^1 n }{  } \right|$</p>
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{ (-1)^1 2xn }{ n+1 } \right|$</p>
+        <p>$L = \lim \limits_{n \to \infty} \left| \frac{ -2xn }{ n+1 } \right|$</p>
+        <p>$L = |2x| \lim \limits_{n \to \infty} \left| \frac{n}{n+1} \right|$</p>
+        <p>$L = |2x| \lim \limits_{n \to \infty} \left| \frac{n}{n+1} \left( \frac{1/n}{1/n} \right) \right|$</p>
+        <p>$L = |2x| \lim \limits_{n \to \infty} \left| \frac{n/n}{ \frac{n}{n} + \frac{1}{n} } \right|$</p>
+        <p>$L = |2x| \lim \limits_{n \to \infty} \left| \frac{1}{ 1+\frac{1}{n} } \right|$</p>
+        <p>$L = |2x| \left| \frac{1}{ 1 + \frac{1}{\infty} } \right|$</p>
+        <p>$L = |2x| \left| \frac{1}{1+0} \right|$</p>
+        <p>$L = |2x| |1|$</p>
+        <p>$L = |2x|$</p>
+
+        <p>Since by the ratio test we know that the series will converge when $L \lt 1$, we'll set:</p>
+
+        <p>$|2x| \lt 1$</p>
+        <p>$|x| \lt \frac{1}{2}$</p>
+
+        <p>With the inequality in the form $|x-a| \lt R$, we can say that the radius of convergence of the Maclaurin series is $R = \frac{1}{2}$.</p>
+
+        <p>To find the interval of convergence, we'll remove the absolute value bars from the radius of convergence.</p>
+
+        <p>$|x| \lt \frac{1}{2}$</p>
+        <p>$- \frac{1}{2} \lt x \lt \frac{1}{2}$</p>
+
+        <p>To call this the interval of convergence, we have to verify whether or not the series converges at one or both endpoints, $x = - \frac{1}{2}$ and $x = \frac{1}{2}$. To do this, we'll plug each endpoint into the original series.</p>
+
+        <p>For $x = - \frac{1}{2}$,</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{n+1} }{n} (2x)^n \to \sum_{n=1}^{\infty}\frac{ (-1)^{n+1} }{n} \left[ 2 \left( - \frac{1}{2} \right) \right]^n$</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{n+1} }{n}(-1)^n$</p>
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{2n+1} }{n}$</p>
+        <p>$\sum_{n=1}^{\infty} (-1)^{2n+1} \frac{1}{n}$</p>
+
+        <p>This is an alternating series where $a_n = \frac{1}{n}$, which means that we can use the alternating series test to say whether or not it converges. Recall that the alternating series test tells us that a series converges if $\lim \limits_{n \to \infty} a_n = 0$.</p>
+
+        <p>$\lim \limits_{n \to \infty} a_n$</p>
+        <p>$= \lim \limits_{n \to \infty} \frac{1}{n}$</p>
+        <p>$= \frac{1}{\infty}$</p>
+        <p>$= 0$</p>
+
+        <p>Because the limit is zero, the series converges by the alternating series test, which means that the Maclaurin series converges at the left endpoint of the interval, $x = - \frac{1}{2}$.</p>
+
+        <p>Now we'll test $x = \frac{1}{2}$:</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^n+1 }{n} (2x)^n$</p>
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{n+1} }{n} \left[ 2 \frac{1}{2} \right]^n$</p>
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{n+1} }{n} (1)^n$</p>
+
+        <p>Since $1^n = 1$ for all values of $n$, we can cancel it out.</p>
+
+        <p>$\sum_{n=1}^{\infty} \frac{ (-1)^{n+1} }{n}$</p>
+        <p>$\sum_{n=1}^{\infty} (-1)^{n+1} \frac{1}{n}$</p>
+
+        <p>This is an alternating series where $a_n \frac{1}{n}$</p>
+
+        <p>This is the same series we used to find the convergence of the left endpoint of the interval, and we already know that it converges by the alternating series test. Therefore, we can say that the series also converges at the right endpoint of the interval, $x = \frac{1}{2}$.</p>
+
+        <p>Since the series converges at both endpoints of the interval, the interval of convergence of the Maclaurin series of $f(x) = ln(1 + 2x)$ is $- \frac{1}{2} \le x \le \frac{1}{2}$.</p>
+
+
+
+
+
+
+
+
+        </br></br>
+        <p>Here is a link to <a href="../calc3/calc3_pt1.html">Calculus III, Pt. 1</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

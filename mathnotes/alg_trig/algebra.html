@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Algebra Fundamentals</h1>
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th></tr></thead><tbody>
+ <tr><td><a href="#fractions">Working with Fractions</a></td></tr>
+ <tr><td><a href="#exponents">Working with Exponents</a></td></tr>
+ <tr><td><a href="#roots">Working with Roots</a></td></tr>
+ <tr><td><a href="#logarithms">Working with Logarithms</a></td></tr>
+ <tr><td><a href="#procedures">Procedures</a></td></tr>
+ <tr><td><a href="#geometry">Geometry</a></td></tr>
+ <tr><td><a href="#analytical_geometry">Analytical Geometry</a></td></tr>
+ <tr><td><a href="#trig">Trigonometry</a></td></tr>
+</tbody></table>
+
+
+	<p>Calculus builds on several fundamental concepts that derive from algebra and geometry. Several fundamental concepts of algebra that are useful for calculus are those concerning fractions, powers, square roots, and logarithms.</p>
+
+	<h2 id="fractions">Working with Fractions</h2>
+
+		<p><b>Division by Zero:</b> the denominator of a fraction can never be $0$</p>
+
+		<p><b>Reciprocal:</b> the reciprocal of a function is its multiplicative inverse; for example, $3/4$ becomes $4/3$, and $2$ becomes $1/2$.</p>
+
+		<p><b>Multiplication of Fractions:</b> is as straightforward as multiplying across both the numerators and denominators</p>
+
+		<p>$\frac{a}{b} + \frac{c}{d} = \frac{ac}{bd}$</p>
+
+		<p><b>Division of Fractions:</b> is similar to multiplication, but with an additional step of the reciprocal of the second fraction being found before multiplying</p>
+		<p>$\frac{a/b}{c/d} = \frac{a}{b} \frac{d}{c} = \frac{ad}{bc}$</p>
+
+		<p><b>Addition of Fractions:</b> requires finding a common denominator, usually the lowest common denominator</p>
+		<p>$\frac{a}{b} + \frac{c}{d} = \frac{(ad + cb)}{bd}$</p>
+
+		<p><b>Subtraction of Fractions:</b> follows a similar procedure to addition:</p>
+		<p>$\frac{a}{b} - \frac{c}{d} = \frac{(ad - cb)}{bd}$</p>
+
+		<p><b>Cancelling in Fractions:</b> fractions with an unbroken chain of multiplications across the entire numerator, as well as the entire denominator, can be simplified by cancelling out any common terms that appear in both the numerator and denominator</p>
+
+		<p>$\frac{a^3 b^2}{ac} = \frac{a^2 b^2}{c}$</p>
+
+
+	<h2 id="exponents">Working with Exponents</h2>
+
+		<p><b>The Power of Zero:</b> the result of any number (except for $0$) to the power of $0$ is equal to $1$</p>
+		<p>$x^0 = 1$</p>
+
+		<p><b>Negative Powers:</b> a base number raised to a negative power turns into a fraction, but does not change sign</p>
+		<p>$x^{-a} = \frac{1}{x^a}$</p>
+
+		<p><b>Fractional Powers:</b> a base number raised to a transitional power can be converted into a root problem</p>
+		<p>$x^{a/b} = \sqrt[b]{x^a}$
+
+		<p><b>Addition of Powers:</b> if 2 or more equivalent base terms are being multiplied, then their powers may be added</p>
+		<p>$x^a + x^b = x^{a+b}$</p>
+
+		<p><b>Subtraction of Powers:</b> whether the base numbers are being multiplied or divided, their power may be subtracted</p>
+		<p>$\left( \frac{x}{y} \right)^a  = \frac{x^a}{y^a}$</p>
+
+
+	<h2 id="roots">Working with Roots</h2>
+
+		<p>Similarly, we have rules for working with roots</p>
+
+		<p><b>Identities:</b></p>
+		<p>$\sqrt{0} = 0, \sqrt{1} = 1$</p>
+
+		<p><b>Products:</b></p>
+		<p>$\sqrt{a} \cdot \sqrt{b} = \sqrt{a \cdot b}$</p>
+		<p>$\sqrt[n]{a} \cdot \sqrt[n]{b} = \sqrt[n]{a \cdot b}$</p>
+
+		<p><b>Quotients:</b></p>
+		<p>$\frac{\sqrt[n]{a}}{\sqrt[n]{b}} = \sqrt[n]{\frac{a}{b}}$</p>
+
+		<p><b>Multiplication of Indices:</b></p>
+		<p>$\sqrt[m]{\sqrt[n]{a}} = \sqrt[mn]{a}$</p>
+
+		<p><b>Even Number Root:</b></p>
+		<p>$\sqrt{a^2} = |a|, \sqrt[4]{a^4} = |a|,\text{ etc.}$</p>
+
+		<p><b>Odd Number Root:</b></p>
+		<p>$\sqrt[3]{a^3} = a, \sqrt[5]{a^5} = a,\text{ etc.}$</p>
+
+		<p><b>Common Mistake to Avoid:</b></p>
+		<p>$\sqrt{a^2 + b^2} \neq a + b$</p>
+
+
+	<h2 id="logarithms">Working with Logarithms</h2>
+
+		<p>And similarly, we have rules for working with logarithms:</p>
+
+		<p><b>Identities:</b></p>
+		<p>$log_c1 = 0, log_cc = 1$</p>
+
+		<p><b>Products:</b></p>
+		<p>$log_c(ab) = log_ca + log_cb$</p>
+
+		<p><b>Quotients:</b></p>
+		<p>$log_c \frac{a}{b} = log_ca - log_cb$</p>
+
+		<p><b>Exponents:</b></p>
+		<p>$log_ca^b = b ~log_ca$</p>
+
+		<p><b>Change of Base:</b></p>
+		<p>$log_ab = \frac{log_cb}{log_ca}$</p>
+
+		<p><b>Anti-Logarithm:</b></p>
+		<p>$log_aa^b = b, a^{log_ab} = b$</p>
+
+
+
+	<h2 id="procedures">Procedures</h2>
+
+		<p><b>Completing the Square:</b></p>
+		<p>$x^2 + bx + c = (x + \frac{b}{2})^2 - \frac{b^2}{4} + c$</p>
+
+		<p><b>Quadratic Formula:</b></p>
+		<p>$\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+
+		<p><b>Exponent Rules:</b></p>
+		<p>$a^b a^c = a^{b+c}$</p>
+		<p>$\frac{a^b}{a^c} = a^b-c$</p>
+		<p>$(a^b)^c = a^{bc}$</p>
+		<p>$a^{1/b} = \sqrt[b]{a}$</p>
+
+
+
+	<h2 id="geometry">Geometry</h2>
+
+		<p><b>Circle Circumference:</b></p>
+			<p>$2 \pi r$</p>
+
+		<p><b>Circle Area:</b></p>
+			<p>$\pi r^2$</p>
+
+		<p><b>Ellipse Area:</b></p>
+			<p>$\pi a b$</p>
+			<ul>
+				<li>where $2a$ and $2b$ are the lengths of the axes of the ellipse</li>
+			</ul>
+
+		<p><b>Sphere Volume:</b></p>
+			<p>$4 \pi r^3 / 3$</p>
+
+		<p><b>Sphere Surface Area:</b></p>
+			<p>$4 \pi r^2$</p>
+
+		<p><b>Cylinder Volume:</b></p>
+			<p>$\pi r^2 h$</p>
+
+		<p><b>Cyclinder Lateral Area:</b></p>
+			<p>$2 \pi r h$</p>
+
+		<p><b>Cylinder Total Surface Area:</b></p>
+			<p>$2 \pi r h + 2 \pi r^2$</p>
+
+		<p><b>Cone Volume:</b></p>
+			<p>$\pi r^2 h / 3$</p>
+
+		<p><b>Cone Lateral Area:</b></p>
+			<p>$\pi r \sqrt{r^2 + h^2}$</p>
+
+		<p><b>Cone Total Surface Area:</b></p>
+			<p>$\pi r \sqrt{r^2 + h^2} + \pi r^2$</p>
+
+
+
+	<h2 id="analytical_geometry">Analytical Geometry</h2>
+
+		<p><b>Circle with Radius $r$ Centered at $h,k$:</b></p>
+		<p>$(x-h)^2 + (y-k)^2 = r^2$</p>
+
+		<p><b>Ellipse with Axes on the X-Axis and Y-Axis</b></p>
+		<p>$\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$</p>
+
+
+<!-- 
+	<h2 id="trig">Trigonometry</h2>
+
+		<p>$sin(\theta) = O/H$</p>
+		<p>$cos(\theta) = C/A$</p>
+		<p>$tan(\theta) = O/A$</p>
+
+		<p>$sec(\theta) = 1 / cos(\theta)$</p>
+		<p>$csc(\theta) = 1 / sin(\theta)$</p>
+		<p>$cot(\theta) = 1 / cot(\theta)$</p>
+
+		<p>$tan(\theta) = sin(\theta) / cos(\theta)$</p>
+		<p>$cot(\theta) = cos(\theta) / sin(\theta)$</p>
+
+		<p>$cos^2(\theta) + sin^2(\theta) = 1$</p>
+		<p>$tan^2(\theta) + 1 = sec^2$</p>
+		<p>$sec^2(\theta) - 1 = tan^2(\theta)$</p>
+
+		<p>$sin(\theta) = cos(\frac{\pi}{2} - \theta)$</p>
+		<p>$cos(\theta) = sin(\frac{\pi}{2} - \theta)$</p>
+
+		<p>$sin(\theta + \pi) = -sin(\theta)$</p>
+		<p>$cos(\theta + \pi) = -cos(\theta)$</p>
+
+
+		<p><b>Law of Cosines:</b></p>
+			<p>$a^2 = b^2 + c^2 - 2bc ~cos ~A$</p>
+
+		<p><b>Law of Sines:</b></p>
+			<p>$\frac{a}{sinA} = \frac{b}{sinB} = \frac{c}{sinC}~, ~\ldots$</p>
+
+		<p><b>Sine of Sum of Angles:</b></p>
+			<p>$sin(x + y) = sin ~x ~cos ~y + cos ~x ~sin ~y$</p>
+
+		<p><b>Sine of Double Angle:</b></p>
+			<p>$sin(2x) = 2 ~sin ~x ~cos ~x$</p>
+
+		<p><b>Sine of Difference of Angles:</b></p>
+			<p>$sin(x-y) = sin ~x ~cos ~y - cos ~x ~sin ~y$</p>
+
+		<p><b>Cosine of Sum of Angles:</b></p>
+			<p>$cox(x+y) = cos ~x ~cos ~y - sin ~x ~sin ~y$</p>
+
+		<p><b>Cosine of Double Angle:</b></p>
+			<p>$cos(2x) = cos^x - sec^2x = 2 ~cos^2x - 1 = 1 - 2 ~sin^2x$</p>
+
+		<p><b>Cosine of Difference of Angles:</b></p>
+			<p>$cos(x-y) = cos ~x ~cos ~y + sin ~x ~sin ~y$</p>
+
+		<p><b>Tangent of Sum of Angles:</b></p>
+			<p>$tan(x+y) = \frac{tan ~x + ~tan ~y}{1 - ~tan ~x ~tan ~y}$</p>
+
+
+
+		<h3>$sin^2(\theta)$ and $cos^2(\theta)$ Formulas:</h3>
+
+			<p>$sin^2(\theta) + cos^2(\theta) = 1$</p>
+
+			<p>$tan^2(\theta) + 1 = sec^2(\theta)$</p>
+
+			<p>$sin^2(\theta) = \frac{1 - cos(2 \theta)}{2}$</p>
+
+			<p>$cos^2(\theta) = \frac{1 + cos(2 \theta)}{2}$</p>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

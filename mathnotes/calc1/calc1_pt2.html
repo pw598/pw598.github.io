@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+<h1>Calculus I, Pt. 2</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#related_rates">Applications of Derivatives - Related Rates</a></td><td><a href="#radius_balloon">Radius of a Balloon</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#price_of_product">Price of the Product</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#water_level_in_tank">Water Level in The Tank</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#observer_and_airplane">Observer and the Airplane</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#ladder_and_wall">Ladder Sliding Down a Wall</a></td></tr>
+ <tr><td><a href="#physics">Applications of Derivatives - Physics</a></td><td><a href="#pos_vel_acc">Position, Velocity, and Acceleration</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#ball_thrown_up">Ball Thrown Up From the Ground</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#coin_dropped_roof">Coin Dropped From the Roof</a></td></tr>
+ <tr><td><a href="#economics">Applications of Derivatives - Economics</a></td><td><a href="#cost_rev_profit">Cost, Revenue, Profit</a></td></tr>
+ <tr><td><a href="#exp_growth_decay">Applications of Derivatives - Exponential Growth and Decay</a></td><td><a href="#half_life">Half Life</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#newtons_law_cooling">Newton's Law of Cooling</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sales_decline">Sales Decline</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#compound_interest">Compounding Interest</a></td></tr>
+</tbody></table>
+
+
+    <h2 id="related_rates">Applications of Derivatives - Related Rates</h2>
+
+        <h3 id="radius_balloon">Radius of a Balloon</h3>
+
+            <p>Related rates problems ask us to find how quickly one variable is changing when we know how quickly another variable is changing. For example:</p>
+                <ul>
+                    <li>How fast is the radius of a tire increasing if air is being pumped in at a particular rate?</li>
+                    <li>How fast is the water level of a swimming pool increasing if water is being fed in at a particular rate?</li>
+                </ul>
+
+            <p>In general, we want to follow these steps:</p>
+                <ol>
+                    <li>Build an equation containing all the relevant variables, solving some using other information if necessary</li>
+                    <li>Implicitly differentiate the equation with respect to time $t$, before plugging in any of the values we know</li>
+                    <li>Plug in all the variables we know, leaving only the ones we are trying to solve for</li>
+                </ol>
+
+
+            <h4>Example:</h4>
+
+                <p>How fast is the radius of a spherical balloon increasing when the radius is $100cm$ if air is being pumped into it at $400cm^3/s$?</p>
+
+                <p>Recall that the formulas for volume and surface area of a sphere are:</p>
+
+                <p>$V = \frac{4}{3} \pi r^3$</p>
+                <p>$S = 4 \pi r^2$</p>
+
+                <p>where $V$ is volume, $S$ is surface area, and $r$ is radius.</p>
+
+                <p>Before doing anything else, we use implicit differentiation to differentiate both sides with respect to time $t$.</p>
+
+                <p>We treat $t$ like a normal variable, and treat every other variable as a function of $t$. This means that every time we take the derivative of one of these other variables, we have to multply by the derivative of that variable. So when we use implicit differentiation to differentiate both sides of the equation for the volume of a sphere, we'll multply by $V'$ when we differentiate $V$, and multiply by $r'$ when we differentiate $r'$.</p>
+
+                <p>$1(V') = \frac{4}{3} \pi (3r^2)(r')$</p>
+                <p>$V' = 4 \pi r^2 r'$</p>
+
+                <p>Because $V$ and $r$ are both functions with respect to time $t$, we can replace their derivatives $V'$ and $r'$ with $\frac{dV}{dt}$ and $\frac{dr}{dt}$
+
+                    <p>$\frac{dV}{dt} = 4 \pi r^2 \frac{dr}{dt}$</p>
+
+                <ul>
+                    <li>$\frac{dV}{dt}$ is the rate at which the volume is changing</li>
+                    <li>$\frac{dr}{dt}$ is the rate at which the radius is changing</li>
+                    <li>$r$ is the length of the radius at a moment in time</li>
+                </ul>
+
+                <p>Now that we're done with the differentiation, we can substitute for any values we already know. For example, that the air is being pumped into the balloon at $400cm^3/s$.</p>
+
+                <p>$400 = 4 \pi r^2 \frac{dr}{dt}$</p>
+
+                <p>We've also been told that the length of the radius at the specific moment of interest is $100cm$.</p>
+
+                <p>$400 = 4 \pi (100)^2 \frac{dr}{dt}$</p>
+                <p>$400 = 4 \pi (10,000) \frac{dr}{dt}$</p>
+                <p>$400 = 40,000 \pi \frac{dr}{dt}$</p>
+
+                <p>The rate of change of the radius is $\frac{dr}{dt}$, so this is what we need to solve for</p>
+
+                <p>$\frac{dr}{dt} = \frac{400}{40,000 \pi} = \frac{1}{100 \pi}$</p>
+
+                <p>If air is being pumped into the balloon at $400cm^3/s$, then the length of the radius is increasing at $\frac{1}{100 \pi}cm/s$ at the moment when the length of the radius is $100cm$.</p>
+
+
+
+        <h3 id="price_of_product">Price of the Product</h3>
+
+            <p>With a 'price of the product' problem, we're usually given the equation that relates price to quantity. For example, that the quantity and price of an item are related by $q = 20e^p$. Given this equation, we can differentiate it implicitly, substitute for the values we know, and solve for the value we're trying to find.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>The manufacturer is increasing production of an item by $14$ units per week. The item currently sells for $\$2$. How fast is the price of the item changing as the manufacturer produces more units?</p>
+
+                <p>$q = - \frac{1}{5} e^{2p}$</p>
+
+                <p>We start by differentiating the equation, taking the derivative of both $q$ and $p$, as functions of time $t$, therefore multiplying by $q$ when we differentiate $q$, and by $p'$ when we differentiate $p$.</p>
+
+                <p>$1(q') = - \frac{1}{5} e^{2p} (2(1)(p'))$</p>
+
+                <p>$q' = - \frac{2}{5} e^{2p} p'$
+
+                <p>We know that production (quantity) is increasing by $14$ units per week, so $q' = 14$</p>
+
+                <p>$14 = - \frac{2}{5} e^{2p} p'$</p>
+
+                <p>And we know the current price of the item is $\$2.00$</p>
+
+                <p>$14 = - \frac{2}{5} e^2(2) p'$</p>
+
+                <p>We were asked to solve for the rate of change of price, which means we need to solve for $p'$</p>
+
+                <p>$70 = -2e^4p'$</p>
+                <p>$-35 = e^4p$</p>
+                <p>$p' = - \frac{35}{e^4}$</p>
+                <p>$p' \approx -0.64$</p>
+
+                <p>Since the manufacturer was increasing production by $14$ units per week, the retail price of the item is changing by $-0.64$ per week.</p>
+
+
+
+        <h3 id="water_level_in_tank">Water Level in The Tank</h3>
+
+            <p>Here are the volume formulas for different geometric figures:</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Shape</th><th>Function</th></tr></thead><tbody>
+             <tr><td>Cube</td><td>$V = s^3$</td></tr>
+             <tr><td>Rectangular Prism</td><td>$V = lwh$</td></tr>
+             <tr><td>Triangular Prism</td><td>$V = \frac{1}{2}whl$</td></tr>
+             <tr><td>Pyramid</td><td>$V = \left( \frac{1}{3} \right) s^2h$</td></tr>
+             <tr><td>Cone</td><td>$V = \left( \frac{1}{3} \right) \pi r^2 h$</td></tr>
+             <tr><td>Sphere</td><td>$V = \left( \frac{4}{3} \right) \pi r^3$</td></tr>
+             <tr><td>Cylinder</td><td>$V = \pi r^2 h$</td></tr>
+            </tbody></table>
+
+            </br>
+            <p>An inverted cone-shaped tank is being filled with two gallons of water per minute. How fast is the water level rising when the radius of the cone of the water is $10$ inches?</p>
+
+            <p>The formula for volume of a cone is:</p>
+
+            <p>$V = \frac{1}{3} r^2 h$</p>
+
+            <p>Given that we already know the radius at the time of interest is $r=10$, we can substitute now for $r$ before differentiating.</p>
+
+            <p>$V = \frac{1}{3} \pi (10)^2 h$</p>
+            <p>$V = \frac{100}{3} \pi h$</p>
+
+            <p>And now take the derivative.</p>
+
+            <p>$1(V') = \frac{100}{3} \pi (1) (h')$</p>
+            <p>$V' = \frac{100}{3} \pi h'$</p>
+
+            <p>We know the volume of the water is increasing by $2$ gallons per minute, and we want to solve for $h'$.</p>
+
+            <p>$2 = \frac{100}{3} \pi h'$</p>
+            <p>$6 = 100 \pi h'$</p>
+            <p>$h' = \frac{3}{50} \pi$</p>
+            <p>$h' \approx 0.0191$</p>
+
+            <p>The water level is increasing at a rate of $h' \approx 0.0191$ inches per minute.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Oil is being pumped out of a cylindrical tank with radius $3ft$ at a rate of $10$ gallons per minute. How fast is the oil level changing?</p>
+
+                <p>The radius is known, so</p>
+
+                <p>$V = \pi (3)^2 h$</p>
+                <p>$V = 9 \pi h$</p>
+
+                <p>We then differentiate the formula.</p>
+
+                <p>$1(V') = 9 \pi (1) h'$</p>
+                <p>$V' = 9 \pi h'$</p>
+
+
+                <p>We know the volume of oil is decreasing as oil is pumped out at $10$ gallons per minute.</p>
+
+                <p>$-10 = 9 \pi h'$</p>
+
+                <p>Now we solve for $h'$</p>
+
+                <p>$h' = \frac{10}{9 \pi}$</p>
+                <p>$h' \approx -0.3538$</p>
+
+                <p>The height of oil is decreasing at a rate of $h' \approx 0.3538$ feet per minute.</p>
+
+
+
+        <h3 id="observer_and_airplane">Observer and the Airplane</h3>
+
+            <p>In these kinds of related rates problems, we have two objects, where either one or both are in motion either toward or away from each other.</p>
+
+            <p>Very often, with these types of problems, we use the Pythagorean theorem, $a^2 + b^2 = c^2$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>A bicycle is $2km$ east of an intersection, travelling toward it at $10km/h$. Meanwhile, a car $8km$ south of the intersection is travelling toward it at $25km/h$. How fast is the distance between them decreasing?</p>
+
+                <p>We can sketch a diagram, and label it with the values we've been given. We'll say $a$ is the shortest side, of $2km$. We'll give the rate of change of that side length, the negative value $\frac{da}{dt} = -10km/h$.</p>
+
+                <p>$b=8km$ will be the distance between the intersection and the other car. We'll give the rate of change of that side length the negative value $\frac{db}{dt} = -25km/h$.</p>
+
+                <p>We can use the Pythagorean theorem to find the distance between the bicycle and the car, $c$, at the time when $a=2$ and $b=8$.</p>
+
+                <img src="img/calc1_fig1.png" style="height: 250px; width:auto;"></br></br>
+
+                <p>$a^2 + b^2 = c^2$</p>
+                <p>$2^2 + 8^2 = c^2$</p>
+                <p>$4 + 64 = c^2$</p>
+                <p>$68 = c^2$</p>
+                <p>$c = \sqrt{68}$</p>
+
+                <p>Then, if we start with the Pythagorean theorem, we can use implicit differentation to take the derivative of both sides</p>
+
+                <p>$2a \left( \frac{da}{dt} \right) + 2b \left( \frac{db}{dt} \right) = 2c \left( \frac{dc}{dt} \right)$</p>
+
+                <p>Substitute what we already know:</p>
+
+                <p>$2(2)(-10) + 2(8)(-25) = 2(2 \sqrt{17}) \left( \frac{dc}{dt} \right)$</p>
+                <p>$-40 - 400 = 4 \sqrt{17} \left( \frac{dc}{dt} \right)$</p>
+
+                <p>Now solve for $\frac{dc}{dt}$, which is the rate of change between the bicycle and the car</p>
+
+                <p>$-440 = 4 \sqrt{17} \left( \frac{dc}{dt} \right)$</p>
+                <p>$\frac{dc}{dt} = - \frac{110}{\sqrt{17}}$</p>
+                <p>$\frac{dc}{dt} \approx -26.68$</p>
+
+
+
+        <h3 id="ladder_and_wall">Ladder Sliding Down a Wall</h3>
+
+            <p>Like in the 'observer and the airplane' problem, we'll use the Pythagorean theorem because the ladder, wall, and ground (or their analogs) will form a right angle with the 'ground'. As the ladder slides, the height of the wall between the ground and the top of the ladder will decrease, and the length of ground between the wall and the ladder will increase. We need to use trigonometric functions to work with the angles inside the triangle formed. We may need to utilize the fact that the 3 interior angles of a triangle always sum to $180^{\circ}$.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>A $10ft$ ladder is sliding down a wall at a rate of $1ft$ per second. How quickly is the base of the ladder sliding along the ground away from the wall when the top of the ladder is $5ft$ off the ground?</p>
+
+                <p>It is advisable to first sketch a diagram</p>
+
+                <img src="img/calc1_fig2.png" style="height: 200px; width:auto;"></br></br>
+
+                <p>We start with the Pythagorean theorem equation $a^2 + b^2 = c^2$. We don't need to pressure $\frac{dc}{dt}$ in the equation, because we haven't been asked to solve for the rate of change in ladder length, because it is a constant $10ft$ in length.</p>
+
+                <p>$a^2 + b^2 = 10^2$</p>
+
+                <p>At the moment we're interested in, we know the length of $a$ and $c$, and can solve for $b$.</p>
+
+                <p>$5^2 + b^2 = 10^2$</p>
+                <p>$25 + b^2 = 100$</p>
+                <p>$b^2 = 75$</p>
+                <p>$b = \sqrt{75} = 5 \sqrt{3}$</p>
+
+
+                <p>Then use implicit differentiation to find the derivative,</p>
+
+                <p>$2a \left( \frac{da}{dt} \right) = 2b \left( \frac{db}{dt} \right) = 0$</p>
+                <p>$a \left( \frac{da}{dt} \right) + b \left( \frac{db}{dt} \right) = 0$</p>
+
+
+                <p>Then substitute what we know.</p>
+
+                <p>$(5)(-1) + (5 \sqrt{3}) \frac{db}{dt} = 0$</p>
+
+                <p>We have been asked to find the rate of change of side $b$, which is the $\frac{db}{dt}$ value that remains in the equation.</p>
+
+                <p>$-5 + 5 \sqrt{3} \left( \frac{db}{dt} \right) = 0$</p>
+                <p>$- 5 \sqrt{3} \left( \frac{db}{dt} \right) = 5$</p>
+
+                <p>$\frac{db}{dt} = \frac{5}{5 \sqrt{3}}$</p>
+                <p>$\frac{db}{dt} = \frac{1}{\sqrt{3}}$</p>
+                <p>$\frac{db}{dt} \approx 0.58$</p>
+
+                <p>The length of side $b$, which is the distance between the wall and the base of the ladder, is increasing at a rate of $0.58$ feet per second as the base of the ladder slides away from the wall.</p>
+
+
+
+    <h2 id="physics">Applications of Derivatives - Physics</h2>
+
+        <h3 id="pos_vel_acc">Position, Velocity, and Acceleration</h3>
+
+            <p>Velocity is the derivative of position, and acceleration is the derivative of velocity. So if position is defined as $x(t)$, velocity by $v(t)$, and acceleration by $a(t)$, then we can describe the relationship between these functions as:</p>
+                <ul>
+                    <li>Position: $x(t)$</li>
+                    <li>Velocity: $v(t) = x'(t)$</li>
+                    <li>Acceleration: $a(t) = v'(t) = x''(t)$</li>
+                </ul>
+
+            <p>Speed is increasing when velocity and acceleration have the same sign. It is decreasing when velocity and acceleration have opposite signs. An object is moving forward when $v(t) \gt 0$, backward when $v(t) \lt 0$, and at rest when $v(t) = 0$. Similarly, velocity is increasing when $a(t) \gt 0$, and decreasing when $a(t) \lt 0$. Speed is always positive because it is given by the absolute value of velocity.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>From the position function given for a particle find velocity and acceleration as functions of $t$. Find the direction in which the particle is moving when $t=1$, and say whether its velocity and speed are increasing at that point. The position function is:</p>
+
+                <p>$x(t) = 3t^2 + 8t - 2t^{5/2}$</p>
+
+                <p>Velocity is the derivative of the position function and acceleration is the derivative of velocity.</p>
+
+                <p>$v(t) = x'(t) = 6t + 8 - 5t^{3/2}$</p>
+                <p>$a(t) = v'(t) = 6 - \frac{15}{2} t^{1/2}$</p>
+
+                <p>To find direction when $t=1$, substitute $t=1$ into the velocity function.</p>
+
+                <p>$v(1) = 6(1) + 8 - 5(1)^{3/2}$</p>
+                <p>$v(1) = 9$</p>
+
+                <p>Because $v(1)$ is positive, the particle is moving forward. To determine whether velocity is increasing or decreasing, substitute $t=1$ into the acceleration function.</p>
+
+                <p>$a(1) = 6 - \frac{15}{2}(1)^{1/2}$</p>
+                <p>$a(1) = - \frac{3}{2}$</p>
+
+                <p>Because acceleration is negative at $t=1$, velocity is decreasing at that point. If velocity is positive and decreasing at $t=1$, then speed is often decreasing at that point.</p>
+
+
+        <h3 id="ball_thrown_up">Ball Thrown Up From the Ground</h3>
+
+            <p>In these problems, we are always interested in 3 positions along the flight path of the object:</p>
+                <ol>                
+                    <li>The initial position where the object begins when it is first thrown up</li>
+                    <li>The maximum position where the object stops traveling up and starts traveling back down</li>
+                    <li>The position at which the object hits the ground, finishing its flight</li>
+                </ol>
+
+            <p>At each of these 3 positions, we're always interested in 3 values:</p>
+                <ol>
+                    <li>The time at which the object reaches the position</li>
+                    <li>The height of the object at that position</li>
+                    <li>The velocity of the object at that position</li>
+                </ol>
+
+            <p>The initial and final height will be $y=0$. It begins at $t=0$, and when the ball reaches its maximum point, the velocity is $v=0$. So we can partially fill in the table that describes the flight path.</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th></th><th>Initial</th><th>Maximum</th><th>End</th></tr></thead><tbody>
+             <tr><td>t</td><td>$t=0$</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+             <tr><td>v</td><td>&nbsp;</td><td>$v=0$</td><td>&nbsp;</td></tr>
+             <tr><td>y</td><td>$y=0$</td><td>&nbsp;</td><td>$y=0$</td></tr>
+            </tbody></table>
+
+            </br>
+            <p>If the position function includes $g$, it is the gravitational constant $g=32 ft/s^2$ or $9.8 m/s^2$. If we differentiate the position function, we get the velocity function, and we can set the velocity function to $0$, solving for time $t$ at which the object reaches its maximum height.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>A ball is thrown straight up from the ground with an initial velocity of $v_0 = 32 ft/s$. Find its height and velocity when it leaves the ground, when it reaches maximum height, and when it hits the ground again.</p>
+
+                <p>$y(t) = - \frac{1}{2} gt^2 + v_0t + y_0$</p>
+
+                <p>First, substitute $g=32$, since the gravitational constant (equal to $32 ft/s^2$) is included in the function:</p>
+
+                <p>$y(t) = - \frac{1}{2}(32)t^2 + v_0t + y_0$</p>
+                <p>$y(t) = -16t^2 + v_0t + y_0$</p>
+
+                <p>The initial velocity is given as $v_0 = 32$, so substitute this value as well.</p>
+
+                <p>$y(t) = -16t^2 + 32t + y_0$</p>
+
+                <p>Substitute the initial height of the ball, $y_0 = 0$:</p>
+
+                <p>$y(t) = -16t^2 + 32t + 0$</p>
+                <p>$y(t) = -16t^2 + 32t$</p>
+
+                <p>So the velocity row of the 'initial' column should be filled in with $32$. To fill in the rest of the table, start by setting the original function equal to $0,$ giving the time at which the ball is on the ground.</p>
+
+                <p>$16t^2 + 32t = 0$</p>
+                <p>$-16t(t-2) = 0$</p>
+                <p>$t = 0, 2$</p>
+
+                <p>This tells us that the ball is on the ground when $t=0$ and $t=2$, so we can add $t=2$ to the vertical motion chart.</p>
+
+                <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th></th><th>Initial</th><th>Maximum</th><th>End</th></tr></thead><tbody>
+                 <tr><td>t</td><td>$t=0$</td><td>&nbsp;</td><td>$t=2$</td></tr>
+                 <tr><td>v</td><td>$v=32$</td><td>$v=0$</td><td>&nbsp;</td></tr>
+                 <tr><td>y</td><td>$y=0$</td><td>&nbsp;</td><td>$y=0$</td></tr>
+                </tbody></table>
+
+                </br>
+                <p>Take the derivative of the original position function to find the velocity function.</p>
+
+                <p>$v(t) = y'(t) = -32t + 32$</p>
+
+                <p>Find the velocity at $t=2$.</p>
+
+                <p>$v(2) = -32(2) + 32$</p>
+                <p>$v(2) = -64 + 32$</p>
+                <p>$v(2) = -32$</p>
+
+                <p>Set the velocity function equal to zero to find the time at which the ball reaches its maximum height.</p>
+
+                <p>$-32t + 32 = 0$</p>
+                <p>$32t = 32$</p>
+                <p>$t = 1$</p>
+
+                <p>Add this to the vertical motion chart.</p>
+
+                <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th></th><th>Initial</th><th>Maximum</th><th>End</th></tr></thead><tbody>
+                 <tr><td>t</td><td>$t=0$</td><td>$t=1$</td><td>$t=2$</td></tr>
+                 <tr><td>v</td><td>$v=32$</td><td>$v=0$</td><td>$v=-32$</td></tr>
+                 <tr><td>y</td><td>$y=0$</td><td>&nbsp;</td><td>$y=0$</td></tr>
+                </tbody></table>
+
+                </br>
+                <p>Substitute $t=8$ into the original position function to find the height of the maximum height of the ball.</p>
+
+                <p>$y(1) = 16(1)^2 + 32(1)$</p>
+                <p>$y(1) = -16(1) + 32(1)$</p>
+                <p>$y(1) = -16 + 32$</p>
+                <p>$y(1) = 16$</p>
+
+                <p>Add this to the vertical motion chart.</p>
+
+                <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th></th><th>Initial</th><th>Maximum</th><th>End</th></tr></thead><tbody>
+                 <tr><td>t</td><td>$t=0$</td><td>$t=1$</td><td>$t=2$</td></tr>
+                 <tr><td>v</td><td>$v=32$</td><td>$v=0$</td><td>$v=-32$</td></tr>
+                 <tr><td>y</td><td>$y=0$</td><td>$y=16$</td><td>$y=0$</td></tr>
+                </tbody></table>
+
+                </br>
+                <p>The ball leaves the ground with an initial velocity of $32 ft/s$, and reaches its maximum height of $16 ft$ after $t=1$ seconds, at which point it stops increasing in height, and starts falling back toward the ground, and evetually hits the ground at a velocity of $-32 ft/s$ after $t=2$ seconds.</p>
+
+
+
+        <h3 id="coin_dropped_roof">Coin Dropped From the Roof</h3>
+
+            <p>In these problems, we are looking at a vertical motion pattern in which we drop an object from a height, letting it fall straight to the ground, eventually stopping when it hits the ground.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>A watermelon is dropped from the top of a building $28m$ high. Find:</p>
+                    <ul>
+                        <li>Instantaneous velocity at $t=2$</li>
+                        <li>Average velocity between $t=0$ and $t=2$</li>
+                        <li>Time when the watermelon hits the ground</li>
+                    </ul>
+
+                <p>Plugging everything we know into the standard formula for projectile motion:</p>
+
+                <p>$x(t) = - \frac{1}{2} gt^2 + v_0t + y_0$</p>
+                <p>$x(t) = - \frac{1}{2} t^2 + 0t + 28$</p>
+                <p>$x(t) = - \frac{4}{9} t^2 + 28$</p>
+
+                <p>Find the velocity function by differentiating the position function.</p>
+
+                <p>$v(t) = x'(t) = -9.8t$</p>
+
+                <p>To find instantaneous velocity at $t=2$, substitute $t=2$ into the velocity function.</p>
+
+                <p>$v(4) =-9.8(2)$</p>
+                <p>$v(4) = -19.6$</p>
+
+                <p>Now find average velocity over to $t = [0,2]$:</p>
+
+                <p>$\Delta v(a,b) = \frac{x(b)- x(a)}{b-a}$</p>
+                <p>$\Delta v(0,2) = \frac{x(2)- x(0)}{2-0}$</p>
+                <p>$= \frac{ -4.9(2)^2 + 28 - (-4.9(0)^2 + 28 ) }{ 2 }$</p>
+                <p>$= \frac{ -19.6 + 28 - 28 }{2}$</p>
+                <p>$= \frac{-19.6}{2} = -9.8$</p>
+
+                <p>This is the average velocity of the watermelon between $t=0$ and $t=2$. The watermelon will hit the ground when $x(t) = 0$, so we'll set the position function equal to $0$ and solve for $t$.</p>
+
+                <p>$-4.9t^2 + 28 = 0$</p>
+                <p>$4.9t^2 = 28$</p>
+                <p>$t^2 = \frac{28}{4.9}$</p>
+                <p>$t \approx \sqrt{5.71} \approx 2.39$</p>
+
+
+
+    <h2 id="economics">Applications of Derivatives - Economics</h2>
+        
+        <h3 id="cost_rev_profit">Cost, Revenue, Profit</h3>
+
+            <p>By producing $x$ units of a product:</p>
+
+            <p>Revenue: $R(x) = xp$</p>
+            <p>Cost: $C(x) = F + V(x)$</p>
+            <p>Profit: $P(x) = R(x) - C(x)$</p>
+                <ul>
+                    <li>$p$ is the demand function for the product</li>
+                    <li>$F$ is fixed cost and $V$ is variable cost</li>
+                </ul>
+
+
+            <h4>Example:</h4>
+
+                <p>Calculate a smartphone manufacturer's marginal cost, marginal revenue, and marginal profit when they are producing $75$ smartphones, if the demand function is $p = 6x$ and the cost of making the smartphones is modeled by $C(x)$.</p>
+
+                <p>$C(x) = 6x^2 + 34x + 2.5$</p>
+
+                <p>To calculate the marginal cost at $75$ units, we take the derivative of the cost function and then evaluate the derivative at $x=75$.</p>
+
+                <p>$C'(x) = 12x + 34$</p>
+                <p>$C'(x) = 12(75) + 34$</p>
+                <p>$C'(x) = 934$</p>
+
+                <p>To calculate marginal revenue at $75$ units, we need to find a revenue function, take its derivative, and then evaluate the derivative at $x=75$. The revenue equation is $R(x) = xp$ where $p$ is th demand function, $p=6x$.</p>
+
+                <p>$R(x) = x(6x)$</p>
+                <p>$R(x) = 6x^2$</p>
+
+                <p>Taking the derivative of revenue to get marginal revenue, then evaluating at $x=75$, we get:</p>
+
+                <p>$R'(x) = 12x$</p>
+                <p>$R'(x) = 12(75)$</p>
+                <p>$R'(v) = 900$</p>
+
+                <p>The marginal revenue at $x=75$ is $\$900$, which means the additional revenue associated with selling the $76th$ unit is $\$900$.</p>
+
+                <p>Finally, to solve for marginal profit we need to find a profit function, take its derivative, and then evaluate the derivative at $x=75$. The profit equation is $P(x) = R(x) - C(x)$.</p>
+
+                <p>$P(x) = 6x^2 - (6x^2 + 34 + 2500)$</p>
+                <p>$P(x) = -34x - 2500$</p>
+
+                <p>Taking the derivative of profit to get marginal profit and then evaluating at $x=75$ gives:</p>
+
+                <p>$P'(x) = -34$</p>
+                <p>$P'(75) = -34$</p>
+
+                <p>The marginal profit at $x=75$ is $\$-34$, which means the company's profit will increase by $\$34$ dollars when they produce and sell the $76th$ smartphone. Alternatively, to arrive at the same answer, we could have subtracted marginal cost from marginal revenue.</p>
+
+
+
+    <h2 id="exp_growth_decay">Applications of Derivatives - Exponential Growth and Decay</h2>
+
+        <h3 id="half_life">Half Life</h3>
+
+            <p>Though we don't use derivatives in order to solve decay problems, derivatives are used to build the basic growth and decay formulas. The basic equation for exponential decay is:</p>
+
+            <p>$y = Ce^{-kt}$</p>
+                <ul>
+                    <li>$C$ is the amount of a substance that we're starting with</li>
+                    <li>$k$ is the decay constant</li>
+                    <li>$y$ is the amount of substance remaining at time $t$</li>
+                </ul>
+
+            <p>Half Life:</p>
+
+            <p>$y = \frac{C}{2}$</p>
+            <p>$\frac{C}{2} = Ce^{-kt}$</p>
+            <p>$\frac{1}{2} = e^{-kt} $</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Fermium-253 has a half life of $3$ days. If we start with $1200mg$, how much of the substance remains after $10$ days?
+
+                <p>$\frac{1}{2} = e^{-kt}$</p>
+                <p>$\frac{1}{2} = e^{-k(3)}$</p>
+                <p>$\frac{1}{2} = e^{-3k}$</p>
+
+                <p>Then apply the natural log to both sides in order to solve for $k$</p>
+
+                <p>$ln \frac{1}{2} = ln(e^-3k)$</p>
+                <p>$ln \frac{1}{2} = -3k$</p>
+                <p>$k = - \frac{1}{3} ln \frac{1}{2}$</p>
+
+                <p>With a value for the decay constant $k$, we can now solve for the amount of substance remaining, $y$, after $t=10$ days</p>
+
+                <p>$y = Ce^{-kt}$</p>
+                <p>$= 1200e^{ - \left( \frac{1}{3} ln \frac{1}{2} \right) (10) }$</p>
+                <p>$= 1200e^{ \frac{10}{3} ln \frac{1}{2} }$</p>
+                <p>$= 119.06$</p>
+
+                <p>Therefore, after $t=10$ days, $y=119.06mg$ of Fermium-253 remain</p>
+
+
+        <h3 id="newtons_law_cooling">Newton's Law of Cooling</h3>
+
+            <p>Newton's law of cooling tells us that the rate at which an object cools is proportional to the difference between the temperature of the object and the environment around it.</p>
+
+            <p>$\frac{dT}{dt} = -k(T_0-T_a)$</p>
+
+            <p>with $T(0) = T_0$</p>
+                <ul>
+                    <li>$t$ is the temperature over time</li>
+                    <li>$k$ is the decay constant</li>
+                    <li>$T_a$ is the ambient temperature of the environment</li>
+                    <li>$T_0$ is the initial temperature of the object</li>
+                </ul>
+
+            <p>Applying Newton's law will generate an equation that models the temperature of the cooling object.</p>
+
+            <p>$T(t) = T_a + (T_0 - T_a) e^{-kt}$</p>
+
+
+            <h4>Example:</h4>
+
+                <p>A pot of soup boiling at $100^{\circ} C$ is removed from the stove and set on a counter where the ambient temperature is $23^{\circ} C$. After 5 minutes, the soup cools to $98^{\circ}$. If the soup needs to be served to the customer at $90^{\circ}$, how long will it be before the soup is ready to serve?</p>
+
+                <p>$T_0 = 100^{\circ}$</p>
+                <p>$T_a = 23^{\circ}$</p>
+                <p>$T(5) = 98^{\circ}$</p>
+
+                <p>We start with:</p>
+
+                <p>$T(t) = T_a + (T_0 - T_a) e^{-kt}$</p>
+                <p>$T(t) = 23 + 77e^{-kt}$</p>
+
+                <p>Then we substitute the initial condition $T(5) = 98^{\circ}$:</p>
+
+                <p>$T(5) = 23 + 77e^{-k(5)}$</p>
+                <p>$98 = 23 + 77e^{-5k}$</p>
+
+                <p>And find the value of the decay constant $k$.</p>
+
+                <p>$75 = 77e^{-5k}$</p>
+                <p>$\frac{75}{77} = e^{-5k}$</p>
+                <p>$ln \frac{75}{77} = ln(e^-5k)$</p>
+                <p>$ln \frac{75}{77} = -5k$</p>
+                <p>$k = - \frac{1}{5} ln \frac{75}{77}$</p>
+
+                <p>Substitute this value into $k$ for the equation modeling temperature over time.</p>
+
+                <p>$T(t) = 23 + 77e^{ - \left( \frac{1}{5} ln \frac{75}{77} \right) t }$</p>
+                <p>$= 23 + 77e^{ \left( \frac{1}{5} ln \frac{75}{77} \right) t }$</p>
+
+                <p>We want to find the time $t$ at which the soup reaches $90^{\circ}$, so we'll substitute $T(t) = 90$.</p>
+
+                <p>$90 = 23 + 77e^{ \left( \frac{1}{5} ln \frac{75}{77} \right) t }$</p>
+                <p>$67 = 77e^{ \left( \frac{1}{5} ln \frac{75}{77} \right) t }$</p>
+                <p>$\frac{67}{77} = e^{ \left( \frac{1}{5} ln \frac{75}{77} \right) t }$</p>
+
+                <p>Then apply the natural logarithm to both sides of the equation.</p>
+
+                <p>$ln \frac{67}{77} = ln \left( e^{\left( \frac{1}{5} ln \frac{75}{77} \right) t} \right)$
+                <p>$ln \frac{67}{77} = \left( \frac{1}{5} ln \frac{75}{77} \right) t$</p>
+                <p>$t = \frac{ 5 ln \frac{67}{77} }{ ln \frac{75}{77} } \approx 26.43$</p>
+
+                <p>The pot of soup will cool from $100^{\circ}$ to $90^{\circ}$ in about $26.5$ minutes.</p>
+
+
+        <h3 id="sales_decline">Sales Decline</h3>
+
+            <p>If sales of a product are consistently declining at an exponential rate, we can model that decline with the formula.</p>
+
+            <p>$F = Pe^{-rt}$</p>
+                <ul>
+                    <li>$P$ is the number of items being sold</li>
+                    <li>$r$ is the rate of decline</li>
+                    <li>$F$ is the number of items being sold after sales have continued to decline for some specified amount of time $t$</li>
+                </ul>
+
+            <p>It's important that the rate $r$ and the time $t$ have complementary (matching) units.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Sales of Isaac Newton bobbleheads have decreased over the last $4$ years. $4$ years ago, $285,674$ were sold, but over the last year, $97,546$ were sold. Assuming sales have declined at an exponential rate, what is the rate of decline?
+
+                <p>$F = 97,546$</p>
+                <p>$P = 285,674$</p>
+                <p>$t = 4$</p>
+
+                <p>$F = Pe^{-rt}$</p>
+                <p>$97,546 = 285,674e^{-r(4)}$</p>
+
+                <p>Given the above, we solve for $r$.</p>
+
+                <p>$\frac{97,546}{285,674} = e^{-4r}$</p>
+                <p>$0.3415 = e^{-4r}$</p>
+                <p>$ln 0.3415 = ln(e^{-4r})$</p>
+                <p>$-1.075 = -4r$</p>
+                <p>$r = 0.269$</p>
+
+                <p>The bobblehead sales have declined at an annual rate of $r = 0.269 (26.9\%)$.</p>
+
+
+        <h3 id="compound_interest">Compounding Interest</h3>
+
+            <p>Exponential growth is modeled by:</P>
+
+            <p>$A = Pe^{rt}$</P>
+                <ul>
+                    <li>$P$ is the initial investment</li>
+                    <li>$r$ is the annual interest rate</li>
+                    <li>$A$ is the amount in the account after time $t$</li>
+                </ul>
+
+            <p>Sometimes we'll write this formula as:</P>
+
+            <p>$FV = PVe^{rt}$</P>
+
+            <p>where $A=FV$ is the future value of the account, and $P=PV$ is the present value. When the interest is compounded continuously,</P>
+
+            <p>$A = P \left( 1 + \frac{r}{n} \right)^{nt}$</P>
+
+
+            <h4>Example:</h4>
+
+                <p>We invest $2000$ dollars at a rate of $3\%$ compounded continuously. How much will the investment be worth after $3$ years?</p>
+
+                <p>$A = Pe^{rt}$</p>
+                <p>$A = 2000e^{0.03(3)}$</p>
+                <p>$A = 2000e^{0.09}$</p>
+                <p>$A \approx 2188.35$</p>
+
+                <p>After $3$ years at $3\% $ interest, the investment is worth $2188.35$.</p>
+
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="../calc2/calc2_pt1.html">Calculus II, part 1</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
