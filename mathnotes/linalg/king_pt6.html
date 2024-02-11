@@ -1,0 +1,1853 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Linear Algebra, King Pt. 6</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#orth_bases_gramschmidt">Orthonormal Bases and Gram-Schmidt</a></td><td><a href="#orth_bases">Orthonormal Bases</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#proj_orth_basis">Projection Onto an Orthonormal Basis</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#gram_schmidt">Gram-Schmidt Process for Change of Basis</a></td></tr>
+ <tr><td><a href="#eig">Eigenvalues, Eigenvectors, and Eigenspaces</a></td><td><a href="#id_eigvectors">Identifying Eigenvectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#find_eigvalues">Finding Eigenvalues</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#find_eigvectors">Finding Eigenvectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#eig_in_3dims">Eigendecomposition in Three Dimensions</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="orth_bases_gramschmidt">Orthonormal Bases and Gram-Schmidt</h2>
+
+		<h3 id="orth_bases">Orthonormal Bases</h3>
+
+			<p>$B = \{ \overrightarrow{v_1}, \overrightarrow{v_2}, \overrightarrow{v_3} \}$ is the orthonormal basis for $V$ if each vector $\overrightarrow{v}$ in the set has length $1$, and if each vector in the set $\overrightarrow{v}$ is orthogonal to every other vector in the set $\overrightarrow{v_j}$, then $\overrightarrow{v_i} \cdot \overrightarrow{v_j} = 0$ for $i \neq j$.</p>
+
+			<p>If a set of vectors is orthonormal, then all of the vectors in the set are linearly independent.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Verify that the vector set $V = \{ \overrightarrow{v_1}, \overrightarrow{v_2} \}$ is an orthonormal set, if $\overrightarrow{v_1} = (0,0,1)$ and $\overrightarrow{v_2} = (0,1,0)$.</p>
+
+				<p>Both vectors have length $1$.</p>
+
+				<p>$||v_1||^2 = \overrightarrow{v_1} \cdot \overrightarrow{v_1} = 0(0) + 0(0) + 1(1) = 1$</p>
+				<p>$||v_2||^2 = \overrightarrow{v_2} \cdot \overrightarrow{v_2} = 0(0) + 1(1) + 0(0) = 1$</p>
+
+				<p>Now we'll confirm that the vectors are orthogonal.</p>
+
+				<p>$\overrightarrow{v_1} \cdot \overrightarrow{v_2} = 0(0) + 0(1) + 1(0) = 0$</p>
+
+				<p>An orthogonal matrix is a square matrix whose columns form an orthonormal set of vectors. If a matrix is rectangular, but its columns still form an orthonormal set of vectors, we call it an orthonormal matrix.</p>
+
+				<p>When a matrix is orthogonal, we know that its transpose is the same as its inverse, so:</p>
+
+				<p>$A^T = A^{-1}$</p>
+
+				<p>Using an orthonormal basis simplifies many of the operations and formulas. If the column vectors $v_1, v_2, v_3$ in:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					\vdots & \vdots & \vdots \\
+					v_1 & v_2 & v_3 \\
+					\vdots & \vdots & \vdots \\
+					\end{bmatrix}
+
+					[\overrightarrow{x}]_B
+
+					=
+
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>form an orthonormal set, then the matrix problem simplifies to a dot product problem. The equation becomes:</p>
+
+
+				<p>$
+					[\overrightarrow{x}]_B =
+
+					\begin{bmatrix}
+					v_1 \cdot \overrightarrow{x} \\
+					v_2 \cdot \overrightarrow{x} \\
+					v_3 \cdot \overrightarrow{x} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+		<h3 id="proj_orth_basis">Projection Onto an Orthonormal Basis</h3>
+
+			<p>Finding the projection of a vector onto a subspace is also  much easier when the subspace is defined by an orthonormal basis. We defined the projection of a vector $\overrightarrow{x}$ onto a subspace $V$ as:</p>
+
+			<p>$Proj_V \overrightarrow{x} = A(A^TA)^{-1} A^T \overrightarrow{x}$</p>
+
+			<p>where $A$ is the matrix made from column vectors that define $V$. But if we can define the subspace $V$ with an orthonormal basis, the projection can be simplified to:</p>
+
+			<p>$Proj_V \overrightarrow{x} = AA^T \overrightarrow{x}$</p>
+
+			<p>This is because $(A^TA)^{-1}$ simplifies to the identity matrix when $A$ is made of orthonormal column vectors.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the projection of $\overrightarrow{x} = (5,6,-1)$ onto subspace $V$.</p>
+
+
+				<p>$
+					V = span
+					\left(
+
+					\begin{bmatrix}
+					\frac{1}{\sqrt{2}} \\
+					0 \\
+					- \frac{1}{\sqrt{2}} \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					\frac{1}{2} \\
+					\frac{\sqrt{2}}{2} \\
+					\frac{1}{2} \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>$V = {v_1, v_2}$ is an orthonormal vector set, so the projection of $\overrightarrow{x} = (5,6,-1)$ onto $V$ is:</p>
+
+				<p>$Proj_V \overrightarrow{x} = AA^T \overrightarrow{x}$</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{1}{\sqrt{2}}  & \frac{1}{2} \\
+					0  &  \frac{\sqrt{2}}{2} \\
+					-\frac{1}{\sqrt{2}}  &  \frac{1}{2} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					\frac{1}{\sqrt{2}}  &  0  &  -\frac{1}{\sqrt{2}} \\
+					\frac{1}{2}  &  \frac{\sqrt{2}}{2}  &  \frac{1}{2} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					5 \\
+					6 \\
+					-1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{1}{2} + \frac{1}{4}  &  0 + \frac{\sqrt{2}}{4}  &  -\frac{1}{2} + \frac{1}{4} \\
+					0 + \frac{\sqrt{2}}{4}  &  0 + \frac{1}{2}  &  0 + \frac{\sqrt{2}}{4} \\
+					-\frac{1}{2} + \frac{1}{4}  &  0 + \frac{\sqrt{2}}{4}  &  \frac{1}{2} + \frac{1}{4} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{3}{4}  &  \frac{\sqrt{2}}{4}  &  -\frac{1}{4} \\
+					\frac{\sqrt{2}}{4}  &  \frac{1}{2}  &  \frac{\sqrt{2}}{4} \\
+					-\frac{1}{4}  &  \frac{\sqrt{2}}{4}  &  \frac{3}{4} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					5 \\
+					6 \\
+					-1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{3}{4}(5) + \frac{\sqrt{2}}{4} - \frac{1}{4}(-1) \\
+					\frac{\sqrt{2}}{4}(5) + \frac{1}{2}(6) + \frac{\sqrt{2}}{4}(-1) \\
+					-\frac{1}{4}(5) + \frac{\sqrt{2}}{4}(6) + \frac{3}{4}(-1) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{15}{4} + \frac{3 \sqrt{2}}{2} + \frac{1}{4} \\
+					\frac{5 \sqrt{2}}{4} + 3 - \frac{\sqrt{2}}{4} \\
+					-\frac{5}{4} + \frac{3 \sqrt{2}}{2} - \frac{3}{4} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					4 + \frac{3 \sqrt{2}}{2} \\
+					3 + \sqrt{2} \\
+					-2 + \frac{3 \sqrt{2}}{2} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+		<h3 id="gram_schmidt">Gram-Schmidt Process for Change of Basis</h3>
+
+			<p>The Gram-Schmidt process turns the basis of a subspace into an orthonormal basis for the same subspace, making other tasks easier.</p>
+
+			<p>Let's say that a non-orthonormal basis of the subspace $V$ is given by $\overrightarrow{v_1}, \overrightarrow{v_2}, \overrightarrow{v_3}$. In other words,</p>
+
+			<p>$V = span(\overrightarrow{v_1}, \overrightarrow{v_2}, \overrightarrow{v_3})$</p>
+
+			<p>The first step is to normalize $\overrightarrow{v_1}$.</p>
+
+			<p>$u_1 = \frac{v_1}{ || \overrightarrow{v} || }$</p>
+
+			<p>Then the basis of $V$ can be formed by $\overrightarrow{u_1}$, $\overrightarrow{v_2}$, and $\overrightarrow{v_3}$.</p>
+
+			<p>$V = span(\overrightarrow{u_1}, \overrightarrow{v_2}, \overrightarrow{v_3})$</p>
+
+			<p>The next step is to replace $\overrightarrow{v_2}$ with a vector that's both orthogonal to $u_1$ and normal. We need to think about the span of just $\overrightarrow{u_1}$, which we'll call $v_1$.</p>
+
+			<img src="img/kking_linalg_fig7.png" style="height: 250px; width:auto;"></br></br>
+
+			<p>Imagine $\overrightarrow{v_2}$ is another vector. We could sketch the projection of $\overrightarrow{v_2}$ onto $\overrightarrow{v_1}$, $Proj_{v_1} \overrightarrow{v_2}$. Then $\overrightarrow{w}$ is the vector that connects $Proj_{v_1} to \overrightarrow{v_2}$, so $\overrightarrow{w_2} = \overrightarrow{v_2} - Proj_{v_1} \overrightarrow{v_2}$.</p>
+
+			<img src="img/kking_linalg_fig8.png" style="height: 300px; width:auto;"></br></br>
+
+			<p>$\overrightarrow{w_2}$ is orthogonal to $\overrightarrow{u_1}$, and $v_1$ is an orthonormal subspace. Since there is only one vector $\overrightarrow{u_1}$ that forms the basis for $v_1$, every vector in the basis is orthogonal to every other vector (because there are no other vectors), and $\overrightarrow{u_1}$ is normal, so the basis of $V$ is orthonormal. We could rewrite the projection $Proj_{v_1} \overrightarrow{v_2}$ as:</p>
+
+			<p>$\overrightarrow{w_2} = \overrightarrow{v_2} - (\overrightarrow{v_2} \cdot \overrightarrow{u_1}) \overrightarrow{u_1}$</p>
+
+			<p>This will give us a vector $\overrightarrow{w_2}$ that we can use in place of $\overrightarrow{v_2}$. Once we normalize $\overrightarrow{w_2}$, we'll call it $\overrightarrow{u_2}$, and be able to say that the basis of $V$ can be formed by $\overrightarrow{u_1}$, $\overrightarrow{u_2}$, and $\overrightarrow{v_3}$.</p>
+
+			<p>$V = span(\overrightarrow{u_1}, \overrightarrow{u_2}, \overrightarrow{v_3})$</p>
+
+			<p>Then keep repeating this process for each basis vector. For the last basis vector $\overrightarrow{v_3}$, we'd think about the span of $\overrightarrow{u_1}$ and $\overrightarrow{u_2}$, which we'll call $v_2$. The subspace $V_2$ will be a plane, whereas the subspace $V_1$ was a line.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>The subspace of $V$ is a plane in $\mathbb{R}^3$. Use a Gram-Schmidt process to change the basis of $V$ into an orthonormal basis.</p>
+
+
+				<p>$
+					V = span
+					\left(
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					-5 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>$\overrightarrow{v_1} = (1,2,0)$</p>
+				<p>$\overrightarrow{v_2} = (-2,1,-5)$</p>
+				<p>$V = span(\overrightarrow{v_1}, \overrightarrow{v_2})$</p>
+
+				<p>We'll start by normalizing $\overrightarrow{v_1}$.</p>
+
+				<p>$|| \overrightarrow{v_1} || = \sqrt{1^2 + 2^2 + 0^2} = \sqrt{1+4+0} = \sqrt{5}$</p>
+
+				<p>If $\overrightarrow{u_1}$ is the normalized version of $\overrightarrow{v_1}$, we can say:</p>
+
+
+				<p>$
+					\overrightarrow{u_1} =
+
+					\frac{1}{\sqrt{5}} 
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$V = span(\overrightarrow{u_1}, \overrightarrow{v_2})$</p>
+
+				<p>Now we need to replace $\overrightarrow{v_2}$ with a vector that's both orthogonal to $\overrightarrow{u_1}$ and normal. Then the vector set that spans $V$ will be orthonormal. We'll name $\overrightarrow{w_2}$ as the vector that connects $Proj_{v_1} \overrightarrow{v_2}$.</p>
+
+				<p>$\overrightarrow{w_2} = \overrightarrow{v_2} - Proj_{v_1} \overrightarrow{v_2}$</p>
+
+				<p>$\overrightarrow{w_2} = \overrightarrow{v_2} - (\overrightarrow{v_2} \cdot \overrightarrow{u_1}) \overrightarrow{v_2}{u_1}$</p>
+
+				<p>Plug in the values we already have.</p>
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					-
+
+					\left(
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					\cdot
+
+					\frac{1}{\sqrt{5}}
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+
+					\right)
+
+					\frac{1}{\sqrt{5}}
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					-
+
+					\frac{1}{5}
+					\left(
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					\cdot
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+
+					\right)
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					-
+
+					\frac{1}{5} (-2(1) + 1(2) - 5(0))
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					-
+
+					\frac{1}{5} (-2 + 2 - 0)
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					-
+
+					\frac{1}{5} (0)
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+
+					-
+
+					0
+
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\overrightarrow{w_2} =
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					5 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>The vector $\overrightarrow{w_2}$ is orthogonal to $\overrightarrow{u_1}$, but hasn't been normalized, so we'll normalize it. The length is:</p>
+
+				<p>$|| \overrightarrow{w_2} || = \sqrt{ (-2)^2 + (1)^2 + (-5)^2 }$</p>
+				<p>$|| \overrightarrow{w_2} || = \sqrt{4 + 1 + 25}$</p>
+				<p>$|| \overrightarrow{w_2} || = \sqrt{30}$</p>
+
+				<p>The normalized vector is:</p>
+
+
+				<p>$
+					\overrightarrow{u_2} =
+
+					\frac{1}{\sqrt{30}}
+
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					-5 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Therefore, we can say that $\overrightarrow{u_1}$ and $\overrightarrow{u_2}$ form an orthonormal basis for $V$.</p>
+
+
+				<p>$
+					V = span
+
+					\left(
+
+					\frac{1}{\sqrt{5}}
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					0 \\
+					\end{bmatrix}
+
+					\cdot
+
+					\frac{1}{\sqrt{30}}
+					\begin{bmatrix}
+					-2 \\
+					1 \\
+					-5 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+				<p>$
+					V = span
+
+					\left(
+
+					\begin{bmatrix}
+					\frac{1}{\sqrt{5}} \\
+					\frac{2}{\sqrt{5}} \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-\frac{2}{\sqrt{30}}
+					\frac{1}{\sqrt{30}}
+					-\frac{5}{\sqrt{30}}
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+	<h2 id="eig">Eigenvalues, Eigenvectors, and Eigenspaces</h2>
+
+		<p>Any vector $\overrightarrow{v}$ that satisfies $T(\overrightarrow{v}) = \lambda \overrightarrow{v}$ is an eigenvector for the transformation $T$, and $\lambda$ is the eigenvalue that's associated. Because $\lambda$ is a constant, $T(\overrightarrow{v})$ is just a scaled version of $\overrightarrow{v}$.</p>
+
+		<p>Eigenvectors are the vectors that don't change direction when we apply the transformation matrix $T$; so if we apply $T$ to a vector $\overrightarrow{v}$, and the result $T(\overrightarrow{v})$ is parallel to to the original $\overrightarrow{v}$, then $\overrightarrow{v}$ is an eigenvector.</p>
+
+
+		<h3 id="id_eigvectors">Identifying Eigenvectors</h3>
+
+			<p>The way to identify an eigenvector is to compare the span of $\overrightarrow{v}$ with the span of $T(\overrightarrow{v})$. If under the transformation, the span remains the same, $\overrightarrow{v}$ is an eigenvector. $\overrightarrow{v}$ and $T(\overrightarrow{v})$ might be different lengths, but their spans are the same because they lie along the same line.</p>
+
+
+		<h3 id="find_eigvalues">Finding Eigenvalues</h3>
+
+			<p>There will be two eigenvectors when $A$ is $2 \times 2$, and $n$ eigenvectors when $A$ is $n \times n$. While $\overrightarrow{v} = \overrightarrow{O}$ would satisfy $A \overrightarrow{v} = \lambda \overrightarrow{V}$, it is a trivial solution, which does not allow us to find an associated eigenvalue.</p>
+
+			<p>$\overrightarrow{O} = \lambda \overrightarrow{v} - A \overrightarrow{v}$</p>
+			<p>$\overrightarrow{O} = \lambda I_n \overrightarrow{v} - A \overrightarrow{v}$</p>
+			<p>$(\lambda I_n - A) = \overrightarrow{O}$</p>
+
+			<p>This is a matrix-vector product set equal to the zero vector. Let's make a substitution $B = \lambda I_n - A$.</p>
+
+			<p>$B \overrightarrow{v} = \overrightarrow{O}$</p>
+
+			<p>We can see that any vector $\overrightarrow{v}$ that satisfies $B \overrightarrow{v} = \overrightarrow{O}$ will be in the null space of $B$, $N(B)$. When we know that there is a vector in the null space other than the zero vector, we conclude that the matrix $B = \lambda I_n - A$ has linearly dependent columns, that $B$ is not invertible, and that the determinant $|B|$ is zero.</p>
+
+			<p>We can express these rules:</p>
+				<ul>
+					<li>$A \overrightarrow{v} = \lambda \overrightarrow{v}$ for nonzero vectors $\overrightarrow{v}$ only if $|\lambda I_n - A| = 0$</li>
+					<li>$\lambda$ is an eigenvalue of $A$ only if $|\lambda I_n - A| = 0$</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the eigenvalue of the transformation matrix $A$.</p>
+
+
+				<p>$
+					A =
+
+					\begin{bmatrix}
+					2 & 1 \\
+					1 & 2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>We need to find the determinant, $|\lambda I_n - A|$.</p>
+
+
+				<p>$
+					\left|
+
+					\lambda
+
+					\begin{bmatrix}
+					1 & 0 \\
+					0 & 1 \\
+					\end{bmatrix}
+
+					-
+
+					\begin{bmatrix}
+					2 & 1 \\
+					1 & 2 \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+
+				<p>$
+					\left|
+
+					\begin{bmatrix}
+					\lambda & 0 \\
+					0 & \lambda \\
+					\end{bmatrix}
+
+					-
+
+					\begin{bmatrix}
+					2 & 1 \\
+					1 & 2 \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+
+				<p>$
+					\left|
+
+					\begin{bmatrix}
+					\lambda-2 & 0-1 \\
+					-1 & \lambda-2 \\
+					\end{bmatrix}
+					\right|
+					$
+				</p>
+
+
+
+				<p>$
+					\left|
+
+					\begin{bmatrix}
+					\lambda-2 & -1 \\
+					-1 & \lambda-2 \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+				<p>The determinant of this resulting matrix is:</p>
+
+				<p>$(\lambda - 2)(\lambda - 2) - (-1)(-1)$</p>
+				<p>$(\lambda - 2)(\lambda - 2) - 1$</p>
+				<p>$\lambda^2 - 4 \lambda + 4 - 1$</p>
+				<p>$\lambda^2 - 4 \lambda + 3$</p>
+
+				<p>This polynomial is called the characteristic polynomial. The equation we are trying to satisfy, $|\lambda I_n - A| = 0$, is called the characteristic equation.</p>
+
+				<p>To solve for $\lambda$, we'll always try factoring, but if the polynomial cannot be factored, we can either complete the square or use the quadratic formula.</p>
+
+				<p>$(\lambda - 3)(\lambda - 1) = 0$</p>
+				<p>$\lambda = 1 \text{ or } \lambda = 3$</p>
+
+				<p>The sum of eigenvalues will always equal the sum of the matrix entries that run down its diagonal, called the trace of the matrix. This means that once we find $n-1$ of the eigenvalues, we'll already have the $n^{th}$ eigenvalue.</p>
+
+				<p>Also, the determinant of $A$, $|A|$, will always be equal to the product of the eigenvalues.</p>
+
+
+		<h3 id="find_eigvectors">Finding Eigenvectors</h3>
+
+			<p>Once we've found the eigenvalues for the transformation matrix, we can begin finding the eigenvectors by defining an eigenspace for each eigenvalue of the matrix. The eigenspace $E_{\lambda}$ for a specific eigenvalue $\lambda$ is the set of all the eigenvectors $\overrightarrow{v}$ that satisfy $A \overrightarrow{v} = \lambda \overrightarrow{v}$ for that particular eigenvalue. The eigenspace is simply the null space of the matrix $\lambda I_n - A$.</p>
+
+			<p>$E_{\lambda} = N(\lambda I_n - A)$</p>
+
+			<p>To find the matrix $\lambda I_n - A$, we can simply plug the eigenvalue into the value we found earlier for $\lambda I_n - A$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Continuing with the previous example, find the eigenvectors associated with eigenvalues $\lambda=1$ and $\lambda=3$.</p>
+
+
+				<p>$
+					A =
+
+					\begin{bmatrix}
+					2 & 1 \\
+					1 & 2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>With</p>
+
+
+				<p>$
+					E_{\lambda} =
+
+					N
+					
+					\left(
+
+					\begin{bmatrix}
+					\lambda-2 & -1 \\
+					-1 & \lambda-2 \\
+					\end{bmatrix}
+
+					\right)
+					
+					$
+				</p>
+
+
+				<p>we get:</p>
+
+
+				<p>$
+					E_1 =
+
+					N
+					\left(
+					\begin{bmatrix}
+					1-2 & -1 \\
+					-1 & 1-2 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>$
+					E_1 =
+
+					N
+					\left(
+					\begin{bmatrix}
+					-1 & -1 \\
+					-1 & -1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>and</p>
+
+
+				<p>$
+					E_3 =
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					3-2 & -1 \\
+					-1 & 3-2 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>$
+					E_3 =
+
+					N
+					\left(
+					\begin{bmatrix}
+					1 & -1 \\
+					-1 & 1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>Therefore, the eigenvectors in the eigenspace $E_1$ will satisfy:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					-1 & -1 \\
+					-1 & -1 \\
+					\end{bmatrix}
+
+					\overrightarrow{v}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					-1 & -1 & | & 0 \\
+					-1 & -1 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 1 & | & 0 \\
+					-1 & -1 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 1 & | & 0 \\
+					0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 1 \\
+					0 & 0 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$v_1 + v_2 = 0$</p>
+				<p>$v_1 = -v_2$</p>
+
+
+				<p>So with $v_1 = -v_2$, we'll substitute $v_2 = t$, and say that:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					\end{bmatrix}
+
+					=
+
+					t
+					\begin{bmatrix}
+					-1 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>which means that $E$ is defined by:</p>
+
+
+				<p>$
+					E_1 = span
+
+					\left(
+					\begin{bmatrix}
+					-1 \\
+					1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>And the eigenvectors in the eigenspace $E_3$ will satisfy:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -1 \\
+					-1 & 1 \\
+					\end{bmatrix}
+
+					\overrightarrow{v}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -1 & | & 0 \\
+					-1 & 1 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -1 & | & 0 \\
+					0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -1 & | & 0 \\
+					0 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$v_1 - v_2 = 0$</p>
+				<p>$v_1 = v_2$</p>
+
+				<p>And with $v_1 = v_2$, we'll substitute $v_2 = t$ and say that:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					\end{bmatrix}
+
+					=
+
+					t
+					\begin{bmatrix}
+					1 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>which means that $E_3$ is defined by:</p>
+
+
+				<p>$
+					E_3 = span
+
+					\left(
+					\begin{bmatrix}
+					1 \\
+					1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+		<h3 id="eig_in_3dims">Eigendecomposition in Three Dimensions</h3>
+
+			<p>The process for finding the eigenvalues for a $3 \times 3$ matrix is the same as the process for a $2 \times 2$ matrix, however calculating the $3 \times 3$ determinant and factoring the third degree characteristic polynomial will be more complex than for a $2 \times 2$ matrix.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the eigenvalues and eigenvectors of the transformation matrix $A$.</p>
+
+
+				<p>$
+					A =
+
+					\begin{bmatrix}
+					-1 & 1 & 0 \\
+					1 & 2 & 1 \\
+					0 & 3 & -1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>We need to find the determinant $|\lambda I_n A|$.</p>
+
+
+				<p>$
+					\left|
+
+					\lambda
+					\begin{bmatrix}
+					1 & 0 & 0 \\
+					0 & 1 & 0 \\
+					0 & 0 & 1 \\
+					\end{bmatrix}
+
+					-
+
+					\begin{bmatrix}
+					-1 & 1 & 0 \\
+					1 & 2 & 1 \\
+					0 & 3 & -1 \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+
+				<p>$
+					\left|
+
+					\begin{bmatrix}
+					\lambda & 0 & 0 \\
+					0 & \lambda & 0 \\
+					0 & 0 & \lambda \\
+					\end{bmatrix}
+
+					-
+
+					\begin{bmatrix}
+					-1 & 1 & 0 \\
+					1 & 2 & 1 \\
+					0 & 3 & -1 \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+
+				<p>$
+					\left|
+
+					\begin{bmatrix}
+					\lambda - (-1)  &  0-1  &  0-0 \\
+					0-1  &  \lambda-2  &  0-1 \\
+					0-0  &  0-3  &  \lambda - (-1) \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+
+				<p>$
+					\left|
+
+					\begin{bmatrix}
+					\lambda + 1  &  -1  &  0 \\
+					-1  &  \lambda - 2  &  -1 \\
+					0  &  -3  &  \lambda + 1 \\
+					\end{bmatrix}
+
+					\right|
+					$
+				</p>
+
+
+				<p>Then the determinant of the resulting matrix is:</p>
+
+
+				<p>$
+					(\lambda + 1)
+					\begin{vmatrix}
+					\lambda - 2  &  -1 \\
+					-3  &  \lambda + 1 \\
+					\end{vmatrix}
+
+					-
+
+					(-1)
+					\begin{vmatrix}
+					-1  &  -1 \\
+					0  &  \lambda + 1 \\
+					\end{vmatrix}
+
+					+
+
+					0
+					\begin{vmatrix}
+					-1  &  \lambda - 2 \\
+					0  & -3 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$(\lambda + 1) [(\lambda - 2)(\lambda + 1) - (-1)(-3)] - (-1)[(-1)(\lambda + 1) - (-1)(0)] + 0[(-1)(-3) - (\lambda - 2)(0)]$</p>
+
+				<p>$(\lambda + 1) [(\lambda - 2)(\lambda + 1) - 3] - (\lambda + 1)$</p>
+				<p>$(\lambda + 1)(\lambda^2 + \lambda - 2 \lambda - 2 - 3) - (\lambda + 1)$</p>
+				<p>$(\lambda + 1)(\lambda^2 - \lambda - 5) - (\lambda + 1)$</p>
+
+				<p>We can set this characteristic polynomial equal to $0$ to get the characteristic equation.</p>
+
+				<p>$(\lambda + 1)(\lambda^2 - \lambda - 5) - (\lambda + 1) = 0$</p>
+
+				<p>To solve for $\lambda$, we'll factor.</p>
+
+				<p>$(\lambda + 1) [(\lambda^2 - \lambda - 5)] = 0$</p>
+				<p>$(\lambda + 1)(\lambda^2 - \lambda - 5 - 1) = 0$</p>
+				<p>$(\lambda + 1)(\lambda^2 - \lambda - 6) = 0$</p>
+				<p>$(\lambda + 1)(\lambda - 3)(\lambda + 2) = 0$</p>
+				<p>$\lambda = -2 \text { or } \lambda = -1 \text{ or } \lambda = 3$</p>
+
+				<p>With these three eigenvalues, we'll have three eigenspaces, given by $E_{\lambda} = N(\lambda I_n - A)$.</p>
+
+				<p>Given:</p>
+
+
+				<p>$
+					E_{\lambda}
+
+					=
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					\lambda + 1  &  -1  &  0 \\
+					-1  &  \lambda-2  &  -1 \\
+					0  &  -3  &  \lambda + 1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>we get</p>
+
+
+				<p>$
+					E_{-2} =
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					-2 + 1  &  -1  &  0 \\
+					-1  &  -2 - 2  &  -1 \\
+					0  &  -3  &  -2 + 1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+				<p>$
+					E_{-2} =
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					-1 & -1 & 0 \\
+					-1 & -4 & -1 \\
+					0 & -3 & -1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>and</p>
+
+
+				<p>$
+					E_{-1} =
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					-1+1  &  -1  &  0 \\
+					-1  &  -1 - 2  &  -1 \\
+					0  &  -3  &  -1 + 1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+				<p>$
+					E_{-1} =
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					0 & -1 & 0 \\
+					-1 & -3 & -1 \\
+					0 & -3 & 0 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>and</p>
+
+
+				<p>$
+					E_3 = 
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					3+1  &  -1  &  0 \\
+					-1  &  3 - 2  &  -1 \\
+					0  &  -3  &  3 + 1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+				<p>$
+					E_3 = 
+
+					N
+					\left(
+
+					\begin{bmatrix}
+					4  &  -1  &  0 \\
+					-1  &  1  &  -1 \\
+					0  &  -3  &  4 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>Therefore, the eigenvectors in the eigenspace $E_{-2}$ will satisfy:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					-1 & -1 & 0 \\
+					-1 & -4 & -1 \\
+					0 & -3 & -1 \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					-1 & -1 & 0 & | & 0 \\
+					-1 & -4 & -1 & | & 0 \\
+					0 & -3 & -1 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 1 & 0 & | & 0 \\
+					-1 & -4 & -1 & | & 0 \\
+					0 & -3 & -1 & | 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 1 & 0 & | & 0 \\
+					0 & -3 & -1 & | & 0 \\
+					0 & -3 & -1 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 1 & 0 & | & 0 \\
+					0 & -3 & -1 & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 1 & 0 & | & 0 \\
+					0 & 1 & \frac{1}{3} & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & -\frac{1}{3} & | & 0 \\
+					0 & 1 & \frac{1}{3} & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>This gives:</p>
+
+				<p>$v_1 - \frac{1}{3}v_3 = 0$</p>
+				<p>$v_2 + \frac{1}{3} = 0$</p>
+
+				<p>or</p>
+
+				<p>$v_1 = \frac{1}{3}v_3$</p>
+				<p>$v_2 = - \frac{1}{3}v_3$</p>
+
+
+				<p>So we can say:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					v_3 \\
+					\end{bmatrix}
+
+					=
+
+					v_3
+					\begin{bmatrix}
+					\frac{1}{3} \\
+					-\frac{1}{3} \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>which means that $E_{-2}$ is defined by:</p>
+
+
+				<p>$
+					E_{-2} = span
+
+					\left(
+
+					\begin{bmatrix}
+					\frac{1}{3} \\
+					-\frac{1}{3} \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>and the eigenvectors in the eigenspace $E_{-1}$ will satisfy:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					0 & -1 & 0 \\
+					-1 & -3 & -1 \\
+					0 & 3 & 0 \\
+					\end{bmatrix}
+
+					\overrightarrow{v}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					0 & -1 & 0 & | & 0 \\
+					-1 & -3 & -1 & | & 0 \\
+					0 & -3 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					-1 & -3 & -1 & | & 0 \\
+					0 & -1 & 0 & | & 0 \\
+					0 & -3 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 3 & 1 & | & 0 \\
+					0 & -1 & 0 & | & 0 \\
+					0 & -3 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 3 & 1 & | & 0 \\
+					0 & 1 & 0 & | & 0 \\
+					0 & -3 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 1 & | & 0 \\
+					0 & 1 & 0 & | & 0 \\
+					0 & -3 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 1 & | & 0 \\
+					0 & 1 & 0 & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>That gives:</p>
+
+				<p>$v_1 + v_3 = 0$</p>
+				<p>$v_2 = 0$</p>
+
+				<p>or</p>
+
+				<p>$v_1 = -v_3$</p>
+				<p>$v_2 = 0$</p>
+
+				<p>So we can say:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					v_3 \\
+					\end{bmatrix}
+
+					=
+
+					v_3
+					\begin{bmatrix}
+					-1 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>which means that $E_{-1}$ is defined by:</p>
+
+
+				<p>$
+					E_{-1} = span
+
+					\left(
+
+					\begin{bmatrix}
+					-1 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>And the eigenvectors in the eigenspace $E_3$ will satisfy:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					4 & -1 & 0 \\
+					-1 & 1 & -1 \\
+					0 & -3 & 4 \\
+					\end{bmatrix}
+
+					\overrightarrow{v}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					4 & -1 & 0 & | & 0 \\
+					-1 & 1 & -1 & | & 0 \\
+					0 & -3 & 4 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					-1 & 1 & -1 & | & 0 \\
+					4 & -1 & 0 & | & 0 \\
+					0 & -3 & 4 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 1 & | & 0 \\
+					4 & -1 & 0 & | & 0 \\
+					0 & -3 & 4 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -1 & 1 & | & 0 \\
+					0 & 3 & -4 & | & 0 \\
+					0 & -3 & 4 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 1 & | & 0 \\
+					0 & 3 & -4 & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 1 & | & 0 \\
+					0 & 1 & -\frac{4}{3} & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & -\frac{1}{3} & | & 0 \\
+					0 & 1 & -\frac{4}{3} & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>This gives:</p>
+
+				<p>$v_1 - \frac{1}{3}v_3 = 0$</p>
+				<p>$v_2 - \frac{4}{3}v_3 = 0$</p>
+
+				<p>or</p>
+
+				<p>So we can say:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					v_1 \\
+					v_2 \\
+					v_3 \\
+					\end{bmatrix}
+
+					=
+
+					v_3
+					\begin{bmatrix}
+					\frac{1}{3} \\
+					\frac{4}{3} \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>which means that $E_3$ is defined by:</p>
+
+
+				<p>$
+					E_3 = span
+
+					\left(
+
+					\begin{bmatrix}
+					\frac{1}{3} \\
+					\frac{4}{3} \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>Putting these together, for eigenvalues $\lambda = -2$, $\lambda = -1$, and $\lambda = 3$, we get:</p>
+
+
+				<p>$
+					E_{-2} = span
+
+					\left(
+
+					\begin{bmatrix}
+					\frac{1}{3} \\
+					-\frac{1}{3} \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					,
+
+
+					E_{-1} = span
+
+					\left(
+
+					\begin{bmatrix}
+					-1 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					,
+
+
+					E_3 = span
+
+					\left(
+
+					\begin{bmatrix}
+					\frac{1}{3} \\
+					\frac{4}{3} \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+
+<h1>Linear Algebra, King Pt. 5</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#orthog_chg_basis">Orthogonality and Change of Basis</a></td><td><a href="#orthog_complements">Orthogonal Complements of the Fundamental Subspaces</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#orthog_fund">Orthogonality of the Fundamental Subspaces</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#proj_onto_subspace">Projection Onto the Subspace</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#proj_is_linear">The Projection is a Linear Transformation</a></td></tr>
+ <tr><td><a href="#least_squares">Least Squares Solution</a></td><td><a href="#coords_new_basis">Coordinates for a New Basis</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#trans_mat_as_basis">Transformation Matrix For a Basis</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="orthog_chg_basis">Orthogonality and Change of Basis</h2>
+
+		<p>If a set of vectors $V$ is a subspace of $\mathbb{R}^n$, then the orthogonal complement of $V$, called $V^{\bot}$, is a set of vectors where every vector in $V^{\bot}$ is orthogonal to every vector in $V$. The $\bot$ symbol means perpendicular.</p>
+
+		<p>If we're saying that $V$ is a set of vectors $\overrightarrow{v}$, and $V^{\bot}$ is a set of vectors $\overrightarrow{x}$, then every $\overrightarrow{v}$ will be orthogonal to every $\overrightarrow{x}$ (and vice versa), which means their dot product is $0$.</p>
+
+		<p>So we could express the set of vectors $V^{\bot}$ as:</p>
+
+		<p>$V^{\bot} = \{ \overrightarrow{x} \in \mathbb{R}^n | \overrightarrow{x} \cdot \overrightarrow{v} = 0 \text{ for every } \overrightarrow{v} \in V \}$</p>
+
+		<p>This tells us that $V^{\bot}$ is all of the $\overrightarrow{x}$ in $\mathbb{R}^n$ that satisfy $\overrightarrow{x} \cdot \overrightarrow{v} = 0$, for every vector $\overrightarrow{v}$ in $V$, which is $V^{\bot}$'s orthogonal complement.</p>
+
+		<p>Defining the orthogonal complement expands the idea of orthogonality from individual vectors to entire subspaces of vectors. So two individual vectors are orthogonal complements when every vector in one subspace is orthogonal to every vector in the other subspace.</p>
+
+
+			<h4>Example:</h4>
+
+				<P>Describe the orthogonal complement of $V$, $V^{\bot}$.
+
+				<p>$
+					V = span
+
+					\left(
+
+					\begin{bmatrix}
+					1 \\
+					-3 \\
+					2 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					0 \\
+					1 \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>The subsapce $V$ is a plane in $\mathbb{R}^3$, spanned by the two vectors $\overrightarrow{v_1} = (1,-3,2)$ and $\overrightarrow{v_2} = (0,1,1)$. Its orthogonal complement $V^{\bot}$ is the set of vectors which are orthogonal to those.</p>
+
+
+				<p>$
+					V^{\bot} = \biggl\{ \overrightarrow{x} \in \mathbb{R}^3 | \overrightarrow{x} \cdot 
+
+					\begin{bmatrix} 
+					1 \\
+					-3 \\
+					2 \\
+					\end{bmatrix}
+
+					= 0 \text{ and }
+
+					\overrightarrow{x}
+
+					\cdot
+
+					\begin{bmatrix} 
+					0 \\
+					1 \\
+					1 \\
+					\end{bmatrix}
+
+					= 0
+
+					\biggr\}
+					$
+				</p>
+
+
+				<p>If we let $\overrightarrow{x} = (x_1, x_2, x_3)$, we get two equations from these dot products.</p>
+
+				<p>$x_1 - 3x_2 + 2x_3 = 0$</p>
+				<p>$x_2 + x_3 = 0$</p>
+
+				<p>Put these equations into an augmented matrix.</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -3 & 2 & | & 0 \\
+					0 & 1 & 1 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then put it into rref.</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & 5 & | & 0 \\
+					0 & 1 & 1 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>The rref form gives the system of equations:</p>
+
+				<p>$x_1 + 5x_3 = 0$</p>
+				<p>$x_2 + x_3 = 0$</p>
+
+				<p>and we can solve the system for the pivot variables. The pivot entries we found were for $x_1$ and $x_2$, so we'll solve the system for $x_1$ and $x_2$.</p>
+
+				<p>$x_1 = -5x_3$</p>
+				<p>$x_2 = -x_3$</p>
+
+
+				<p>So we could also express the system as:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					-5 \\
+					-1 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>which means the orthogonal complement is:</p>
+
+
+				<p>$
+					V^{\bot} = span
+
+					\left(
+					\begin{bmatrix}
+					-5 \\
+					-1 \\
+					1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+				<p>$V^{\bot}$ is a subspace, closed under addition and scalar multiplication.</p>
+
+				<p>In the same way that transposing a transpose gets you back to the original matrix, $(A^T)^T = A$, the orthogonal complement of the orthogonal complement is the original subspace.</p>
+
+				<p>$(V^{\bot})^{\bot} = V$</p>
+
+				<p>The orthogonal complement of $V^{\bot}$ will be $V$.</p>
+
+
+		<h3 id="orthog_complements">Orthogonal Complements of the Fundamental Subspaces</h3>
+
+			<p>We learned about four fundamental subspaces, defined for any matrix $A$ and its transpose $A^T$.</p>
+				<ul>
+					<li>The column space $C(A)$, made of the column vectors of $A$</li>
+					<li>The null space $N(A)$, made of the vectors $\overrightarrow{x}$ that satisfy $A \overrightarrow{x} = \overrightarrow{O}$</li>
+					<li>The row space $C(A^T)$, made of the column vectors of $A^T$, which are also the row vectors of $A$</li>
+					<li>The left null space $N(A^T)$, made of the vectors $\overrightarrow{x}$ that satisfy $\overrightarrow A = \overrightarrow{O}$</li>
+				</ul>
+
+
+		<h3 id="orthog_fund">Orthogonality of the Fundamental Subspaces</h3>
+
+			<p>We can state two important facts:</p>
+				<ol>
+					<li>The null space $N(A)$ and row space $C(A^T)$ are orthogonal complements, $N(A) = (C(A^T))^{\bot}$, or $(N(A))^{\bot} = C(A^T)$</li>
+
+					<li>The left null space $N(A^T)$ and column space $C(A)$ are orthogonal complements, $N(A^T) = (C(A))^{\bot}$, or $(N(A^T))^{\bot} = C(A)$</li>
+				</ol>
+
+			<p>In other words, the row space is orthogonal to the null space (and vice versa), and the column space is orthogonal to the left null space (and vice versa). We can say that the row space and null space only intersect at the zero vector, and that the column space and left null space only intersect at the zero vector.</p>
+
+
+			<h4>Dimension of the Orthogonal Complement</h4>
+
+				<p>The dimension of a subspace $V$ and the dimension of its orthogonal complement $V^{\bot}$ will always sum to the dimension of the space $\mathbb{R}^n$ that contains them both.</p>
+
+				<p>$Dim(V) + Dim(V^{\bot}) = n$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>For the matrix $A$, find the dimensions of all four fundamental subspaces.</p>
+
+
+				<p>$
+					A = 
+
+					\begin{bmatrix}
+					1 & -1 & 0 \\
+					-2 & 0 & 0 \\
+					0 & 3 & -1 \\
+					1 & 1 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>First, we put $A$ into rref.</p>
+
+
+				<p>$
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 0 \\
+					0 & -2 & 0 \\
+					0 & 3 & -1 \\
+					1 & 1 & -2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 0 \\
+					0 & -2 & 0 \\
+					0 & 3 & -1 \\
+					1 & 1 & -2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 0 \\
+					0 & -2 & 0 \\
+					0 & 3 & -1 \\
+					0 & 2 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\to
+
+					\begin{bmatrix}
+					1 & -1 & 0 \\
+					0 & 1 & 0 \\
+					0 & 3 & -1 \\
+					0 & 2 & -2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 0 \\
+					0 & 1 & 0 \\
+					0 & 3 & -1 \\
+					0 & 2 & -2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 0 \\
+					0 & 1 & 0 \\
+					0 & 0 & -1 \\
+					0 & 2 & -2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 0 \\
+					0 & 1 & 0 \\
+					0 & 0 & -1 \\
+					0 & 0 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 0 \\
+					0 & 1 & 0 \\
+					0 & 0 & 1 \\
+					0 & 0 & -2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & 0 \\
+					0 & 1 & 0 \\
+					0 & 0 & 1 \\
+					0 & 0 & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>There are three pivots, so the rank of $A$ is $r=3$. $A$ is $4 \times 3$, so the dimensions of the four fundamental subspaces of $A$ are:</p>
+
+				<table class="tableizer-table"><tbody>
+				 <tr><td>Column Space: $C(A)$</td><td>$r=3$</td></tr>
+				 <tr><td>Null Space: $N(A)$</td><td>$n-r = 3-3 = 0$</td></tr>
+				 <tr><td>Row Space: $C(A^T)$</td><td>$r=3$</td></tr>
+				 <tr><td>Left Null Space: $N(A^T)$</td><td>$m-r = 4-3 = 1$</td></tr>
+				</tbody></table>
+
+
+		<h3 id="proj_onto_subspace">Projection Onto the Subspace</h3>
+
+			<p>We learned how to find the projection of a vector onto a line, but can also project a vector onto a subspace.</p>
+
+			<p>If you project a vector $\overrightarrow{x}$ onto a line $L$, the projection vector that sits on $L$ is $Proj_L \overrightarrow{x}$; and the vector from $L$ to the terminal point of $\overrightarrow{x}$, which is orthogonal to $L$, is $Proj_L \overrightarrow{x}$.</p>
+
+			<img src="img/kking_linalg_fig4.png" style="height: 200px; width:auto;"></br></br>
+
+			<p>If we call $Proj_L \overrightarrow{x}$ the vector $\overrightarrow{v}$, and we call $\overrightarrow{x} - \overrightarrow{v} = \overrightarrow{w}$.</p>
+
+			<img src="img/kking_linalg_fig5.png" style="height: 200px; width:auto;"></br></br>
+
+			<p>We can also write $\overrightarrow{x} = \overrightarrow{v} + \overrightarrow{w}$.</p>
+
+			<p>Because $\overrightarrow{w}$ is orthogonal to $L$, in the same way that $\overrightarrow{v}$ is a member of $L$, $\overrightarrow{w}$ is a member of the orthogonal complement of $L$, or $L^{\bot}$.</p>
+
+			<p>This works for projecting a vector onto a subspace, just as it works for projecting a vector onto a line. If $\overrightarrow{x}$ is projected onto a subspace V, and the projection is $Proj_V \overrightarrow{x}$, then the vector $\overrightarrow{x}$ is closer to the vector $Proj_V \overrightarrow{x}$ than it is to any other vector in $V$.</p>
+
+
+		<h3 id="proj_is_linear">The Projection is a Linear Transformation</h3>
+
+			<p>If $V$ is a subspace of $\mathbb{R}^n$, then the projecting of $\overrightarrow{x}$ onto a subspace $V$ is a linear transformation that can be written as the matrix-vector product.</p>
+
+			<p>$Proj_V \overrightarrow{x} = A(A^TA)^{-1} A^T \overrightarrow{x}$</p>
+
+			<p>where $A$ is a matrix of column vectors that form the basis for the subspace $V$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>If $\overrightarrow{x}$ is a vector in $\mathbb{R}^3$, find an expression for the projection of any $\overrightarrow{x}$ onto the subspace $V$.</p>
+
+
+				<p>$
+					V = span
+
+					\left(
+
+					\begin{bmatrix}
+					1 \\
+					-2 \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					2 \\
+					1 \\
+					-2 \\
+					\end{bmatrix}
+
+					\right) 
+					$
+				</p>
+
+
+				<p>Because the vectors that span $V$ are linearly independent, the matrix $A$ is the basis vectors that define $V$.</p>
+
+
+				<p>$
+					A =
+
+					\begin{bmatrix}
+					1 & 2 \\
+					-2 & 1 \\
+					0 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>The transpose of $A$ is then:</p>
+
+
+				<p>$
+					A^T =
+
+					\begin{bmatrix}
+					1 & -2 & 0 \\
+					2 & 1 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Our next step is to find $A^TA$.</p>
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1 & -2 & 0 \\
+					2 & 1 & -2 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					1 & 2 \\
+					-2 & 1 \\
+					0 & 2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1(1) - 2(-2) + 0(0)  &  1(2) - 2(1) + 0(-2) \\
+					2(1) + 1(-2) - 2(0)  &  2(2) + 1(1) - 2(-2) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1+4+0 & 2-2+0 \\
+					2-2-0 & 4+1+4 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					5 & 0 \\
+					0 & 9 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then we need to find the inverse of $A^TA$.</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					A^TA & | & I_2 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					5 & 0 & | & 1 & 0 \\
+					0 & 9 & | & 0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					A^TA & | & I_2 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					1 & 0 & | & \frac{1}{5} & 0 \\
+					0 & 9 & | & 0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					A^TA & | & I_2 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					1 & 0 & | & \frac{1}{5} & 0 \\
+					0 & 1 & | & 0 & \frac{1}{9} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					(A^TA)^{-1} =
+
+					\begin{bmatrix}
+					\frac{1}{5} & 0 \\
+					0 & \frac{1}{9} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Now the projection of $\overrightarrow{x}$ onto the subspace $V$ will be:
+
+				<p>$Proj_V \overrightarrow{x} = A(A^TA)^{-1} A^T \overrightarrow{x}$
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					1 & 2 \\
+					-2 & 1 \\
+					0 & -2 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					\frac{1}{5} & 0 \\
+					0 & \frac{1}{9} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					1 & -2 & 0 \\
+					2 & 1 & -2 \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>First, simplify $(A^TA)^{-1} A^T$</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					1 & 2 \\
+					-2 & 1 \\
+					0 & -2 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					\frac{1}{5}(1) + 0(2)  &  \frac{1}{5}(-2) + 0(1)  &  \frac{1}{5}(0) + 0(-2) \\
+					0(1) + \frac{1}{9}(2)  &  0(-2) + \frac{1}{9}(1)  &  0(0) + \frac{1}{9}(-2) \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					1 & 2 \\
+					-2 & 1 \\
+					0 & -2 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					\frac{1}{5} + 0  &  -\frac{2}{5} + 0  &  0+0 \\
+					0 + \frac{2}{9}  &  0 + \frac{1}{9}  &  0 - \frac{2}{9} \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					1 & 2 \\
+					-2 & 1 \\
+					0 & -2 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					\frac{1}{5} & -\frac{2}{5} & 0 \\
+					\frac{2}{9} & \frac{1}{9} & -\frac{2}{9} \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>Next, simplify $A(A^TA)^{-1}A^T$.</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+
+					1 \left( \frac{1}{5} \right) + 2 \left( \frac{2}{9} \right) & 
+					1 \left( -\frac{2}{5} \right) + 2 \left( \frac{1}{9} \right) & 
+					1 (0) + 2 \left( -\frac{2}{9} \right)
+					\\
+
+					-2 \left( \frac{1}{5} \right) + 1 \left( \frac{2}{9} \right) & 
+					-2 \left( -\frac{2}{5} \right) + 1 \left( \frac{1}{9} \right) & 
+					-2 (0) + 1 \left( -\frac{2}{9} \right)
+					\\
+
+					0 \left( \frac{1}{5} \right) - 2 \left( \frac{2}{9} \right) & 
+					0 \left( -\frac{2}{5} \right) - 2 \left( \frac{1}{9} \right) & 
+					0 (0) - 2 \left( -\frac{2}{9} \right) & 
+					\\
+
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{1}{5} + \frac{4}{9}  &  -\frac{2}{5} + \frac{2}{9}  &  0 - \frac{4}{9} \\
+					-\frac{2}{5} + \frac{2}{9}  &  \frac{4}{5} + \frac{1}{9}  &  0 - \frac{2}{9} \\
+					0 - \frac{4}{9}  &  0 - \frac{2}{9}  &  0 + \frac{4}{9} \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{9}{45} + \frac{20}{45}  &  -\frac{18}{45} + \frac{10}{45}  &  -\frac{4}{9} \\
+					-\frac{18}{45} + \frac{10}{45}  &  \frac{36}{45} + \frac{5}{45}  &  -\frac{2}{9} \\
+					-\frac{4}{9}  &  -\frac{2}{9}  &  \frac{4}{9} \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\begin{bmatrix}
+					\frac{29}{45}  &  -\frac{8}{45}  &  -\frac{4}{9} \\
+					\frac{8}{45}  &  \frac{41}{45}  &  -\frac{2}{9} \\
+					-\frac{4}{9}  &  -\frac{2}{9}  &  \frac{4}{9} \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+				<p>To simplify the matrix, let's factor out a $\frac{1}{9}$.</p>
+
+
+				<p>$
+					Proj_V \overrightarrow{x} =
+
+					\frac{1}{9}
+
+					\begin{bmatrix}
+					\frac{29}{5}  &  -\frac{8}{5}  &  -4 \\
+					-\frac{8}{5}  &  \frac{41}{5}  &  -2 \\
+					-4  &  -2  &  4 \\
+					\end{bmatrix}
+
+					\overrightarrow{x}
+					$
+				</p>
+
+
+				<p>This result tells us that we can find the projection of any $\overrightarrow{x}$ onto the subspace $V$ by multiplying the transformation matrix,</p>
+
+				<p>$
+					\frac{1}{9}
+
+					\begin{bmatrix}
+					\frac{29}{5}  &  -\frac{8}{5}  &  -4 \\
+					-\frac{8}{5}  &  \frac{41}{5}  &  -2 \\
+					-4  &  -2  &  4 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>by the vector $\overrightarrow{x}$.</p>
+
+
+
+	<h2 id="least_squares">Least Squares Solution</h2>
+
+		<p>When there is no solution to $A \overrightarrow{x} = \overrightarrow{b}$, we're usually interested in the next best thing. In general, we're interested in how close we can get to a solution. The least squares solution of the matrix equation $A \overrightarrow{x} = \overrightarrow{b}$ is a vector $\overrightarrow{x}^*$ in $\mathbb{R}^n$, such that $A \overrightarrow{x}^*$ is as close to $\overrightarrow{b}$ as possible. We are minimizing the distance between $A \overrightarrow{x}^*$ and $\overrightarrow{b}$.</p>
+
+		<p>The solution $\overrightarrow{x}$ will satisfy:</p>
+
+		<p>$A^TA \overrightarrow{x} = A^T \overrightarrow{b}$</p>
+
+		<p>So to find the least squares solution, we need to find $A^TA$ and $A^T \overrightarrow{b}$, and then solve for $\overrightarrow{x}^*$.</p>
+
+		<p>This concept is directly related to what we just learned about the projection of a vector onto a subspace. When we're solving for $\overrightarrow{x}^*$, we're really solving for the projection of $\overrightarrow{b}$ onto the column space $C(A)$, $Proj_C \overrightarrow{b}$, which is as close as we can get to $\overrightarrow{b}$, when $\overrightarrow{b}$ is not in the column space of $A$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the least squares solution to the system:</p>
+
+				<p>$x - y = 3$</p>
+				<p>$2x + y = 1$</p>
+				<p>$-x - 4y = 2$</p>
+
+				<p>If we put each line in slope-intercept form,</p>
+
+				<p>$y = x-3$</p>
+				<p>$y = -2x + 1$</p>
+				<p>$y = -\frac{1}{4}x - \frac{1}{2}$</p>
+
+				<p>then the graph of all three is:</p>
+
+				<img src="img/kking_linalg_fig6.png" style="height: 250px; width:auto;"></br></br>
+
+				<p>There is no single point where all three lines intersect, which means there is no solution to $A \overrightarrow{x} = \overrightarrow{b}$.</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & -1 \\
+					2 & 1 \\
+					-1 & -4 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					x \\
+					y \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					3 \\
+					1 \\
+					2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>The next best thing we can do is find the point which minimizes the squared distances. Building the matrix equation, we find:</p>
+
+
+				<p>$
+					A =
+
+					\begin{bmatrix}
+					1 & -1 \\
+					2 & 1 \\
+					-1 & -4 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Now we'll find $A^T$.</p>
+
+
+				<p>$
+					A^T =
+
+					\begin{bmatrix}
+					1 & 2 & -1 \\
+					-1 & 1 & -4 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then $A^TA$ is:</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1 & 2 & -1 \\
+					-1 & 1 & -4 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					1 & -1 \\
+					2 & 1 \\
+					-1 & -4 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1(1) + 2(2) - 1(-1)  &  1(-1) + 2(1) - 1(-4) \\
+					-1(1) + 1(2) - 4(-1)  &  -1(-1) + 1(1) - 4(-4) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1+4+1 & -1+2+4 \\
+					-1+2+4 & 1+1+16 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					6 & 5 \\
+					5 & 18 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>And $A^T \overrightarrow{b}$ is:</p>
+
+
+				<p>$
+					A^T \overrightarrow{b} =
+
+					\begin{bmatrix}
+					1 & 2 & -1 \\
+					-1 & 1 & -4 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					3 \\
+					1 \\
+					2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^T \overrightarrow{b} =
+
+					\begin{bmatrix}
+					1(3) + 2(1) - 1(2) \\
+					-1(3) + 1(1) - 4(2) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^T \overrightarrow{b} =
+
+					\begin{bmatrix}
+					3 + 2 - 2 \\
+					-3 + 1 - 8 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^T \overrightarrow{b} =
+
+					\begin{bmatrix}
+					3 \\
+					-10 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then we get:</p>
+
+				<p>$A^TA \overrightarrow{x}^* = A^T \overrightarrow{b}$</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					6 & 5 \\
+					5 & 18 \\
+					\end{bmatrix}
+
+					\overrightarrow{x}^*
+
+					=
+
+					\begin{bmatrix}
+					3 \\
+					-10 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then to find $\overrightarrow{x}^*$, we'll put the augmented matrix into rref.</p>
+
+
+				<p>$
+					\to
+
+					\begin{bmatrix}
+					1 & 0 & | & \frac{104}{83} \\
+					0 & 1 & | & -\frac{75}{83} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then the least squares solution is given by:</p>
+
+				<p>$\overrightarrow{x}^* = \left( \frac{104}{83}, - \frac{75}{83} \right)$</p>
+				<p>$\overrightarrow{x}^* \approx (1.25, -0.90)$</p>
+
+
+		<h3 id="coords_new_basis">Coordinates for a New Basis</h3>
+
+			<p>If we have vectors that form a basis for a subspace, we can use them to create a transformation matrix, called the change of basis matrix, which will change a vector from one basis to another.</p>
+
+			<p>If we want to know how the vector $\overrightarrow{x} = (3,4)$ will be represented by the new basis given by $\overrightarrow{v} = (2,1)$ and $\overrightarrow{w} = (1,3)$, then we plug into the equation:</p>
+
+			<p>$A [\overrightarrow{x}]_B = \overrightarrow{x}$</p>
+
+
+			<p>$
+				\begin{bmatrix}
+				2 & 1 \\
+				1 & 3 \\
+				\end{bmatrix}
+
+				[\overrightarrow{x}]_B
+
+				=
+
+				\begin{bmatrix}
+				3 \\
+				4 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>To figure out how $x=(3,4)$ would be represented in $V$, we'll solve the augmented matrix given by this equation.</p>
+
+
+			<p>$
+				\to
+
+				\begin{bmatrix}
+				2 & 1 & | & 3 \\
+				1 & 3 & | & 4 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				\to
+
+				\begin{bmatrix}
+				1 & 3 & | & 4 \\
+				2 & 1 & | & 3 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				\to
+
+				\begin{bmatrix}
+				1 & 3 & | & 4 \\
+				0 & -5 & | & -5 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				\to
+
+				\begin{bmatrix}
+				1 & 3 & | & 4 \\
+				0 & 1 & | & 1 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				\to
+
+				\begin{bmatrix}
+				1 & 0 & | & 1 \\
+				0 & 1 & | & 1 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>This tells us that the solution to the equation is $[\overrightarrow{x}]_B = (1,1)$, or:</p>
+
+
+			<p>$
+				\begin{bmatrix}
+				2 & 1 \\
+				1 & 3 \\
+				\end{bmatrix}
+
+				\begin{bmatrix}
+				1 \\
+				1 \\
+				\end{bmatrix}
+
+				=
+
+				\begin{bmatrix}
+				3 \\
+				4 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+		<h3 id="trans_mat_as_basis">Transformation Matrix For a Basis</h3>
+
+			<p>We learned that a linear transformation could always be represented as a matrix-vector product,</p>
+
+			<p>$T(\overrightarrow{x}) = A \overrightarrow{x}$</p>
+
+			<p>but up to now, have been working in the standard basis. The linear transformation $T$ took vectors $\overrightarrow{x}$ that were given in the standard basis, and transformed them using the matrix $A$ into another vector $T (\overrightarrow{x})$ in the standard basis.</p>
+
+			<p>Now we want to use the same transformation $T: \mathbb{R}^n \to \mathbb{R}^n$ to transform vectors $[\overrightarrow{x}]_B$ given in an laternate basis into vectors $[T \overrightarrow{x}]_B$ in the alternate basis.</p>
+
+			<p>The transformation is still inear. Just as we can represent a transformation in the standard basis as $T(\overrightarrow{x}) = A \overrightarrow{x}$, we can represent a transformation in the alternate basis $B$ as:</p>
+
+			<p>$[T(\overrightarrow{x})]_B = M [\overrightarrow{x}]_B$</p>
+
+			<p>If we also define another invertible matrix $C$ as the change of basis matrix that converts vectors between the standard basis and the alternate basis,</p>
+
+			<p>$C [\overrightarrow{x}]_B = \overrightarrow{x}$</p>
+
+			<p>then we can define a relationship between the matrices $A$, $M$, and $C$. Specifically, we know that $M = C^{-1}AC$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use the transformation $T: \mathbb{R}^2 \to \mathbb{R}^2$ to transform $[\overrightarrow{x}]_B = (2,1)$ in the basis $B$ in the domain to a vector in the basis $B$ in the codomain.</p>
+
+
+				<p>$
+					T(\overrightarrow{x}) =
+
+					\begin{bmatrix}
+					2 & -1 \\
+					-3 & 0 \\
+					\end{bmatrix}
+					\overrightarrow{x}
+					$
+				</p>
+
+
+
+				<p>$
+					B = span
+					\left(
+
+					\begin{bmatrix}
+					1 \\
+					1 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-3 \\
+					-2 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+
+				<p>To transform a vector in the alternate basis in the domain into a vector in the alternate basis in the codomain, we must find the transformation matrix $M$.</p>
+
+				<p>$[T(\overrightarrow{x})]_B = M [\overrightarrow{x}]_B$</p>
+
+				<p>We know that $M = C^{-1}AC$, and $A$ was given as part of $T(\overrightarrow{x})$, so we just need to find $C$ and $C^{-1}$.</p>
+
+				<p>The change of basis matrix $C$ for the basis $B$ is made of the column vectors that span $B$, $\overrightarrow{v_1} = (1,1)$ and $\overrightarrow{w} = (-3,-2)$, so:</p>
+
+
+				<p>$
+					C =
+
+					\begin{bmatrix}
+					1 & -3 \\
+					1 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Now we'll find $C^{-1}$.</p>
+
+
+				<p>$
+					[C | I] =
+
+					\begin{bmatrix}
+					1 & -3 & | & 1 & 0 \\
+					1 & -2 & | & 0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					[C | I] =
+
+					\begin{bmatrix}
+					1 & -3 & | & 1 & 0 \\
+					0 & 1 & | & -1 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					[C | I] =
+
+					\begin{bmatrix}
+					1 & 0 & | & -2 & 3 \\
+					0 & 1 & | & -1 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					C^{-1} =
+
+					\begin{bmatrix}
+					-2 & 3 \\
+					-1 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>With $A$, $C$, and $C^{-1}$, we can find $M = C^{-1}AC$.</p>
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-2 & 3 \\
+					-1 & 1 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					2 & -1 \\
+					-3 & 0 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					1 & -3 \\
+					1 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-2 & 3 \\
+					-1 & 1 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					2(1) - 1(1)  &  2(-3) - 1(-2) \\
+					-3(1) + 0(1)  &  -3(-3) + 0(-2) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-2 & 3 \\
+					-1 & 1 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					2-1 & -6+2 \\
+					-3+0 & 9+0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-2 & 3 \\
+					-1 & 1 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					1 & -4 \\
+					-3 & 9 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-2(1) + 3(-3)  &  -2(-4) + 3(9) \\
+					-1(1) + 1(-3)  &  -1(-4) + 1(9) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-2-9 & 8+27 \\
+					-1-3 & 4+9 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					-11 & 35 \\
+					-4 & 13 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Now that we have $M$, given any vector $[\overrightarrow{x}]$ is defined in the alternate basis in the domain, we can simply multiply $M$ by the vector to get another vector, also defined in the alternate basis, in the codomain. We have been asked to transform $[\overrightarrow{x}]_b = (2,1)$, so we'll multiply $M$ by the vector.</p>
+
+				<p>$[T(\overrightarrow{x})]_B = M [\overrightarrow{x}]_B$</p>
+
+
+				<p>$
+					[T(\overrightarrow{x})]_B = 
+
+					\begin{bmatrix}
+					-11 & 35 \\
+					-4 & 13 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					2 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					[T(\overrightarrow{x})]_B =
+
+					\begin{bmatrix}
+					-11(2) + 35(1) \\
+					-4(2) + 13(1) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					[T(\overrightarrow{x})]_B =
+
+					\begin{bmatrix}
+					-22 & 35 \\
+					-8 & 13 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					[T(\overrightarrow{x})]_B =
+
+					\begin{bmatrix}
+					13 \\
+					5 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$(2,1)$ is defined in the alternate basis in the domain, and the transformation $T$ maps that vector to $[T(\overrightarrow{x})]_B = (13,5)$ in the alternate basis in the codomain.</p>
+
+				<p>If we want to transform a vector in the standard basis in the domain into a vector in the alternate basis in the codomain, we can either:</p>
+					<ol>
+						<li>Transform a vector in the standard basis in the domain into a vector in the standard basis in the codomain, and then transform the result from the standard basis in the codomain to the alternate basis in the comdomain, or,</li>
+
+						<li>Transform the vector in the standard basis in the domain into a vector in the alternate basis in the domain, and then transform the result from the alternate basis in the domain to the alternate basis in the codomain.</li>
+					</ol>
+
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="king_pt6.html">part 6</a></p>
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

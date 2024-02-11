@@ -1,0 +1,2096 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Differential Equations Pt. 4 (Systems of Equations Pt. 2)</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#systems">Systems of Differential Equations Cont'd</a></td><td><a href="#equal_real_eig">Equal Real Eigenvalues with Multiplicity Three</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#complex_eig">Complex Eigenvalues</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#undetermined_coeff">Undetermined Coefficients for Nonhomogenous Systems</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#method_undet_coeff">Method of Undetermined Coefficients</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#var_params">Variations of Parameters for Nonhomogenous Systems</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#mat_exp">The Matrix Exponential</a></td></tr>
+</tbody></table>
+
+
+  <h2 id="systems">Systems of Differential Equations Cont'd</h2>
+
+    <h3 id="equal_real_eig">Equal Real Eigenvalues with Multiplicity Three</h3>
+
+      <p>An eigenvalue with multiplicity three shows up three times in the characteristic equation. We still want to consider two cases:</p>
+        <ol>
+          <li>The repeated eigenvalue produces multiple linearly independent eigenvectors</li>
+          <li>The repeated eigenvalue produces only one eigenvector</li>
+        </ol>
+
+      <p>As before, in the first case the solution to the system will be like the solution for distinct real eigenvalues. In the second case, we'll still use the first eigenvector $\overrightarrow{k}$ for the first solution $\overrightarrow{x}$, but we'll need special equations to find the second and third solutions.</p>
+
+      <p>$(a - \lambda_1 I) \overrightarrow{p_1} = \overrightarrow{k_1}$</p>
+      <p>$(a - \lambda_1 I) \overrightarrow{q_1} = \overrightarrow{p_1}$</p>
+
+      <p>Then the 3 solutions we'll plug into the general solution will be:
+
+      <p>$\overrightarrow{x_1} = \overrightarrow{k_1} e^{\lambda_1 t}$</p>
+      <p>$\overrightarrow{x_2} = \overrightarrow{k_1} e^{\lambda_1 t} + \overrightarrow{p_1} e^{\lambda_1 t}$</p>
+      <p>$\overrightarrow{x_3} = \overrightarrow{k_1} \frac{t^2}{2} e^{\lambda_1 t} + \overrightarrow{p_1} te^{\lambda_1 t} + q_1 e^{\lambda_1 t}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the general solution to the following system of differential equations.</p>
+
+        <p>$x_1'(t) = x_1$</p>
+        <p>$x_2'(t) = x_1 + 2x_2 + x_3$</p>
+        <p>$x_3'(t) = - x_1 - x_2$</p>
+
+        <p>We can represent this in matrix form as:</p>
+
+        <p>$\overrightarrow{x}' = A  \overrightarrow{x}$</p>
+
+        <p>$
+          \overrightarrow{x}' = 
+          \begin{bmatrix}
+          1 & 0 & 0 \\
+          1 & 2 & 1 \\
+          -1 & -1 & 0 \\
+          \end{bmatrix}
+          \overrightarrow{x}
+          $
+        </p>
+
+        <p>We'll need to find the matrix $A - \lambda I$.</p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          1 & 0 & 0 \\
+          1 & 2 & 1 \\
+          -1 & -1 & 0 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 & 0 \\
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          1 & 0 & 0 \\
+          1 & 2 & 1 \\
+          -1 & -1 & 0 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          \lambda & 0 & 0 \\
+          0 & \lambda & 0 \\
+          0 & 0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          1 - \lambda & 0 & 0 \\
+          1 & 2 - \lambda & 1 \\
+          -1 & -1 & -\lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>and then find its determinant, $|A - \lambda I|$</p>
+
+        <p>$
+          |A - \lambda I| = 
+
+          (1 - \lambda)
+          \begin{vmatrix}
+          2 - \lambda & 1 \\
+          -1 & -\lambda \\
+          \end{vmatrix}
+
+          - 
+
+          0
+          \begin{vmatrix}
+          1 & 1 \\
+          -1 & -\lambda \\
+          \end{vmatrix}
+
+          +
+
+          0
+          \begin{vmatrix}
+          1 & 2 - \lambda \\
+          -1 & -1 \\
+          \end{vmatrix}
+          $
+        </p>
+
+        <p>$|A - \lambda I| = (1 - \lambda) [(2 - \lambda)(- \lambda) - (1)(-1)] - 0[(1)(-\lambda) - (1)(-1)] + 0[(1)(-1) - (2 - \lambda)(-1)]$</p>
+
+        <p>$|A - \lambda I| = (1 - \lambda) (-2 \lambda + \lambda^2 + 1)$</p>
+        <p>$|A - \lambda I| = -2 \lambda + \lambda^2 + 1 + 2 \lambda^2 - \lambda^3 - \lambda$</p>
+        <p>$|A - \lambda I| = 1 - 3 \lambda + 3 \lambda^2 - \lambda^3$</p>
+
+        <p>Solve the characteristic equation for the eigenvalues.</p>
+
+
+        <p>$1 - 3 \lambda + 3 \lambda^2 - \lambda^3 = 0$</p>
+        <p>$\lambda^3 - 3 \lambda^2 + 3 \lambda - 1 = 0$</p>
+        <p>$(\lambda - 1)(\lambda - 1)(\lambda - 1) = 0$</p>
+
+        <p>For these eigenvalues, $\lambda_1 = \lambda_2 = \lambda_3 = 1$, we find:</p>
+
+        <p>$
+          A - 1I = 
+
+          \begin{bmatrix}
+          1-1 & 0 & 0 \\
+          1 & 2-1 & 1 \\
+          -1 & -1 & -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - 1I = 
+          \begin{bmatrix}
+          0 & 0 & 0 \\
+          1 & 1 & 1 \\
+          -1 & -1 & -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put this matrix into reduced row echelon form.</p>
+
+        <p>$
+          A - 1I = 
+          \begin{bmatrix}
+          0 & 0 & 0 \\
+          1 & 1 & 1 \\
+          -1 & -1 & -1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 1 & 1 \\
+          -1 & -1 & -1 \\
+          0 & 0 & 0 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 1 & 1 \\
+          0 & 0 & 0 \\
+          0 & 0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn this first row into an equation, we get:</p>
+
+        <p>$k_1 + k_2 + k_3 = 0$</p>
+        <p>$k_1 = -k_2 - k_3$</p>
+
+        <p>We'll choose $(k_2, k_3) = (-1, 0)$, which results in $k_1 = 1$.</p>
+
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and therefore:</p>
+
+        <p>$\overrightarrow{x_1} = k_1 e^{\lambda_1 t}$</p>
+
+
+        <p>$
+          \overrightarrow{x_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          0 \\
+          \end{bmatrix}
+          3^t
+          $
+        </p>
+
+        <p>But we can actually find a second linearly independent eigenvector from $k_1 = -k_2 - k_3$. If we choose $(k_2, k_3) = (0, -1)$, we get $k_1 = 1$, and find a second eigenvector from $k_1 = k_2 - k_3$. If we choose $(k_2, k_3) = (1, -1)$, we get $k_1 = 0$, and find a third eigenvector.</p>
+
+        <p>$
+          \overrightarrow{k_3} = 
+
+          \begin{bmatrix}
+          0 \\
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and therefore:</p>
+
+        <p>$\overrightarrow{x_3} = k_3 e^{\lambda_3 t}$</p>
+
+        <p>$
+          \overrightarrow{x_3} = 
+
+          \begin{bmatrix}
+          0 \\
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^t
+          $
+        </p>
+
+        <p>The three eigenvectors, $\overrightarrow{k_1} = (1, -1, 0)$, $\overrightarrow{k_2} = (1, 0, -1)$ and $\overrightarrow{k_2} = (0, 1, -1)$ are linearly independent of each other, because there is no linear combination of any two vectors that will result in the third.</p>
+
+        <p>Therefore, the general solution will be:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2} + c_3 \overrightarrow{x_3}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          0 \\
+          \end{bmatrix}
+          e^t
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          0 \\
+          1 \\
+          \end{bmatrix}
+          e^t
+
+          +
+
+          c_3
+          \begin{bmatrix}
+          0 \\
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^t
+          $
+        </p>
+
+
+    <h3 id="complex_eig">Complex Eigenvalues</h3>
+
+      Complex eigenvalues are eigenvalues that are complex numbers. We'll find complex eigenvalues $\lambda_1 = \alpha + \beta_i$ and $\lambda_2 = \alpha - \beta_i$ using the quadratic formula to solve the characteristic equation, and find the associated eigenvectors in the same way we did before, by solving the system of equations we get from $|A - \lambda I| = \overrightarrow{0}$. The eigenvectors $\overrightarrow{k_1}$ and $\overrightarrow{k_2}$ are conjugates, as are the eigenvalues.
+
+
+      <h4>Example:</h4>
+
+        <p>Solve the following system of equations.</p>
+
+        <p>$x_1' = 4x_1 + 5x_2$</p>
+        <p>$x_2' = -2x_1 + 6x_2$</p>
+
+        <p>The coefficient matrix is:</p>
+
+        <p>$
+          A = 
+
+          \begin{bmatrix}
+          4 & 5 \\
+          -2 & 6 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>And the matrix $A - \lambda I$ is:</p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          4 & 5 \\
+          -2 & 6 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          4 & 5 \\
+          -2 & 6 \\
+          \end{bmatrix}
+
+          -
+
+          \begin{bmatrix}
+          \lambda & 0 \\
+          0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          4 - \lambda & 5 \\
+          -2 & 6 - \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Its determinant is:</p>
+
+        <p>$|A - \lambda I| = (4 - \lambda)(6 - \lambda) - (5)(-2)$</p>
+        <p>$|A - \lambda I| = 24 - 4 \lambda - 6 \lambda + \lambda^2 + 10$</p>
+        <p>$|A - \lambda I| = \lambda^2 - 10 \lambda + 34$</p>
+
+        <p>So the characteristic equation is:</p>
+
+        <p>$\lambda^2 - 10 \lambda + 34 = 0$</p>
+
+        <p>Using the quadratic formula, the roots are:</p>
+
+        <p>$\lambda = \frac{ -b \pm \sqrt{b^2 - 4ac} }{ 2a }$</p>
+        <p>$\lambda = \frac{ -(-10) \pm \sqrt{(-10^2) - 4(1)(34)} }{ 2(1) }$</p>
+        <p>$\lambda = \frac{ 10 \pm \sqrt{-36} }{ 2 }$</p>
+        <p>$\lambda = \frac{10 \pm 6i}{2}$</p>
+        <p>$\lambda = 5 \pm 3i$</p>
+
+        <p>Then for these complex conjugate eigenvalues, $\lambda_1 = 5 + 3i$ and $\lambda_2 = 5 - 3i$, we find:</p>
+
+        <p>$
+          A - (5 + 3i)I = 
+
+          \begin{bmatrix}
+          4 - (5 + 3i) & 5 \\
+          -2 & 6 - (5 + 3i) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - (5 + 3i)I = 
+
+          \begin{bmatrix}
+          1 - 3i & 5 \\
+          -2 & 1 - 3i \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and 
+
+        <p>$
+          A - (5 + 3i)I = 
+
+          \begin{bmatrix}
+          4 - (5 - 3i) & 5 \\
+          -2 & 6 - (5 - 3i) \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          A - (5 + 3i)I = 
+
+          \begin{bmatrix}
+          -1 + 3i & 5 \\
+          -2 & 1 + 3i \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn the matrices back into systems of equations, we get:</p>
+
+        <p>$(-1 - 3i)k_1 + (5)k_2 = 0$</p>
+        <p>$(-2)k_1 + (1 - 3i)k_2 = 0$</p>
+
+        <p>and</p>
+
+        <p>$(-1 + 3i)k_1 + (5)k_2 = 0$</p>
+        <p>$(-2)k_1 + (1 + 3i)k_2 = 0$</p>
+
+        <p>From the first equation in the first system $\lambda_1 = 5 + 3i$, we find:</p>
+
+        <p>$k_2 = \left( \frac{1}{5} + \frac{3}{5}i \right) k_1$</p>
+
+        <p>Choosing $k_1 = 5$ gives $k_2 = 1 + 3i$, which leads to the eigenvector:</p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 + 3i \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and the corresponding solution vector:</p>
+
+        <p>$\overrightarrow{x_1} = k_1 e^{\lambda_1 t}$</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 + 3i \\
+          \end{bmatrix}
+          3^{(5 + 3i)t}
+          $
+        </p>
+
+        <p>In the same way, from the first equation in the second system for $\lambda_2 = 5 - 3i$, we find:</p>
+
+        <p>$k_2 = \left( \frac{1}{5} - \frac{3}{5}i \right) k_1$</p>
+
+        <p>Choosing $k_1 = 5$ gives $k_2 = 1 - 3i$, which leads us to the eigenvector:</p>
+
+        <p>$
+          \overrightarrow{k_2} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 - 3i \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and the corresponding solution vector:</p>
+
+        <p>$\overrightarrow{x_2}  = \overrightarrow{k_2} e^{\lambda_2 t}$</p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 + 3i \\
+          \end{bmatrix}
+          e^{(5 - 3i)t}
+          $
+        </p>
+
+        <p>Therefore, the general solution will be:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          5 \\
+          1 + 3i \\
+          \end{bmatrix}
+          e^{(5 + 3i)t}
+
+          + 
+
+          c_2
+          \begin{bmatrix}
+          5 \\
+          1 - 3i \\
+          \end{bmatrix}
+          e^{(5 - 3i)t}
+          $
+        </p>
+
+
+      <h4>The Solution in Real Terms</h4>
+
+        <p>We can convert the general solution from complex numbers into real numbers. When we have two complex eigenvalues, we only need to consider one eigenvector. For $lambda_1 = \alpha + \beta i$, the real vector solutions will be:</p>
+
+        <p>$\overrightarrow{x_1} = [ \overrightarrow{b_1} ~cos(\beta t) - \overrightarrow{b_2} ~sin(\beta t) ] e^{\alpha t}$</p>
+        <p>$\overrightarrow{x_2} = [ \overrightarrow{b_2} ~cos(\beta t) + \overrightarrow{b_1} ~sin(\beta t) ] e^{\alpha t}$</p>
+
+        <p>where $\overrightarrow{b_1}$ is the real part of eigenvector $\overrightarrow{k_1}$, $\overrightarrow{b} = Re(k_1)$, and where $\overrightarrow{b_2}$ is the imaginary part of the egienvector $\overrightarrow{k_1}$, $\overrightarrow{b_2} = Im(\overrightarrow{k_1})$. The complex conjugate eigenvalue $\lambda_2 = \alpha - \beta i$ gives the same values for $\alpha$ and $\beta$, and therefore the same two solutions $\overrightarrow{x_1}$ and $\overrightarrow{x_2}$.</p>
+
+        <p>Let's extend the last example to change the solution into real terms instead of complex terms.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Convert the following general solution into real terms.</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          5 \\
+          1 + 3i \\
+          \end{bmatrix}
+          e^{(5 + 3i)t}
+
+          + 
+
+          c_2
+          \begin{bmatrix}
+          5 \\
+          1 - 3i \\
+          \end{bmatrix}
+          e^{(5 - 3i)t}
+          $
+        </p>
+
+        <p>The eigenvector $\overrightarrow{k_1}$ can be rewritten as separate real and imaginary parts.</p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 + 3i \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 \\
+          \end{bmatrix}
+
+          +
+
+          i
+          \begin{bmatrix}
+          0 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Therefore, the vectors $\overrightarrow{b_1} = Re(\overrightarrow{k_1})$ and $\overrightarrow{b_2} = Im(\overrightarrow{k_1})$ are:</p>
+
+        <p>$
+          \overrightarrow{b_1} = 
+
+          \begin{bmatrix}
+          5 \\
+          1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{b_2} = 
+
+          \begin{bmatrix}
+          0 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>So the first solution will be $\overrightarrow{x_1} = [\overrightarrow{b_1} ~cos(\beta t) - \overrightarrow{b_2} ~sin(\beta t)] e^{\alpha t}$.</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+
+          \left(
+          \begin{bmatrix}
+          5 \\
+          1 \\
+          \end{bmatrix}
+          ~cos(3t)
+
+          -
+
+          \begin{bmatrix}
+          0 \\
+          3 \\
+          \end{bmatrix}
+          ~sin(3t)
+          \right)
+          e^{5t}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_1}
+
+          = 
+
+          \left(
+          \begin{bmatrix}
+          5 ~cos(3t) \\
+          cos(3t) \\
+          \end{bmatrix}
+
+          -
+
+          \begin{bmatrix}
+          0 \\
+          3 ~sin(3t) \\
+          \end{bmatrix}
+          \right)
+          e^{5t}
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{x_1} = 
+
+          \begin{bmatrix}
+          5 ~cos(3t) \\
+          cos(3t) - 3 ~sin(3t) \\
+          \end{bmatrix}
+          e^{5t}
+          $
+        </p>
+
+        <p>The second solution will be:</p>
+
+        <p>$\overrightarrow{x_2} = [b_2 ~cos(\beta t) + \overrightarrow{b_1} ~sin(\beta t)] e^{\alpha t}$</p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+
+          \left(
+          \begin{bmatrix}
+          0 \\
+          3 \\
+          \end{bmatrix}
+          ~cos(3t)
+
+          +
+
+          \begin{bmatrix}
+          5 \\
+          1 \\
+          \end{bmatrix}
+          ~sin(3t)
+          \right)
+          e^{5t}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+
+          \left(
+          \begin{bmatrix}
+          0 \\
+          3 ~cos(3t) \\
+          \end{bmatrix}
+
+          + 
+
+          \begin{bmatrix}
+          5 ~sin(3t) \\
+          sin(3t) \\
+          \end{bmatrix}
+          \right)
+          e^{5t}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+
+          \begin{bmatrix}
+          5 ~sin(3t) \\
+          3 ~cos(3t) + sin(3t) \\
+          \end{bmatrix}
+          e^{5t}
+          $
+        </p>
+
+        <p>Therefore, the general solution in real terms is given by:</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          5 ~cos(3t) \\
+          cos(3t) - 3 ~sin(3t) \\
+          \end{bmatrix}
+          e^{5t}
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          5 ~sin(3t) \\
+          3 ~cos(3t) + sin(3t) \\
+          \end{bmatrix}
+          e^{5t}
+          $
+        </p>
+
+
+    <h3 id="undetermined_coeff">Undetermined Coefficients for Nonhomogenous Systems</h3>
+
+      <p>We introduced the equation $\overrightarrow{x}' = A \overrightarrow{x} + F$, and said a system is homogenous when $F=0$, and nonhomogenous when $F$ is non-zero, $F \neq 0$. There are two methods we can use to solve nonhomogenous systems, which are extensions of methods used earlier: 1) undetermined coefficients, and 2) variation of parameters.</p>
+
+      <p>As with nonhomogenous linear differential equations, the solution to a nonhomogenous system will be the sum of the complementary and particular solutions.</p>
+
+      <p>$\overrightarrow{x} = \overrightarrow{x_c} + \overrightarrow{x_p}$</p>
+
+      <p>where $\overrightarrow{x_c}$ is the general solution to the associated homogenous system, $\overrightarrow{x} = A \overrightarrow{x}$. We'll use undetermined coefficients or variation of parameters to make a guess about the particular solution, $\overrightarrow{x_p}$. Variation of parameters is a more versatile method, but undetermined coefficients can be easier.</p>
+
+
+    <h3 id="method_undet_coeff">Method of Undetermined Coefficients</h3>
+
+      <p>The method of undetermined coefficients may work well when the entries of the vector $F$ are constants, polynomials, exponentials, sines and cosines, or a combination of these. Below is a table similar to the one we used before for nonhomogenous equations.</p>
+
+      <img src="img/diff_eqs4_fig1.png" style="height: 300px; width:auto;"></br></br>
+
+
+      <h4>Example:</h4>
+
+        <p>Use undetermined coefficients to find the general solution to the system:</p>
+
+        <p>$
+          \overrightarrow{x}' = 
+
+          \begin{bmatrix}
+          1 & 3 \\
+          3 & 1 \\
+          \end{bmatrix}
+          \overrightarrow{x}
+          $
+        </p>
+
+        <p>The coefficient matrix is:</p>
+
+        <p>$
+          A = 
+
+          \begin{bmatrix}
+          1 & 3 \\
+          3 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and the matrix $A - \lambda I$ is:</p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          1 & 3 \\
+          3 & 1 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          1 & 3 \\
+          3 & 1 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          \lambda & 0 \\
+          0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          1 - \lambda & 3 \\
+          3 & 1 - \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Its determinant $|A - \lambda I|$ is:</p>
+
+        <p>$(1 - \lambda)(1 - \lambda) - (3)(3)$</p>
+        <p>$1 - 2 \lambda + \lambda^2 - 9$</p>
+        <p>$\lambda^2 - 2 \lambda - 8$</p>
+
+        <p>so the characteristic equation is:</p>
+
+        <p>$\lambda^2 - 2 \lambda - 8 = 0$</p>
+        <p>$(\lambda - 4)(\lambda + 2) = 0$</p>
+
+        <p>For these eigenvalue, $\lambda_1 = 4$ and $\lambda_2 = -2$, we find:</p>
+
+        <p>$
+          A - 4I = 
+
+          \begin{bmatrix}
+          1-4 & 3 \\
+          3 & 1-4 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - 4I = 
+
+          \begin{bmatrix}
+          -3 & 3 \\
+          3 & -3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and</p>
+
+        <p>$
+          A - (-2)I = 
+
+          \begin{bmatrix}
+          1 - (-2) & 3 \\
+          3 & 1 - (-2) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - (-2)I = 
+
+          \begin{bmatrix}
+          3 & 3 \\
+          3 & 3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put these two matrices into reduced row echelon form.</p>
+
+        <p>$
+          \begin{bmatrix}
+          -3 & 3 \\
+          3 & -3 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -1 \\
+          3 & -3 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -1 \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and</p>
+
+        <p>$
+          \begin{bmatrix}
+          3 & 3 \\
+          3 & 3 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 1 \\
+          3 & 3 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 1 \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn these back into systems of equations, we get:</p>
+
+        <p>$k_1 - k_2 = 0$</p>
+        <p>$k_1 = k_2$</p>
+
+        <p>and </p>
+
+        <p>$k_1 + k_2 = 0$</p>
+        <p>$k_1 = -k_2$</p>
+
+        <p>For the first system, we choose $(k_1, k_2) = (1, 1)$. And for the second system, $(1, -1)$.</p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Then the solutions to the system are:</p>
+
+        <p>$\overrightarrow{x_1} = \overrightarrow{k_1} e^{\lambda_1 t}$</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^{4t}
+          $
+        </p>
+
+        <p>and </p>
+
+        <p>$\overrightarrow{x_2} = \overrightarrow{k_2} e^{\lambda_2 t}$</p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^{-2t}
+          $
+        </p>
+
+        <p>Therefore, the complementary solution to the nonhomogenous system, which is also the general solution to the associated homogenous system, will be:</p>
+
+        <p>$\overrightarrow{x_c} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$</p>
+
+        <p>$
+          \overrightarrow{x_c} = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          \end{bmatrix}
+          3^{4t}
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^{-2t}
+          $
+        </p>
+
+        <p>Now we can turn to finding the particular solution. We'll rewrite the forcing function vector as:</p>
+
+        <p>$
+          F = 
+
+          \begin{bmatrix}
+          -2t^2 \\
+          t+5 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          F = 
+          \begin{bmatrix}
+          -2 \\
+          0 \\
+          \end{bmatrix}
+          t^2
+
+          +
+
+          \begin{bmatrix}
+          0 \\
+          1 \\
+          \end{bmatrix}
+          t^2
+
+          +
+
+          \begin{bmatrix}
+          0 \\
+          5 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>We want a particular solution in the same form, so our guess will be:</p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          a_1 \\
+          a_2 \\
+          \end{bmatrix}
+          t^2
+
+          +
+
+          \begin{bmatrix}
+          b_1 \\
+          b_2 \\
+          \end{bmatrix}
+          t
+
+          + 
+
+          \begin{bmatrix}
+          c_1 \\
+          c_2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_p}' = 
+
+          \begin{bmatrix}
+          2a_1 \\
+          2a_2 \\
+          \end{bmatrix}
+          t
+
+          + 
+
+          \begin{bmatrix}
+          b_1 \\
+          b_2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Plugging this into the matrix equation representing the system of differential equations, $\overrightarrow{x}' = A \overrightarrow{x} + F$, we get:</p>
+
+        <p>$
+          \begin{bmatrix}
+          2a_1 \\
+          2a_2 \\
+          \end{bmatrix}
+          t
+
+          +
+
+          \begin{bmatrix}
+          b_1 \\
+          b_2 \\
+          \end{bmatrix}
+
+          =
+
+          \begin{bmatrix}
+          1 & 3 \\
+          3 & 1 \\
+          \end{bmatrix}
+
+          \left[
+
+          \begin{bmatrix}
+          a_1 \\
+          a_2 \\
+          \end{bmatrix}
+          t^2
+
+          +
+
+          \begin{bmatrix}
+          b_1 \\
+          b_2 \\
+          \end{bmatrix}
+          t
+
+          +
+
+          \begin{bmatrix}
+          c_1 \\
+          c_2 \\
+          \end{bmatrix}
+
+          \right]
+
+          +
+
+          \begin{bmatrix}
+          -2 \\
+          0 \\
+          \end{bmatrix}
+          t^2
+
+          +
+
+          \begin{bmatrix}
+          0 \\
+          1 \\
+          \end{bmatrix}
+          t
+
+          +
+
+          \begin{bmatrix}
+          0 \\
+          5 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          2a_1 t + b_1 \\
+          2a_2 t + b_2 \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          1 & 3 \\
+          3 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          a_1 t^2 + b_1 t + c_1 \\
+          a_2 t^2 + b_2 t + c_2 \\
+          \end{bmatrix}
+
+          +
+
+          \begin{bmatrix}
+          -2t^2 \\
+          t+5 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Breaking this equation into a system of two equations gives:</p>
+
+        <p>$2a_1t + b_1 = (1)(a_1t^2 + b_1t + c_1) + (3)(a_2t^2 + b_2t + c_2) - 2t^2$</p>
+        <p>$2a_2t + b_2 = (3)(a_1t^2 + b_1t + c_1) + (1)(a_2t^2 + b_2t + c_2) + t + 5$</p>
+
+        <p>which simplifies to:</p>
+
+        <p>$2a_1t + b_1 = (a_1 + 3a_2 - 2)t^2 + (b_1 + 3b_2)t + (c_1 + 3c_2)$</p>
+        <p>$2a_2t + b_2 = (3a_1 + a_2)t^2 + (3b_1 + b_2 + 1)t + (3c_1 + c_2 + 5)$</p>
+
+        <p>These equations can each be broken into its own system.</p>
+
+        <p>$0 = a_1 + 3a_2 - 2$</p>
+        <p>$2a = b_1 + 3b_2$</p>
+        <p>$b_1 = c_1 + 3c_2$</p>
+
+        <p>and</p>
+
+        <p>$0 = 3a_1 + a_2$</p>
+        <p>$2a_2 = 3b_1 + b_2 + 1$</p>
+        <p>$b_2 = 3c_1 + c_2 + 5$</p>
+
+        <p>Solving the top two equations as a system gives $a_1 = - \frac{1}{4}$ and $a_2 = \frac{3}{4}$. Plugging these values into the middles two equations gives:</p>
+
+        <p>$2 \left( - \frac{1}{4} \right) = b_1 + 3b_2$</p>
+        <p>$b_1 + 3b_2 = - \frac{1}{2}$</p>
+
+        <p>and</p>
+
+        <p>$2 \left( \frac{3}{4} \right) = 3b_1 + b_2 + 1$</p>
+        <p>$3b_1 + b_2 = \frac{1}{2}$</p>
+
+        <p>From these, we get $b_1 = \frac{1}{4}$ and $b_2 = - \frac{1}{4}$. Plugging these values into the bottom two equations gives:</p>
+
+        <p>$\frac{1}{4} = c_1 + 3c2$</p>
+        <p>$c_1 + 3c_2 = \frac{1}{4}$</p>
+
+        <p>and</p>
+
+        <p>$- \frac{1}{4} = 3c_1 + c_2 + 5$</p>
+        <p>$3c_1 + c_2 = - \frac{21}{4}$</p>
+
+        <p>From these, we get $c_1 = -2$ and $c_2 = \frac{3}{4}$. Putting the results together gives $\overrightarrow{a} = (a_1, a_2) = (- \frac{1}{4}, \frac{3}{4})$, $\overrightarrow{b} = (b_1, b_2) = (\frac{1}{4}, - \frac{1}{4})$ and $\overrightarrow{c} = (c_1, c_2) = (-2, \frac{3}{4})$. Therefore, the particular solution becomes:</p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          - \frac{1}{4} \\
+          \frac{3}{4} \\
+          \end{bmatrix}
+          t^2
+
+          +
+
+          \begin{bmatrix}
+          \frac{1}{4} \\
+          - \frac{1}{4} \\
+          \end{bmatrix}
+          t
+
+          +
+
+          \begin{bmatrix}
+          -2 \\
+          \frac{3}{4} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Now we can write the particular solution as one vector.</p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          - \frac{1}{4}t^2 + \frac{1}{4}t - 2 \\
+          \frac{3}{4}t^2 - \frac{1}{4}t + \frac{3}{4} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Summing the complementary and particular solutions gives the general solution to the nonhomogenous system of different equations.</p>
+
+        <p>$\overrightarrow{x} = \overrightarrow{x_c} + \overrightarrow{x_p}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          \end{bmatrix}
+
+          + 
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^{-2t}
+
+          +
+
+          \begin{bmatrix}
+          - \frac{1}{4}t^2 + \frac{1}{4}t^2 - 2 \\
+          \frac{3}{4}^2 - \frac{1}{4}t + \frac{3}{4} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+    <h3 id="var_params">Variations of Parameters for Nonhomogenous Systems</h3>
+
+      <p>If undetermined coefficients isn't a viable method solving a nonhomogenous system of differential equations, we can use the method of variation of parameters instead. As with undetermined coefficients, we have to start by finding the corresponding complementary solution, which is the general solution of the associated homogenous equation.</p>
+
+      <p>Then we'll use the complementary solution and the method of variation of parameters to find the particular solution, which will be given by:</p>
+
+      <p>$\overrightarrow{x_p} = \Phi(t) = \int \Phi^{-1}(t) F(t) ~dt$</p>
+
+      <p>The matrix $\Phi$ is made of the solution vectors from the complementary solution, and $\Phi^{-1}$, its inverse. The vector $F(t)$ is from the nonhomogenous equation $\overrightarrow{x}' = A \overrightarrow{x} + F$.</p>
+
+      <p>When we integrate the resulting matrix $\Phi^{-1}(t)F(t)$, we just integrate each entry in the matrix. The general solution of the nonhomogenous system will be the sum of the complementary and particular solutions.</p>
+
+      <p>$\overrightarrow{x} = \overrightarrow{x_c} + \overrightarrow{x_p}$</p>
+
+
+    <h3 id="mat_exp">The Matrix Exponential</h3>
+
+      <p>In addition to the method of undetermined coefficients and the method of variation of parameters, we may use the matrix exponential, $e^{At}$, as part of the following formula for the solution to a nonhomogenous system.</p>
+
+      <p>$\overrightarrow{x} = e^{At}C + e^{At} \int_{t_0}^t e^{-As} F(s) ~ds$</p>
+
+      <p>In other words, given a system of linear first order differential equations $\overrightarrow{x}' = A \overrightarrow{x} + F$, the general solution to the system is given by the integral formula above. As always, the general solution is the sum of the complementary and particular solutions.</p>
+
+      <p>$\overrightarrow{x_c} = e^{At}C$</p>
+      <p>$\overrightarrow{x_p} = e^{At} \int_{t_0}^t e^{-As} F(s) ~ds$</p>
+
+      <p>The column matrix $C$ is made of the arbitrary constants $c_1, c_2, c_3, \ldots, c_n$. And $e^{-As}$ is found by substituting t=s into $e^{At}$, and finding the inverse of that resulting matrix.</p>
+
+      <p>Recall the power series expansion of $e^{at}$.</p>
+
+      <p>$e^{at} = 1 + at + \frac{(at^2)}{2!} + \frac{(at^3)}{3!} + \ldots + \frac{(at)^k}{k!}$</p>
+      <p>$e^{at} = 1 + at + a^2 \frac{t^2}{2!} + a^3 \frac{t^3}{3!} + \ldots + a^k \frac{t^k}{k!}$</p>
+      <p>$= \sum_{k=0}^{\infty} a^k \frac{t^k}{k!}$</p>
+
+      <p>We can rewrite this power series expansion in matrix form, replacing $1$ with the matrix equivalent $I$, and replacing the constant $a$ with the matrix $A$.</p>
+
+      <p>$e^{At} = I + At + A^2 \frac{t^2}{2!} + A^3 \frac{t^3}{3!} + \ldots + A^k \frac{t^k}{k!}$
+      <p>$= \sum_{k=0}^{\infty} A^k \frac{t^k}{k!}$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the power series formula to compute the matrix exponential of:</p>
+
+        <p>$A = 
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Let's find the first few powers of $A$, starting with $A^2$.</p>
+
+        <p>$
+          A^2 = 
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          3^2 & 0 \\
+          0 & 1^2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A^3 = 
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          3^3 & 0 \\
+          0 & 1^3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Higher powers of $A$ will follow this emerging pattern, so we can write:</p>
+
+        <p>$e^{At} = I + At + A^2 \frac{t^2}{2!} + A^3 \frac{t^3}{3!} + \ldots$</p>
+
+        <p>$
+          e^{At}
+
+          = 
+
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          +
+
+          \begin{bmatrix}
+          3 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          t
+
+          + 
+
+          \begin{bmatrix}
+          3^2 & 0 \\
+          0 & 1^2 \\
+          \end{bmatrix}
+          \frac{t^2}{2!}
+
+          + 
+
+          \begin{bmatrix}
+          3^3 & 0 \\
+          0 & 1^3 \\
+          \end{bmatrix}
+          \frac{t^3}{3!}
+
+          + \ldots
+          $
+        </p>
+
+        <p>$
+          e^{At} = 
+
+          \begin{bmatrix}
+          1 + 3t + 3^2 \frac{t^2}{2!} + 3^3 \frac{t^3}{3!} + \ldots  &  0 \\
+          0  &  1 + 1t + 1^2 \frac{t^2}{2!} + 1^3 \frac{t^3}{3!} + \ldots \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Notice that the entry in the upper left of the matrix is just the expansion of $e^t$.</p>
+
+        <p>$
+          e^{At} = 
+
+          \begin{bmatrix}
+          3^t & 0 \\
+          0 & e^t \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+      <h4>Solving the Nonhomogenous System</h4>
+
+        <p>Once we have the matrix exponential $e^{At}$, we have almost everything needed to find the general solution to the nonhomogenous system.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the general solution of the system:
+
+        <p>$
+          \overrightarrow{x}' = 
+
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 2 \\
+          \end{bmatrix}
+          \overrightarrow{x}
+
+          + 
+
+          \begin{bmatrix}
+          3 \\
+          -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>First, we'll find $sI - A$.</p>
+
+        <p>$
+          sI - A = 
+
+          s
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+
+          - 
+
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          sI - A = 
+
+          s
+          \begin{bmatrix}
+          s & 0 \\
+          0 & s \\
+          \end{bmatrix}
+
+          - 
+
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          sI - A = 
+
+          \begin{bmatrix}
+          s-1 & 0-0 \\
+          0-0 & s-2 \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          s-1 & 0 \\
+          0 & s-2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Then we'll find the inverse of this matrix, by changing $[sI-A | I]$ into $[I | (sI-a)^{-1}]$.</p>
+
+        <p>$
+          \begin{bmatrix}
+          s-1 & 0 | 1 & 0 \\
+          0 & s-2 | 0 & 1 \\
+          \end{bmatrix}
+
+          \to
+
+          \begin{bmatrix}
+          1 & 0 ~~| \frac{1}{s-1} & 0\\
+          0 & s-2 | 0 & 1\\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 0 | \frac{1}{s-1} & 0 \\
+          0 & 1 | 0 & \frac{1}{s-2} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Now we can apply the inverse Laplace transform to this inverse matrix.</p>
+
+        <p>$
+          (sI - A)^{-1} = 
+
+          \begin{bmatrix}
+          \frac{1}{s-1} & 0 \\
+          0 & \frac{1}{s-2} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \mathcal{L}^{-1}( (sI - A)^{-1} ) = 
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^t \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Now that we have the matrix exponential, we can say that the complementary solution will be:</p>
+
+        <p>$\overrightarrow{x_c} = e^{At}C$</p>
+
+        <p>$
+          \overrightarrow{x_c} = 
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^{2t} \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          c_1 \\
+          c_2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_c} = 
+
+          \begin{bmatrix}
+          c_1 e^t \\
+          c_2 e^t \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>To find the particular solution, we'll need $e^{-As}$, which we find by making the substitution $t=s$ into $e^{At}$.
+
+        <p>$
+          e^{As} = 
+
+          \begin{bmatrix}
+          e^s & 0 \\
+          0 & e^{2s} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and then calculating the inverse of this resulting $e^{As}$.</p>
+
+        <p>$
+          e^{As} = 
+
+          \begin{bmatrix}
+          e^s & 0 ~~~| 1 & 0 \\
+          0 & e^{2s} | 0 & 1 \\
+          \end{bmatrix}
+
+          \to
+
+          \begin{bmatrix}
+          1 & 0 ~~~~~~| e^{-s} & 0 \\
+          0 & e^{2s} | 0 & 1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 0 ~~| e^{-s} & 0 \\
+          0 & 1 | 0 & e^{-2s} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$e^{-As}$ is given by this resulting matrix:</p>
+
+        <p>$
+          e^{-As} = 
+
+          \begin{bmatrix}
+          e^{-s} & 0 \\
+          0 & e^{-2s} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>We'll find $F(s)$ by substituting $t=s$ into $F$, which actually require no substitution, since there are no $t$ variables in $F$.</p>
+
+        <p>$
+          F(s) = 
+
+          \begin{bmatrix}
+          3 \\
+          -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Therefore, the particular solution will be:</p>
+
+        <p>$\overrightarrow{x_p} = e^{At} \int_{t_0}^t e^{-As} F(s) ~ds$</p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^{2t} \\
+          \end{bmatrix}
+
+          \int_0^t
+
+          \begin{bmatrix}
+          e^{-s} & 0 \\
+          0 & e^{-2s} \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          3 \\
+          -1 \\
+          \end{bmatrix}
+          ~ds
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^{2t} \\
+          \end{bmatrix}
+
+          \int_0^t
+
+          \begin{bmatrix}
+          3e^{-s} \\
+          e^{-2s} \\
+          \end{bmatrix}
+          ~ds
+          $
+        </p>
+
+        <p>Now we'll integrate and evaluate on the interval $[0, t]$.</p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^{2t} \\
+          \end{bmatrix}
+
+          \int_0^t
+
+          \left(
+          \begin{bmatrix}
+          -3e^{-t} \\
+          \frac{1}{2}e^{-2t} \\
+          \end{bmatrix}
+
+          -
+
+          \begin{bmatrix}
+          -3e^{-0} \\
+          \frac{1}{2}e^{-2(0)} \\
+          \end{bmatrix}
+          \right)
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^{2t} \\
+          \end{bmatrix}
+
+          \left(
+          \begin{bmatrix}
+          -3e^{-t} \\
+          \frac{1}{2}e^{-2t} \\
+          \end{bmatrix}
+
+          -
+
+          \begin{bmatrix}
+          -3 \\
+          \frac{1}{2} \\
+          \end{bmatrix}
+          \right)
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_p}
+
+          =
+
+          \begin{bmatrix}
+          e^t & 0 \\
+          0 & e^{2t} \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          -3e^{-t} + 3 \\
+          \frac{1}{2}e^{2t} - \frac{1}{2} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Finally, we can do the last matrix multiplication to get $\overrightarrow{x_p}$.</p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          e^t(-3e^{-t} + 3) \\
+          e^{2t}(\frac{1}{2}e^{-2t} - \frac{1}{2}) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_p} = 
+
+          \begin{bmatrix}
+          -3 + 3e^t \\
+          \frac{1}{2} - \frac{1}{2}e^{2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Then the general solution is the sum of the complementary and particular solutions.</p>
+
+        <p>$\overrightarrow{x} = \overrightarrow{x_c} + \overrightarrow{x_p}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          \begin{bmatrix}
+          c_1 e^t \\
+          c_2 e^{2t} \\
+          \end{bmatrix}
+
+          +
+
+          \begin{bmatrix}
+          -3 + 3e^t \\
+          \frac{1}{2} - \frac{1}{2}e^{2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          \begin{bmatrix}
+          c_1 e^t + 3e^t - 3 \\
+          c_2 e^{2t} - \frac{1}{2}e^{2t} + \frac{1}{2} \\
+          \end{bmatrix}
+          $
+
+                  <p>$
+          \overrightarrow{x} = 
+
+          \begin{bmatrix}
+          c_1 + 3 \\
+          0 \\
+          \end{bmatrix}
+          e^t
+
+          + 
+
+          \begin{bmatrix}
+          0 \\
+          c_2 - \frac{1}{2} \\
+          \end{bmatrix}
+          e^{2t}
+
+          + 
+
+          \begin{bmatrix}
+          -3 \\
+          \frac{1}{2} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Because $c_1$ and $c_2$ are constants, $c_1 + 3$ and $c_2 - \frac{1}{2}$ are also constants. Therefore, we can simplify the general solution to just:</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          \begin{bmatrix}
+          c_1 \\
+          0 \\
+          \end{bmatrix}
+          e^t
+
+          +
+
+          \begin{bmatrix}
+          0 \\
+          c_2 \\
+          \end{bmatrix}
+          e^{2t}
+
+          +
+
+          \begin{bmatrix}
+          -3 \\
+          \frac{1}{2} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          0 \\
+          \end{bmatrix}
+          e^t
+
+          + 
+
+          c_2
+          \begin{bmatrix}
+          0 \\
+          1 \\
+          \end{bmatrix}
+          e^{2t}
+
+          + 
+
+          \begin{bmatrix}
+          -3 \\
+          \frac{1}{2} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+
+
+
+
+        </br></br>
+        <p>Here is a link to <a href="diff_eqs_pt5.html">part 5</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+

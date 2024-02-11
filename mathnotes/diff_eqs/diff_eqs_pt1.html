@@ -1,0 +1,1607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+<h1>Differential Equations Pt. 1</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#first_order">First Order Equations</a></td><td><a href="#classifying">Classifying Differential Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#linear_diff_eqs">Linear Differential Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#linear_eqs">Linear Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#ivps">Initial Value Problems</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#separable_eqs">Separable Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#substitutions">Substitutions</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#bernoulli_eqs">Bernoulli Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#homog_eqs">Homogenous Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#exact_eqs">Exact Equations</a></td></tr>
+ <tr><td><a href="#second_order_eqs">Second Order Equations</a></td><td><a href="#reduct_of_order">Reduction of Order</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#undet_coeff_nonhomog">Undetermined Coefficients For Nonhomogenous Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#var_params_nonhomog">Variation of Parameters for Nonhomogenous Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#fund_sets_wronskian">Fundamental Solution Sets and the Wronskian</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#var_params_wronskian">Variation of Parameters with the Wronskian</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#ivps_nonhomog">Initial Value Problems with Nonhomogenous Equations</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="first_order">First Order Equations</h2>
+
+		<p>In the simplest sense, a differential equation is just an equation that contains one or more derivatives. For example, $y' - y = 3t^2$. First order equations include a first derivative as the highest-order derivative, and second order equations include a second derivative as the highest-order derivative, etc.</p>
+
+
+		<h3 id="classifying">Classifying Differential Equations</h3>
+
+			<p>The partial derivative of a function is the derivative of that function with respect to one of the multiple variables in which the function is defined. If a function $f$ has two variables $x$ and $y$, then we know that it has two partial derviatives, $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$.</p>
+
+			<p>We cannot name only one derivative for $f$, because $f$ is defined in two variables. Instead, we find one partial derivative of $f$ for each of its variables. When we define equations using partial derivatives like these, we call them partial differential equations (PDEs).</p>
+
+
+			<h4>Ordinary Derivatives</h4>
+
+				<p>An ordinary derivative is the derivative of a function in a single variable. For example, given a function for $y$ in terms of $x$, $y(x)$, its first derivative can be written as $\frac{dy}{dx}$ (without the partial symbol).</p>
+
+
+		<h3 id="linear_diff_eqs">Linear Differential Equations</h3>
+
+			<p>Linear differential equations are given in the form:</p>
+
+			<p>$p_n(x)t^{(n)}(x) + p_{n-1}(x)y^{(n-1)}(x) + \ldots + p_1(x)y'(x) + p_0(x)y(x) = q(x)$</p>
+
+			<p>where $p_i(x)$ and $q(x)$ are functions of $x$. If a first order ODE doesn't match this form, we say that it is a non-linear equation. Key elements of this definition of linear equations are:</p>
+				<ol>
+					<li>All fo the $p_i(x)$ coefficients are functions in terms of only $x$</li>
+					<li>$q(x)$ is also a function in terms of only $x$</li>
+					<li>The power of $y$ is never higher than $1$ (we should only see $y$ and its derivatives)</li>
+				</ol>
+
+			<p>For example, the equation $y' - 2xy = x ~cos ~y$ is non-linear because $q(x) = x ~cos ~y$, which means it is defined in terms of both $x$ and $y$, not $x$ alone.</p>
+
+			<p>When $q(x) = 0$, we say the linear equation is homogenous. When $q(x) \neq 0$, non-homogenous.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Identify the order and linearity of each differential equation below, then say whether or not each is homogenous.</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Equation</th><th>Order</th><th>Linearity</th><th>Homogeneity</th><th>Notes</th></tr></thead><tbody>
+				 <tr><td>$8y''' + 2y' + cos ~y = e^x$</td><td>3</td><td>non-linear</td><td>&nbsp;</td><td>Because the equation contains $cos ~y$, it is non-linear</td></tr>
+				 <tr><td>$2y'' + 5y' = xy$</td><td>2</td><td>linear</td><td>homogenous</td><td>We can rewrite this as $2y'' + 5y - xy = 0$</td></tr>
+				 <tr><td>$e^x y' - e^{x+y} = e^{2x}$</td><td>1</td><td>non-linear</td><td>&nbsp;</td><td>Because the equation contains $e^y$, it is non-linear</td></tr>
+				 <tr><td>$y''' + 5y' = y ~cos ~x$</td><td>3</td><td>linear</td><td>homogenous</td><td>We can rewrite this as $y''' + 5y' - y ~cos ~x = 0$, so it is linear and homogenous</td></tr>
+				 <tr><td>$y'' - 3y = sin ~x$</td><td>2</td><td>linear</td><td>non-homogenous</td><td>This equation is already in the form of a linear equation, but $q(x) = sin ~x = \neq 0$, so its non-homogenous</td></tr>
+				 <tr><td>$xy' + 2y = x^2 - x + 1$</td><td>1</td><td>linear</td><td>non-homogenous</td><td>The equation is alaready in the form of a linear equation, but $q(x) = x^2 - x + 1 \neq 0$, so its non-homogenous</td></tr>
+				</tbody></table>
+
+
+		<h3 id="linear_eqs">Linear Equations</h3>
+
+			<p>First order linear differential equations are given in the form $\frac{dy}{dx} + P(x)y = Q(x)$, where $P(x)$ and $Q(x)$ are continuous functions. They could be in a different form, such as $P(x)y = Q(x) - \frac{dy}{dx}$.</p>
+
+			<p>When $Q(x) = 0$, the first order linear equation is homogenous and the equation simplifies to $\frac{dy}{dx} + P(x)y = 0$. These homogenous linear equations are also called seperable differential equations. The solution to a homogenous linear equation is: $y = Ce^{K(x)}$, where $K(x) = - \int P(x) ~dx$.</p>
+
+
+			<h4>Solving Equations with The Integrating Factor</h4>
+
+				<p>To solve a first order linear differential equation, we can always follow the same steps:</p>
+					<ol>
+						<li>Make sure the equation matches the general form of a first order linear differential equation</li>
+						<li>From the equation, identify $P(x)$ and $Q(x)$</li>
+						<li>Find the equation's integrating factor, $I(x) = e^{ \int P(x) ~dx }$</li>
+						<li>Multiply through the linear equation by the integrating factor</li>
+						<li>Reverse the product rule to rewrite the left side of the resulting equation as $\left( \frac{d}{dx} \right) [yI(x)]$</li>
+						<li>Integrate both sides of the equation to find $y = y(x)$</li>
+					</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the solution to the following linear differential equation:</p>
+
+				<p>$x \frac{dy}{dx} - 2y = x^2$</p>
+
+				<p>Step 1 is to match the given equation to the standard form of a first order linear differential equation, by dividing both sides of the equation by $x$.</p>
+
+				<p>$\frac{dy}{dx} - \frac{2}{x}y = x$</p>
+
+				<p>Step 2 is to identify $P(x)$ and $Q(x)$:</p>
+
+				<p>$P(x) = - \frac{2}{x}$</p>
+				<p>$Q(x) = x$</p>
+
+				<p>Step 3, now that we have $P(x)$, is to find the integrating factor:</p>
+
+				<p>$I(x) = e^{\int P(x) ~dx}$</p>
+				<p>$I(x) = e^{\int \frac{-2}{x} ~dx}$</p>
+				<p>$I(x) = e^{-2 ~ln ~x}$</p>
+				<p>$I(x) = e^{ln ~x^{-2}}$</p>
+				<p>$I(x) = \frac{1}{x^2}$</p>
+
+				<p>Notice that we didn't add $C$ to account for the constant of integration. We can leave it out, because we're only looking for one solution to the linear differential equation, and that one solution can be associated with $C=0$.</p>
+
+				<p>Step 4 is to multiply both sides of the equation by the integrating factor.</p>
+
+				<p>$\frac{dy}{dx} \left( \frac{1}{x^2} \right) - \frac{2}{x}y \left( \frac{1}{x^2} \right) = x \left( \frac{1}{x^2} \right)$</p>
+				<p>$\frac{dy}{dx} \left( \frac{1}{x^2} \right) - \frac{2}{x^3}y = \frac{1}{x}$</p>
+
+				<p>Rewriting $\frac{dy}{dx}$ as $y'$, we get:</p>
+
+				<p>$y'x^{-2} - 2yx^{-3} = x^{-1}$</p>
+
+				<p>The left side of $y'x^{-2} - 2yx^{-3} = x^{-1}$ is actually the derivative of $yx^{-2}$. This is interesting because $yx^{-2}$ is the product of $y$ and our integrating factors. When we multiply our original linear differential equation by its integrating factor, the left side of the resulting equation will always be equal to $\frac{d}{dx}(yI(x))$.</p>
+
+				<p>Step 5: we make a substitution, replacing the left side of the resulting equation:</p>
+
+				<p>$\frac{d}{dx}(yx^{-2}) = x^{-1}$</p>
+
+				<p>Step 6: on the left, the derivative and the integral cancel out, since they are inverse operations.</p>
+
+				<p>$\int \frac{d}{dx}(yx^{-2}) = \int x^{-1} ~dx$</p>
+				<p>$yx^{-2} = ln |x| + C$</p>
+
+				<p>We solve for $y$, and find the solution to the linear differential equation</p>
+
+				<p>$y = x^2(ln ~|x| + C)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Solve the following linear differential equation:</p>
+
+				<p>$\frac{dy}{dx} + 2y = 4e^{-2x}$</p>
+
+				<p>The equation is already in standard form for a linear differential equation, so we can identify $P(x) = 2$ and $Q(x) = 4e^{-2x}$, and use $P(x)$ to find the integrating factor.</p>
+
+				<p>$P(x) = e^{ \int P(x) ~dx }$</p>
+				<p>$P(x) = e^{ \int 2 ~dx }$</p>
+				<p>$P(x) = e^{2x}$</p>
+
+				<p>Multiply through the linear differential equation by the integrating factor:</p>
+
+				<p>$\frac{dy}{dx}(e^{2x}) +  2y(e^{2x}) = 4e^{-2x} (e^{2x})$</p>
+				<p>$\frac{dy}{dx} e^{2x} + 2e^{2x} y = 4e^0$</p>
+				<p>$\frac{dy}{dx} e^{2x} + 2e^{2x} y = 4$</p>
+
+				<p>Replace the left side of the equation with $\left( \frac{d}{dx} \right) (yI(x))$</p>
+
+				<p>$\frac{d}{dx}(ye^{2x}) = 4$</p>
+
+				<p>Then integrate both sides of the equation, since the integral and derivative will cancel out.</p>
+
+				<p>$\int \frac{d}{dx} (ye^{2x}) ~dx = \int 4 ~dx$</p>
+				<p>$ye^{2x} = 4x + C$</p>
+
+				<p>Dividing both sides by $e^{2x}$ to get $y$ by itself, the solution to the linear differential equation is:</p>
+
+				<p>$y = \frac{4x + C}{e^{2x}}$</p>
+
+
+		<h3 id="ivps">Initial Value Problems</h3>
+
+			<p>We are often interested in finding $C$, a constant of integration. The information we'll need to find $C$ is an initial condition, which is the value of the solution at a specific point. An initial condition for a first order differential equation will take the form $y(x_0) = y_0$, and the number of initial conditions required for a given differential equation will depend on the order of the differential equation.</p>
+
+			<p>An initial value problem is a differential equations problem in which we're asked to use some given initial condition, or set of conditions, in order to find the particular solution.</p>
+
+
+			<h4>Solving Initial Value Problems:</h4>
+				<ol>
+					<li>Find the general solution that contains the constant of integration $C$</li>
+					<li>Substitute the initial condition $x = x_0$ and $y = y_0$ into the general solution to find the associated value of $C$</li>
+					<li>Restate the general solution, and include the value $y(0) = -5$ in order to find the particular solution to the differential equation $\frac{dy}{dx} + 2y = 4e^{-2x}$.</li>
+				</ol>
+
+				<p>In the previous lesson, we used the integrating factor to find the general solution to this differential equation, and it was:</p>
+
+				<p>$y = \frac{4x+C}{e^{2x}}$</p>
+
+				<p>Once we have this general solution, we recognize from the initial condition $y(0) = -5$ that $x=0$ and $y=-5$, so we plug these values into the general solution:</p>
+
+				<p>$-5 = \frac{4(0) + C}{e^{2(0)}}$</p>
+
+				<p>and then simplify this to solve for $C$:</p>
+
+				<p>$-5 = \frac{0+C}{1}$</p>
+				<p>$C = -5$</p>
+
+				<p>So the particular solution to the differential equation is:</p>
+
+				<p>$y = \frac{4x - 5}{e^{2x}}$</p>
+
+				<p>The general solution always remains the same, but the particular solution changes based on the initial condition we use.</p>
+
+
+		<h3 id="separable_eqs">Separable Equations</h3>
+
+			<p>We saw that first order linear equations are differential equations in the form:</p>
+
+			<p>$\frac{dy}{dx} + P(x)y = Q(x)$</p>
+
+			<p>In contrast, first order separable differential equations have the form:</p>
+
+			<p>$N(y) \frac{dy}{dx} = M(x)$</p>
+			<p>$N(y)y' = M(x)$</p>
+
+			<p>We call these separable because we can separate the variables, the $x$ and $y$ terms, onto opposite sides of the equation with no mixing.</p>
+
+			<p>When working with separable differential equations, we usually prefer the Leibniz notation $\frac{dy}{dx}$, because it makes it easier to see how to separate variables. We move the $dx$ to the right, leaving just the $dy$ notation on the left.</p>
+
+			<p>$N(y) ~dy = M(x) ~dx$</p>
+
+
+			<h4>How to Solve Separable Equations</h4>
+
+				<p>Most often, we'll be given questions in the form:</p>
+
+				<p>$N(y) \frac{dy}{dx} = M(x)$</p>
+
+				<p>There is a standard process to solving. First, we'll separate variables by moving the $dx$ to the right side.</p>
+
+				<p>$N(y) ~dy = M(x) ~dx$</p>
+
+				<p>With variables separated, we'll integrate both sides of the equation.</p>
+
+				<p>$\int N(y) ~dy = \int M(x) ~dx$</p>
+
+				<p>Normally, when we evaluate an indefinite integral, we need to add in a constant of integration. So after integrating, we would expect to have something like:</p>
+
+				<p>$\mathbf{N}(y) + C_1 = \mathbf{M}(x) + C_2$</p>
+
+				<p>where $\mathbf{N}(y)$ is the integral of $N(y)$, and $\mathbf{M}(x)$ is the integral of $M(x)$. When we solve for $\mathbf{N}(y)$, we get $\mathbf{N}(y) = \mathbf{M}(x) + C_2 - C_1$. Both $C_2$ and $C_1$ are constants, so $C_2 - C_1$ is also a constant. We can substitute and represent $C_2 - C_1$ as $C$.</p>
+
+				<p>$\mathbf{N}(y) = \mathbf{M}(x) + C$</p>
+
+				<p>Once the equation is in this form, the goal is to express $y$ explicitly as a function of $x$. If we cannot, we will settle for an implicit function.</p>
+
+				<p>To summarize, our solution steps are:</p>
+					<ol>
+						<li>If necessary, rewrite the equation in Leibniz form</li>
+						<li>Separate variables with $y$ terms on the left and $x$ terms on the right</li>
+						<li>Integrate both sides of the equation, adding $C$ to the right side</li>
+						<li>If possible, solve the solution equation specifically for $y$</li>
+					</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the solution to the separable differential equation $y' = y^2 sin ~x$.</p>
+
+				<p>Separate variables:</p>
+
+				<p>$dy = y^2 sin ~x ~dx$</p>
+				<p>$\frac{1}{y^2} ~dy = sin ~x ~dx$</p>
+
+				<p>Integrating both sides, we get:</p>
+
+				<p>$\int \frac{1}{y^2} ~dy = \int sin ~x ~dx$</p>
+				<p>$\int y^{-2} ~dy = \int sin ~x ~dx$</p>
+				<p>$-y^{-1} = -cos ~x + C$</p>
+				<p>$- \frac{1}{y} = - cos ~x + C$</p>
+				<p>$\frac{1}{y} = cos ~x + C$</p>
+
+				<p>Finally, solving for $y$ gives the solution to the separable differential equation</p>
+
+				<p>$1 = y(cos ~x + C)$</p>
+				<p>$y = \frac{1}{cos ~x + C}$</p>
+
+
+		<h3 id="substitutions">Substitutions</h3>
+
+			<p>First order linear and separable differential equations always have a solution, but first order differential equations that aren't linear or separable may or may not have one. To determine whether or not a non-linear, non-separable equation has a solution, one approach is to try transforming the differential equation into a linear or separable equation.</p>
+
+			<p>The substitution we want to make, also called a change of variable, is the one that allows us to convert the differential equation into a linear or separable equation.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use a change of variable to solve the differential equation:</p>
+
+				<p>$y' = 2x + y$</p>
+
+				<p>If we choose the substitution $u = ax + by$, we can set up the substitution:</p>
+
+				<p>$u = 2x + y$</p>
+				<p>$u' = 2 + y$</p>
+
+				<p>We solve this second equation for $u' = 2 + y'$ to get $y' = u' - 2$, then substitute $y' = u' - 2$ into the left side of the ODE, and $u = 2x + y$ into the right side.</p>
+
+				<p>$u' - 2 = u$</p>
+
+				<p>Now the equation is separable.</p>
+
+				<p>$\frac{du}{dx} = u + 2$</p>
+				<p>$du = (u + 2) ~dx$</p>
+				<p>$\frac{1}{u+2} ~du = ~dx$</p>
+
+				<p>Then we integrate both sides:</p>
+
+				<p>$\int\frac{1}{u+2} ~du = \int ~dx$</p>
+				<p>$ln(u+2) = x + C$</p>
+
+				<p>$e^{ln ~u + 2} = e^{x + C}$</p>
+				<p>$u + 2 = Ce^{Mx} \to Ce^x$</p>
+				<p>$u = Ce^x - 2$</p>
+
+				<p>We'll back-substitute using $u = 2x + y$ and then solve for $y$ to find the solution to the differential equation.</p>
+
+				<p>$2x + y = Ce^x - 2$</p>
+				<p>$y = Ce^x - 2x - 2$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use a change of variable to solve the differential equation:</p>
+
+				<p>$y' = (4x - y - 1)^2 = 0$</p>
+
+				<p>If we choose the substitution $u = ax + by$, we can set up the substitution $u = 4x - y$, and $u' = 4 - y'$. And then solve this second equation $u' = 4 - y'$ for $y'$ to get $y' = 4 - u'$. Then we'll substitute $y' = 4 - u'$ and $u = 4x - y$ into the left side of the ODE.</p>
+
+				<p>$4 - u' - (u - 1)^2 = 0$</p>
+				<p>$u' = 4 - (u - 1)^2$</p>
+
+				<P>Now the equation is separable, so we'll substitute variables.
+
+				<P>$\frac{dy}{dx} = 4 - (u - 1)^2$</P>
+				<P>$du = (4 - (u - 1)^2) ~dx$</P>
+				<P>$\frac{du}{4-(u-1)^2} = ~dx$</P>
+
+				<P>And then integrate both sides:</P>
+
+				<P>$\int \frac{du}{4 - (u - 1)^2} = \int ~dx$</P>
+				<P>$\int \frac{du}{4 - (u^2 - 2u + 1)} = \int ~dx$</P>
+				<P>$\int \frac{du}{4 - u^2 + 2u - 1} = \int ~dx$</P>
+				<P>$\int \frac{du}{3 + 2u - u^2} = \int ~dx$</P>
+				<P>$- \int \frac{du}{u^2 - 2u - 3} = \int ~dx$</P>
+				<P>$- \int \frac{du}{(u-3)(u+1)} = \int ~dx$</P>
+
+				<P>Use partial functions to rewrite the integral on the left:</P>
+
+				<P>$\frac{1}{4} \int \frac{1}{u+1} - \frac{1}{u-3} = \int ~dx$</P>
+
+				<P>then evaluate the integrals on both sides.</P>
+
+				<P>$\frac{1}{4} (ln |u+1| - ln|u-3|) = x + C$</P>
+				<P>$ln \left| \frac{u+1}{u-3} \right| = 4x + C$</P>
+
+				<P>Raise both sides to the base $e$, then solve for $u$.</P>
+
+				<P>$\frac{u+1}{u-3} = Ce^{4x}$</P>
+				<P>$u + 1 = (u - 3)Ce^{4x}$</P>
+				<P>$u + 1 = uCe^{4x} - 3Ce^{4x}$</P>
+				<P>$u(1 - Ce^{4x}) = - (1 + 3Ce^{4x})$</P>
+				<P>$u = \frac{1 + 3Ce^{4x}}{1 - Ce^{4x}}$</P>
+				<P>$4x - y = - \frac{1 + 3Ce^{4x}}{1 - Ce^{4x}}$</P>
+				<P>$y = 4x + \frac{1 + 3Ce^{4x}}{1 - Ce^{4x}}$</P>
+
+
+		<h3 id="bernoulli_eqs">Bernoulli Equations</h3>
+
+			<p>A Bernoulli differential equation is a differential equation in the form $y' + p(x)y = q(x)y^n$, where $p(x)$ and $q(x)$ are continuous and $u$ is any real number. We always follow the same approach, which will be a change of variables in order to turn the Bernoulli equation into a linear equation.</p>
+
+			<p>If $n = 0$, the Bernoulli equation is already a first order linear equation.</p>
+
+			<p>$y + p(x)y = q(x)y^0 = q(x)$</p>
+
+			<p>If $n = 1$, the Bernoulli equation is already a first order separable differential equation.</p>
+
+			<p>$y' + p(x)y = q(x)y^1$</p>
+			<p>$y' + p(x)y - q(x)y = 0$</p>
+			<p>$y' + (p(x) - q(x))y = 0$</p>
+			<p>$\frac{dy}{dx} + (p(x) - q(x))y = 0$</p>
+			<p>$\frac{dy}{dx} = -(p(x) - q(x))y$</p>
+			<p>$dy = -(p(x) - q(x))y ~dx$</p>
+			<p>$\frac{1}{y} ~dy = - (p(x) - q(x)) ~dx$</p>
+			<p>$\frac{1}{y} ~dy = (q(x) - p(x)) ~dx$</p>
+
+			<p>For any value $n \neq 0$ or $1$, our goal will be to perform a change of variables. In general, these are the steps we'll follow:</p>
+				<ol>
+					<li>If the Bernoulli equation isn't already given in standard form, rewrite it in standard form</li>
+					<li>Divide both sides of the equation by $y^n$</li>
+					<li>Identify the substitution $v = y^{1-n}$, implicitly differentiate to find $v' = (1 - n)y^{-n}y'$, and substitute into the Bernoulli equation</li>
+					<li>Put the resulting equation into the standard form of a linear differential equation</li>
+					<li>Find the solution to the linear differential equation, then back-substitute for $v$ and solve for $y$</li>
+				</ol>
+
+
+		<h4>Example:</h4>
+
+			<p>Find the solution to the Bernoulli differential equation:</p>
+
+			<p>$(y^4 + x^2y) ~dx - 6x^3 ~dy = 0$</p>
+
+			<p>Our first step is to rewrite it in standard form.</p>
+
+			<p>$(y^4 + x^2y) ~dx = 6x^3 ~dy$</p>
+			<p>$y^4 + x^2y = 6x^3 \frac{dy}{dx}$</p>
+			<p>$\frac{dy}{dx} = \frac{y^4 + x^2y}{6x^3}$</p>
+
+			<p>Split the fraction so we can separate terms:</p>
+
+			<p>$\frac{dy}{dx} = \frac{y^4}{6x^3} + \frac{x^2y}{6x^3}$</p>
+			<p>$\frac{dy}{dx} - \frac{x^2y}{6x^3} = \frac{y^4}{6x^3}$</p>
+			<p>$\frac{dy}{dx} - \frac{x^2}{6x^3} y = \frac{1}{6x^3} y^4$</p>
+			<p>$y' = - \frac{1}{6x} y = \frac{1}{6x^3} y^4$</p>
+			<p>$\frac{y'}{y^4} - \frac{1}{6x} \frac{y}{y^4} = \frac{1}{6x^3} \frac{y^4}{y^4}$</p>
+			<p>$y^{-4} y' - \frac{1}{6x} y^{-3} = \frac{1}{6x^3}$</p>
+
+			<p>Our substitution is $v = y^{-3}$, so we'll differentiate to get:</p>
+
+			<p>$v' = -3y^{-4} y'$</p>
+
+			<p>and then solve for $y^{-4} y'$.</p>
+
+			<p>$y^{-4} y' = - \frac{1}{3} v'$</p>
+
+			<p>Now we can make substitutions into the Bernoulli equation.</p>
+
+			<p>$y^{-4} y' - \frac{1}{6x} y^{-3} = \frac{1}{6x^3}$</p>
+			<p>$- \frac{1}{3} v' - \frac{1}{6x} v = \frac{1}{6x^3}$</p>
+
+			<p>Multiplying through by $-3$ puts the equation into standard form of a linear differential equation.</p>
+
+			<p>$v' + \frac{1}{2x} v = - \frac{1}{2x^3}$</p>
+
+			<p>To find the solution to the linear equation, we'll find the integrating factor</p>
+
+			<p>$I(x) = e^{ \int P(x) ~dx }$</p>
+			<p>$I(x) = e^{ \int \frac{1}{2} x ~dx }$</p>
+			<p>$I(x) = e^{ \frac{1}{2} ~ln ~x }$</p>
+			<p>$I(x) = e^{ ln (x^{1/2}) }$</p>
+			<p>$I(x) = x^{1}{2}$</p>
+
+			<p>And then multiply through the linear equation by $I(x)$.</p>
+
+			<p>$v' + \frac{1}{2x} v = - \frac{1}{2x^3}$</p>
+			<p>$v' x^{1/2} + \frac{1}{2x} x^{1/2} v = -\frac{1}{2x^3} x^{1/2}$</p>
+			<p>$v' x^{1/2} + \frac{1}{2} x^{-1/2} v = - \frac{1}{2x} x^{5/2}$</p>
+
+			<p>Reverse the product rule for derivatives to rewrite the left side:</p>
+
+			<p>$\frac{d}{dx} (vx^{1/2}) = - \frac{1}{2} x^{-5/2}$</p>
+
+			<p>Then integrate both sides:</p>
+
+			<p>$\int \frac{d}{dx} (vx^{1/2}) ~dx = \int - \frac{1}{2} x^{-5/2} ~dx$</p>
+			<p>$vx^{1/2} = - \frac{1}{2} \left( - \frac{2}{3} \right) x^{-3/2} + C$</p>
+			<p>$vs^{1/2} = \frac{1}{3} x^{-3/2} + C$</p>
+
+			<p>Solve for $v$:</p>
+
+			<p>$v = \frac{1}{3} \left( \frac{x^{-3/2}}{x^{1/2}} \right) + \frac{C}{x^{1/2}}$</p>
+			<p>$v = \frac{1}{3x^2} + \frac{C}{x^{1/2}}$</p>
+			<p>$v = \frac{1 + 3C x^{3/2}}{3x^2}$</p>
+
+			<p>If $3C$ is some arbitrary constant, then we can simply use $C$ instead.</p>
+
+			<p>$v = \frac{1 + Cx^{3/2}}{3x^2}$</p>
+
+			<p>Use $v = y^{-3}$ to back-substitute for $v$.</p>
+
+			<p>$y^{-3} = \frac{1 + Cx^{3/2}}{3x^2}$</p>
+
+			<p>Then solve for $y$:</p>
+
+			<p>$\frac{1}{y^3} = \frac{1 + Cx^{3/2}}{3x^2}$</p>
+			<p>$y^3 = \frac{3x^2}{1 + C x^{3/2}}$</p>
+			<p>$y = 3 \sqrt[3]{ \frac{3x^2}{1 + Cx^{3/2}} }$</p>
+
+
+
+		<h3 id="homog_eqs">Homogenous Equations</h3>
+
+			<p>We've looked at how to use the substitution $v = y^{1-n}$ to change a Bernoulli equation into a linear equation. We'll also use a change of variable to solve homogenous equations, which are differential equations in the form $y' = F \left( \frac{y}{x} \right)$. The equations may require manipulation in order to get into this form.</p>
+
+			<p>Once we have the homogenous equation written in standard form, then our goal will be to use a change of variable to rewrite it as a separable differential equation.</p>
+
+			<p>Then we'll find the solution to the separable equation, and back-substitute to find the solution to the homogenous equation. In summary, follow these steps:</p>
+				<ol>
+					<li>If the homogenous equation is not already given in standard form, rewrite it in standard form</li>
+					<li>Substitute $v = \frac{y}{x}$ and $y' = v + xv'$</li>
+					<li>Solve the resulting separable equation</li>
+					<li>Back-substitute for $v = \frac{y}{x}$</li>
+					<li>If possibe, solve explicitly for $y$ to find the solution to the homogenous differential equation</li>
+				</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the solution to the following differential equation:</p>
+
+				<p>$xyy' = 2x^2 - 3y^2 = 0$</p>
+
+				<p>To put the equation in standard form, divide through by $x^2$.</p>
+
+				<p>$\frac{xy}{x^2} y' + \frac{2x^2}{x^2} - 3 \frac{y^2}{x^2} = 0$</p>
+				<p>$\frac{y}{x} y' + 2 - 3 \left( \frac{y}{x} \right) = 0$</p>
+				<p>$\frac{y}{x} y' = 3 \left( \frac{y}{x} \right)^2 - 2$</p>
+
+				<p>Then solve for $y'$:</p>
+
+				<p>$y' = 3 \left( \frac{y}{x} \right)^2 \left( \frac{x}{y} \right) - 2 \left( \frac{x}{y} \right)$</p>
+				<p>$y' = \frac{3}{\frac{y}{x}} \left( \frac{y}{x} \right)^2 - \frac{z}{\frac{y}{x}}$</p>
+				<p>$y' = 3 \left( \frac{y}{x} \right) - \frac{z}{\frac{y}{x}}$</p>
+
+				<p>Now that the equation is in standard form, we'll substitute $v = \frac{y}{x}$ and $y' = v + xv'$</p>
+
+				<p>$v + xv' = 3v - \frac{2}{v}$</p>
+				<p>$v^2 + xvv' = 3v^2 - 2$</p>
+				<p>$xvv' = 2v^2 - 2$</p>
+
+				<p>Now, separate variables:</p>
+
+				<p>$xv \frac{dv}{dx} = 2v^2 - 2$</p>
+				<p>$xv ~dv = (2v^2 - 2) ~dx$</p>
+				<p>$\frac{v}{2v^2 - 2} ~dv = \frac{1}{x} ~dx$</p>
+
+				<p>Then, integrate both sides, using the substitution $u = 2v^2 - 2$, $du = 4v ~dv$, and $dv = \frac{1}{4v} ~du$.</p>
+
+				<p>$\int \frac{v}{2v^2 - 2} ~dv = \int \frac{1}{x} ~dx$</p>
+				<p>$\int \frac{v}{u} \left( \frac{1}{4v} \right) ~du = \int \frac{1}{x} ~dx$</p>
+				<p>$\frac{1}{4} \int \frac{1}{u} ~du = \int \frac{1}{x} ~dx$</p>
+				<p>$\frac{1}{4} ~ln |u| = ln |x| + C$</p>
+
+				<p>Back-substitute with $u = 2v^2 - 2$</p>
+
+				<p>$\frac{1}{4} ln |2v^2 - 2| = ln |x| + C$</p>
+				<p>$ln|2v^2 - 2| = 4 ~ln|x| + 4C$</p>
+				<p>$e^{ln|2v^2-2} = e^{4 ~ln|x| + 4C}$</p>
+				<p>$|2v^2 - 2| = e^{4 ~ln|x|} e^{4C}$</p>
+				<p>$2v^2 - 2 = Ce^{4 ~ln|x|}$</p>
+				<p>$2v^2 - 2 = Ce^{ln|x|^4}$</p>
+				<p>$2v^2 - 2 = C|x|^4$</p>
+				<p>$2v^2 = C|x|^4 + 2$</p>
+				<p>$v^2 = C|x|^4 + 1$</p>
+				<p>$v^2 = Cx^4 + 1$</p>
+
+				<p>Then back-substitute with $v = \frac{y}{x}$</p>
+
+				<p>$\left( \frac{y}{x} \right)^2 = Cx^4 + 1$</p>
+				<p>$\frac{y^2}{x^2} = Cx^4 + 1$</p>
+				<p>$y^2 = Cx^6 + x^2$</p>
+				<p>$y = \pm \sqrt{ Cx^6 + x^2 }$</p>
+
+
+		<h3 id="exact_eqs">Exact Equations</h3>
+
+			<p>For an equation to be called an exact differential equation, it must be given in the form:</p>
+
+			<p>$M(x,y) + N(x,y) \frac{dy}{dx} = 0$</p>
+
+			<p>This kind of equation will have an implicit solution $\psi(x,y) = c$, where $c$ is a constant and $\psi$ has continuous partial derivatives such that:</p>
+
+			<p>$d \psi(x,y) = M(x,y) ~dx + N(x,y) ~dy$</p>
+
+
+			<h4>Test For an Exact Solution</h4>
+
+				<p>If we say that the functions $M(x,y)$ and $N(x,y)$ have continuous partial derivatives, then the differential equation $M(x,y) + N(x,y) \frac{dy}{dx} = 0$ is exact only if $M_y = N_x$, or:</p>
+
+				<p>$\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}$</p>
+
+				<p>i.e., if the partial derivative of $M$ with respect to $y$ is equal to the partial derivative of $N$ with respect to $x$, then the differential equation is exact.</p>
+
+
+			<h4>Solution to an Exact Equation</h4>
+
+				<p>The implicit solution to an exact differential equation is given by $\psi(x,y) = c$, where $c$ is a constant. The partial derivatives of $\psi$ with respect to $x$ and $y$ are:</p>
+
+				<p>$\frac{\partial \psi}{\partial x} = \psi_x = M(x,y) = M$</p>
+				<p>$\frac{\partial \psi}{\partial y} = \psi_y = N(x,y) = N$</p>
+
+				<p>The left sides of the equations are partial derivatives of $\psi$, but to get back to $\psi$ itself, we need to take integrals.</p>
+
+				<p>$\int \psi_x ~dx = \int M(x,y) ~dx$</p>
+				<p>$\int \psi_y ~dy = \int N(x,y) ~dy$</p>
+
+				<p>Taking the integral with respect to $x$ of the partial derivative with respect to $x$ cancels both operations.</p>
+
+				<p>$\psi = \int M(x,y) ~dx + h(y)$</p>
+				<p>$\psi = \int N(x,y) ~dy + h(x)$</p>
+
+				<p>We're integrating a multivariable function in terms of $x$ and $y$ with respect to $x$ only. This means that instead of adding $c$ to account for the constant of integration after we integrate, we have to add $h(x)$ or $h(y)$. Then it's a matter of solving for $h(y)$ or $h(x)$, by differentiating $\psi$ with respect to $y$ or $x$. That differentiation process will give us either $\psi_x$ with $h'(x)$, or $\psi_y$ with $h'(y)$. We know that $M(x,y) = \psi_x$ or $N(x,y) = \psi_y$, so we'll make that substitution and then simplify the equation to solve for $h(y)$ or $h(x)$.</p>
+
+				<p>Finally, we'll plug $h(y)$ or $h(x)$ back into the equation for $\psi$, set the equation equal to $c$, and this will be the implicit solution to the exact differential equation. In summary, to find the solution of an exact differential equation:</p>
+					<ol>
+						<li>Verify that $M_y = N_x$ to confirm the differential equation is exact</li>
+						<li>Use $\psi = \int M(x,y) ~dx + h(y)$ or $\psi = N(x,y) ~dy + h(x)$ to find $\psi(x,y)$, including a value for $h(y)$ or $h(x)$</li>
+						<li>Find $\frac{\partial \psi}{\partial y} = \frac{\partial}{\partial y} \left( \int M(x,y) ~dx \right) + h'(y) = N(x,y)$ or find $\frac{\partial \psi}{\partial x} = \frac{\partial}{\partial x} \left( \int N(x,y) ~dy \right) + h'(x) = M(x,y)$</li>
+						<li>Integrate both sides of the equation to solve for $h(y)$ or $h(x)$</li>
+						<li>Plug $h(y)$ or $h(x)$ back into $\psi$ (in step 2)</li>
+						<li>Set $\psi(x,y) = c$ to get the implicit solution</li>
+					</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>If the following differential equation is exact, find its solution.</p>
+
+				<p>$x^3 y^4 + (x^4 y^3 + 2y) \frac{dy}{dx} = 0$</p>
+
+				<p>First, we'll test to see whether or not the differential equation is exact. Matching the given equation to the standard form of an exact differential equation, we find that:</p>
+
+				<p>$M(x,y) = x^3 y^4$</p>
+				<p>$N(x,y) = x^4 y^3 + 2y$</p>
+
+				<p>We'll test to see whether $M_y = N_x$.</p>
+
+				<p>$\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$</p>
+				<p>$\frac{\partial}{\partial y}(x^3 y^4) = \frac{\partial}{\partial x} (x^4 y^3 + 2y)$</p>
+				<p>$4x^3 y^3 = 4x^3 y^3$</p>
+
+				<p>Since $M_y = N_x$, we know that the differential equation is exact, so now we proceed to find the solution $\psi(x,y) = c$.</p>
+
+				<p>$\psi = \int M(x,y) ~dx$</p>
+				<p>$\psi = \int x^3 y^4 ~dx$</p>
+				<p>$\psi = \frac{1}{4} x^4 y^4 + h(y)$</p>
+
+				<p>Now we need to find $h(y)$, which we'll do by differentiating both sides with respect to $y$.</p>
+
+				<p>$\psi_y = x^4 y^3 + h'(y)$</p>
+
+				<p>Because we know that $\psi_y = N(x,y)$, we'll make that substitution, and then solve for $h'(y)$.</p>
+
+				<p>$x^4 y^3 + 2y = x^4 y^3 + h'(y)$</p>
+				<p>$2y = h'(y)$</p>
+
+				<p>To find $h(y)$, we'll integrate both sides of this equation with respect to $y$.</p>
+
+				<p>$\int 2y ~dy = \int h'(y) ~dy$</p>
+				<p>$y^2 + k_1 = h(y) + k_2$</p>
+				<p>$h(y) = y^2 + k_1 - k_2$</p>
+				<p>$h(y) = y^2 + k$</p>
+
+				<p>Plugging this value for $h(y)$ into the equation for $\psi$ in step 2 gives:</p>
+
+				<p>$\psi = \frac{1}{4} x^4 y^4 + h(y)$</p>
+				<p>$\psi = \frac{1}{4} x^4 y^4 + y^2 + k$</p>
+
+				<p>Finally, setting $\psi = c$ to find the solution to the exact differential equation</p>
+
+				<p>$c = \frac{1}{4} x^4 y^4 + y^2 + k$</p>
+				<p>$c - k = \frac{1}{4} x^4 y^4 + y^2$</p>
+				<p>$c = \frac{1}{4} x^4 y^4 + y^2$</p>
+
+
+
+	<h2 id="second_order_eqs">Second Order Equations</h2>
+
+		<p>Second order equations can take many forms, we will start by looking at second order linear equations that have constant coefficients. Second order linear equations can be homogenous or nonhomogenous. The homogenous variety looks like:</p>
+
+		<p>$y'' + Ay' + By = 0$</p>
+
+		<p>This is a linear equation because we only see $y$ and its derivatives, and not functions such as $cos ~y$, $e^y$, etc.</p>
+
+
+			<h4>Finding the Solution</h4>
+
+				<p>To find a solution that satisfies a second order linear homogenous equation with constant coefficients, we always start with the associated characteristic equation.</p>
+
+				<p>$r^2 = Ar + B = 0$</p>
+
+				<p>i.e., we substitute $y'' = r^2, y' = r$, and $y = 1$</p>
+
+				<p>This is a quadratic equation, so it will have one of three types of roots - distinct real roots, equal real roots, or complex conjugate roots. The general solution is determined by the type of roots $r_1$ and $r_2$ that we find from the characteristic equation.</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Roots</th><th>Characteristic Equation</th></tr></thead><tbody>
+				 <tr><td>Distinct Real</td><td>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</td></tr>
+				 <tr><td>Equal Real</td><td>$y(x) = c_1 e^{r_1x} + c_2 xe^{r_1x}$</td></tr>
+				 <tr><td>Complex Conjugate</td><td>$y(x) = e^{\alpha x} (c_1 ~cos(\beta x) + c_2 ~sin(\beta x)$</td></tr>
+				</tbody></table>
+
+				<p>The general solution will contain the constants $c_1$ and $c_2$, but we can find the values of $c_1$ and $c_2$ if we are given the initial conditions.</p>
+
+			<h4>Example:</h4>
+
+				<p>Find the general solution to the second-order equation:</p>
+
+				<p>$y'' + 5y' + 6 = 0$</p>
+
+				<p>This quadratic equation is easily factorable,</p>
+
+				<p>$(r+2)(r+3) = 0$</p>
+
+				<p>which means the roots will be:</p>
+
+				<p>$r_1 + 2 = 0$</p>
+				<p>$r_1 = -2$</p>
+
+				</br>
+
+				<p>$r_2 + 3 = 0$</p>
+				<p>$r_2 = -3$</p>
+
+				<p>These are distinct real roots, so the general solution to the second order equation is:</p>
+
+				<p>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</p>
+				<p>$y(x) = c_1 e^{-2x} + c_2 e^{-3x}$</p>
+
+				<p>Note that it does not matter which value we assign to $r_1$ and which value we assign to $r_2$; they can be swapped and will still produce the same effect. The constants $c_1$ and $c_2$ are placeholders until we can apply initial conditions.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Let's look at an example with equal real roots. Find the general solution to the following second order equation:</p>
+
+				<p>$y'' + 6y' + 9y = 0$</p>
+
+				<p>The characteristic equation associated with the differential equation is:</p>
+
+				<p>$r^2 + 6r + 9 = 0$</p>
+
+				<p>This is easily factorable:</p>
+
+				<p>$(r+3)(r+3) = 0$</p>
+
+				<p>which means the roots will be:</p>
+
+				<p>$r_1 + 3 = 0$</p>
+				<p>$r_1 = -3$</p>
+
+				</br>
+
+				<p>$r_2 + 3 = 0$</p>
+				<p>$r_2 = -3$</p>
+
+				<p>These are real equal roots, so the general solution is:</p>
+
+				<p>$y(x) = c_1 e^{r_1x} + c_2 xe^{r_1x}$</p>
+				<p>$y(x) = c_1 e^{-3x} + c_2 xe^{-3x}$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Let's look at an example with complex conjugate roots. Find the general solution to the following second order equation:</p>
+
+				<p>$y'' + 2y' + 17y = 0$</p>
+
+				<p>The characteristic equation is:</p>
+
+				<p>$r^2 + 2r + 17 = 0$</p>
+
+				<p>The left side does not easily factor, so we'll apply the quadratic formula.</p>
+
+				<p>$r = \frac{ -b \pm \sqrt{b^2 - 4ac} }{ 2a }$</p>
+				<p>$r = \frac{ -2 \pm \sqrt{2^2 - 4(1)(17)} }{ 2(1) }$</p>
+				<p>$r = \frac{ -2 \pm \sqrt{-64} }{ 2 }$</p>
+
+				<p>Now we'll use the imaginary number to rewrite the root of the negative number.</p>
+
+				<p>$r = \frac{ -2 \pm \sqrt{(64)(-1)} }{ 2 }$</p>
+				<p>$r = \frac{ -2 \pm 8 \sqrt{-1} }{ 2 }$</p>
+				<p>$r = \frac{ -2 \pm 8i }{ 2 }$</p>
+				<p>$r = -1 \pm 4i$</p>
+
+				<p>These are complex-numbered roots, so the general solution is:</p>
+
+				<p>$y(x) = e^{\alpha x}( c_1 ~cos(\beta x) + c_2 ~sin(\beta x) )$</p>
+				<p>$y(x) = e^{-x}( c_1 ~cos(4x) + c_2 ~sin(4x) )$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Let's look at an initial value problem. Find the solution to the following second order equation, if $y(0) = 5$ and $y'(0) = 27$.</p>
+
+				<p>$3y'' + 18y' + 15y = 0$</p>
+				<p>$(3r+3)(r+5) = 0$</p>
+
+				<p>The roots are therefore:</p>
+
+				<p>$3r_1 + 3 = 0$</p>
+				<p>$r_1 = -1$</p>
+
+				</br>
+
+				<p>$r_2 + 5 = 0$</p>
+				<p>$r_2 = -5$</p>
+
+				<p>With distinct real roots, the general solution is:</p>
+
+				<p>$y(x) = c_1 e^{-x} + c_2 e^{-5x}$</p>
+
+				<p>We'll substitute the initial condition $y(0) = 5$ into $y(x)$:</p>
+
+				<p>$5 = c_1 e^{-(0)} + c_2 e^{-5(0)}$</p>
+				<p>$5 = c_1(1) + c_2(1)$</p>
+				<p>$5 = c_1 + c_2$</p>
+
+				<p>and the condition $y'(0) = 27$ into the derivative:</p>
+
+				<p>$27 = -c_1 e^{-(0)} - 5c_2 e^{-5(0)}$</p>
+				<p>$27 = -c_1(1) - 5c_2(1)$</p>
+				<p>$27 = -c_1 - 5c_2$</p>
+
+				<p>Now we have a system of equations:</p>
+
+				<p>$5 = c_1 + c_2$</p>
+				<p>$27 = -c_1 - 5c_2$</p>
+
+				<p>Rewrite $5 = c_1 + c_2$ as $c_1 = 5 - c_2$, then substitute this value for $c_1$ into $27 = -c_1 - 5c_2$.</p>
+
+				<p>$27 = -(5 - c_2) - 5c_2$</p>
+				<p>$27 = -5 + c_2 - 5c_2$</p>
+				<p>$32 = -4c_2$</p>
+				<p>$c_2 = -8$</p>
+
+				<p>Plugging $c_2 = -8$ into $c_1 = 5 - c_2$ gives:</p>
+
+				<p>$c_1 = 5 - (-8)$</p>
+				<p>$c_1 = 13$</p>
+
+				<p>Therefore, the general solution, subject to the conditions $y(0) = 5$ and $y'(0) = 27$ is:</p>
+
+				<p>$y(x) = c_1 e^{-x} + c_2 e^{-5x}$</p>
+				<p>$y(x) = 13e^{-x} - 8e^{-5x}$</p>
+
+
+		<h3 id="reduct_of_order">Reduction of Order</h3>
+
+			<p>While the values for $r$ are the roots of the characteristic equation, they aren't solutions to the differential equation. Instead, we need to identify the solutions to the differential equation from the equation of the general solution. The solutions to the differential equation will be the functions we see multiplied by $c_1$ and $c_2$.
+
+			<p>For instance, given a general solution with distinct real roots:</p>
+
+			<p>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</p>
+
+			<p>the solutions to the differential equation are:</p>
+
+			<p>$y_1 = e^{r_1x}$</p>
+			<p>$y_2 = e^{r_2x}$</p>
+
+			<p>Alternatively, given a general solution with complex roots:</p>
+
+			<p>$y(x) = e^{\alpha x}( c_1 ~cos(\beta x) + c_2 e^{\alpha x} sin(\beta x) )$</p>
+			<p>$y(x) = c_1 e^{\alpha x} = c_1 e^{\alpha x} cos(\beta x) + c_2 e^{\alpha x} sin(\beta x)$</p>
+
+			<p>the solutions to the differential equation are:</p>
+
+			<p>$y_1 = e^{\alpha x} cos(\beta x)$</p>
+			<p>$y_2 = e^{\alpha x} sin(\beta x)$</p>
+
+			<p>Notice how all three forms of the general solution can be rewritten in the same form,</p>
+
+			<p>$y(x) = c_1 y_1 + c_2 y_2$</p>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Complementary Solution</th><th>Fundamental Solution Set</th></tr></thead><tbody>
+			 <tr><td>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</td><td>$\{y1, y2\} = \{e^{r_1x}, e^{r_2x}\}$</td></tr>
+			 <tr><td>$y(x) = c_1 e^{r_1x} + c_2 xe^{r_1x}$</td><td>$\{y1, y2\} = \{e^{r_1x}, xe^{r_2x}\}$</td></tr>
+			 <tr><td>$y(x) = e^{\alpha x} (c_1 ~cos(\beta x) + c_2 ~sin(\beta x)$</td><td>$\{y1, y2\} = \{e^{\alpha x} ~cos(\beta x), e^{\alpha x} ~sin(\beta x)\}$</td></tr>
+			</tbody></table>
+
+
+			<h4>Example:</h4>
+
+				<p>Show that ${y_1, y_2} = {e^{-3x}, xe^{-3x}}$ are two solutions to the following second order linear homogenous equation:</p>
+
+				<p>$y'' = 6y' + 9y = 0$</p>
+
+				<p>We'll need to start by taking the first and second derivatives of $y_1$.</p>
+
+				<p>$y_1 = e^{-3x}$</p>
+				<p>$y'_1 = -3e^{-3x}$</p>
+				<p>$y''_1 = 9e^{-3x}$</p>
+
+				<p>Then we can plug these values into the homogenous equation</p>
+
+				<p>$y'' + 6y' + 9y = 0$</p>
+				<p>$9e^{-3x} + 6(-3e^{-3x}) + 9e^{-3x} = 0$</p>
+				<p>$9e^{-3x} - 18e^{-3x} + 9e^{-3x} = 0$</p>
+				<p>$(9 - 18 + 9) e^{-3x} = 0$</p>
+				<p>$0e^{-3x} = 0$</p>
+				<p>$0 = 0$</p>
+
+				<p>Let's check to make sure that $y_2 = xe^{-3x}$ does the same thing. Its first two derivatives are:</p>
+
+				<p>$y'_2 = (1)(e^{-3x}) + (x)(-3e^{-3x})$</p>
+				<p>$y'_2 = e^{-3x} - 3xe^{-3x}$</p>
+
+				<p>and </p>
+
+				<p>$y''2 = -3e^{-3x} - ( (3)(e^{-3x}) + (3x)(-3e^{-3x}) )$</p>
+				<p>$y''2 = -3e^{-3x} - ( 3e^{-3x} - 9xe^{-3x} )$</p>
+				<p>$y''2 = -3e^{-3x} - 3e^{-3x} - 9xe^{-3x}$</p>
+				<p>$y''2 = -6e^{-3x} + 9xe^{-3x}$</p>
+
+				<p>Then we can plug these values into the homogenous equation:</p>
+
+				<p>$y'' + 6y' + 9y = 0$</p>
+				<p>$-6e^{-3x} + 9xe^{-3x} + 6(e^{-3x} - 3xe^{-3x}) + 9(xe^{-3x}) = 0$</p>
+				<p>$-6e^{-3x} + 9xe^{-3x} + 6e^{-3x} - 18xe^{-3x} + 9xe^{-3x} = 0$</p>
+				<p>$(-6 + 6)e^{-3x} + (9 -18 + 9) xe^{-3x} = 0$</p>
+				<p>$0e^{-3x} + 0xe^{-3x} = 0$</p>
+				<p>$0 = 0$</p>
+
+
+			<h4>Reduction of Order with Constant Coefficients</h4>
+
+				<p>If we know $y_1$, we can use it to find $y_2$, and vice versa. This is called reduction of order, because it uses a substitution to reduce the order of the homogenous equation to a first order equation.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use reduction of order to find the general solution to the differential equation, given $y_1 = e^{x/3}$:</p>
+
+				<p>$6y'' + y' - y = 0$</p>
+
+				<p>We begin with the assumption that $y_2 = vy_1$, and then find the first and second derivatives of $y_2$, since we are dealing with a second order equation.</p>
+
+				<p>$y_2 = ve^{x/3}$</p>
+				<p>$y'_2 = v' e^{x/3}$</p>
+				<p>$y''_2 = v'' e^{x/3} + \frac{2}{3}v'e^{x/3} + \frac{1}{9}ve^{x/3}$</p>
+
+				<p>Plug these values into the homogenous differential equation:</p>
+
+				<p>$6v''e^{x/3} + 4v'e^{x/3} + \frac{2}{3}ve^{x/3} + v'e^{x/3} + \frac{1}{3}ve^{x/3} - ve^{x/3} = 0$</p>
+				<p>$6v''e^{x/3} + 5v'e^{x/3} = 0$</p>
+
+				<p>We'll make a substitution $w = v'$, and therefore $w' = v''$ (this is the reduction of order).</p>
+
+				<p>$6w'e^{x/3} + 5we^{x/3} = 0$</p>
+
+				<p>This changes the second order equation in v into a first order equation in $w$. This is a linear equation that we can easily solve.</p>
+
+				<p>$6e^{x/3} \frac{dw}{dx} + 5e^{x/3} w = 0$</p>
+
+				<p>$\frac{dw}{dx} + \frac{5e^{x/3}}{63^{x/3}} w = 0$</p>
+				<p>$\frac{dw}{dx} + \frac{5}{6} w = 0$</p>
+
+				<p>With $P(x) = \frac{5}{6}$, the integrating factor is:</p>
+
+				<p>$I(x) = e^{ \int P(x) ~dx }$</p>
+				<p>$I(x) = e^{ \int \frac{5}{6} x }$</p>
+				<p>$I(x) = e^{ \frac{5}{6} x }$</p>
+
+				<p>Multiplying the first order differential equation in $w$ by the integrating factor, and then simplifying, gives:</p>
+
+				<p>$\frac{d}{dx}(we^{ \frac{5}{6} x }) = 0$</p>
+
+				<p>Integrate both sides:</p>
+
+				<p>$\int \frac{d}{dx}(we^{ \frac{5}{6} x }) ~dx = 0$</p>
+				<p>$we^{\frac{5}{6} x} = C$</p>
+				<p>$w = Ce^{ \frac{5}{6} x }$</p>
+
+				<p>Because $w = v'$, we'll integrate $w$ to find $v$.</p>
+
+				<p>$v = \int w = \int Ce^{ - \frac{5}{6} x } = - \frac{6}{5} Ce^{ - \frac{5}{6} x } + k$</p>
+
+				<p>We can choose any constants, so we'll choose $C = - \frac{5}{6}$ and $k=0$ for simplicity. Then $v$ is $v = e^\frac{5}{6}x$, and the second solution for the differential equation is:</p>
+
+				<p>$y_2 = ve^{ \frac{1}{3} x }$</p>
+				<p>$y_2 = e^{ - \frac{5}{6} x } e^{ \frac{1}{3} x }$</p>
+				<p>$y_2 = e^{ - \frac{x}{2} }$</p>
+
+				<p>Because the solutions are $y_1 = e^{x/3}$ and $y_2 = e^{- x/2}$, the general solution to the differential equation is:</p>
+
+				<p>$y(x) = c_1 e^{x/3} + c_2 e^{-x/2}$</p>
+
+
+		<h3 id="undet_coeff_nonhomog">Undetermined Coefficients For Nonhomogenous Equations</h3>
+
+			<p>Linear second order homogenous equations with constant coefficients would take the form $y'' = Ay' + By = 0$. Nonhomogenous equations swap out the zero-value on the right side for a non-zero value.</p>
+
+			<p>$y'' + Ay' + By = g(x)$</p>
+
+			<p>To solve these, we'll first use the characteristic equation to find the general solution to the associated homogenous equation, and then deal with the $g(x)$ part in another step. There are multiple methods we can use, the first of which is the method of undetermined coefficients.</p>
+
+
+			<h4>Undetermined Coefficients</h4>
+
+				<p>The general solution $y(x)$ to a second order nonhomogenous equation will always be the sum of the complementary solution $y_c(x)$ and the particular solution $y_p(x)$.</p>
+
+				<p>$y(x) = y_c(x) + y_p(x)$</p>
+
+				<p>The complementary solution we find from solving the charateristic equation. Once we find the complementary solution, we use $g(x)$ to make a guess about a particular solution.</p>
+					<ul>
+						<li>For a polynomial function like $x^2 + 1$, guess $Ax^2 + Bx + C$</li>
+						<li>For an exponential function like $e^{3x}$, guess $Ae^{3x}$</li>
+						<li>For sine and cosine functions like $3 ~sin(4x)$, guess $A ~sin(4x) + B ~cos(4x)$</li>
+					</ul>
+
+				<p>If the right side of the differential equation is the sum or product of different types of functions, we need to multiply or add our guesses together. For any overlapping terms, we'll need to multiply that section of the guess by $x$ (or $x^2$, $x^3$, etc.) in order to eliminate the overlap. For example, if the complementary solution includes the term $e^{3x}$, and our guess for the particular solution includes $Ae^{3x}$, then we need to multiply $Ae^{3x}$ by $x$, changing the guess to $Axe^{3x}$. For exponential terms, an overlap only exists if the exponents match exactly; for example, $e^{3x}$ and $Ae^{3x}$ are overlapping, but $e^{3x}$ and $Ae^{5x}$ are not.</p>
+
+				<p>Once we've eliminated any overlap and finalized the guess for our particular solution, we'll find the first and second derivatives of our guess, then plug those derivatives into the original differential equation for $y'(x)$ and $y''(x)$. Then we'll be able to combine like terms and equate coefficients on both sides to solve for the constants $A$, $B$, and $C$. We should end up with a particular solution that we can combine with the complementary solution in order to get the general solution to the second order nonhomogenous equation.</p>
+
+
+			<h4>Summary of Steps:</h4>
+				<ol>
+					<li>Substitute $g(x) = 0$ to rewrite the nonhomogenous equation as a homogenous equation</li>
+					<li>Use the associated characteristic equation to solve the homogenous equation, generating the complementary solution $y_c(x)$</li>
+					<li>Make a guess for a particular solution</li>
+					<li>Fix any overlap between the guess for the particular solution and the complementary solution from step 2</li>
+					<li>Find the first and second derivatives of the non-overlapping guess for the particular solution</li>
+					<li>Substitute the derivatives into the original differential equation</li>
+					<li>Equate coefficients to find the values of any constants</li>
+					<li>Substitute the constant values into the guess to generate a particular solution $y_p(x)$</li>
+					<li>Sum the complementary and particular solutions to get the general solution</li>
+				</ol>
+
+				<p>$y(x) = y_c(x) + y_p(x)$
+
+
+			<h4>Example:</h4>
+
+				<p>Find the general solution to the differential equation:</p>
+
+				<p>$y'' + 2y' = 4x - 6e^{-2x}$</p>
+
+				<p>In step 1, we'll replace $g(x) = 4x - 6e^{-2x}$ with $g(x) = 0$ to change the nonhomogenous equation into a homogenous equation.</p>
+
+				<p>$y'' + 2y' = 0$</p>
+
+				<p>Then we'll solve the associated characteristic equation.</p>
+
+				<p>$r^2 + 2r = 0$</p>
+				<p>$r(r+2) = 0$</p>
+				<p>$r = 0, -2$</p>
+
+				<p>Step 2: these are distinct real roots, so the complementary solution will be:</p>
+
+				<p>$y_c(x) = c_1e^{r_1x} + c_2e^{r_2x}$</p>
+				<p>$y_c(x) = c_1e^{(0)x} + c_2e^{-2x}$</p>
+				<p>$y_c(x) = c_1(1) + c_2e^{-2x}$</p>
+				<p>$y_c(x) = c_1 + c_2e^{-2x}$</p>
+
+				<p>Now we can switch over to working on a particular solution, $g(x) = 4x - 6e^{-2x}$. We have a polynomial function, $4x$, and an exponential function, $-6e^{-2x}$. We'll use $Ax+B$ as our guess for the polynomial function, and $Ce^{-2x}$ as our guess for the exponential function (step 3).</p>
+
+				<p>$y_p(x) = Ax + B + Ce^{-2x}$</p>
+
+				<p>We see that $c_2e^{-2x}$ from the complementary solution and $Ce^{-2x}$ from the particular solution are overlapping. To fix this, we'll multiply $Ce^{-2x}$ from the particular solution by $x$ (step 4), such that our guess becomes:</p>
+
+				<p>$y_p(x) = Ax + B + Cxe^{-2}$</p>
+
+				<p>Step 5: taking the first and second derivatives, we get:</p>
+
+				<p>$y'_p(x) = 2Ax + B + Ce^{-2x} - 2Cxe^{-2x}$</p>
+				<p>$y''_p(x) = 2A - 4Ce^{-2x} + 4Cxe^{=2x}$</p>
+
+				<p>Step 7: Plugging the first two derivatives into the original differential equation, we get:</p>
+
+				<p>$2A + 2B = 0$</p>
+				<p>$2(1) + 2B = 0$</p>
+				<p>$2B = -2$</p>
+				<p>$B = -1$</p>
+
+				</br>
+				<p>$4A = 4$</p>
+				<p>$A = 1$</p>
+
+				</br>
+				<p>$-2C = -6$</p>
+				<p>$C = 3$</p>
+
+				<p>Step 8: We'll plug the results into our guess for the particular solution to get:</p>
+
+				<p>$y_p(x) = (1)x^2 + (-1)x + (3)xe^{-2x}$</p>
+				<p>$y_p(x) = x^2 - x + 3xe^{-2x}$</p>
+
+				<p>Step 9: Putting this particular solution together with the complementary solution gives us the general solution to the differential equation.</p>
+
+				<p>$y(x) = y_c(x) + y_p(x)$</p>
+				<p>$y(x) = c_1 + c_2e^{-2x} + x^2 - x + 3xe^{-2x}$</p>
+
+
+		<h3 id="var_params_nonhomog">Variation of Parameters for Nonhomogenous Equations</h3>
+
+			<p>Variation of parameters works for a wider family of $g(x)$ functions than undetermined coefficients, but requires some integration, and there is no guarantee we'll get functions that are easy to integrate.</p>
+
+			<p>We'll start by substituting $g(x) = 0$ to change the nonhomogenous equation into a homogenous equation. Then we'll use the associated characteristic equation to find the complementary solution.</p>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Complementary Solution</th><th>Fundamental Solution Set</th></tr></thead><tbody>
+			 <tr><td>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</td><td>$\{y1, y2\} = \{e^{r_1x}, e^{r_2x}\}$</td></tr>
+			 <tr><td>$y(x) = c_1 e^{r_1x} + c_2 xe^{r_1x}$</td><td>$\{y1, y2\} = \{e^{r_1x}, xe^{r_2x}\}$</td></tr>
+			 <tr><td>$y(x) = e^{\alpha x} (c_1 ~cos(\beta x) + c_2 ~sin(\beta x)$</td><td>$\{y1, y2\} = \{e^{\alpha x} ~cos(\beta x), e^{\alpha x} ~sin(\beta x)\}$</td></tr>
+			</tbody></table>
+
+			<p>Once we've identified the fundamental set of solutions, we'll plug $y_1$ and $y_2$ and their derivatives into this system of linear equations.</p>
+
+			<p>$u_1' y_1 + u_2' y_2 = 0$</p>
+			<p>$u_1' y_1' + u_2' y_2' = g(x)$</p>
+
+			<p>We'll solve the system for $u_1'$ and $u_2'$, then investigate to find $u_1$ and $u_2$. This is the integration mentioned earlier. If we're able to get $u_1$ and $u_2$, then we can say that a particular solution is:</p>
+
+			<p>$y_p(x) = u_1 y_1 + u_2 y_2$</p>
+
+			<p>Just like with undetermined coefficients, the general solution to the second order nonhomogenous equation is still the sum of the complementary and particular solutions.</p>
+
+			<p>$y(x) = y_c(x) + y_p(x)$</p>
+
+			<p>If our differential equation has a $y''$ term with a coefficient that's anything other than $1$, then our first step should be to divide through the equation by that value to change the coefficient on $y''$ to $1$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use variation of parameters to find the general solution to the differential equation.</p>
+
+				<p>$y'' + 4y' + 4y = \frac{e^{-2x}}{x^3}$</p>
+
+				<p>The coefficient on $y''$ is already $1$. We'll substitute $g(x) = 0$ to rewrite the nonhomogenous equation as a homogenous equation.</p>
+
+				<p>$y'' + 4y' + 4y = 0$</p>
+
+				<p>Now use the associated characteristic equation to find roots:</p>
+
+				<p>$r^2 + 4r + 4 = 0$</p>
+				<p>$(r+2)(r+2) = 0$</p>
+				<p>$r = -2$</p>
+
+				<p>We get equal real roots, so the complementary solution is:</p>
+
+				<p>$y_c(x) = c_1e^{-2x} + c_2 xe^{-2x}$</p>
+
+				<p>and the fundamental set of solutions is therefore:</p>
+
+				<p>$\{y_1, y_2\} = \{e^{-2x}, xe^{-2x}\}$</p>
+
+				<p>If we differentiate the set, we get:</p>
+
+				<p>$\{y_1', y_2'\} = \{-2e^{-2x}, e^{-2x} - 2xe^{-2x}\}$</p>
+
+				<p>Create a system of linear equations using the fundamental set and its derivatives.</p>
+
+				<p>$u_1' y_1 + u_2' y_2 = 0$</p>
+				<p>$u_1' e^{-2x} + u_2' xe^{-2x} = 0$</p>
+
+				</br>
+
+				<p>$u_1' y_1' + u_2' y_2' = g(x)$</p>
+				<p>$u_1' (-2e^{-2x}) + u_2' (e^{-2x} - 2xe^{-2x}) = \frac{e^{-2x}}{x^3}$</p>
+				<p>$2u_1' e^{-2x} + u_2' e^{-2x} - 2u_2' e^{-2x} = \frac{e^{-2x}}{x^3}$</p>
+
+				<p>Our next step is to solve this system for $u_1'$ and $u_2'$. We'll start by multiplying the first equation by $2$.</p>
+
+				<p>$2u_1' e^{-2x} + 2u_2' xe^{-2x} = 0$</p>
+				<p>$-2u_1' e^{-2x} + u_2' e^{-2x} - 2u_2' xe^{-2x} = \frac{e^{-2x}}{x^3}$</p>
+
+				<p>Then we'll add equations to eliminate $u_1'$.</p>
+
+				<p>$(2u_1' e^{-2x} - 2u_1' e^{-2x}) + (2u_2' xe^{-2x} - 2u_2' xe^{-2x}) + u_2' e^{-2x} = 0 + \frac{e^{-2x}}{x^3}$</p>
+				<p>$u_2' e^{-2x} = \frac{e^{-2x}}{x^3}$</p>
+				<p>$u_2' = \frac{1}{x^3}$</p>
+
+				<p>Use this value for $u_2'$ to find $u_1'$:</p>
+
+				<p>$u_1' e^{-2x} + u_2' xe^{-2x} = 0$</p>
+				<p>$u_1' e^{-2x} + \left( \frac{1}{x^3} \right) xe^{-2x} = 0$</p>
+				<p>$u_1' e^{-2x} + \frac{e^-2x}{x^2} = 0$</p>
+				<p>$u_1' e^{-2x = - \frac{e^{-2x}}{x^2}}$</p>
+				<p>$u_1' = - \frac{1}{x^2}$</p>
+
+				<p>Integrate $u_1'$ to find $u_1$.</p>
+
+				<p>$u_1 = \int u_1' = \int - \frac{1}{x^2} ~dx$</p>
+				<p>$u_1 = \int - x^{-2} ~dx$</p>
+				<p>$u_1 = - \frac{1}{-1} x^{-1}$</p>
+				<p>$u = x^{-1}$</p>
+				<p>$u_1 = \frac{1}{x}$</p>
+
+				<p>And then integrate $u_2'$ to find $u_2$.</p>
+
+				<p>$u_2  = \int u_2' = \int \frac{1}{x^3} ~dx$</p>
+				<p>$u_2 = \int x^{-3} ~dx$</p>
+				<p>$u_2 = \frac{1}{-2} x^{-2}$</p>
+				<p>$u_2 = - \frac{1}{2}x^{-2}$</p>
+				<p>$u_2 = - \frac{1}{2x^2}$</p>
+
+				<p>Given these values for $u_1$ and $u_2$, the particular solutions is:</p>
+
+				<p>$y_p(x) = u_1 y_1 + u_2 y_2$</p>
+				<p>$y_p(x) = \frac{1}{x} e^{-2x} - \frac{1}{2x^2} xe^{-2x}$</p>
+				<p>$y_p(x) = \frac{e^{-2x}}{x} - \frac{e^{-2x}}{2x}$</p>
+				<p>$y_p(x) = \frac{ 2e^{-2x} - e^{-2x} }{2x}$</p>
+				<p>$y_p(x) = \frac{e^{-2x}}{2x}$</p>
+
+				<p>Adding this particular solution to the complementary solution gives us the general solution $y(x)$.</p>
+
+				<p>$y(x) = c_1 e^{-2x} + c_2 xe^{-2x} + \frac{e^{-2x}}{2x}$</p>
+
+
+		<h3 id="fund_sets_wronskian">Fundamental Solution Sets and the Wronskian</h3>
+
+			<p>When we used variation of parameters, we took a fundamental set of solution ${y_1, y_2}$ from the complementary solution, and then we plugged that solution set into a system of linear equations.</p>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Complementary Solution</th><th>Fundamental Solution Set</th></tr></thead><tbody>
+			 <tr><td>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</td><td>$\{y1, y2\} = \{e^{r_1x}, e^{r_2x}\}$</td></tr>
+			 <tr><td>$y(x) = c_1 e^{r_1x} + c_2 xe^{r_1x}$</td><td>$\{y1, y2\} = \{e^{r_1x}, xe^{r_2x}\}$</td></tr>
+			 <tr><td>$y(x) = e^{\alpha x} (c_1 ~cos(\beta x) + c_2 ~sin(\beta x)$</td><td>$\{y1, y2\} = \{e^{\alpha x} ~cos(\beta x), e^{\alpha x} ~sin(\beta x)\}$</td></tr>
+			</tbody></table>
+			
+			<p>$u_1' y_1 + u_2' y_2 = 0$</p>
+			<p>$u_1' y_1' + u_2' y_2' = g(x)$</p>
+
+			<p>We solved this system for $u_1'$ and $u_2'$, and then integrated those values to find $u_1$ and $u_2$, which we then used to build a particular solution for the differential equation.</p>
+
+
+			<h4>Fundamental Set of Solutions</h4>
+
+				<p>We say that a set of solutions to a differential equation is a fundamental set of solutions when the Wronskian of those solutions is non-zero.</p>
+
+				<p>The Wronskian $W$ of a solution set is the determinant of the set of solutions and their derivatives.</p>
+
+				<p>$
+					W(y_1, y_2)(t_0) = 
+
+					det \left(
+					\begin{bmatrix}
+					y_1(t_0) & y_2(t_0) \\
+					y_1'(t_0) & y_2'(t_0) \\
+					\end{bmatrix}
+					\right)
+
+					=
+
+					y_1(t_0) y_2'(t_0) - y_2(t_0) y_1'(t_0)
+					$
+				</p>
+
+				<p>If $y_1(t)$ and $y_2(t)$ are solutions to the differential equation, and if the Wronskain is non-zero $W \neq 0$, then we say the solutions $y_1(t)$ and $y_2(t)$ are linearly independent, which means they are not constant multiples of one another. When the Wronskian is non-zero and the solution set therefore linearly dependent, we call ${y_1, y_2}$ a fundamental set of solutions.</p>
+
+				<p>If we have a fundamental set of solutions, we conclude that the general solution is:</p>
+
+				<p>$y(t) = c_1 y_1 (t) + c_2 y_2 (t)$</p>
+
+				<p>We've been assuming so far that the solution set for a second order equation is a fundamental set, because we've been using any solution set we found to build the general solution, without confirming that $W \neq 0$.</p>
+
+
+			<h4>The Reliable Set</h4>
+
+				<p>There is a set of initial conditions we can use that will always give us a fundamental set of solutions for $y'' + p(t)y' + q(t)y = 0$, which is $y(t_0) = 1$ and $y'(t_0) = 0$, and $y(t_0) = 0$ and $y'(t_0) = 1$.</p>
+
+				<p>$
+					W(y_1, y_2)(t_0) = det 
+					\left( 
+					\begin{bmatrix}
+					y_1t(0)  &  y_2(t_0) \\
+					y_1'(t_0)  &  y_2'(t_0) \\
+					\end{bmatrix}
+					\right)
+
+					= 
+
+					det 
+					\left( 
+					\begin{bmatrix}
+					1 & 0 \\
+					0 & 1 \\
+					\end{bmatrix}
+					\right)
+					
+					= 1 - 0 = 1 \neq 0
+					$
+				</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use the reliable set of initial conditions to find a fundamental set of solutions for the second order differential equation.</p>
+
+				<p>$y'' + 5y' + 6y = 0$</p>
+
+				<p>Normally, we would find the general solution to this second order equation by solving the associated characteristic equation:</p>
+
+				<p>$r^2 + 5r + 6 = 0$</p>
+				<p>$(r+3)(r+2) = 0$</p>
+				<p>$r = -3, -2$</p>
+
+				<p>And then plugging these views into the formula for the complementary solution with distinct real roots.</p>
+
+				<p>$y_c(x) = c_1 e^{-3x} + c_2 e^{-2x}$</p>
+
+				<p>The derivative of this complementary solution is:</p>
+
+				<p>$y_c'(x) = -3c_1 e^{-3x} - 2c_2 e^{-2x}$</p>
+
+				<p>If we now plug in the initial conditions $y(x_0) = 1$ and $y'(x_0) = 0$, and $y(x_0) = 0$ and $y'(x_0) = 1$, we'll be able to generate another fundamental set of solutions. We'll use $x_0 = 0$, since we can choose any value of $x_0$ that we like, and using $x_0 = 0$ will be easiest.</p>
+
+				<p>For $y(0) = 1, 1 = c_1 + c_2$</p>
+				<p>For $y'(0) = 1, 0 = -3c_1 - 2c_2$</p>
+
+				<p>Then this system gives $c_1 = -2$ and $c_2 = -3$, so we could say that one solution to our fundamental set of solutions is:</p>
+
+				<p>$y_1(x) = -2e^{-3x} + 3e^{-2x}$</p>
+
+				<p>The second set of initial conditions gives:</p>
+
+				<p>For $y(0) = 0, 0 = c_1 + c_2$</p>
+				<p>For $y'(0) = 1, 1 = - 3c_1 - 2c_2$</p>
+
+				<p>This gives $c_1 = 1$ and $c_2 = 1$, so the other solution in our fundamental set is:</p>
+
+				<p>$y_2(x) = e^{-3x} + e^{-2x}$</p>
+
+				<p>So one fundamental set of solutions is:</p>
+
+				<p>${y_1, y_2} = {e^{-3x}, e^{-2x}}$</p>
+
+				<p>but another is:</p>
+
+				<p>$y_c(x) = c_1(-2e^{-3x} + 3e^{-2x}) + c_2(-e^{-3x} + e^{-2x})$</p>
+
+
+		<h3 id="var_params_wronskian">Variation of Parameters with the Wronskian</h3>
+
+			<p>When we looked at this method before, we built this system of linear equations:</p>
+
+			<p>$u_1' y_1 + y_2' y_2 = 0$</p>
+			<p>$u_1' y_1' + u_2' y_2' = g(x)$</p>
+
+			<p>If we solve the first equation for $u_1'$:</p>
+
+			<p>$u_1' = - \frac{u_2' y_2}{y_1}$</p>
+
+			<p>Then we can substitute it into the second equation to solve for $u_2'$.</p>
+
+			<p>$\left( - \frac{u_2' y_2}{y_1} \right) y_1' + u_2' y_2' = g(x)$</p>
+			<p>$u_2' \left( y_2' - \frac{y_2 y_1'}{y_1} \right) = g(x)$</p>
+			<p>$u_2' \left( \frac{ y_1 y_2' - y_2 y_1' }{y_1} \right) = g(x)$</p>
+			<p>$u_2' = \frac{ y_1 g(x) }{ y_1 y_2' - y_2 y_1' }$</p>
+
+			<p>Plugging this back into the equation for $u_1'$, we get:</p>
+
+			<p>$u_1' = - \frac{ y_1 y_2 g(x) }{ y_1(y_1 y_2' - y_2 y_1') }$</p>
+			<p>$u_1' = - \frac{ y_2 g(x) }{ y_1 y_2' - y_2 y_1' }$</p>
+
+			<p>Notice the denominators of $u_1'$ and $u_2'$ are equivalent, they are both $y_1 y_2' - y_2y_1'$. This value is actually the Wronskian of the fundamental set of solutions ${y_1, y_2}$.</p>
+
+			<p>$
+				W(y_1, y_2) = det \left(
+				\begin{bmatrix}
+				y_1 & y_2 \\
+				y_1' & y_2' \\
+				\end{bmatrix}
+				\right) 
+
+				=
+
+				y_1 y_2' - y_2 y_1'
+				$
+			</p>
+
+			<p>We know that the Wronskian of a fundamental set of solutions is non-zero, so the denominators of $u_1'$ and $u_2'$ will be defined.</p>
+
+			<p>Now to find the values of $u_1$ and $u_2$, we need to integrate $u_1'$ and $u_2'$.</p>
+
+			<p>$u_1 = \int u_1' ~dx$</p>
+			<p>$= \int - \frac{ y_2 g(x) }{ y_1 y_2' - y_2 y_1' } ~dx$</p>
+			<p>$= \int - \frac{ y_2 g(x) }{ W(y_1, y_2) } ~dx$</p>
+
+			<p>$u_2 = \int u_2' ~dx$</p>
+			<p>$= \int \frac{ y_1 g(x) }{ y_1 y_2' - y_2 y_1' } ~dx$</p>
+			<p>$= \int \frac{ y_1 g(x) }{ W(y_1, y_2) } ~dx$</p>
+
+			<p>Given these values of $u_1$ and $u_2$, using variation of parameters and these Wronskian integrals tells us that the particular solution to the second order nonhomogenous equation will be:</p>
+
+			<p>$y_p(x) = u_1 y_1 + u_2 y_2$</p>
+			<p>$y_p(x) = - y_1 \int \frac{y_2 g(x)}{W(y_1, y_2)} ~dx + y_2 \frac{y_1 g(x)}{W(y_1, y_2)} ~dx$</p>
+
+			<p>Then, just as before, to find the general solution to the second order nonhomogenous equation, we add this particular solution to the complementary solution.</p>
+
+			<p>$y(x) = y_c(x) + y_p(x)$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use variation of parameters to find the general solution to the differential equation:</p>
+
+				<p>$y'' + 4y' + 4y = \frac{e^{-2x}}{x^3}$</p>
+
+				<p>As before, we solve the characteristic equation associated with the homogenous equation to find real roots and a complementary solution.</p>
+
+				<p>$y_c(x) = c_1 e^{-2x} + c_2 xe^{-2x}$</p>
+
+				<p>The fundamental set of solutions and their derivatives are:</p>
+
+				<p>${y_1, y_2} = {e^{-2x}, xe^{-2x}}$</p>
+				<p>${y_1', y_2'} = {-2e^{-2x}, e^{-2x} - 2xe^{-2x}}$</p>
+
+				<p>The Wronskian of this fundamental set is:</p>
+
+				<p>$
+					W(e^{-2x}, xe^{-2x}) = 
+					det \left(
+					\begin{bmatrix}
+					e^{-2x} & xe^{-2x} \\
+					-2e^{-2x} & e^{-2x} - 2xe^{-2x} \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+				<p>$= (e^{-2x}) (e^{-2x} - 2xe^{-2x}) - (xe^{-2x}) (-2e^{-2x})$</p>
+				<p>$= e^{-4x} - 2xe^{-4x} + 2xe^{-4x}$</p>
+				<p>$= e^{-4x}$</p>
+
+				<p>$
+					y_p(x) = - e^{-2x} \int \frac{ xe^{-2x} \left( \frac{e^{-2x}}{x^3} \right) }{ e^{-4x} } ~dx 
+					+
+					xe^{-2x} \int \frac{ e^{-2x} \left( \frac{e^{-2x}}{x^3} \right) }{ e^{-4x} } ~dx
+					$
+				</p>
+
+				<p>$y_p(x) = e^{-2x} \int \frac{1}{x^2} ~dx + xe^{-2x} \int \frac{1}{x^3} ~dx$</p>
+				<p>$y_p(x) = -e^{-2x} \left( - \frac{1}{x} \right) - \frac{1}{2} xe^{-2x} x^{-2}$</p>
+				<p>$y_p(x) = \frac{2e^{-2x}}{2x} - \frac{e^{-2x}}{2x}$</p>
+				<p>$y_p(x) = \frac{e^{-2x}}{2x}$</p>
+
+				<p>As before, adding this particular solution to the complementary solution gives us the general solution:</p>
+
+				<p>$y(x) = c_1 e^{-2x} + c_2 xe^{-2x} + \frac{e^{-2x}}{2x}$</p>
+
+
+		<h3 id="ivps_nonhomog">Initial Value Problems with Nonhomogenous Equations</h3>
+
+			<p>We've seen how to solve second order nonhomogenous equations using the methods of undetermined coefficients and variation of parameters. Once we've found the general solution as the sum of the complementary and particular solutions, we can extend the problem one step further by solving an initial value problem.</p>
+
+			<p>To solve an initial value problem for a second order nonhomogenous differential equation, we'll use undetermined coefficients or variation of parameters to find the general solution:</p>
+
+			<p>$y(x) = y_c(x) + y_p(x)$</p>
+
+			<p>Then we'll differentiate the general solution to get:</p>
+
+			<p>$y'(x) = y_c'(x) + y_p(x)$</p>
+
+			<p>Once we have the general solution and its derivative, we'll plug the initial conditions $y(x_0) = y_0$ and $y'(x) = y_1$ into these equations, which will create a system of linear equations that we can solve for $c_1$ and $c_2$. Once we find those, we will substitute them back into the general solution, which will solve the initial value problem.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Solve the initial value problem for the follwoing second order nonhomogenous equation, given $y(0) = 0$ and $y'(0) = 1$.</p>
+
+				<p>$y'' + y' = x - 2e^{-x}$</p>
+
+				<p>If we solve the associated characteristic equation, we find roots $r = 0, -1$, which gives us the complementary solution with distinct real roots:</p>
+
+				<p>$y_c(x) = c_1 + c_2 e^{-x}$</p>
+
+				<p>Our guess for the particular solution will be:</p>
+
+				<p>$y_p(x) = Ax^2 + Bx + Cxe^{-x}$</p>
+
+				<p>and undetermined coefficients lets us find $A = \frac{1}{2}$, $B = -1$, and $C = 2$, giving:</p>
+
+				<p>$y_p(x) = \frac{1}{2}x^2 - x + 2xe^{-x}$</p>
+
+				<p>for the particular solution, and therefore a general solution of:</p>
+
+				<p>$y(x) = c_1 + c_2 e^{-x} + x - 1 + 2e^{-x} - 2xe{-x}$</p>
+
+				<p>Differentiating the general solution gives:</p>
+
+				<p>$y'(x) = -c_2 e^{-x} + x - 1 + 2e^{-x} - 2xe^{-x}$</p>
+
+				<p>Substitute the initial conditions $y(0) = 0$ and $y'(0) = 1$ into the general solution and its derivative.</p>
+
+				<p>$0 = c_1 + c_2 e^{-(0)} + \frac{1}{2}(0)^2 - 0 + 2(0) e^{-(0)}$</p>
+				<p>$1 = - c_2 e^{-(0)} + 0 - 1 + 2e^{-(0)} - 2(0)e^{-(0)}$</p>
+
+				<p>Simplifying these equations gives:</p>
+
+				<p>$0 = c_1 + c_2$</p>
+				<p>$0 = c_2$</p>
+
+				<p>Substitute $c_2 = 0$ into $0 = c_1 + c_2$.</p>
+
+				<p>$0 = c_1 + 0$</p>
+				<p>$0 = c_1$</p>
+
+				<p>The general solution becomes:</p>
+
+				<p>$y(x) = 0 + (0)e^{-x} + \frac{1}{2}x^2 - x + 2xe^{-x}$</p>
+				<p>$y(x) = \frac{1}{2}x^2 - x + 2xe^{-x}$</p>
+
+
+
+
+
+
+
+
+
+
+        </br></br>
+        <p>Here is a link to <a href="diff_eqs_pt2.html">part 2</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+

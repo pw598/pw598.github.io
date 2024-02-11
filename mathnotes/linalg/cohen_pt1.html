@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+        
+
+
+
+
+
+<h1>Linear Algebra, Cohen Pt. 1</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#vector_mult">Vector Multiplication Methods</a></td><td><a href="#dot_prod">The Dot Product</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#outer_prod">The Outer Product of Two Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cross_prod">Vector Cross Product</a></td></tr>
+ <tr><td><a href="#hermetian_trans">Hermetian Transpose, a.k.a Conjugate Transpose</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#subspaces">Subspaces</a></td><td><a href="#subsets">Subspaces vs. Subsets</a></td></tr>
+ <tr><td><a href="#span">Span</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#linear_dep">Linear Dependence</a></td><td><a href="#basis_vectors">Basis Vectors</a></td></tr>
+ <tr><td><a href="#matrices">Matrices</a></td><td><a href="#matrix_mult">Matrix Multiplication</a></td></tr>
+  <tr><td>&nbsp;</td><td><a href="#order_ops">Order of Operations on Matrices</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#2d_trans_mat">2D Transformation Matrices</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#symmetric">Symmetric Matrices via The Additive Model</a></td></tr>
+ <tr><td><a href="#frobenius">Frobenius Dot Product</a></td><td><a href="#norms">Norms</a></td></tr>
+ <tr><td><a href="#rank">Matrix Rank</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#spaces">Spaces of a Matrix</a></td><td><a href="#col_space">Column Space</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#row_space">Row Space</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#null_space">Null Space</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#left_null_space">Left Null Space</a></td></tr>
+  <tr><td>&nbsp;</td><td><a href="#rel_across_dim">Relationships Across Dimensionalities</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#review_mat_spaces">Review of Matrix Spaces</a></td></tr>
+ <tr><td><a href="#eqs">Equations $Ax = b$ and $Ax = 0$</a></td></tr>
+</tbody></table>
+
+
+    <h2 id="vector_mult">Vector Multiplication Methods</h2>
+
+        <h3 id="dot_prod">The Dot Product</h3>
+
+            <p>The dot product is a single number that provides information about the relationship between two vectors. Because it is a single number, it is also sometimes called the scalar product. It is the computational building block upon which many algorithms are built, including correlation, convolution, and the Fourier transform.</p>
+
+            <p>Possible representations/notation include:</p>
+
+            <p>$$a^Tb = a \cdot b = \langle a, b \rangle = \sum_{i=i}^n a_i b_i$$</p>
+
+
+            <p>Example:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 \\ 
+                    0 \\
+                    2 \\ 
+                    \end{bmatrix}
+
+                    \cdot
+
+                    \begin{bmatrix} 
+                    2 \\ 
+                    8 \\
+                    6 \\ 
+                    \end{bmatrix}
+                $$</p>
+
+            <p>$$v^Tw = 1 \times 2 + 0 \times 8 + 2 \times 6$$</p>
+            <p>$$= 2 + 0 + 12 = 14$$</p>
+
+            <p>The dot product is distributive:</p>
+
+            <p>$$a(b+c) = ab + bc$$</p>
+            <p>$$a^T(b+c) = a^Tb + a^Tc$$</p>
+            <p>$$\sum_{i=1}^n a_i b_i + \sum_{i=1}^n a_i c_i = \sum_{i=1}^n a_i (b_i + c_i)$$</p>
+
+
+            <p>The dot product is not associative (though matrix multiplication is).</p>
+
+            <p>$$a(b \cdot c) = (a \cdot b)c$$</p>
+            <p>$$a^T(b^Tc) \neq (a^Tb)^Tc$$</p>
+
+            <p>The dot product is commutative:</p>
+
+            <p>$$a^Tb = b^Ta$$</p>
+
+            <p>Why is transpose used in the notation? Given the rules of matrix multiplication, we cannot multiply two vectors when they are both viewed as column matrices. To rectify this problem, we can take the transpose of the first vector, turning it into a $1 \times 1$ matrix, i.e., a scalar.</p>
+
+<!-- https://mathinsight.org/dot_product_matrix_notation -->
+
+
+            <h4 id="geometric">Geometric Interpretation</h4>
+
+                <p>$$\alpha = |a||b|cos(\theta_{ab})$$</p>
+
+                <p>The dot product between two vectors is the cosine of the angle between those two vectors scaled by the product of the lengths of those vectors. </p>
+
+                <p>How to compute the angle between 2 vectors:</p>
+
+                <p>$$\alpha = |a||b|cos(\theta_{ab})$$</p>
+                <p>$$\frac{\alpha}{|a||b|} = cos(\theta_{ab})$$</p>
+                <p>$$\theta_{ab} = arccos \left( \frac{\alpha}{|a||b|} \right)$$</p>
+
+                <p>Vector length is given as:</p>
+
+                <p>$$||v|| = \sqrt{v^Tv}$$</p>
+
+                <p>For a two-element vector (using the Pythagorean theorem):</p>
+
+                <p>$$||v||^2 = (v_1)^2 + (v_2)^2$$</p>
+
+
+            <h4>Unit-Length Vectors</h4>
+
+                <p>To set a unit-length vector, use the following formula:</p>
+
+                <p>$$||\mu v|| = \frac{1}{||v||}||v|| = 1$$</p>
+
+                <p>$\mu$ is the reciprocal of the magnitude of $v$</p>
+
+
+        <h3 id="outer_prod">The Outer Product of Two Vectors</h3>
+
+            <p>The dot product performs $v^Tw$, an $n \times 1$ by $n \times 1$ operation in terms of matrix sizes. The outer product performs $vw^t$, an $n \times 1$ by $m \times 1$ operation producing an $n \times m$ size matrix.</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 \\ 
+                    0 \\
+                    2 \\ 
+                    5 \\ 
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    a & b & c & d\\
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    1a & 1b & 1c & 1d\\
+                    0a & 0b & 0c & 0d\\
+                    2a & 2b & 2c & 2d\\
+                    5a & 5b & 5c & 5d\\
+                    \end{bmatrix}
+                $$</p>
+
+
+        <h3 id="cross_prod">Vector Cross Product</h3>
+
+            <p>The vector cross product is defined only for two 3D vectors; the result is another 3D vector.</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 \\ 
+                    2 \\
+                    3 \\ 
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    a \\ 
+                    b \\
+                    c \\ 
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    2c - 3b \\ 
+                    3a - 1c \\
+                    1b - 2a \\ 
+                    \end{bmatrix}                
+                $$</p>
+
+            <p>Geometrically, any two distinct vectors can form a plane. The cross product gives a vector that is orthogonal to both (z-axis).</p>
+
+
+
+    <h2 id="hermetian_trans">Hermetian Transpose, a.k.a Conjugate Transpose</h2>
+
+        <p>The Hermetian transpose applies when working with complex numbers. The algebraic perspective of the complex conjugate is that you flip the sign of the imaginary part of the complex number without changing the real part.</p>
+
+        <p>$$a + bi \rightarrow a - bi$$</p>
+        <p>$$a - bi \rightarrow a + bi$$</p>
+
+        <p>Geometrically, this flips the complex number across the real axis. The Hermetian/conjugate transpose is indicated with an H or asterisk where the T would normally be ($A^H$).</p>
+
+        <p>Example:</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                1 3i \\ 
+                -2i \\
+                4 \\ 
+                5 \\
+                \end{bmatrix}
+                ^H
+
+                =
+
+                \begin{bmatrix} 
+                1-3i & 2i & 4 & -5\\
+                \end{bmatrix}
+            $$</p>               
+
+
+        <p>Why not use the regular transpose? The hypotenuse of a complex number [3 4i] cannot be calculated correctly using the regular transpose, whereas the Hermetian transpose yields that quantity squared.</p>
+
+        <p>Regular Transpose: </p>
+
+        <p>$$z^Tz = (3 ~4i)(3 ~4i)$$</p>
+        <p>$$= 9 +12i + 12i + 16i^2$$</p>
+        <p>$$= 9 + 12i + 12i - 16$$</p>
+        <p>$$= -7 + 24i$$</p>
+
+        <p>Hermetian Transpose:</p>
+
+        <p>$$z^Hz = (3~ 4i)(3 - ~4i)$$</p>
+        <p>$$= 9 + 12i -12i - 16i^2$$</p>
+        <p>$$= 9 + 16$$</p>
+        <p>$$= 25$$</p>
+
+
+
+    <h2 id="subspaces">Subspaces</h2>
+
+        <p>A subspace is defined as the set of all vectors that can be created by taking linear combinations of some vector, or a set of vectors. Linear combination means multiplication by a scalar, and that scalar can be any real number. For $v$, any vector that can be expressed as $\lambda v$ is in the same subspace as vector $v$. You can also create a subspace from two vectors by considering all possible linear combinations.</p>
+
+        <p>$$\lambda v + \beta w$$</p>
+
+        <p>Example:</p>
+
+            <p>$$
+                v = 
+                \begin{bmatrix} 
+                2 \\ 
+                3 \\
+                \end{bmatrix}
+
+                w = 
+                \begin{bmatrix} 
+                0 \\ 
+                4 \\
+                \end{bmatrix}
+
+                6v - 4w = 
+                \begin{bmatrix} 
+                12 \\ 
+                2 \\
+                \end{bmatrix}
+            $$</p>
+
+        <p>Geometrically, two vectors create a subspace, a 2D plane that passes through the origin, in which both vectors lie (except for when they point in the same direction).</p>
+
+
+        <h3 id="subsets">Subspaces vs. Subsets</h3>
+
+            <p>A subset is a set of points that satisfies some conditions. It can have boundaries, but does not need to be closed, and does not need to include the origin. A subset example is: all points on the XY plane such that $x \gt 0$, $y \gt 0$, or all points on the XY plane such that $x^2 + y^2 = 1$.</p>
+
+            <p>Tips to determine whether a subset or a subspace:</p>
+                <ol>
+                    <li>Subspaces include the origin</li>
+                    <li>Subspaces can be written in terms of vectors and scalars of form $av + \beta w$</li>
+                </ol>
+
+
+
+    <h2 id="span">Span</h2>
+
+        <p>A subspace is a region of space that you can reach by any linear combination of the given vectors. The span of a set of vectors is all possible weighted combinations of all the vectors in that set.</p>
+
+        <p>$$span({v_1, \ldots, v_n}) = a_1 v_1 + \ldots + a_n v_n$$</p>
+
+        <p>It stretches to infinity because the scalars can be arbitrarily large or small. A frequent question in linear algebra is whether one vector is in the span of another vector or set of vectors.</p>
+
+        <p>Example: is $v$ or $w$ in the span of $s$?</p>
+
+            <p>$$
+                v = 
+                \begin{bmatrix} 
+                1 \\ 
+                2 \\
+                0 \\
+                \end{bmatrix}
+
+                w = 
+                \begin{bmatrix} 
+                3 \\ 
+                2 \\
+                1 \\
+                \end{bmatrix}
+
+                s = 
+                \begin{bmatrix} 
+                1 \\ 
+                1 \\
+                0 \\
+                \end{bmatrix}
+                ,
+                \begin{bmatrix} 
+                1 \\ 
+                7 \\
+                0 \\
+                \end{bmatrix}
+            $$</p>
+
+
+        <p>Answer: Yes, $v \in span(S)$ because</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                1 \\ 
+                2 \\
+                0 \\
+                \end{bmatrix}
+
+                = 
+
+                \frac{5}{6}
+
+                \begin{bmatrix} 
+                1 \\ 
+                1 \\
+                0 \\
+                \end{bmatrix}                
+
+                \frac{1}{6}
+
+                \begin{bmatrix} 
+                1 \\ 
+                7 \\
+                0 \\
+                \end{bmatrix}                
+            $$</p>
+
+
+    <h2 id="linear_dep">Linear Dependence</h2>
+
+        <p>The formal definition of linear dependence is related to determining whether a weighted combination of the vectors in a set can form the $0$ vector. A set of $M$ vectors is independent if each vector points in a geometric dimension not reachable using other vectors in the set.</p>
+
+        <p>$$0 = \lambda_1 v_1 + \lambda_2 v_2 + ... + \lambda_n v_n, ~\lambda \in \mathbb{R}$$</p>
+
+        <p>which means that</p>
+
+        <p>$$\lambda_1 v_1 = \lambda_2 v_2 + \ldots + \lambda_n v_n$$</p>
+
+        <p>$$v_1 = \frac{\lambda_2}{\lambda_1} v_2 + \ldots + \frac{\lambda_n}{\lambda_1} v_n, ~\lambda \neq 0, v_1 = 0$$</p>
+
+        <p>Geometrically, dependent vectors in $\mathbb{R}^2$ are guaranteed to form a linearly dependent set, because with any two of the three vectors, you can reach any possible point in the $\mathbb{R}^2$ plane. In $\mathbb{R}^3$, it is only dependent if the third vector sits along the plane created by the other two.</p>
+
+        <p>Any set of $M \gt N$ vectors in $R^N$ is dependent. Any set of $M \le N$ vectors in $\mathbb{R}^N$ could be independent. The matrix rank method can be used to tell whether a set of vectors is dependent or independent.</p>
+
+
+        <h3 id="basis_vectors">Basis Vectors</h3>
+
+            <p>There are two conditions for a set of vectors to be a basis:</p>
+                <ol>
+                    <li>They contain a set of independent vectors</li>
+                    <li>They span all of the subspace, such as $\mathbb{R}^2$ or $\mathbb{R}^3$</li>
+                </ol>
+
+            <p>Any point can be obtained by some unique linear combination of the standard basis vectors in that set. Orthogonal bases are easy to compute and work with. Finding an optimal basis set for a dataset is used in dimensionality reduction techniques.</p>
+
+
+
+    <h2 id="matrices">Matrices</h2>
+
+        <h3 id="matrix_mult">Matrix Multiplication</h3>
+
+            <p>There are multiple perspectives from which to look at matrix multiplication, all of which arrive at the same result:</p>
+
+
+            <p>1. The Element Perspective:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    0 & 1 \\ 
+                    2 & 3 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    a & b \\ 
+                    c & d \\
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    0a+1c & 0b+1d\\ 
+                    2a+3c & 2b+3d \\
+                    \end{bmatrix}                
+                $$</p>
+
+
+            <p>2. The Layer Perspective:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    0a & 0b \\ 
+                    2a & 2b\\
+                    \end{bmatrix}
+
+                    +
+
+                    \begin{bmatrix} 
+                    1c & 1d \\ 
+                    3c & 3d\\
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    0a+1c & 0b+1d \\ 
+                    2a+3c & 2b+3d\\
+                    \end{bmatrix}
+                $$</p>
+
+
+            <p>3. The Column Perspective:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    0 & 1 \\ 
+                    2 & 3 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    a & b \\ 
+                    c & d \\
+                    \end{bmatrix}
+
+                    = 
+
+                    a
+                    \begin{bmatrix} 
+                    0 \\ 
+                    2 \\
+                    \end{bmatrix}               
+
+                    + 
+
+                    c
+                    \begin{bmatrix} 
+                    1 \\ 
+                    3 \\
+                    \end{bmatrix} 
+
+
+                    b
+                    \begin{bmatrix} 
+                    0 \\ 
+                    2 \\
+                    \end{bmatrix}               
+
+                    + 
+
+                    d
+                    \begin{bmatrix} 
+                    1 \\ 
+                    3 \\
+                    \end{bmatrix} 
+                $$</p>
+
+
+            <p>4. The Row Perspective:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    0 & 1 \\ 
+                    2 & 3 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    a & b \\ 
+                    c & d \\
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    0[a b] + 1[c d] \\ 
+                    2[a b] + 3[c d] \\
+                    \end{bmatrix}               
+                $$</p>
+
+                </br>
+                <img src="img/matrix_mult.png" style="height: 450px; width: auto;"></br></br></br>
+
+
+            <p>With a diagonal matrix, if post-multiplying by the diagonal matrix ($AD$), then the columns are weighted by the diagonal elements of $D$. Pre-multiplying by $D$ ($DA$) weights the rows according to the diagonal elements of $D$.</p>
+
+
+        <h3 id="order_ops">Order of Operations on Matrices</h3>
+
+            <p>Remember the $(LIVE)^T = E^T V^T I^T L^T$ rule.</p>
+
+            <p>Matrix-Vector multiplication always results in a vector:</p>
+
+            <p>$$A w = v$$</p>
+
+            <p>$$m \times n \cdot n \times 1 = m \times 1$$</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                a & b \\ 
+                c & d \\
+                \end{bmatrix}
+
+                \begin{bmatrix} 
+                2 \\
+                3 \\ 
+                \end{bmatrix}
+
+                = 
+
+                \begin{bmatrix} 
+                a2 + b3 \\
+                c2 + d3 \\ 
+                \end{bmatrix}               
+            $$</p>
+
+
+            <p>$$
+                \begin{bmatrix} 
+                2 & 3 \\ 
+                \end{bmatrix}
+
+                \begin{bmatrix} 
+                a & b \\
+                c & d \\ 
+                \end{bmatrix}
+
+                = 
+
+                \begin{bmatrix} 
+                a2 + c3 \\
+                b2 + d3 \\ 
+                \end{bmatrix}      
+                ^T
+            $$</p>
+
+
+        <h3 id="2d_trans_mat">2D Transformation Matrices</h3>
+
+            <p>Multiplying a vector by a matrix tends to have the effect of rotating (and perhaps scaling) that vector. There is a rotation matrix that performs rotation only (without scaling).</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                cos(\theta) & -sin(\theta) \\
+                sin(\theta) & cos(\theta) \\ 
+                \end{bmatrix}
+            $$</p>
+
+            <p>When a matrix applies no rotation, the vector is called an eigenvector and the scalar with equal effect as the matrix is called an eigenvalue.</p>
+
+
+        <h3 id="symmetric">Symmetric Matrices via The Additive Model</h3>
+
+            <p>For square matrices, the additive method works by first taking any square matrix $A$ and adding to itself its own transpose, before optionally dividing by $2$:</p>
+
+            <p>$$S = (A + A^T) / 2$$</p>
+            <p>$$S = S^T$$</p>
+
+            <p>The multiplicative method involves multiplying the matrix by its transpose:</p>
+
+            <p>$$A^TA = S$$</p>
+            <p>$$AA^T = S$$</p>
+
+            <p>The output will be square; but this is not required of the input.</p>
+
+
+
+    <h2 id="frobenius">Frobenius Dot Product</h2>
+
+        <p>Ways to Calculate:</p>
+
+        <p>Method 1:</p>
+            <ul>
+                <li>Step 1: element-wise multiplication of two matrices</li>
+                <li>Step 2: sum all elements</li>
+            </ul>
+
+        <p>Method 2:</p>
+            <ul>
+                <li>Step 1: vectorize both matrices</li>
+                <li>Step 2: compute dot product</li>
+            </ul>
+
+            <p>To vectorize, one concatenates column-wise:</p>
+
+            <p>$$
+                vec \left( 
+                \begin{bmatrix} 
+                a & c & e \\
+                b & d & f \\
+                \end{bmatrix}
+                \right) 
+
+                = 
+
+                \begin{bmatrix} 
+                a \\
+                b \\
+                c \\
+                d \\
+                e \\
+                f \\
+                \end{bmatrix}
+            $$</p>            
+
+
+        <p>Method 3 - the Transpose-Trace Trick:</p>
+
+        <p>$$\langle A, B, \rangle_F = tr(A^TB)$$</p>
+
+        <p>The Frobenius dot product of a matrix with itself is called the Frobenius norm, or Euclidean norm, and is the sum of squared elements.</p>
+
+        <p>$$norm(A) = \sqrt{\langle A, A \rangle}_F = \sqrt{tr(A^TA)}$$</p>
+
+
+        <h3 id="norms">Norms</h3>
+
+            <h4>The Induced 2-Norm, a.k.a. 2-Norm, P-Norm</h4>
+
+                <p>$$||A||_p = sup \frac{||Ax||_p}{||x||_p}, x \neq 0$$</p>
+
+
+            <h4>The Schatten P-Norm</h4>
+
+                <p>$$||A|| = \left( \sum_{i=1}^r \sigma_i^p \right)^{1/p}$$</p>
+
+                <p>where $\sigma$ is the singular values of the matrix, from singular value decomposition (SVD).</p>
+
+
+
+    <h2 id="rank">Matrix Rank</h2>
+
+        <p>The rank of a matrix is a single number that provides insight into the amount of information that is contained in the matrix. It is indicated as $r(A)$ or $rank(A)$.</p>
+
+        <p>It is a non-negative integer related to the dimensionality of the information contained in a matrix. The maximum possible rank is the smaller of $m$ or $n$, where $m$ is the number of rows and $n$ the number of columns. The rank of a matrix is the largest number of columns or rows that can form a linearly independent set.</p>
+
+
+        <p>Boundaries for Rank $A$ and $B$:</p>
+
+        <p>$$rank(A + B) \le rank(A) + rank(B)$$</p>
+
+
+        <p>For Rank of $AB$:</p>
+
+        <p>$$rank(AB) \le min({rank(A), rank(B)})$$</p>
+
+
+        <p>For Rank of $A^TA$ and $AA^T$:</p>
+
+        <p>$$rank(A) = rank(A^TA) = rank(A^T) = rank(AA^T)$$</p>
+
+
+
+    <h2 id="spaces">Spaces of a Matrix</h2>
+
+        <h3 id="col_space">Column Space</h3>
+
+            <p>Column space is the subspace spanned by the columns of a matrix $A$. The notation is $C(A)$. You can think of a matrix as if it comprises column or row vectors.</p>
+
+            <p>$$C(A) = {\beta_1 a_1, + \ldots + \beta_n a_n}, \beta \in \mathbb{R} = span({a_1, \ldots, a_n})$$</p>
+
+            <p>One of the important questions in linear algebra is whether a certain vector is contained in the column space of a certain matrix.</p>
+
+            <p>Example:</p>
+
+            <p>$$\text{Is }
+                    \begin{bmatrix} 
+                    -3 \\
+                    1 \\
+                    5 \\
+                    \end{bmatrix}
+                    
+                    \in 
+ 
+                    C \left(
+                    \begin{bmatrix} 
+                    3 & 0 \\
+                    5 & 2 \\
+                    1 & 2 \\
+                    \end{bmatrix}
+                    \right)
+                    ?
+                $$</p>
+
+
+            <p>Answer: yes, because:</p>
+                
+                <p>$$
+                    -1
+                    \begin{bmatrix} 
+                    -3 \\
+                    5 \\
+                    1 \\
+                    \end{bmatrix}
+
+                    3
+                    \begin{bmatrix} 
+                    0 \\
+                    2 \\
+                    2 \\
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    -3 \\
+                    1 \\
+                    5 \\
+                    \end{bmatrix}
+                $$</p>
+
+
+            <p>This could also be written as:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    -3 & 0 \\
+                    5 & 2 \\
+                    1 & 2 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    -1 \\
+                    3 \\
+                    \end{bmatrix}
+
+                    = 
+
+                    \begin{bmatrix} 
+                    -3 \\
+                    1 \\
+                    5 \\
+                    \end{bmatrix}
+                $$</p>      
+
+            <p>The zero vector is always in the column space of a given matrix $A$. A vector that is in the column space of a matrix in $\mathbb{R}^3$ sits on the plane interpreted from the matrix. If a vector is in the column space of $A$, the next resulting question is usually: what are the coefficients of each column in the matrix such that the weighted sum of the columns in matrix $A$ give us vector $v$? If not, the next question is usually about how close it is.</p>
+
+            <p>Consider the following vector which is not in the column space of the following matrix:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 \\
+                    7 \\
+                    3 \\
+                    \end{bmatrix}   
+
+                    \begin{bmatrix} 
+                    0 & 0 \\
+                    5 & 2 \\
+                    1 & 2 \\
+                    \end{bmatrix} 
+                $$</p>  
+
+            <p>How do we make it fit as closely as possible?</p>
+
+            <p>In an equation where the vector is in the column space of the matrix, we write something like:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    3 & 0 \\
+                    5 & 2 \\
+                    1 & 2 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    -1 \\
+                    3 \\
+                    \end{bmatrix}   
+
+                    = 
+
+                    \begin{bmatrix} 
+                    3 \\
+                    1 \\
+                    5 \\
+                    \end{bmatrix}   
+                $$</p>
+
+            <p>Putting all terms of the left side, the equation would equal zero, but this is not the case when the vector is outside of the column space of the matrix.</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    0 & 0 \\
+                    5 & 2 \\
+                    1 & 2 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    w_1 \\
+                    w_2 \\
+                    \end{bmatrix}   
+
+                    - 
+
+                    \begin{bmatrix} 
+                    1 \\
+                    7 \\
+                    3 \\
+                    \end{bmatrix}   
+
+                    = 
+
+                    \begin{bmatrix} 
+                    v_1 \\
+                    v_2 \\
+                    v_3 \\
+                    \end{bmatrix}   
+                $$</p>
+
+
+            <p>We then solve for the elements in the vector on the right, such that the magnitude on the left equals the magnitude on the right.</p>
+
+                <p>$$
+                    \left\vert \left\vert
+
+                    \begin{bmatrix} 
+                    0 & 0 \\
+                    5 & 2 \\
+                    1 & 2 \\
+                    \end{bmatrix}
+
+                    \begin{bmatrix} 
+                    w_1 \\
+                    w_2 \\
+                    \end{bmatrix}   
+
+                    - 
+
+                    \begin{bmatrix} 
+                    1 \\
+                    7 \\
+                    3 \\
+                    \end{bmatrix}   
+
+                    \right\vert \right\vert
+
+                    = 
+
+                    \left\vert \left\vert
+
+                    \begin{bmatrix} 
+                    v_1 \\
+                    v_2 \\
+                    v_3 \\
+                    \end{bmatrix}   
+                    
+                    \right\vert \right\vert
+                $$</p>
+
+
+            <p>This is the problem that the least squares algorithm solves.</p>
+
+
+        <h3 id="row_space">Row Space</h3>
+
+            <p>Row space of a matrix A is notated $R(A)$ or $C(A^T)$</p>
+
+            <p>It is the same concept as column space, just applied to rows of the matrix, and with a row-vector rather than column-vector.</p>
+
+
+        <h3 id="null_space">Null Space</h3>
+
+            <p>$N(A)$: the set of all vectors such that $Av = 0$ and $v \neq 0$</p>
+
+
+            <p>Example:</p>
+
+                <p>$$\text{Is }                 
+                    \begin{bmatrix} 
+                    1 \\
+                    -1 \\
+                    \end{bmatrix}  
+
+                    \text{ in the null space of }
+
+                    \begin{bmatrix} 
+                    1 & 1 \\
+                    2 & 2 \\
+                    \end{bmatrix}   
+                    ?
+                    $$
+                </p>
+
+
+            <p>Yes, because with matrix multiplication,</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 & 1 \\
+                    2 & 2 \\
+                    \end{bmatrix}   
+
+                    \begin{bmatrix} 
+                    1 \\
+                    -1 \\
+                    \end{bmatrix}                 
+
+                    = 
+
+                    \begin{bmatrix} 
+                    0 \\
+                    0 \\
+                    \end{bmatrix}
+                $$</p>               
+
+
+            <p>Other vectors are also in the null space, such as:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    2 \\
+                    -2 \\
+                    \end{bmatrix}   
+                $$</p> 
+
+
+            <p>Any scalar multiplied by 
+                    $
+                    \begin{bmatrix} 
+                    1 \\
+                    -1 \\
+                    \end{bmatrix}
+                    $
+ 
+                will produce a vector in the null space of that matrix, and is a vector chosen from an entire subspace.</p>
+
+            <p>Linearly independent matrices have an empty null space, whereas dependent matrices' null space holds values. Geometrically, a matrix multiplied by a vector in its null space becomes a point $(0,0)$ at the origin.</p>
+
+
+
+        <h3 id="left_null_space">Left Null Space</h3>
+
+            <p>The left null space is the regular null space of the matrix transposed. $N(A^T)$ is the set of all vectors $v$ such that $v^TA = 0^T$ and $v^T \neq 0^T$. It is also written as $A^Tv = 0$. This follows the same concept of null space, but is now a row vector on the left side of the matrix (pre-multiplying).</p>
+
+            <p>The 4 subspaces of a matrix - the column space, row space, null space, and left null space - come in two pairs of orthogonal complements. For a vector to be orthogonal to the column space of matrix $A$ means that the dot product of this vector with every column of the matrix is equal to zero.</p>
+
+            <p>$$v \bot C(A)$$</p>
+
+            <p>$$v^Ta_1 = 0$$</p>
+
+            <p>It would mean that the dot product of that vector with any linear combination of columns in matrix A would also be zero. This happens to be the definition of left null space. The left null space is orthogonal to the column space.</p>
+
+            <p>$$V^T {\alpha_1 a_1 + \ldots + \alpha_n a_n} = 0$$</p>
+
+            <p>One implication of this is that if the column space of the matrix spans all of $\mathbb{R}^M$ then the left null space must be empty, because only the zero vector can be orthogonal to an entire subspace.</p>
+
+            <p>Likewise, for a vector to be orthogonal to the row space would mean that the vector is orthogonal to every possible row in matrix A.</p>
+
+            <p>$$v \bot R(A)$$</p>
+            <p>$$v^T a_1^T = 0$$</p>
+            <p>$$v^T {\alpha_1 a_1^T + \ldots + \alpha_n a_n^T} = 0$$</p>
+            <p>$$Av = 0$$</p>
+
+
+        <h3 id="rel_across_dim">Relationships Across Dimensionalities</h3>
+
+            <p>$$\text{dim}(C(A)) + \text{dim}(N(A^T)) = M \text{(# rows)}$$</p>
+
+            <p>$$\text{dim}(C(A^T)) + \text{dim}(N(A)) = \text{N (# columns)}$$</p>
+
+            <p>All of $\mathbb{R}^M$ is spanned by the orthogonal complements of the column space of the matrix and the left null space, $N(A^T)$. The dimensionality of the row space of $A$ plus the dimensionality of the null space of $A$ adds up to $N$.</p>
+
+
+        <h3 id="review_mat_spaces">Review of Matrix Spaces</h3>
+
+            <p>For an $m \times n$ matrix $A$, the union of the column space of the matrix and the left null space, $N(A^T)$, are orthogonal complements, meaning that any vector that is in the column space of $A$ is orthogonal to any vector that is in the left null space of $A$.</p>
+
+            <p>$$C(A) \cup N(A^T)$$</p>
+            <p>$$R(A) \cup N(A)$$</p>
+
+            <p>Together, these two subspaces create or span all of $\mathbb{R}^M$, meaning the dimensionality of $\mathbb{R}^M$, which is $M$, equals the dimensionality of the column space plus the dimensionality of the left null space.</p>
+
+            <p>The union of the row space of A together with the null space of $A$ together produces all of $\mathbb{R}^n$</p>
+
+
+
+    <h2 id="eqs">Equations $Ax = b$ and $Ax = 0$</h2>
+
+        <p>Most people learn linear algebra because they are interested in solving these two equations. There are basically two kinds of analyses you do in linear algebra, characterized by these two equations.</p>
+
+        <p>The form of the general linear (regression) model, $X \beta = y$, is written analogously to $Ax = b$</p>
+
+
+            <h4>Equation $Ax = b$</h4>
+
+                <p>The first question is usually whether there is an exact solution, and if $b$ is in the column space of $A$, i.e. $b \in C(A)$, then the answer is yes. When that is the case, vector $x$ tells us the coefficients for the columns in $A$ that will produce the vector $b$. If there is not an exact solution, we ask 'what is another vector $\hat{b}$, that is in the column space of $A?$'. $\hat{b}$ is a vector close to $b$. From there, we want to know how different the two are. The best solution minimizes the magnitude of the difference calculation. This is the basis of the least squares method for regression.</p>
+
+
+            <h4>Equation $Ax = 0$</h4>
+
+                <p>When it comes to this equation, we are often interested in the null space, which is a shifted version of the matrix</p>
+
+                <p>$$(A - \lambda I)x = 0$$</p>
+
+                <p>The solution to this equation is a pair of scalar/vector combinations, and those are the eigenvalues and eigenvectors of this matrix. Eigenvalues reveal directions in the matrix that have special properties like being robust to geometric transformation, or they reveal the combinations (for examnple of sensors) that show maximum covariance, if $A$ is a covariance matrix.</p>
+
+
+            </br></br>
+            <p>Here is a link to <a href="linalg_cohen_pt2.html">part 2</a></p>
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+<h1>Linear Algebra, King Pt. 2</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#dot_cross">Dot Products and Cross Products</a></td><td><a href="#dot_prod_2d">The Dot Product in Two Dimensions</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#dot_prod_nd">The Dot Product in $n$ Dimensions</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cauchy_schwarz">Cauchy-Schwarz Inequality</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#vect_tri_ineq">Vector Triangle Inequality</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#angle_btw_vect">Angle Between Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cross_prod">Cross Product</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#determinant_calc">Calculating a Determinant</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#length_cp_vect">Length of the Cross Product Vector</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#dp_cp_opposite">Dot Products and Cross Products as Opposite Ideas</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#mult_mat_by_vect">Multiplying Matrices by Vectors</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#null_space">The Null Space and $A \overrightarrow{x} = \overrightarrow{O}$</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#null_space_mat">Null Space of a Matrix</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#col_space">The Column Space and $A \overrightarrow{x} = \overrightarrow{b}$</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#solving_axb">Solving $A \overrightarrow{x} = \overrightarrow{b}$</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#dim_nullity_rank">Dimensionality, Nullity, and Rank</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#dim_col_space">Dimension of the Column Space (Rank)</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="dot_cross">Dot Products and Cross Products</h2>
+
+		<p>The dot product of two two-dimensional vectors is:</p>
+
+
+		<p>$
+			\overrightarrow{u} \cdot \overrightarrow{v} =
+
+			\begin{bmatrix}
+			u_1 & u_2 \\
+			\end{bmatrix}
+
+			\cdot
+
+			\begin{bmatrix}
+			v_1 \\
+			v_2 \\
+			\end{bmatrix}
+
+			= u_1v_1 + u_2v_2
+			$
+		</p>
+
+
+		<p>We can expand the dot product concept to matrix multiplication with matrices of any size.</p>
+
+
+		<h3 id="dot_prod_2d">The Dot Product in Two Dimensions</h3>
+
+			<p>Recall that the length of a vector in two dimensions is:</p>
+
+			<p>$||\overrightarrow{u}|| = \sqrt{ u_1^2 + u_2^2 }$</p>
+
+			<p>If we square both sides of the length formula, we get:</p>
+
+			<p>$(||\overrightarrow{u}||)^2 = \left( \sqrt{ u_1^2 + u_2^2 } \right)^2$</p>
+			<p>$||\overrightarrow{u}||^2 = u_1^2 + u_2^2$</p>
+
+			<p>If we then substitute $\overrightarrow{u} \cdot \overrightarrow{u}$ for $u_1^2 + u_2^2$, we get:</p>
+
+			<p>$||\overrightarrow{u}||^2 = \overrightarrow{u} \cdot \overrightarrow{u}$</p>
+
+			<p>In words, this tells us that the square of the length of a vector is equal to the vector dotted with itself.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use the dot product to find the length of the vector $\overrightarrow{v} = (3,4)$.</p>
+
+				<p>$||\overrightarrow{u}||^2 = \overrightarrow{u} \cdot \overrightarrow{u}$</p>
+				<p>$||\overrightarrow{v}||^2 = (3)(3) + (4)(4)$</p>
+				<p>$||\overrightarrow{v}||^2 = 9 + 16$</p>
+				<p>$||\overrightarrow{v}||^2 = 25$</p>
+				<p>$\sqrt{ ||\overrightarrow{v}||^2 } = \sqrt{25}$</p>
+				<p>$||\overrightarrow{v}|| = 5$</p>
+
+				<p>The length of $\overrightarrow{v} = (3,4)$ is $5$.</p>
+
+
+		<h3 id="dot_prod_nd">The Dot Product in $n$ Dimensions</h3>
+
+			<p>The dot product of two $n$-dimensional vectors is:</p>
+
+
+			<p>$
+				\overrightarrow{u} \cdot \overrightarrow{v} =
+
+				\begin{bmatrix}
+				u_1 & u_2 & \ldots & u_n \\
+				\end{bmatrix}
+
+				\begin{bmatrix}
+				v_1 \\
+				v_2 \\
+				\vdots \\
+				v_n \\
+				\end{bmatrix}
+
+				= u_1v_1 + u_2v_2 + \ldots + u_nv_n
+				$
+			</p>
+
+
+			<p>The length of a vector in $n$ dimensions is:</p>
+
+			<p>$||\overrightarrow{u}|| = \sqrt{ u_1^2 + u_2^2 + \ldots + u_n^2 }$</p>
+
+			<p>The formula that relates the length of an $n$-dimensional vector to the dot product of an $n$-dimensional vector is the same as in two dimensions.</p>
+
+			<p>$||\overrightarrow{u}||^2 = \overrightarrow{u} \cdot \overrightarrow{u}$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use the dot product to find the length of the vector $\overrightarrow{w} = (2, -3, 4, 0)$.</p>
+
+				<p>$||\overrightarrow{u}||^2 = \overrightarrow{u} \cdot \overrightarrow{u}$</p>
+				<p>$||\overrightarrow{u}||^2 = u_1u_1 + u_2u_2 + u_3u_3 + u_4u_4$</p>
+				<p>$||\overrightarrow{w}||^2 = (2)(2) + (-3)(-3) + (4)(4) + (0)(0)$</p>
+				<p>$||\overrightarrow{w}||^2 = 4 + 9 + 16 + 0$</p>
+				<p>$||\overrightarrow{w}||^2 = 29$</p>
+				<p>$\sqrt{ ||\overrightarrow{w}||^2 } = \sqrt{29}$</p>
+				<p>$||w|| = \sqrt{29}$</p>
+
+				<p>The length of $\overrightarrow{w} = (2, -3, 4, 0)$ is $\sqrt{29}$.</p>
+
+
+			<h4>Properties of Dot Products</h4>
+
+				<p>Dot products are commutative, distributive, and associative.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Simplify the following expression if $\overrightarrow{u} = (3, -2)$, $\overrightarrow{v} = (-1, 4)$, and $\overrightarrow{w} = (0,5)$.</p>
+
+				<p>$\overrightarrow{w} \cdot (3 \overrightarrow{u} + 2 \overrightarrow{v})$</p>
+
+				<p>First, we need to apply the scalars to the vectors to find $3 \overrightarrow{u}$ and $2 \overrightarrow{v}$.</p>
+
+				<p>$3 \overrightarrow{u} = 3(3, -2) = (9, -6)$</p>
+				<p>$2 \overrightarrow{v} = 2(-1, 4) = (-2, 8)$</p>
+
+				<p>Then the sum of $3 \overrightarrow{u}$ and $2 \overrightarrow{v}$ is:</p>
+
+
+				<p>$
+					3 \overrightarrow{u} + 2 \overrightarrow{v} = 
+
+					\begin{bmatrix}
+					9 \\
+					-6 \\
+					\end{bmatrix}
+
+					+
+
+					\begin{bmatrix}
+					-2 \\
+					8 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					3 \overrightarrow{u} + 2 \overrightarrow{v} = 
+
+					\begin{bmatrix}
+					7 \\
+					2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Calculate the dot product of $\overrightarrow{w}$ and $3 \overrightarrow{u} + 2 \overrightarrow{v}$.</p>
+
+
+				<p>$
+					\overrightarrow{w} \cdot (3 \overrightarrow{u} + 2 \overrightarrow{v}) = 
+
+					\begin{bmatrix}
+					0 & 5\\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					7 \\
+					2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$\overrightarrow{w} \cdot (3 \overrightarrow{u} + 2 \overrightarrow{v}) = 0(7) + 5(2)$</p>
+				<p>$\overrightarrow{w} \cdot (3 \overrightarrow{u} + 2 \overrightarrow{v}) = 0 + 10$</p>
+				<p>$\overrightarrow{w} \cdot (3 \overrightarrow{u} + 2 \overrightarrow{v}) = 10$</p>
+
+
+		<h3 id="cauchy_schwarz">Cauchy-Schwarz Inequality</h3>
+
+			<p>The Cauchy-Schwarz inequality is an application of the dot product, and tells us that given two nonzero vectors in $\mathbb{R}^2$, the absolute value of their dot product is always less than or equal to the product of their lengths.</p>
+
+			<p>$| \overrightarrow{u} \cdot \overrightarrow{v} | \le ||\overrightarrow{u}|| ~||\overrightarrow{v}||$</p>
+
+			<p>The two sides are only equal to one another when the two vectors are collinear, meaning one vector is a scalar multiple of the other. This gives us a way to test for linear independence. Given any $\overrightarrow{u}$ and $\overrightarrow{v}$:</p>
+				<ul>
+					<li>If $| \overrightarrow{u} \cdot \overrightarrow{v} | = ||\overrightarrow{u}|| ~||\overrightarrow{v}||$, then $\overrightarrow{u}$ and $\overrightarrow{v}$ are linearly dependent.</li>
+
+					<li>If $| \overrightarrow{u} \cdot \overrightarrow{v} | \lt ||\overrightarrow{u}|| ~||\overrightarrow{v}||$, then $\overrightarrow{u}$ and $\overrightarrow{v}$ are linearly independent.</li>
+				</ul>
+
+
+		<h3 id="vect_tri_ineq">Vector Triangle Inequality</h3>
+
+			<p>We can build upon the Cauchy-Schwarz inequality to come up with other theorems, like the vector triangle inequality.</p>
+
+			<p>The basic triangle inequality is that the sum of the lengths of two sides of a triangle will always be greater than or equal to the length of the third side.</p>
+
+			<p>$c \le a + b$</p>
+
+			<p>Only when $a$ and $b$ are collinear is the sum of their lengths equivalent to the length of $c$.</p>
+
+			<p>We can translate this so that it's written in terms of vectors, creating the vector triangle inequality. Just like the basic triangle inequality, it tells us that the length of one side of the triangle is always less than or equal to the sum of the lengths of the other two sides.</p>
+
+			<p>$|| \overrightarrow{u} + \overrightarrow{v} || \le ||\overrightarrow{u}|| + ||\overrightarrow{v}||$</p>
+
+			<p>This is true for right triangles, but also acute and obtuse triangles. Only when vector $\overrightarrow{u}$ and vector $\overrightarrow{v}$ are collinear is the sum of their lengths equivalent to the lengths equivalent to the length of the vector $\overrightarrow{u} + \overrightarrow{v}$. Since we know that collinear vectors are linearly dependent, we can use the vector triangle inequality to test for linear independence.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use the vector triangle inequality to say whether $\overrightarrow{u}$ and $\overrightarrow{v}$ span $\mathbb{R}^2$.</p>
+
+				<p>$\overrightarrow{u} = (2,-1) \text{ and } \overrightarrow{v} = (-1,4)$</p>
+
+				<p>First, we'll find the value of the right side of the vector triangle inequality.</p>
+
+				<p>$||\overrightarrow{u}|| + ||\overrightarrow{v}||$</p>
+				<p>$= \sqrt{ u_1^2 + u_2^2 } + \sqrt{ v_1^2 + v_2^2 }$</p>
+				<p>$= \sqrt{ 2^2 + (-1)^2 } + \sqrt{ (-1)^2 + 4^2 }$</p>
+				<p>$= \sqrt{4+1} + \sqrt{1+16}$</p>
+				<p>$= \sqrt{5} + \sqrt{17}$</p>
+				<p>$\approx 2.24 + 4.12$</p>
+				<p>$\approx 6.36$</p>
+
+				<p>Second, we'll find the left side of the inequality.</p>
+
+				<p>$||\overrightarrow{u} + \overrightarrow{v}||$</p>
+				<p>$= \sqrt{ (2-1)^2 + (-1 + 4)^2 }$</p>
+				<p>$= \sqrt{1^2 + 3^2}$</p>
+				<p>$= \sqrt{1 + 9}$</p>
+				<p>$= \sqrt{10}$</p>
+				<p>$\approx 3.16$</p>
+
+				<p>Since $3.16 \lt 6.36$, we can conclude that $\overrightarrow{u}$ and $\overrightarrow{v}$ are not collinear, and therefore span $\mathbb{R}^2$.</p>
+
+
+		<h3 id="angle_btw_vect">Angle Between Vectors</h3>
+
+			<p>The angle $\theta$ between two vectors is given by a relationship between the dot product of the vectors and the lengths of the vectors.</p>
+
+			<p>$\overrightarrow{u} \cdot \overrightarrow{v} = ||\overrightarrow{u}|| ~||\overrightarrow{v}|| ~cos ~\theta$</p>
+
+			<p>This requires that both the vectors are non-zero.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the angle between $\overrightarrow{u}$ and $\overrightarrow{v}$, where:</p>
+
+				<p>$\overrightarrow{u} = (2,-1) \text{ and } \overrightarrow{v} = (-1,4)$</p>
+
+				<p>First, find the lengths of both $\overrightarrow{u}$ and $\overrightarrow{v}$.</p>
+
+				<p>$||\overrightarrow{u}|| = \sqrt{ u_1^2 + u_2^2 } = \sqrt{ 2^2 + (-1)^2 } = \sqrt{4+1} = \sqrt{5}$</p>
+				<p>$||\overrightarrow{v}|| = \sqrt{ v_1^2 + v_2^2 } = \sqrt{ (-1)^2 + 4^2 } = \sqrt{1+16} = \sqrt{17}$</p>
+
+				<p>Now we can plug everything into the formula for the angle between vectors.</p>
+
+				<p>$\overrightarrow{u} \cdot \overrightarrow{v} = ||\overrightarrow{u}|| ~||\overrightarrow{v}|| ~cos ~\theta$</p>
+				<p>$(2,-1) \cdot (-1,4) = \sqrt{5} \sqrt{17} ~cos ~\theta$</p>
+				<p>$(2)(-1) + (-1)(4) = \sqrt{85} ~cos ~\theta$</p>
+				<p>$-2 - 4 = \sqrt{85} ~cos ~\theta$</p>
+				<p>$-6 = \sqrt{85} ~cos ~\theta$</p>
+				<p>$\frac{-6}{85} = cos ~\theta$</p>
+
+				<p>Take the inverse cosine of each side of the equation to solve for $\theta$.</p>
+
+				<p>$\theta = arccos \left( - \frac{6}{85} \right)$</p>
+				<p>$\theta = 130.62^{\circ}$</p>
+
+
+			<h4>Perpendicular Vectors</h4>
+
+				<p>If two vectors are perpendicular, then $\theta = 90^{\circ}$ or $\frac{\pi}{2}$ radians. When this is the case, the dot product is equal to zero (the cosine of $90^{\circ}$). The only other case in which the dot product is $0$ is when one of the vectors is the zero vector.</p>
+
+
+			<h4>Orthogonality</h4>
+
+				<p>Our intuitive understanding of being perpendicular breaks down in more than two dimensions, so we use the word orthogonal to refer to vectors with a dot product of $0$ in higher dimensionality.</p>
+
+				<p>The zero vector is orthogonal to every non-zero vector, as well as itself.</p>
+
+
+		<h3 id="cross_prod">Cross Product</h3>
+
+			<p>The cross product is a vector that is orthogonal to the two vectors 'crossed'. The formula is:</p>
+
+
+			<p>$
+				\overrightarrow{a} \times \overrightarrow{b} = 
+
+				\begin{vmatrix}
+				\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+				a_1 & a_2 & a_3 \\
+				b_1 & b_2 & b_3 \\
+				\end{vmatrix}
+				$
+			</p>
+
+
+			<p>$
+				\overrightarrow{a} \times \overrightarrow{b} = 
+
+				\mathbf{i}
+				\begin{vmatrix}
+				a_2 & a_3 \\
+				b_2 & b_3 \\
+				\end{vmatrix}
+
+				-
+
+				\mathbf{j}
+				\begin{vmatrix}
+				a_1 & a_3 \\
+				b_1 & b_3 \\
+				\end{vmatrix}
+
+				+
+
+				\mathbf{k}
+				\begin{vmatrix}
+				a_1 & a_2 \\
+				b_1 & b_2 \\
+				\end{vmatrix}
+				$
+			</p>
+
+
+			<p>$
+				\overrightarrow{a} \times \overrightarrow{b} =
+				\mathbf{i}(a_2b_3 - a_3b_2) -
+				\mathbf{j}(a_1b_3 - a_3b_1) +
+				\mathbf{k}(a_1b_2 - a_2b_1)
+				$
+			</p>
+
+
+			<p>The cross product looks like its given as a matrix, but bounded by straight lines instead of brackets. This is because it is a determinant, the topic of a later section.</p>
+
+
+		<h3 id="determinant_calc">Calculating a Determinant</h3>
+
+			<p>Notice that the values in the top row of the $3 \times 3$ determinant become coefficients on the $2 \times 2$ determinants. Also, notice how $\mathbf{i}$ is positive, $\mathbf{j}$ is negative, and $\mathbf{k}$ is positive. The signs of the coefficients follow a checkerboard pattern.</p>
+
+			<p>$
+				\begin{vmatrix}
+				+ & - & + \\
+				- & + & - \\
+				+ & - & + \\
+				\end{vmatrix}
+				$
+			</p>
+
+			<p>The $2 \times 2$ determinants we attach to $\mathbf{i}$, $\mathbf{j}$, and $\mathbf{k}$ are given by the values outside the row and column of the coefficient.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the cross product of $\overrightarrow{a} = (1,2,3)$ and $\mathbf{b} = (-1,0,3)$.</p>
+
+
+				<p>$
+					\overrightarrow{a} \times \overrightarrow{b} =
+
+					\begin{vmatrix}
+					\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+					1 & 2 & 3 \\
+					-1 & 0 & 3 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{a} \times \overrightarrow{b} =
+
+					\mathbf{i}
+					\begin{vmatrix}
+					2 & 3 \\
+					0 & 3 \\
+					\end{vmatrix}
+
+					-
+
+					\mathbf{j}
+					\begin{vmatrix}
+					1 & 3 \\
+					-1 & 3 \\
+					\end{vmatrix}
+
+					+
+
+					\mathbf{k}
+					\begin{vmatrix}
+					1 & 2 \\
+					-1 & 0 \\
+					\end{vmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{a} \times \overrightarrow{b} =
+					\mathbf{i}( (2)(3) - (3)(0) ) -
+					\mathbf{j}( (1)(3) - (3)(-1) ) +
+					\mathbf{k}( (1)(0) - (2)(-1) )
+					$
+				</p>
+
+
+				<p>$\overrightarrow{a} \times \overrightarrow{b} = \mathbf{i}(6-0) - \mathbf{j}(3+3) \mathbf{k}(0+2)$</p>
+				<p>$\overrightarrow{a} \times \overrightarrow{b} = 6 \mathbf{i} - 6 \mathbf{j} + 2 \mathbf{k}$</p>
+
+				<p>The vector $\overrightarrow{a} \times \overrightarrow{b} = (6,-6,2)$ is orthogonal to both $\overrightarrow{a} = (1,2,3)$ and $\overrightarrow{b} = (-1,0,3)$.</p>
+
+
+		<h3 id="length_cp_vect">Length of the Cross Product Vector</h3>
+
+			<p>Earlier we looked at a formula relating the dot product of two vectors to the product of their lengths.</p>
+
+			<p>$\overrightarrow{u} \cdot \overrightarrow{v} = ||\overrightarrow{u}|| ~||\overrightarrow{V}|| ~cos ~\theta$</p>
+
+			<p>There is a similar formula for the cross product, which says that the length of the cross product vector is equivalent to the product of the two individual vectors and the sine of the angle between them.</p>
+
+			<p>$||\overrightarrow{u} \times \overrightarrow{v}|| = ||\overrightarrow{u}|| ~||\overrightarrow{v}|| ~sin ~\theta$</p>
+
+			<p>The length of the cross product is also equivalent to the area of the parallelogram that is formed by the two vectors that were crossed.</p>
+
+
+		<h3 id="dp_cp_opposite">Dot Products and Cross Products as Opposite Ideas</h3>
+
+			<p>The dot product measures how much two vectors move in the same direction. It will have its minimum value (negative) when the vectors point in opposite directions (and a value of $0$ if perpendicular), and its maximum value when vectors point in exactly the same direction.</p>
+
+			<p>The cross product measures how much two vectors move in different directions. The length of the cross product is minimized (equal to $0$) when the vectors are collinear, and maximized when the vectors are orthogonal.</p>
+
+
+		<h3 id="mult_mat_by_vect">Multiplying Matrices by Vectors</h3>
+
+			<p>Find the matrix-vector product of the following matrix and vector.</p>
+
+			<p>$
+				M =
+				\begin{bmatrix}
+				4 & -2 & 1 \\
+				0 & 3 & 0 \\
+				-6 & 1 & -2 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$\overrightarrow{v} = (-2,1,3)$
+
+
+			<p>$
+				M \overrightarrow{v} =
+				\begin{bmatrix}
+				4 & -2 & 1 \\
+				0 & 3 & 0 \\
+				-6 & 1 & -2 \\
+				\end{bmatrix}
+
+				\begin{bmatrix}
+				-2 \\
+				1 \\
+				3 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				M \overrightarrow{v} =
+
+				\begin{bmatrix}
+				4(-2) - 2(1) + 1(3) \\
+				0(-2) + 3(1) + 0(3) \\
+				-6(-2) + 1(1) - 2(3) \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				M \overrightarrow{v} =
+
+				\begin{bmatrix}
+				-8 - 2 + 3 \\
+				0 + 3 + 0 \\
+				12 + 1 - 6 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>$
+				M \overrightarrow{v} =
+
+				\begin{bmatrix}
+				-7 \\
+				3 \\
+				7 \\
+				\end{bmatrix}
+				$
+			</p>
+
+
+			<p>Multiplying an $m \times n$ matrix by an $n$-row vector, the result will be an $m$-row column vector. Multiplying an $m$-column row vector by an $m \times n$ matrix results in an $n$-column row vector.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the matrix-vector product, $\overrightarrow{v}M$, of:</p>
+
+				<p>$
+					M =
+					\begin{bmatrix}
+					4 & -2 & 1 \\
+					0 & 3 & 0 \\
+					-6 & 1 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$\overrightarrow{v} = (-2,1,3)$</p>
+
+
+				<p>$
+					\overrightarrow{v}M = 
+
+					\begin{bmatrix}
+					-2 & 1 & 3 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					4 & -2 & 1 \\
+					0 & 3 & 0 \\
+					6 & 1 & -2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{v}M = 
+					\begin{bmatrix}
+					-2(4) + 1(0) + 3(-6)  &  -2(-2) + 1(3) + 3(1)  &  -2(1) + 1(0) + 3(-2) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{v}M = 
+					\begin{bmatrix}
+					-8 + 0 - 18  &  4 + 3 + 3  &  -2 + 0 - 6 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\overrightarrow{v}M = 
+					\begin{bmatrix}
+					-26 & 10 & -8 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+		<h3 id="null_space">The Null Space and $A \overrightarrow{x} = \overrightarrow{O}$</h3>
+
+			<p>Recall that a set of vectors $S$ is only a subspace if the following is true:</p>
+				<ol>
+					<li>$S$ contains the zero vector</li>
+					<li>$S$ is closed under addition</li>
+					<li>$S$ is closed under scalar multiplication</li>
+				</ol>
+
+			<p>The null space is the specific subspace in which the entire universe of vectors $\overrightarrow{x}$ in $\mathbb{R}^n$ satisfy the equation $A \overrightarrow{x} = \overrightarrow{O}$, where $A$ is an $m \times n$ matrix. We indicate the null space with capital $B$, and write:</p>
+
+			<p>$N = \biggl\{ \overrightarrow{x} \in \mathbb{R}^n | A \overrightarrow{x} = \overrightarrow{O} \biggr\}$</p>
+
+			<p>This set notation says that the null space $N$ is all the vectors $\overrightarrow{x}$ in $\mathbb{R}^n$ that satisfy $A \overrightarrow{x} = \overrightarrow{O}$. The null space $N$ satisfies each of the three conditions of a subspace, so the null space is always a subspace.</p>
+
+			<p>Because we get the zero vector when we multiply any matrix $A$ by the zero vector, the null space $N$ contains the zero vector.</p>
+
+			<p>In order to be closed under addition, the sum of any two vectors in the subspace must also be in the subspace. We can show that $\overrightarrow{x_1} + \overrightarrow{x_2}$ is in the null space if $\overrightarrow{x_1}$ and $\overrightarrow{x_2}$ are in the null space. This means it is closed under addition.</p>
+
+			<p>The null space is also closed under scalar multiplication. If we take a vector in $N$ called $\overrightarrow{x_1}$, then $c \overrightarrow{x}$ will also be in $N$.</p>
+
+
+			<h4>Linear Independence and the Null Space</h4>
+
+				<p>The null space of a matrix $A$ tells us about the linear independence of the column vectors of $A$.</p>
+					<ul>
+						<li>If $N(A)$ includes only the zero vector, then the columns of $A$ are linearly independent</li>
+						<li>If $N(A)$ includes any other vector in addition to the zero vector, then the columns of $A$ are linearly dependent.</li>
+					</ul>
+
+
+		<h3 id="null_space_mat">Null Space of a Matrix</h3>
+
+			<p>Often, we want to find the full set of vectors which are members of the null space. To find the null space of a particular matrix, we'll plug it into $A \overrightarrow{x} = \overrightarrow{O}$, rewrite the equation as an augmented matrix, put the augmented matrix into reduced row-echelon form, and pull the solution from the matrix.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the null space of the following matrix $A$.</p>
+
+				<p>$A =
+					\begin{bmatrix}
+					2 & 1 & -3 \\
+					4 & 2 & -6 \\
+					1 & -1 & -6 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Multiplying the $3 \times 3$ matrix by the 3-row column vector will result in a $3 \times 1$ zero vector, so the matrix equation must be:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					2 & 1 & -3 \\
+					4 & 2 & -6 \\
+					1 & -1 & -6 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>From this, we get a system of equations.</p>
+
+				<p>$2x_1 + x_2 - 3x_3 = 0$</p>
+				<p>$4x_1 + 2x_2 - 6x_3 = 0$</p>
+				<p>$x_1 - x_2 - 6x_3 = 0$</p>
+
+				<p>We can write this as an augmented matrix.</p>
+
+				<p>$
+					\begin{bmatrix}
+					2 & 1 & -3 & | & 0 \\
+					4 & 2 & -6 & | & 0 \\
+					1 & -1 & -6 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>And then use Gaussian elimination to put it into reduced row-echelon form.</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & -3 & | & 0 \\
+					0 & 1 & 3 & | & 0 \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>From this, we get:</p>
+
+				<p>$x_1 = 3x_3$</p>
+				<p>$x_2 = -3x_3$</p>
+
+				<p>We could also express the system as:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					\end{bmatrix}
+
+					=
+
+					x_3
+					\begin{bmatrix}
+					3 \\
+					-3 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$x_3$ is a $1$ because $x_3 = 1x_3$. This equation tells us that we can choose any value for $x_3$, which is acting like a scalar, and that when we do, we'll get that the set of vectors that satisfy $A \overrightarrow{x} = \overrightarrow{O}$ is not only $\overrightarrow{x} = (3,-3,1)$, but all linear combinations of $\overrightarrow{x} = (3,-3,1)$.</p>
+
+				<p>All linear combinations of a vector set can be referred to as the span of a vector set, so the null space of $A$ is the span of $\overrightarrow{x}(3,-3,1)$.</p>
+
+				<p>$N(A) = N(rref(A))$</p>
+
+
+		<h3 id="col_space">The Column Space and $A \overrightarrow{x} = \overrightarrow{b}$</h3>
+
+			<p>$A \overrightarrow{x} = \overrightarrow{b}$ has a solution when $\overrightarrow{b}$ is a member of the column space of $A$.</p>
+
+			<p>$C(A) = span(v_1, v_2, \ldots, v_n)$</p>
+
+			<p>In $A \overrightarrow{x} = \overrightarrow{b}$, if $\overrightarrow{b}$ is a linear combination of the columns of $A$, meaning $\overrightarrow{b}$ is in the column space, then we will be able to find some vector $\overrightarrow{x}$ that satisfies the equation $A \overrightarrow{x} = \overrightarrow{b}$. Because it is defined as a span, like null space, the column space of a matrix is always a valid subspace.</p>
+
+			<p>If we are able to say that the column vectors of $A$ are linearly independent, then we can say they form a basis for the column space. Otherwise, we know that the column vectors of $A$ cannot form a basis.</p>
+
+			<p>For any $m \times n$ matrix, the null space of $A$ is a subspace in $\mathbb{R}^n$, and the column space of $A$ is a subspace of $\mathbb{R}^m$. More specifically,</p>
+				<ul>
+					<li>$C(A)$ will be an $r$-dimensional subspace in $\mathbb{R}^m$, where $r$ is the number of pivot columns in $A$ and $m$ is the number of rows in $A$</li>
+
+					<li>$N(A)$ will be an $(n-r)$-dimensional subspace in $\mathbb{R}^m$, where $(n-r)$ is the number of non-pivot columns in $A$ and $n$ is the total number of columns in $A$</li>
+				</ul>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the null space and its dimension, then find the column space of $A$.</p>
+
+				<p>$
+					A =
+					\begin{bmatrix}
+					2 & 1 & 3 & 1 \\
+					4 & -2 & 8 & 4 \\
+					5 & 6 & -2 & -3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We'll put the matrix into rref.</p>
+
+				<p>$
+					\to
+					\begin{bmatrix}
+					1 & 0 & 0 & - \frac{3}{31} \\
+					0 & 1 & 0 & - \frac{8}{31} \\
+					0 & 0 & 1 & \frac{15}{31} \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Then to find the null space of $A$, set up the matrix equation:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & 0 & - \frac{3}{31} \\
+					0 & 1 & 0 & - \frac{8}{31} \\
+					0 & 0 & 1 & \frac{15}{31} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					x_4 \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>We can see that $x_1$, $x_2$, and $x_3$ are pivot columns, since these are the columns containing pivot entries, and $x_4$ is a free variable, giving the system of equations:</p>
+
+				<p>$x_1 - \frac{3}{31} x_4 = 0$</p>
+				<p>$x_2 - \frac{8}{31} x_4 = 0$</p>
+				<p>$x_3 + \frac{15}{31} x_4 = 0$</p>
+
+				<p>Solving these:</p>
+
+				<p>$x_1 = \frac{3}{31} x_4$</p>
+				<p>$x_2 = \frac{8}{31} x_4$</p>
+				<p>$x_3 = - \frac{15}{31} x_4$</p>
+
+				<p>Then the null space of $A$ is all the linear combinations given by:</p>
+
+				<p>$
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					x_4 \\
+					\end{bmatrix}
+
+					=
+
+					x_4
+					\begin{bmatrix}
+					\frac{3}{31} \\
+					\frac{8}{31} \\
+					- \frac{15}{31} \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$x_4$ is free, which means we can set it equal to any value. The null space is the span of the single column vector.
+
+
+				<p>$
+					N(A) = N(rref(A)) = span \left(
+					\begin{bmatrix}
+					\frac{3}{31} \\
+					\frac{8}{31} \\
+					- \frac{15}{31} \\
+					1 \\
+					\end{bmatrix}
+					\right)
+					$
+				</p>
+
+
+		<h3 id="solving_axb">Solving $A \overrightarrow{x} = \overrightarrow{b}$</h3>
+
+			<p>We know that the null space of a matrix is any vector $\overrightarrow{x}$ that satisfies $A \overrightarrow{x} = \overrightarrow{O}$, but now want to know which vectors $\overrightarrow{x}$ will give any vector as the result (not just the zero vector).</p>
+
+
+			<h4>The Complementary, Particular, and General Solutions</h4>
+
+				<p>We can think of any $\overrightarrow{x}$ that satisfies $A \overrightarrow{x} = \overrightarrow{O}$ as part of the complementary solution, and any $\overrightarrow{x}$ that satisfies $A \overrightarrow{x} = \overrightarrow{b}$ as part of the particular solution. The general (or complete) solution is the sum of the complementary and particular solutions.</p>
+
+				<p>To distinguish between solution sets, we call the complementary solution $\overrightarrow{x_n}$ (since it's the null space), the particular solution $\overrightarrow{x_p}$, and the general solution just $\overrightarrow{x}$.</p>
+
+				<p>$A \overrightarrow{x_n} + A \overrightarrow{x_p} = \overrightarrow{O} + \overrightarrow{b}$</p>
+				<p>$A(\overrightarrow{x_n} + \overrightarrow{x_p}) = \overrightarrow{b}$</p>
+
+				<p>What this equation shows us is that the full solution set of vectors $\overrightarrow{x}$ that satisfy $A \overrightarrow{x} = \overrightarrow{b}$ will be any vector $\overrightarrow{x} = \overrightarrow{x_n} + \overrightarrow{x_p}$.</p>
+
+
+			<h4>Finding the Complete Solution Set</h4>
+
+				<p>To find the full family of solutions to $A \overrightarrow{x} = \overrightarrow{b}$, we first find the set of all the linear combinations of column vectors that are solutions to the null space equation. Then we find the particular solution by setting all the free variables equal to $0$, plugging in a $\overrightarrow{b}$ that satisfies any constraints, and then plugging in to get the single particular vector. Then the general solution is the sum of the particular solution and the complementary solution.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the general solution to $A \overrightarrow{x} = \overrightarrow{b}$, with:</p>
+
+
+				<p>$
+					A =
+					\begin{bmatrix}
+					1 & 2 & 3 & 3 \\
+					2 & 2 & 1 & 4 \\
+					3 & 4 & 4 & 7 \\
+					\end{bmatrix}
+
+					\text{ and }
+
+					\overrightarrow{b} =
+					\begin{bmatrix}
+					1 \\
+					2 \\
+					3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>To get the null space solutions, we'll augment the matrix.</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & 2 & 3 & 3 & | & 0 \\
+					2 & 2 & 1 & 4 & | & 0 \\
+					3 & 4 & 4 & 7 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We want to put the augmented matrix into rref:</p>
+
+				<p>$
+					\to
+					\begin{bmatrix}
+					1 & 0 & -2 & 1 & | & 0 \\
+					0 & 1 & \frac{5}{2} & 1 & | & 0 \\
+					0 & 0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>The first and second columns are pivot columns and the third and fourth columns are free columns, so $x_3$ and $x_4$ are free variables.</p>
+
+				<p>$1x_1 + 0x_2 - 2x_3 + 1x_4 = 0$</p>
+				<p>$0x_1 + 1x_2 + \frac{5}{2}x_3 + 1x_4 = 0$</p>
+				<p>$0x_1 + 0x_2 + 0x_3 + 0x_4 = 0$</p>
+
+				<p>The system of equations simplifies to:</p>
+
+				<p>$x_1 - 2x_3 + x_4 = 0$</p>
+				<p>$x_2 + \frac{5}{2}x_3 + x_4 = 0$</p>
+
+				<p>Solve for the pivot variables in terms of the free variables.</p>
+
+				<p>$x_1 = 2x_3 - x_4$</p>
+				<p>$x_2 = - \frac{5}{2}x_3 - x_4$</p>
+
+				<p>The vectors that satisfy the null space are:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					x_4 \\
+					\end{bmatrix}
+
+					=
+
+					x_3
+					\begin{bmatrix}
+					2 \\
+					- \frac{5}{2} \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					x_4
+					\begin{bmatrix}
+					-1 \\
+					-1 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Any linear combination of these column vectors is a member of the null space, so we could rewrite the complementary solution as:</p>
+
+
+				<p>$
+					\overrightarrow{x_n} =
+
+					c_1
+					\begin{bmatrix}
+					2 \\
+					- \frac{5}{2} \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					c_2
+					\begin{bmatrix}
+					-1 \\
+					-1 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Now to find the particular solution that satisfies $A \overrightarrow{x_p} = \overrightarrow{b}$. Instead of augmenting the matrix with the zero vector, we augment it with $\overrightarrow{b} = (b_1, b_2, b_3)$.</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & 2 & 3 & 3 & | & b_1 \\
+					2 & 2 & 1 & 4 & | & b_2 \\
+					3 & 4 & 4 & 7 & | & b_3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Then find the rref.</p>
+
+				<p>$
+					\to
+					\begin{bmatrix}
+					1 & 0 & -2 & 1 & | & -b_1 + b_2 \\
+					0 & 1 & \frac{5}{2} & 1 & | & -\frac{1}{2}b_2 + b_1 \\
+					0 & 0 & 0 & 0 & | & -b_1 - b_2 + b_3
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>With the matrix in rref, we can substitute the values from $\overrightarrow{b} = (1,2,3)$ such that the rref matrix becomes:</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & -2 & 1 & | & 1 \\
+					0 & 1 & \frac{5}{2} & 1 & | & 0 \\
+					0 & 0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>As with the null space, $x_1$ and $x_2$ are pivot variables, and $x_3$ and $x_4$ are free variables. To find the vectors that satisfy $A \overrightarrow{x_p} = \overrightarrow{b}$, we set the free variables equal to $0$.</p>
+
+				<p>$1x_1 + 0x_2 - 2x_3 + 1x_4 = 1$</p>
+				<p>$0x_1 + 1x_2 + \frac{5}{2}x_3 + 1x_4 = 0$</p>
+				<p>$0x_1 + 0x_2 + 0x_3 + 0x_4 = 0$</p>
+
+				<p>The system simplifies to:</p>
+
+				<p>$x_1 - 2x_3 + x_4 = 1$</p>
+				<p>$x_2 + \frac{5}{2}x_3 + x_4 = 0$</p>
+
+				<p>Now set the free variables equal to $0$.</p>
+
+				<p>$x_1 - 2(0) + 0 = 1$</p>
+				<p>$x_2 + \frac{5}{2}(0) + 0 = 0$</p>
+
+				<p>The system becomes:</p>
+
+				<p>$x_1 = 1$</p>
+				<p>$x_2 = 0$</p>
+
+				<p>So the particular solution then is $x_1=1$, $x_2=0$, $x_3=0$, and $x_4=0$, or:</p>
+
+				<p>$
+					\overrightarrow =
+
+					\begin{bmatrix}
+					1 \\
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We'll get the general solution by adding the particular and complementary solutions.</p>
+
+				<p>$\overrightarrow{x} = \overrightarrow{x_p} + \overrightarrow{x_n}$</p>
+
+
+				<p>$
+					\overrightarrow{x} =
+
+					\begin{bmatrix}
+					1 \\
+					0 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					c_1
+					\begin{bmatrix}
+					2 \\
+					- \frac{5}{2} \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					c_2
+					\begin{bmatrix}
+					-1 \\
+					-1 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>This is the complete solution to the system that is represented by matrix $A$.</p>
+
+
+		<h3 id="dim_nullity_rank">Dimensionality, Nullity, and Rank</h3>
+
+			<p>The dimensionality of a vector set has a different meaning from the dimensionality of a matrix, which is given by the number of rows times the number of columns. The dimension of a vector space is given by the number of basis vectors required to span that space.</p>
+
+
+			<h4>Dimension of the Null Space (Nullity)</h4>
+
+				<p>The dimension of the null space of a matrix $A$ is also called the nullity of $A$, and can be written as either $Dim(N(A))$ or $nullity(A)$. The number of free variables is the nullity of the matrix. This is because we'll need one basis vector for each free variable.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the nullity of $K$:</p>
+
+				<p>$
+					K =
+					\begin{bmatrix}
+					1 & -2 & 1 & 3 \\
+					-3 & 6 & -3 & -9 \\
+					4 & 8 & 4 & 12 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We need to first find the null space, so we'll set up the augmented matrix $K \overrightarrow{x} = \overrightarrow{O}$, then put the matrix in rref.</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					-1 & -2 & 1 & 3 & | & 0 \\
+					-3 & 6 & -3 & -9 & | & 0 \\
+					4 & -8 & 4 & 12 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\to
+					\begin{bmatrix}
+					1 & -2 & 1 & 3 & | & 0 \\
+					0 & 0 & 0 & 0 & | & 0 \\
+					4 & -8 & 4 & 12 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					\to
+					\begin{bmatrix}
+					1 & -2 & 1 & 3 & | & 0 \\
+					0 & 0 & 0 & 0 & | & 0 \\
+					0 & 0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>The first column is a pivot column, and the other three columns are free columns. Because there are $3$ free variables, the nullity is:</p>
+
+				<p>$Dim(N(K)) = nullity(K) = 3$</p>
+
+				<p>The rref matrix can be written as just the equation:</p>
+
+				<p>$x_1 - 2x_2 + x_3 + 3x_4 = 0$</p>
+
+				<p>which we can solve for the single pivot variable.</p>
+
+				<p>$x_1 = 2x_2 - x_3 - 3x_4$</p>
+
+				<p>We can rewrite this as a linear combination:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					x_4 \\
+					\end{bmatrix}
+
+					=
+
+					x_2
+					\begin{bmatrix}
+					2 \\
+					1 \\
+					0 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					x_3
+					\begin{bmatrix}
+					-1 \\
+					0 \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					x_4
+					\begin{bmatrix}
+					-3 \\
+					0 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then the null space of $K$ is the span of the vectors in this linear combination equation.</p>
+
+
+				<p>$
+					N(K) = span \left(
+
+					\begin{bmatrix}
+					2 \\
+					1 \\
+					0 \\
+					0 \\
+					\end{bmatrix},
+
+					\begin{bmatrix}
+					-1 \\
+					0 \\
+					1 \\
+					0 \\
+					\end{bmatrix},
+
+					\begin{bmatrix}
+					-3 \\
+					0 \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>$Dim(N(K)) = nullity(K) = 3$</p>
+
+
+		<h3 id="dim_col_space">Dimension of the Column Space (Rank)</h3>
+
+			<p>Similarly, the dimension of the column space of a matrix $A$ is also called the rank of $A$, and can be written as either $Dim(C(A))$ or $rank(A)$.</p>
+
+			<p>The rank of a matrix will always be given by the number of pivot variables in the system, because every pivot variable is associated with one linearly independent vector in the column space.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the rank of $A$:</p>
+
+				<p>$
+					A = 
+					\begin{bmatrix}
+					2 & 1 & 3 & 1 \\
+					4 & -2 & 8 & 4 \\
+					5 & 6 & -2 & -3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We need to first put the matrix into rref:</p>
+
+				<p>$
+					\to
+					\begin{bmatrix}
+					1 & 0 & 0 & - \frac{3}{31} \\
+					0 & 1 & 0 & - \frac{8}{31} \\
+					0 & 0 & 1 & \frac{15}{31} \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>The first 3 columns are pivot columns, and the last column is a free column, so the rank is:</p>
+
+				<p>$Dim(C(A)) = rank(A) = 3$</p>
+
+				<p>The column space of $A$ is the span of the first $3$ column vectors of $A$, since those were the columns that became the pivot columns when we put the matrix into rref.</p>
+
+				<p>Notice that the number of columns equals the rank plus the nullity.</p>
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="king_pt3.html">part 3</a></p>
+
+
+
+            
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+        
+
+
+
+
+<h1>Linear Algebra, Cohen Pt. 2</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#sys_eq">Systems of Equations</a></td><td><a href="#conv_eq">Converting Systems of Equations to Matrix Equations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#gauss_elim">Gaussian Elimination</a></td></tr>
+ <tr><td><a href="#echelon">Echelon Form</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#determinant">Determinant</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#mat_inverse">Matrix Inverse</a></td><td><a href="#mca_algo">The MCA Algorithm for Computing an Inverse</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#row_reduct">The Row Reduction Method</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#left_right_inv">The Left and Right Inverse</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#pseudo">Pseudoinverse</a></td></tr>
+ <tr><td><a href="#proj_orth">Projections and Orthogonalization</a></td><td><a href="#proj">Projections in $\mathbb{R}^2$</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#orth_parallel">Orthogonal and Parallel Vector Components</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#orth_mat">Orthogonal Matrices</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#gram_schmidt">Gram-Schmidt Procedure</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#qr">QR Decomposition</a></td></tr>
+ <tr><td><a href="#least_squares">Least Squares for Model-Fitting</a></td><td><a href="#least_squares_orthog">Least Squares via Orthogonal Projection</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#least_squares_row_reduct">Least Squares via Row Reduction</a></td></tr>
+</tbody></table>
+
+
+    <h2 id="sys_eq">Systems of Equations</h2>
+
+        <p>An example of a system of equations is:</p>
+
+        <p>$$y = x/2 + 2$$</p>
+        <p>$$y = -x + 4$$</p>
+
+        <p>Geometrically, the values of $x$ and $y$ that will solve both of these equations is the intersection of the two-plotted lines, assuming that they do intersect.</p>
+
+        <p>Something you can do with coupled equations, which you cannot do with separate or uncoupled equations, is add multiples of one equation to another without changing the solution. We can multiply the top equation by $2$, and add it to the second equation. And then we can subtract this second equation from the first. The result is:</p>
+
+        <p>$$0y = 3x/2 - 2$$</p>
+        <p>$$3y = 0x + 8$$</p>
+
+        <p>Note that the same solutions still apply. $y = 8/3$ and $x = 4/3$. Geometrically, the slopes of the lines are different, but the point of intersection remains the same.</p>
+
+
+        <h3 id="conv_eq">Converting Systems of Equations to Matrix Equations</h3>
+
+            <p>We can convert systems of equations into matrix equations</p>
+
+            <p>$$2x + 3y - 4z = 5$$</p>
+            <p>$$-x + 7y + 9z = 7$$</p>
+
+            <p>This system contains coefficients, variables, and constants. The first thing to do is put all of the variables and coefficients on one side of the equation (typically on the left), and all the constants on the other side of the equation. The next step is to generate a matrix and vectors that contain or isolate these different components.</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                2 & 3 & -4 \\
+                -1 & 7 & 9 \\
+                \end{bmatrix}      
+
+                \begin{bmatrix} 
+                x \\
+                y \\
+                z \\
+                \end{bmatrix}  
+
+                = 
+
+                \begin{bmatrix} 
+                5 \\
+                7 \\
+                \end{bmatrix}                 
+            $$</p>
+
+
+        <h3 id="gauss_elim">Gaussian Elimination</h3>
+
+            <p>Gaussian elimination is a 6-step procedure for solving a system of equations via matrix methods</p>
+                <ol>
+                    <li>Convert system to matrix-vector equation</li>
+                    <li>Augment the coefficients matrix with the vector of constants</li>
+                    <li>Use Gaussian elimination to create a matrix with ones on the diagonal</li>
+                    <li>Map the matrix back to the equations</li>
+                    <li>Back-substitute to solve for variables</li>
+                    <li>Check work using the original system</li>
+                </ol>
+
+
+            <p>Example:</p>
+
+                <p>$$2x + 3y = 5$$</p>
+                <p>$$-x + 7y = 7$$</p>
+
+            <p>First, we convert to:</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                2 & 3 \\
+                -1 & 7 \\
+                \end{bmatrix}      
+
+                \begin{bmatrix} 
+                x \\
+                y \\
+                \end{bmatrix}  
+
+                = 
+
+                \begin{bmatrix} 
+                5 \\
+                7 \\
+                \end{bmatrix}                 
+            $$</p>
+
+            <p>Next, we create an augmented matrix by taking the matrix of coefficients and the vector of constants and concatenating them row-wise</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    2 & 3 & | & 5 \\
+                    -1 & 7 & | & 7 \\
+                    \end{bmatrix}      
+                $$</p>
+
+            <p>The third step is to work with the rows of this matrix to convert this into an upper trangular format with ones on the diagonal. Below the digonal must only be zeros.</p>
+
+            <p>Add multiples of some rows in this matrix to other rows in the matrix in order to cancel out numbers in the lower diagonal. That is the same thing as adding multiples of one equation to another. This is called echelon form.</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 & 0 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1 \\
+                    \end{bmatrix}
+                $$</p>     
+
+
+            <p>Consider the following matrix to start with:</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    2 & 3 & 5 \\
+                    -1 & 7 & 7 \\
+                    \end{bmatrix}
+                $$</p> 
+
+
+            <p>Step 1: Divide the top row by 2</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 & 3/2 & | & 5/2 \\
+                    -1 & 7 & | & 7 \\
+                    \end{bmatrix}
+                $$</p> 
+
+
+            <p>Step 2: Make row 2 equal to itself plus the first row</p>
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 & 3/2 & | & 5/2 \\
+                    0 & 17/2 & | & 19/2 \\
+                    \end{bmatrix}
+                $$</p>
+
+
+            <p>Step 3: Replace row 2 with itself divided by 17/2
+
+                <p>$$
+                    \begin{bmatrix} 
+                    1 & 3/2 & | & 5/2 \\
+                    0 & 1 & | & 19/17 \\
+                    \end{bmatrix}
+                $$</p>
+
+
+            <p>Step 4: Map the matrix back to the equations</p>
+
+                <p>$$1x + 3/2y = 5/2$$</p>
+                <p>$$0x + 1y = 19/17$$</p>
+
+
+            <p>Step 5: Back-substitute to solve for variables</p>
+
+                <p>$$x + 3/2y = 5/2$$</p>
+                <p>$$y = 19/17$$</p>
+
+
+            <p>Therefore,</p>
+
+                <p>$$x = \frac{28}{34} = \frac{14}{17}$$</p>
+
+
+            <p>Step 6: Check with original system</p>
+
+                <p>$$x = 14/17$$</p>
+                <p>$$y = 19/17$$</p>
+
+                <p>$$2x + 3y = 5$$</p>
+                <p>$$-x + 7y = 7$$</p>
+
+                <p>$$28/17 + 57/17 = 5$$</p>
+                <p>$$-14/17 + 133/17 = 7$$</p>
+
+
+
+    <h2 id="echelon">Echelon Form</h2>
+
+        <p>The echelon form of a matrix reveals the pivots, which have relevance for understanding the definiteness of a matrix, the signs of the eigenvalues of a matrix, and the rank of a matrix. The leading nonzero terms in each row ($a$, $f$, and $j$ below) are called the pivots</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                a & b & c & d & e \\
+                0 & f & g & h & i \\
+                0 & 0 & 0 & j & k \\
+                0 & 0 & 0 & 0 & 0 \\
+                \end{bmatrix}
+            $$</p>
+
+        <p>One available technique for echelon form is to swap the position of rows</p>
+
+        <p>This is the best and easiest way to compute the rank of a matrix by hand - convert to echelon form, and then count the number of pivots, which is equal to the rank.</p>
+
+        <p>Consider the following to start with:</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                1 & 2 & 2 \\
+                -1 & 3 & 0 \\
+                2 & 4 & 4 \\
+                \end{bmatrix}
+            $$</p>
+
+        <p>We replace row 3 with $-2 \times$ row 1, plus row 3</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                1 & 2 & 2 \\
+                -1 & 3 & 0 \\
+                0 & 0 & 0 \\
+                \end{bmatrix}
+
+                \begin{bmatrix} 
+                1 & 2 & 2 \\
+                -1 & 3 & 0 \\
+                0 & 0 & 0 \\
+                \end{bmatrix}
+            $$</p>
+
+        <p>Then, we replace row 2 with row 2 $\times$ row 1</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                1 & 2 & 2 \\
+                0 & 5 & 2 \\
+                0 & 0 & 0 \\
+                \end{bmatrix}
+            $$</p>
+
+        <p>The resulting matrix has two pivots.</p>
+
+        <p>One can continue the elimination process such as to put the matrix into reduced-row echelon form (RREF), in which the pivots also have zeros above them, and the pivots all have a value of $1$. This allows for non-zero elements, as long as they are not in the same columns as the pivots. The rank and row space remain unchanged after converting a matrix to echelon form. The column space usually changes during row reduction, though it is not guaranteed.</p>
+
+
+
+    <h2 id="determinant">Determinant</h2>
+
+        <p>The determinant of a matrix is notated as $det(A)$ or</p>
+
+            <p>$$
+                \begin{vmatrix} 
+                a & b \\
+                c & d \\
+                \end{vmatrix}
+            $$</p>
+
+        <p>It exists for square matrices only. Like rank, it is a single number that reflects the entire matrix. The determinant is zero if a matrix contains a set of linearly dependent columns - i.e., is reduced-rank or rank-deficient. If the determinant equals zero, the matrix is called singular or non-invertible.</p>
+
+        <p>Geometrically, the determinant is the area/volume of shape specified by coordinates in the matrix. Computing a matrix inverse (discussed later) involves dividing by the determinant.</p>
+
+        <p>For a $2 \times 2$ matrix, the determinant is calculated as $det(A) = ad - bc$. For an identity matrix of any size, the determinant is equal to $1$. A general property of the determinant is that when you exchange rows of a matrix, the magnitude of the determinant stays the same but the sign gets flipped.</p>
+
+        <p>For a $3 \times 3$ matrix, the shortcut to computing the determinant involves adding the products of the right-going diagonals and subtracting the products of the left-going diagonals. A visual trick for computing the determinant is to augment the matrix with itself (repeating it to the right of itself), and summing the product of the right-going diagonals (which otherwise wrap around the matrix) and then subtract off the left-going diagonals as follows:</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                a & b & c \\
+                d & e & f \\
+                g & h & i \\
+                \end{bmatrix}
+
+                \begin{bmatrix} 
+                a & b & c \\
+                d & e & f \\
+                g & h & i \\
+                \end{bmatrix}
+            $$</p>
+
+        <p>$$det(A) = aei + bfg + cdh - ceg - bdi - afh$$</p>
+
+        <p>The determinant is distributive: $det(AB) = det(A) + det(B)$</p>
+
+
+
+    <h2 id="mat_inverse">Matrix Inverse</h2>
+
+        <p>There is no such thing as matrix-matrix division, but an inverse can be used in a way analogous to with scalars. $A^{-1}$ is a matrix such that it times A produces the identity matrix, the matrix equivalent to the number one.</p>
+
+        <p>$$Ax = b$$</p>
+        <p>$$A^{-1}Ax = A^{-1}b$$</p>
+        <p>$$Ix = A^{-1}b$$</p>
+        <p>$$x = A^{-1}b$$</p>
+
+        <p>The matrix inverse is side-dependent - i.e., you cannot left-multiply a variable by its inverse on the left side of an equation but right-multiply by its inverse on the right side of the equation. As with transposition, the $(LIVE)^{-1} E^{-1} V^{-1} I^{-1} L^{-1}$ rule applies; however, not every matrix has an inverse, so this is only valid if each matrix involved is invertible. A matrix is invertible if it is both square and full-rank.</p>
+
+        <p>The inverse of a $2 \times 2$ matrix can be calculated as follows:</p>
+            <ol>
+                <li>Swap diagonal elements</li>
+                <li>Invert off-diagonal elements</li>
+                <li>Divide by determinant</li>
+            </ol>
+
+            <p>$$
+                \begin{bmatrix} 
+                a & b \\
+                c & d \\
+                \end{bmatrix}
+
+                \rightarrow
+
+                \begin{bmatrix} 
+                d & b \\
+                c & a \\
+                \end{bmatrix}
+
+                \rightarrow
+
+                \begin{bmatrix} 
+                d & -b \\
+                -c & a \\
+                \end{bmatrix}
+
+                \rightarrow
+
+                \begin{bmatrix} 
+                d & -b \\
+                -c & a \\
+                \end{bmatrix}
+                \left(
+                \frac{1}{ad-bc}
+                \right)
+            $$</p>
+
+
+        <p>This is why a matrix with a determinant of zero is not invertible.</p>
+
+
+        <h3 id="mca_algo">The MCA Algorithm for Computing an Inverse</h3>
+
+            <p>The MCA algorithm for computing the inverse involves 3 elements:</p>
+                <ul>
+                    <li>$M$: the minors matrix: a matrix of determinants</li>
+                    <li>$C$: the cofactors matrix: the minors matrix Hadamard-multiplied by a grid of alternating pluses and minuses</li>
+                    <li>$A^{-1}$: the adjugate matrix: the transpose of the cofactors matrix, divided by the determinant</li>
+                </ul>
+
+            <p>Each determinant of the $M$ matrix equals the determinant of the elements in the original matrix that are not on the same row or column. The cofactors matrix is an alternating grid of plus and minus signs, always starting with a plus at the top left.</p>
+
+            <p>$$
+                H = 
+
+                \begin{bmatrix} 
+                + & - \\
+                - & + \\
+                \end{bmatrix}
+                , 
+
+                \begin{bmatrix} 
+                + & - & + \\
+                - & + & - \\
+                + & - & + \\
+                \end{bmatrix}
+                , 
+
+                \ldots
+            $$</p>
+
+            <p>You then compute the Hadamard multiplication of $H$ with $M$</p>
+
+            <p>$$C = M \odot H$$</p>
+
+            <p>Finally, the adjugate matrix is the cofactors matrix transposed and then multiplied by 1 over the determinant</p>
+
+            <p>$$A^{-1} = C^T 1/\Delta$$</p>
+
+            <p>The MCA algorithm is not the only way to calculate the inverse of an invertible matrix</p>
+
+
+        <h3 id="row_reduct">The Row Reduction Method</h3>
+            <ol>
+                <li>Compute a new matrix which is the matrix you want to know the inverse of, augmented by an identity matrix of the same size</li>
+                <li>Implement the reduced-row echelon form procedure</li>
+            </ol>
+
+            <p>This produces a matrix that is the identity matrix on the left, and the inverse of the original matrix on the right</p>
+
+            <p>$$rref([A|I]) \rightarrow [I|A^{-1}]$$</p>
+
+            <p>So to solve $Ax=b$,</p>
+
+            <p>$$rref([A|b]) \rightarrow [I|X]$$</p>
+
+
+        <h3 id="left_right_inv">The Left and Right Inverse</h3>
+
+            <p>Certain rectangular matrices can have what's called a one-sided inverse. A one-sided inverse is a matrix that can multiply another matrix to produce the identity matrix, but only if it multiplies on one side.</p>
+
+            <p>An $m \times n$, $m \gt n$ (i.e. tall) size matrix does not have a full inverse, but $A^TA$ does, and thus, $A^TA^{-1}$ is the inverse of $A^TA$</p>
+
+            <p>$$(A^TA)^{-1} A^TA = I$$</p>
+
+            <p>The first part, $(A^TA)^{-1}A$ is the left inverse. This works if $A^TA$ is full-rank, which it is if $A$ is full column rank.</p>
+
+            <p>A wide matrix cannot have a left-inverse, but does have a right inverse. Instead of considering $A^TA$ we consider $AA^T$.</p>
+
+            <p>$$AA^T(AA^T)^{-1} = I$$</p>
+
+            <p>where $A^T(AA^T)^{-1}$ is the right inverse. If $A$ is full row-rank, then it will have a right-inverse. Every invertible matrix has one unique corresponding inverse matrix</p>
+
+
+        <h3 id="pseudo">Pseudoinverse</h3>
+
+            <p>For matrices without a true inverse, there exists an approximation called the pseudoinverse. The most popular version is the Moore-Penrose pseudoinverse (discussed in the section on singular value decomposition). The pseudoinverse is not written with a superscript $-1$, but rather as $A^*$ or $A^{\dagger}$.</p>
+
+            <p>There are several different ways of computing the pseudoinverse, with different results. An alternative is to compress a rank-deficient matrix to a size where it has a true inverse (e.g., via PCA), then project back to the full space.</p>
+
+
+
+    <h2 id="proj_orth">Projections and Orthogonalization</h2>
+
+        <h3 id="proj">Projections in $\mathbb{R}^2$</h3>
+
+            <p>Consider a vector $a$ at $45 ^\circ$ from the positive horizontal axis, and a point $b$ near the horizontal axis. What value of $\beta$ can $b$ be multiplied by, such that it is projected onto the line with a minimum distance from where it currently resides? The shortest projection line is orthogonal to line $a$, and this means the dot product between $a$ and the projection line has a dot product of $0$. Therefore,</p>
+
+            <p>$$a^T(b \cdot a \beta) = 0$$</p>
+            <p>$$a^Tb - a^Ta \beta = 0$$</p>
+            <p>$$A^Ta \beta = a^Tb$$</p>
+            <p>$$\beta = \frac{a^Tb}{a^Ta}$$</p>
+
+            <p>This works because $a^Tb$ and $a^Ta$ are both scalars. To express the case in $\mathbb{R}^n$, we use vectors and matrices</p>
+
+            <p>$$A^T(b-Ax) = 0$$</p>
+            <p>$$A^Tb - A^TAx = 0$$</p>
+            <p>$$A^TAx = A^Tb$$</p>
+            <p>$$(A^TA)^{-1}(A^TA)x = (A^TA)^{-1}A^Tb$$</p>
+            <p>$$x = (A^TA)^{-1}A^Tb$$</p>
+
+            <p>This assumes that $A$ is either square and full-rank or tall with full column-rank. If $A$ is square and full rank, the equation simplifies to:</p>
+
+            <p>$$x = (A^TA)^{-1}A^Tb$$</p>
+            <p>$$x = A^{-1}A^{-T}A^Tb$$</p>
+            <p>$$x = A^{-1}b$$</p>
+
+
+        <h3 id="orth_parallel">Orthogonal and Parallel Vector Components</h3>
+
+            <p>A vector can be broken down into a parallel and orthogonal (a.k.a. perpendicular) components.</p>
+
+            <p>$$w = w_{||v} + w_{\bot v}$$</p>
+
+            <p>The parallel component of $v$ points in the same direction as $v$, it is in the same subspace.</p>
+
+            <p>$$w_{||v} = proj_v w = \frac{w^Tv}{v^Tv} v$$</p>
+
+            <p>We compute $w_{\bot v}$ by subtracting $w_{||v}$ from $w$.</p>
+
+            <p>$$w_{\bot v} = w - w_{||v}$$</p>
+
+
+        <h3 id="orth_mat">Orthogonal Matrices</h3>
+
+            <p>An orthogonal matrix has columns which are all pairwise orthogonal, and is typically denoted by the letter $Q$. Each column has a magnitude equal to $1$.</p>
+
+            <p>$$Q^TQ = I, \text{ so } Q^TQ = Q^{-1}Q$$</p>
+
+            <p>If $Q$ is square, then:</p>
+
+            <p>$$Q^TQ = Q^{-1}Q = QQ^T = QQ^{-1} = I$$</p>
+
+            <p>If $Q$ is rectangular, it is equal to a one-sided inverse</p>
+
+            <p>Geometrically, a $2 \times 2$ orthogonal matrix functions as a rotation matrix that can take some vector in the plane and rotate it by some amount without stretching or shrinking it. Each $2 \times 2$ orthogonal matrix can be expressed as the rotation matrix,</p>
+
+            <P>$$
+                \begin{bmatrix} 
+                cos(\theta) & -sin(\theta) \\
+                sin(\theta) & cos(\theta) \\
+                \end{bmatrix}
+            $$</P>
+
+
+        <h3 id="gram_schmidt">Gram-Schmidt Procedure</h3>
+
+            <p>The Gram-Schmidt procedure converts any matrix to an orthogonal matrix, and is used in QR decomposition (discussed next). We start by copying the first column of a matrix over to the new matrix $Q$. Then, the second vector is copied but decomposed such that it is orthogonal to column one. The third vector is orthogonalized relative to both the second column and the first, subtracting off the components parallel to each. The procedure is repeated for all remaining columns, and then the second step is to normalize each column to unit-length. The two steps can also be applied in the reverse order.</p>
+
+
+        <h3 id="qr">QR Decomposition</h3>
+
+            <p>QR decomposition decomposes an $m \times n$ matrix $A$ into a $Q$ ($m \times m$) and $R$ ($m \times n$) matrix. $Q$ is computed with the Gram-Schmidt procedure, and $R$ is computed by left-multiplying $A$ by $Q^T$, which is the same as $Q$-inverse.</p>
+
+            <p>$$A = QR$$</p>
+            <p>$$Q^TA = Q^TQR$$</p>
+            <p>$$Q^TA = R$$</p>
+
+            <p>$R$ will always be an upper-triangular matrix, because later columns in $Q$ (rows of $Q^T$) are orthogonalized to earlier columns of $A$.</p>
+
+
+
+    <h2 id="least_squares">Least Squares for Model-Fitting</h2>
+
+        <p>The 5 steps to model-fitting are as follows:
+            <ol>
+                <li>Define the equation(s) underlying the model</li>
+                <li>Map the data onto the model equations</li>
+                <li>Convert the equations into a matrix-vector equation</li>
+                <li>Compute the process</li>
+                <li>Statistical calculation of the model</li>
+            </ol>
+
+        <p>$y = X \beta$ is the general linear model, sometimes written $y = X \beta + \varepsilon$. $X$ is a tall matrix, so it has no explicit or two-sided inverse, but it can have a left-inverse, if it has a linearly independent set of columns (i.e., is full column-rank).</p>
+
+        <p>$$X \beta = y$$</p>
+
+        <p>$$(X^TX)^{-1} X^TX \beta = (X^TX)^{-1}X^Ty$$</p>
+
+        <p>$$\beta = (X^TX)^{-1} X^Ty$$</p>
+
+        <p>Finding the free parameters in the vector of $\beta$ values is a matter of using the left inverse to isolate $\beta$ on one side of the equation.</p>
+
+        <p>The statistical term for a matrix that is column-rank deficient is multicollinearity</p>
+
+        <p>The least squares solution would only be exact if vector $y$ is in the column-space of $X$, $y \in C(X)$. But it is possible to find some $\hat{y}$ vector that satisfies the equation.</p>
+
+        <p>$$\beta = (X^TX)^{-1} X^T \hat{y}$$
+
+        <p>and the idea is to find the $\hat{y}$ that is as close as possible to $y$, minimizing epsilon in the equation</p>
+
+        <p>$$y = X \beta + \varepsilon,$$</p>
+
+        <p>such that ($y + \varepsilon) \in C(X)$</p>
+
+
+        <h3 id="least_squares_orthog">Least Squares via Orthogonal Projection</h3>
+
+            <p>The columns of the design matrix $X$ form a hyperplane subspace embedded in $\mathbb{R}^m$, where $m$ is the number of rows in $X$. $y$ is also a vector in $\mathbb{R}^m$, and the question is whether $y$ is in the column space of $X$ (which it almost certainly is not). So then the question is, what is the coordinate in the subspace spanned by the columns of $X$ that is as close to $y$ as possible while still being in the column space?</p>
+
+            <p>The elements in $\beta$ tell us the coefficients, the projections, along the dimensions given by the columns in $X$ such that the vector $X \beta$ is in the column space and as close to $y$ as possible. That leads to the question of how to find $\beta$ such that $\beta$ is as close to $y$ as possible, and the answer is given by orthogonal projection</p>
+
+            <p>$$\beta = \frac{a^Tb}{a^Ta}$$</p>
+
+
+        <h3 id="least_squares_row_reduct">Least Squares via Row Reduction</h3>
+
+            <p>To see another perspective, go back to this original equation of $X \beta = y$, and multiply both sides of this equation by $X^T$. This is often referred to as 'the normal equation'.</p>
+
+            <p>$$X \beta = y$$</p>
+            <p>$$X^TX \beta = X^Ty$$</p>
+
+            <p>Then, the idea is to use these matrices to form an augmented matrix, and then do row-reduction. $X^TX$, a square matrix as long as $X^Ty$, is augmented by $X^Ty$ on the right. Row reduction then produces the identity matrix on the left (in place of $X^TX$, and a vector of $\beta$ coefficients on the right).</p>
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="linalg_cohen_pt3.html">part 3</a></p>
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

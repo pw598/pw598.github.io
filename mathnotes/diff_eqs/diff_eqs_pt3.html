@@ -1,0 +1,2171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+
+<h1>Differential Equations Pt. 3 (Systems of Equations Pt. 1)</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#systems">Systems of Differential Equations</a></td><td><a href="#solving">Solving Systems</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sup_lin_fund">Superposition, Linear Independence, and the Fundamental Set</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#distinct_eig">Distinct Real Eigenvalues</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#equal_real_eig">Equal Real Eigenvalues with Multiplicity Two</a></td></tr>
+</tbody></table>
+
+
+  <h2 id="systems">Systems of Differential Equations</h2>
+
+    <p>Before we can solve systems of differential equations, we must be able to define the kind of system we're trying to solve. The below is a system of first order linear differential equations. When all of the $f_i(t)$ values are zero, it is a homogenous system.</p>
+
+    <p>$x_1'(t) = a_{11}(t) x_1(t) + a_{12}(t) x_2(t) + \ldots + a_{1n}(t) x_n(t) + f_1(t)$</p>
+    <p>$x_2'(t) = a_{21}(t) x_1(t) + a_{22}(t) x_2(t) + \ldots + a_{2n}(t) x_n(t) + f_2(t)$</p>
+    <p>$\ldots$</p>
+    <p>$x_n'(t) = a_{n1}(t) x_1(t) + a_{n2}(t) x_2(t) + \ldots + a_{nn}(t) x_n(t) + f_n(t)$</p>
+
+    <p>Recall how to convert simple equations into matrix form. For example, converting the system:</p>
+
+    <p>$3x_1 - 4x_2 = 2$</p>
+    <p>$x_1 + 5x_2 = -1$</p>
+
+    <p>into the matrix form:</p>
+
+    <p>$
+      \begin{bmatrix}
+      3 & -4 \\
+      1 & 5 \\
+      \end{bmatrix}
+
+      \begin{bmatrix}
+      x_1 \\
+      x_2 \\
+      \end{bmatrix}
+
+      = 
+
+      \begin{bmatrix}
+      2 \\
+      -1 \\
+      \end{bmatrix}
+      $
+    </p>
+
+    <p>is done by creating the coefficient matrix $A$, multiplying it by a vector of the variables $\overrightarrow{x}$, and equating that to a vector of the values from the right side.</p>
+
+    <p>$A \overrightarrow{x} = b$</p>
+
+    <p>For the system of differential equations defined earlier, we can define:</p>
+
+    <p>$
+      \overrightarrow{x} = 
+
+      \begin{bmatrix}
+      x_1(t) \\
+      x_2(t) \\
+      \vdots \\
+      x_n(t) \\
+      \end{bmatrix}
+      $
+    </p>
+
+    <p>$
+      A = 
+      \begin{bmatrix}
+      a_{11}(t) & a_{12}(t) \ldots a_{1n}(t) \\
+      a_{21}(t) & a_{22}(t) \ldots a_{2n}(t) \\
+      \vdots \\
+      a_{n1}(t) & a_{n2}(t) \ldots a_{nn}(t) \\
+      \end{bmatrix}
+      $
+    </p>
+
+    <p>$
+      F = 
+      \begin{bmatrix}
+      f_1(t) \\
+      f_2(t) \\
+      \vdots \\
+      f_n(t) \\
+      \end{bmatrix}
+      $
+    </p>
+
+    <p>In this form, the system will be homogenous when $F$ is the zero vector, and nonhomogenous when $F$ is nonzero.</p>
+
+    <p>Higher order linear differential equations, both homogenous and nonhomogenous, can be converted into systems of differential equations. We can convert second order equations into a system of two equations, a third order equation to 3 equations, and so on. If provided with initial conditions, we can convert these as well.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Convert the following third order linear differential equation into a system of differential equations.</p>
+
+        <p>$y''' - 3y'' + y' - 2y = 3t^2$</p>
+
+        <p>We start by defining:</p>
+
+        <p>$x_1(t) = y(t)$</p>
+        <p>$x_2(t) = y'(t)$</p>
+        <p>$x_3(t) = y''(t)$</p>
+
+        <p>Now we need to solve the original differential equation for $y'''(t)$</p>
+
+        <p>$y''' - 3y''  y' - 2y = 3t^2$</p>
+        <p>$y''' = 3y'' - y' + 2y + 3t^2$</p>
+
+        <p>Then take the derivatives of the equations for $x_1(t)$, $x_2(t)$, and $x_3(t)$.</p>
+
+        <p>$x_1'(t) = y'(t) = x_2(t)$</p>
+        <p>$x_2'(t) = y''(t) = x_3(t)$</p>
+        <p>$x_3'(t) = y'''(t) = 3y'' - y' + 2x_1(t) + 3t^2$</p>
+
+        <p>Simplifying these equations gives us a system of equations that is equivalent to the original third order differential equation.</p>
+
+        <p>$x_1' = x_2$</p>
+        <p>$x_2' = x_3$</p>
+        <p>$x'3 = 3x_3 - x_2 + 2x_1 + 3t^2$</p>
+
+        <p>Writing this as a matrix equation:</p>
+
+        <p>$\overrightarrow{x}' = A \overrightarrow{x} + F$</p>
+
+        <p>$
+          \overrightarrow{x}' = 
+
+          \begin{bmatrix}
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+          2 & -1 & 3 \\
+          \end{bmatrix}
+
+          \overrightarrow{x}
+
+          + 
+
+          \begin{bmatrix}
+          0 \\
+          0 \\
+          3t^2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+    <h3 id="solving">Solving Systems</h3>
+
+      <p>We want to extend much of what we know about solutions of second order equations to solutions of systems of differential equations. For instance, we learned that when solving second order homogenous equations, the general solution is given by $y = c_1 y_1 + c_2 y_2$, where $\{y_1, y_2\}$ form a fundamental set of solutions. This produces formulas for the general solution with distinct real roots, equal real roots, or complex conjugate roots for the associated characteristic equation.</p>
+
+      <table class="tableizer-table">
+      <thead><tr class="tableizer-firstrow"><th>Roots</th><th>Characteristic Equation</th></tr></thead><tbody>
+       <tr><td>Distinct Real Roots</td><td>$y(x) = c_1 e^{r_1x} + c_2 e^{r_2x}$</td></tr>
+       <tr><td>Equal Real Roots</td><td>$y(x) = c_1 e^{r_1x} + c_2 e^{r_1x}$</td></tr>
+       <tr><td>Complex Conjugate Roots</td><td>$y(x) = e^{\alpha x} (c_1 ~cos(\beta x) + c_2 ~sin(\beta x)$</td></tr>
+      </tbody></table>
+
+      <p>Similarly, the solution to a system of two homogenous differential equations, written in matrix form $\overrightarrow{x}' = A \overrightarrow{x}$, when the matrix is $2 \times 2$, is given by:</p>
+
+      <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$</p>
+
+      <p>The vectors $\{\overrightarrow{x_1}, \overrightarrow{x_2}\}$ will be defined as:</p>
+
+      <p>$\overrightarrow{x_1} = \overrightarrow{k_1} e^{\lambda_1 t}$</p>
+      <p>$\overrightarrow{x_2} = \overrightarrow{k_2} e^{\lambda_2 t}$</p>
+
+      <p>if $\lambda_1$, $\lambda_2$ are two non-zero eigenvalues of matrix $A$. For a $2 \times 2$ matrix, the vectors $\overrightarrow{k_1}$ and $\overrightarrow{k_2}$ will each have two components.</p>
+
+      <p>When we're solving a nonhomogenous system of two equations, $\overrightarrow{x}' = A \overrightarrow{x} + F$, where $F \neq 0$, the general solution will be the sum of the complementary solution $\overrightarrow{x_c} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$ and particular solution $\overrightarrow{x_p}$.</p>
+
+      <p>$\overrightarrow{x} = \overrightarrow{x_c} + \overrightarrow{x_p}$</p>
+      <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2} + \overrightarrow{x_p}$</p>
+
+      <p>We learned how to show that a solution set like $\{y_1, y_2\} = \{e^{-3x}, xe^{-3x}\}$ satisfied a second order equation like $y'' + 6y' + 9y = 0$. We substituted each solution, $y_1 = e^{-3x}$ and $y_2 = xe^{-3x}$ into the differential equation one at a time, to show that each one individually satisfied the equation.</p>
+
+      <p>We can do the same thing with the vector solutions to the system of differential equations. For example, we can show that:</p>
+
+      <p>$
+        \overrightarrow{x_1} = 
+        \begin{bmatrix}
+        - 1 \\
+        2 \\
+        \end{bmatrix}
+
+        e^{- \frac{3}{2}t}
+        $
+      </p>
+
+      <p>is a solution to the system given in matrix form.</p>
+
+      <p>$
+        \overrightarrow{x}'
+
+        = 
+
+        \begin{bmatrix}
+        -1 & \frac{1}{4} \\
+        1 & -1 \\
+        \end{bmatrix}
+
+        \overrightarrow{x}
+        $
+      </p>
+
+      <p>We just need to substitute the solution vector and its derivative into the matrix equation. The derivative of the solution vector is:</p>
+
+      <p>$
+        \overrightarrow{x_1}' = 
+
+        - \frac{3}{2}
+
+        \begin{bmatrix}
+        -1 \\
+        2 \\
+        \end{bmatrix}
+
+        e^{- \frac{3}{2}t}
+
+        = 
+
+        \begin{bmatrix}
+        \frac{3}{2} \\
+        -3 \\
+        \end{bmatrix}
+
+        e^{- \frac{3}{2}t}
+        $
+      </p>
+
+      <p>Plugging the solution $\overrightarrow{x_1}$ and its derivative $\overrightarrow{x_1}'$ into the matrix equation gives
+
+      <p>$
+        \begin{bmatrix}
+        \frac{3}{2} \\
+        -3 \\
+        \end{bmatrix}
+
+        e^{- \frac{3}{2}t}
+
+        = 
+
+        \begin{bmatrix}
+        -1 & \frac{1}{4} \\
+        1 & -1 \\
+        \end{bmatrix}
+
+        \begin{bmatrix}
+        -1 \\
+        2 \\
+        \end{bmatrix}
+
+        e^{- \frac{3}{2}t}
+        $
+      </p>
+
+      <p>$
+        \begin{bmatrix}
+        \frac{3}{2} e^{- \frac{3}{2}t} \\
+        -3e^{- \frac{3}{2}t} \\
+        \end{bmatrix}
+
+        = 
+
+        \begin{bmatrix}
+        -1 & \frac{1}{4} \\
+        1 & -1 \\
+        \end{bmatrix}
+
+        \begin{bmatrix}
+        -e^{- \frac{3}{2}t} \\
+        2e^{- \frac{3}{2}t} \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>$
+        \begin{bmatrix}
+        \frac{3}{2} e^{- \frac{3}{2}t} \\
+        -3e^{- \frac{3}{2}t} \\
+        \end{bmatrix}
+
+        = 
+
+        \begin{bmatrix}
+        e^{- \frac{3}{2}t} & \frac{1}{2}e^{- \frac{3}{2}t} \\
+        e^{- \frac{3}{2}t} & -2e^{- \frac{3}{2}t} \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>$
+        \begin{bmatrix}
+        \frac{3}{2} e^{- \frac{3}{2}t} \\
+        -3e^{- \frac{3}{2}t} \\
+        \end{bmatrix}
+
+        = 
+
+        \begin{bmatrix}
+        \frac{3}{2} e^{- \frac{3}{2}t} \\
+        -3e^{- \frac{3}{2}t} \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>Because we get equivalent values of both sides of the equation, we have verified that:
+
+      <p>$
+        \overrightarrow{x_1} = 
+
+        \begin{bmatrix}
+        -1 \\
+        2 \\
+        \end{bmatrix}
+
+        e^{- \frac{3}{2}t}
+        $
+      </p>
+
+      <p>is a solution to the system of differential equations given by the matrix equation.
+
+
+    <h3 id="sup_lin_fund">Superposition, Linear Independence, and the Fundamental Set</h3>
+
+      <p>In the same way that $c_1 y_1 + c_2 y_2$ is a solution to the second order equation when $\{y_1, y_2\}$ form a solution set, $c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$ is a solution to the system of differential equations when $\{\overrightarrow{x_1}, \overrightarrow{x_2}\}$ form a solution set. This is the superposition principle.</p>
+
+      <p>As with the solution set $\{\overrightarrow{x_1}, \overrightarrow{x_2}\}$, we're primarily interested in linearly independent solutions, which like with solutions to second order equations, are solutions that aren't constant multiples of each other. Solutions are linearly independent when none of them can be formed with a linear combination of other solutions.</p>
+
+      <p>As before, we can use the Wronskian to test for linear independence. If the Wronskian is non-zero, then the vector set represents a set of linearly independent solutions, and we can call the solution set a fundamental set of solutions.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Verify that the following solution vectors satisfy the system of equations. Calculate the Wronskian of the solution set and use the result to make a statement about the linear (in)dependence of the solutions, and whether or not they form a fundamental set. Then write the general solution of the homogenous equation.</p>
+
+        <p>$
+          \overrightarrow{x}'
+
+          = 
+
+          \begin{bmatrix}
+          0 & 6 & 0 \\
+          1 & 0 & 1 \\
+          1 & 1 & 0 \\
+          \end{bmatrix}
+
+          \overrightarrow{x}
+          $
+        </p>
+
+        <p>$
+          { \overrightarrow{x_1}, \overrightarrow{x_2}, \overrightarrow{x_3} } = 
+          {
+          \begin{bmatrix}
+          6 \\
+          -1 \\
+          5 \\
+          \end{bmatrix}
+          e^{-t},
+
+          \begin{bmatrix}
+          -3 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^{-2t},
+
+          \begin{bmatrix}
+          2 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^{3t}
+          }
+          $
+        </p>
+
+        <p>We can verify that each of the vectors $\overrightarrow{x_1}$, $\overrightarrow{x_2}$, $\overrightarrow{x_3}$ are solutions by substituting them into the matrix equation.</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+          \begin{bmatrix}
+          6e^{-t} \\
+          e^{-t} \\
+          -5e^{-t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+          \begin{bmatrix}
+          -3e^{-2t} \\
+          e^{-2t} \\
+          e^{-2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_3} = 
+          \begin{bmatrix}
+          2e^{3t} \\
+          e^{3t} \\
+          e^{3t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_1}' = 
+          \begin{bmatrix}
+          -6e^{-t} \\
+          e^{-t} \\
+          5e^{-t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_2}' = 
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -2e^{-2t} \\
+          -2e^{-2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_3}' = 
+          \begin{bmatrix}
+          6e^{3t} \\
+          3e^{3t} \\
+          3e^{3t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Substitute $\overrightarrow{x_1}$ and its derivative $\overrightarrow{x_1}'$ into the matrix equation.</p>
+
+        <p>$
+          \begin{bmatrix}
+          -6e^{-t} \\
+          e^{-t} \\
+          5e^{-t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          0 & 6 & 0 \\
+          1 & 0 & 1 \\
+          1 & 1 & 0 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          6e^{-t} \\
+          -e^{-t} \\
+          -5e^{-t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          -6e^{-t} \\
+          e^{-t} \\
+          5e^{-t} \\
+          \end{bmatrix}
+
+          =
+
+          \begin{bmatrix}
+          -6e^{-t} \\
+          6e^{-t} - 5e^{-t} \\
+          6e^{-t} - e^{-t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          -6e^{-t} \\
+          e^{-t} \\
+          5e^{-t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          -6e^{-t} \\
+          e^{-t} \\
+          5e^{-t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Substitute $\overrightarrow{x_2}$ and its derivative $\overrightarrow{x_2}'$ into the matrix equation.
+
+        <p>$
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -2e^{-2t} \\
+          -2e^{-2t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          0 & 6 & 0 \\
+          1 & 0 & 1 \\
+          1 & 1 & 0 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          -3e^{-2t} \\
+          e^{-2t} \\
+          e^{-2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -2e^{-2t} \\
+          -2e^{-2t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          (0)(-3e^{-2t}) + (6)(e^{-2t}) + (0)(e^{-2t}) \\
+          (1)(-3e^{-2t}) + (0)(e^{-2t}) + (1)(e^{-2t}) \\
+          (1)(-3e^{-2t}) + (1)(e^{-2t} + (0)(e^{-2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -2e^{-2t} \\
+          -2e^{-2t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -3e^{-2t} + e^{-2t} \\
+          -3e^{-2t} + e^{-2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -2e^{-2t} \\
+          -2e^{-2t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          6e^{-2t} \\
+          -2e^{-2t} \\
+          -2e^{-2t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Substitute $\overrightarrow{x_3}$ and its derivative $\overrightarrow{x_3}'$ into the matrix equation.</p>
+
+        <p>$
+          \begin{bmatrix}
+          6e^{3t} \\
+          3e^{3t} \\
+          3e^{3t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          0 & 6 & 0 \\
+          1 & 0 & 1 \\
+          1 & 1 & 0 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          2e^{3t} \\
+          e^{3t} \\
+          e^{3t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \begin{bmatrix}
+          6e^{3t} \\
+          3e^{3t} \\
+          3e^{3t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          (0)(2e^{3t}) + (6)(e^{3t}) + (0)(e^{3t}) \\
+          (1)(2e^{3t}) + (0)(e^{3t}) + (1)(e^{3t}) \\
+          (1)(2e^{3t}) + (1)(e^{3t}) + (0)(e^{3t}) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          6e^{3t} \\
+          3e^{3t} \\
+          3e^{3t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          6e^{3t} \\
+          2e^{3t} + e^{3t} \\
+          2e^{3t} + e^{3t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          6e^{3t} \\
+          3e^{3t} \\
+          3e^{3t} \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          6e^{3t} \\
+          3e^{3t} \\
+          3e^{3t} \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Now let's take the Wronskian of the solution set.</p>
+
+        <p>$
+          W(\overrightarrow{x_1}, \overrightarrow{x_2}, \overrightarrow{x_3})
+
+          = 
+
+          \begin{vmatrix}
+          6e^{-t} & 3e^{-2t} & 2e^{3t} \\
+          -e^{-t} & e^{-2t} & e^{3t} \\
+          -5e^t & e^{-2t} & e^{3t} \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+        <p>$
+          W(\overrightarrow{x_1}, \overrightarrow{x_2}, \overrightarrow{x_3})
+
+          = 
+
+          6e^{-t}
+
+          \begin{vmatrix}
+          e^{-2t} & e^{3t} \\
+          e^{-2t} & e^{3t} \\
+          \end{vmatrix}
+
+          -
+
+          (-3e^{-2t})
+          $
+        </p>
+
+        <p>$
+          \begin{vmatrix}
+          e^{-t} & e^{3t} \\
+          -5e^{-t} & e^{3t} \\
+          \end{vmatrix}
+
+          +
+
+          2e^{3t}
+
+          \begin{vmatrix}
+          -e^{-t} & e^{-2t} \\
+          -5e^{-t} & e^{-2t} \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+        <p>$
+          W(\overrightarrow{x_1}, \overrightarrow{x_2}, \overrightarrow{x_3}) = 
+          6e^{-t} [ (e^{-2t})(e^{3t}) - (e^{3t})(e^{-2t}) ] + 
+          3e^{-2t} [ (-e^{-t})(e^{-2t}) - (e^{-2t})(-5e^{-t}) ]
+          $
+        </p>
+
+        <p>$= 6e^{-t}(0) + 3e^{-2t}(4e^{2t}) + 2e^{3t}(4e^{-3t})$</p>
+        <p>$= 12e^{2t - 2t} + 8e^{3t - 3t}$</p>
+        <p>$= 12(1) + 8(1) = 20$</p>
+
+
+        <p>Because the Wronskian is non-zero, we can confirm that the vectors in the solution set are linearly independent, which means the vector set represents a fundamental set of solutions. Given that this is a fundamental set of solutions, we can write the general solution of the system as:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2} + c_3 \overrightarrow{x_3}$</p>
+
+        <p>$
+          \overrightarrow{x} =
+
+          c_1
+          \begin{bmatrix}
+          6 \\
+          -1 \\
+          5 \\
+          \end{bmatrix}
+          e^{-t}
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          -3 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^{-2t}
+
+          +
+
+          c_3
+          \begin{bmatrix}
+          2 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^{3t}
+          $
+        </p>
+
+
+    <h3 id="distinct_eig">Distinct Real Eigenvalues</h3>
+
+      <p>We saw that the solution of a system of two homogenous differential equations is given by $\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$, where the solutions are vectors ${\overrightarrow{x_1}, \overrightarrow{x_2}}$ defined in $t$ as $\overrightarrow{x_1} = \overrightarrow{k_1} e^{\lambda_1 t}$ and $\overrightarrow{x_2} = \overrightarrow{k_2} e^{\lambda_2 t}$.</p>
+
+      <p>These solution vectors will be defined by the eigenvalues and eigenvectors of matrix $A$.</p>
+
+      <p>If we plug a solution vector $\overrightarrow{x} = \overrightarrow{k} e^{\lambda t}$ into the matrix equation $\overrightarrow{x}' = A \overrightarrow{x}$, we get:</p>
+
+      <p>$\overrightarrow{x}' = A \overrightarrow{x}$</p>
+      <p>$\overrightarrow{k} \lambda e^{\lambda t} = A \overrightarrow{k} e^{\lambda t}$</p>
+      <p>$\overrightarrow{k} \lambda = A \overrightarrow{k}$</p>
+      <p>$Ak - \overrightarrow{k} \lambda = \overrightarrow{0}$</p>
+      <p>$(A - \lambda I) \overrightarrow{k} = \overrightarrow{0}$</p>
+
+      <p>Consider the case where $A$ is a $2 \times 2$ matrix. The matrix $A - \lambda I$ is some $2 \times 2$ matrix $A$ minus the product of the constant $\lambda$ and the $2 \times 2$ identity matrix $I_2$.</p>
+
+      <p>$
+        A - \lambda I = 
+
+        \begin{bmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22} \\
+        \end{bmatrix}
+
+        -
+
+        \lambda
+        \begin{bmatrix}
+        1 & 0 \\
+        0 & 1 \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>$
+        A - \lambda I = 
+
+        \begin{bmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22} \\
+        \end{bmatrix}
+
+        -
+
+        \lambda
+        \begin{bmatrix}
+        \lambda & 0 \\
+        0 & \lambda \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>$
+        A - \lambda I = 
+
+        \begin{bmatrix}
+        a_{11} - \lambda & a_{12} \\
+        a_{21} & a_{22} - \lambda \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>So we can rewrite the equation $(A - \lambda I) \overrightarrow{k} = \overrightarrow{0}$ as:</p>
+
+      <p>$
+        \begin{bmatrix}
+        a_{11} - \lambda & a_{12} \\
+        a_{21} & a_{22} - \lambda \\
+        \end{bmatrix}
+        $
+      </p>
+
+      <p>We're interested in the non-zero vectors $\overrightarrow{k}$ that satisfy this equation.</p>
+
+      <p>The equation $\overrightarrow{k} \lambda = A \overrightarrow{k}$ tells us that when we multiply matrix $A$ by the vector $\overrightarrow{k}$, the result is the same vector $\overrightarrow{k}$, just scaled by some constant $\lambda$. This means the result $\lambda \overrightarrow{k}$ will lie along the same line as the original $\overrightarrow{k}$, it will just be some scaled version of $\overrightarrow{k}$.</p>
+
+      <p>The values of $\lambda$ that make this equation true are the eigenvalues of the matrix $A$, while the vectors $\overrightarrow{k}$ that satisfy it are the eigenvectors of the matrix $A$. Our goal is to find eigenvalue/eigenvector pairs for matrix $A$, and use these $(\lambda, \overrightarrow{k})$ pairs to build solutions to the system $\overrightarrow{x}' = A \overrightarrow{x}$ in the form $\overrightarrow{x} = \overrightarrow{k} e^{\lambda t}$.</p>
+
+      <p>By definition, a homogenous system will always have either exactly one solution (the trivial case) or infinitely many solutions. We only get non-trivial solutions when matrix $A$ is singular, which occurs when the determinant $|A - \lambda I|$ is $0$. This determinant equation $|A - \lambda I|$ is called the characteristic equation, and solving it will give the eigenvalues of matrix $A$, which we can use to find the associated eigenvectors.</p>
+
+      <p>There are 3 cases we want to consider:</p>
+        <ol>
+          <li>Distinct Real Eigenvalues: the matrix has distinct real eigenvalues. Every eigenvalue is a real number, and no eigenvalues are equivalent.</li>
+          <li>Equal Real Eigenvalues: the matrix has at least some equal real eigenvalues</li>
+          <li>Complex Conjugate Eigenvalues: the eigenvalues are complex numbers</li>
+        </ol>
+
+      <p>The eigenvectors that correspond to distinct real eigenvalues will always be linearly independent vectors, which means the solutions $\overrightarrow{x_1} = \overrightarrow{k}_1 e^{\lambda_1 t}$ and $\overrightarrow{k}_2 e^{\lambda_2 t}$ we find for the system will always be linearly independent, and therefore form a fundamental set of solutions.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Solve the following system of differential equations:</p>
+
+        <p>$x_1' = -6x_1 + 2x_2$</p>
+        <p>$x_2' = -3x_1 + x_2$</p>
+
+        <p>The coefficient matrix is:</p>
+
+        <p>$
+          A = 
+          \begin{bmatrix}
+          -6 & 2 \\
+          -3 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and the matrix $A - \lambda I$ is:</p>
+
+        <p>$
+          A - \lambda I = 
+          \begin{bmatrix}
+          -6 & 2 \\
+          -3 & 1 \\
+          \end{bmatrix}
+
+          -
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+          \begin{bmatrix}
+          -6 & 2 \\
+          -3 & 1 \\
+          \end{bmatrix}
+
+          -
+
+          \lambda
+          \begin{bmatrix}
+          \lambda & 0 \\
+          0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+          \begin{bmatrix}
+          -6 - \lambda & 2 \\
+          -3 & 1 - \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>The determinant is:</p>
+
+        <p>$
+          \begin{vmatrix}
+          -6 - \lambda & 2 \\
+          -3 & 1 - \lambda \\
+          \end{vmatrix}
+          $
+        </p>
+
+        <p>$= (-6 - \lambda)(1 - \lambda) - (2)(-3)$</p>
+        <p>$= -6 - 6 \lambda - \lambda + \lambda^2 + 6$</p>
+        <p>$\lambda(\lambda + 5) = 0$</p>
+        <p>$\lambda = -5, 0$</p>
+
+        <p>Then for these eigenvalues, $\lambda_1 = -5$ and $\lambda_2 = 0$, we find:</p>
+
+        <p>$
+          A - (-5)I = 
+          \begin{bmatrix}
+          -6 - (-5) & 2 \\
+          -3 & 1 - (-5) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - (-5)I = 
+          \begin{bmatrix}
+          -1 & 2 \\
+          -3 & 6 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and</p>
+
+        <p>$
+          A - (0)I = 
+          \begin{bmatrix}
+          -6 - (0) & 2 \\
+          -3 & 1 - (0) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - (0)I = 
+          \begin{bmatrix}
+          -6 & 2 \\
+          -3 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put these two matrices into reduced row echelon form.
+
+        <p>$
+          \begin{bmatrix}
+          -1 & 2 \\
+          -3 & 6 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -2 \\
+          -3 & 6 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -2 \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \begin{bmatrix}
+          -6 & 2 \\
+          -3 & 1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -\frac{1}{3} \\
+          -3 & 1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -\frac{1}{3} \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn these back into systems of equations, we get:</p>
+
+        <p>$k_1 - 2k_2 = 0$</p>
+        <p>$k_1 = 2k_2$</p>
+
+        </br>
+
+        <p>$k_1 - \frac{1}{3}k_2 = 0$</p>
+        <p>$k_1 = \frac{1}{3}k_2$</p>
+
+        <p>From the first system, we'll choose $k_2 = 1$, which results in $k_1 = 2$. From the second system, we'll choose $k_2 = 3$, which results in $k_1 = 1$.</p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          2 \\
+          1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{k_2} = 
+
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Then the solutions to the system are:</p>
+
+        <p>$\overrightarrow{x_1} = k_1 e^{\lambda_1 t}$</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+          \begin{bmatrix}
+          2 \\
+          1 \\
+          \end{bmatrix}
+          e^{-5t}
+          $
+        </p>
+
+        <p>$\overrightarrow{x_2} = k_2 e^{\lambda_2 t}$</p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          e^{0t}
+          $
+        </p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Therefore, the general solution to the homogenous system must be:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          2 \\
+          1 \\
+          \end{bmatrix}
+          e^{-5t}
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+      <h4>Example:</h4>
+
+        <p>Convert the following differential equation into a system of equations, then use the system to solve the initial value problem, given $y(0) = 1$ and $y'(0) = -1$.</p>
+
+        <p>$y'' - 5y' + 6y = 0$</p>
+
+        <p>We start by defining:</p>
+
+        <p>$x_1(t) = y(t)$</p>
+        <p>$x_2(t) = y'(t)$</p>
+
+        <p>and then we'll solve the original differential equation for $y''(t)$.</p>
+
+        <p>$y'' - 5y' + 6y = 0$</p>
+        <p>$y'' = 5y - 6y$</p>
+
+        <p>Then if we take the derivatives of $x_1(t)$ and $x_2(t)$, we get:</p>
+
+        <p>$x_1'(t) = y'(t) = x_2(t)$</p>
+        <p>$x_2'(t) = y''(t) = 5y' - 6y = 5x_2(t) - 6x_1(t)$</p>
+
+        <p>Simplifying these equations gives us a system of equations that is equivalent to the original second order differential equation.</p>
+
+        <p>$x_1' = x_2$</p>
+        <p>$x_2' = 5x_2 - 6x_1$</p>
+
+        <p>We can represent this system in matrix form as:</p>
+
+        <p>$\overrightarrow{x_1}' = A \overrightarrow{x}$</p>
+
+        <p>$
+          \overrightarrow{x_1}' = 
+
+          \begin{bmatrix}
+          0 & 1 \\
+          -6 & 5 \\
+          \end{bmatrix}
+
+          \overrightarrow{x}
+          $
+        </p>
+
+        <p>and then find the matrix A - \lambda I.</p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          0 & 1 \\
+          -6 & 5 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          0 & 1 \\
+          -6 & 5 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          \lambda & 0 \\
+          0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          -\lambda & 1 \\
+          -6 & 5 - \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and its determinant $|A - \lambda I|$</p>
+
+        <p>$|A - \lambda I| = (-\lambda)(5 - \lambda) - (-1)(-6)$</p>
+        <p>$|A - \lambda I| = -5 \lambda + \lambda^2 + 6$</p>
+        <p>$|A - \lambda I| = \lambda^2 - 5 \lambda + 6$</p>
+
+        <p>Solve the characteristic equation for the eigenvalues.</p>
+
+        <p>$\lambda^2 - 5 \lambda + 6 = 0$</p>
+        <p>$(\lambda - 2)(\lambda - 2) = 0$</p>
+        <p>$\lambda = 2, 3$</p>
+
+        <p>For the eigenvalue $\lambda_1 = 2$, we find:</p>
+
+        <p>$
+          A - 2I = 
+          \begin{bmatrix}
+          -2 & 1 \\
+          -6 & 3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put this matrix into reduced row echelon form.</p>
+
+        <p>$
+          \begin{bmatrix}
+          -2 & 1 \\
+          -6 & 3 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -\frac{1}{2} \\
+          -6 & 3 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -\frac{1}{2} \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn this first row into an equation, we get:</p>
+
+        <p>$k_1 - \frac{1}{2}k_2 = 0$</p>
+        <p>$k_1 = \frac{1}{2}k_2$</p>
+
+        <p>We'll choose $k_2 = 2$, which results in $k_1 = 1$.</p>
+
+        <p>$\overrightarrow{x_1} = k_1 e^{\lambda_1 t}$</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+          \begin{bmatrix}
+          1 \\
+          2 \\
+          \end{bmatrix}
+          e^{2t}
+          $
+        </p>
+
+        <p>For the eigenvalue $\lambda_1 = 3$, we find:</p>
+
+        <p>$
+          A - 3I = 
+          \begin{bmatrix}
+          -3 & 1 \\
+          -6 & 2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put this matrix into reduced row echelon form.</p>
+
+        <p>$
+          \begin{bmatrix}
+          -3 & 1 \\
+          -6 & 2 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & - \frac{1}{3} \\
+          -6 & 2 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & - \frac{1}{3} \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn this first row into an equation, we get:</p>
+
+        <p>$k_1 - \frac{1}{3}k_2 = 0$</p>
+        <p>$k_1 = \frac{1}{3}k_2$</p>
+
+        <p>We'll choose $k_2 = 3$, which results in $k_1 = 1$.</p>
+
+        <p>$\overrightarrow{x_2} = k_2 e^{\lambda_2 t}$</p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          e^{3t}
+          $
+        </p>
+
+        <p>So the general solution to the homogenous system is:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$</p>
+
+        <p>$
+          \overrightarrow{x} 
+
+          = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          2 \\
+          \end{bmatrix}
+          e^{2t}
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          e^{3t}
+          $
+        </p>
+
+        <p>The initial conditions we were given for the original differential equation were $y(0) = 1$ and $y(0) = -1$. If we substitute $t=0$ into these equations, we get:</p>
+
+        <p>$x_1(0) = y(0) = 1$</p>
+        <p>$x_2(0) = y'(0) = -1$</p>
+
+        <p>These new initial conditions are $x_1(0) = 1$ and $x_2(0) = -1$, which means the vector $\overrightarrow{x}(0)$ is $(1, -1)$. Plugging the vector and $t=0$ into the general solution, we get:</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+
+          = 
+
+          \overrightarrow{x}(0)
+
+          = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          2 \\
+          \end{bmatrix}
+          e^{2(0)}
+
+          + 
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          e^{3(0)}
+          $
+        </p>
+
+        <p>$
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+
+          = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          2 \\
+          \end{bmatrix}
+
+          +
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>which gives us the system of equations:</p>
+
+        <p>$c_1 + c_2 = 1$</p>
+        <p>$2c_1 + 3c_2 = -1$</p>
+
+        <p>Solving this system gives $c_1 = 4$ and $c_2 = -3$, so the solution to the initial value problem is therefore:</p>
+
+        <p>$
+          \overrightarrow{x} 
+
+          = 
+
+          4
+          \begin{bmatrix}
+          1 \\
+          2 \\
+          \end{bmatrix}
+          e^{2t}
+
+          - 
+
+          3
+          \begin{bmatrix}
+          1 \\
+          3 \\
+          \end{bmatrix}
+          e^{3t}
+          $
+        </p>
+
+        <p>This is the solution to the system, but we'd like to find the solution to the original second order differential equation. Remember that we defined:</p>
+
+        <p>$
+          \overrightarrow{x}(t)
+
+          = 
+
+          \begin{bmatrix}
+          x_1(t) \\
+          x_2(t) \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          y(t) \\
+          y'(t) \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>We can break down our solution into two equations:</p>
+
+        <p>$x_1(t) = y(t) = 4e^{2t} - 3e^{3t}$</p>
+        <p>$x_2(t) = y'(t) = 8e^{2t} - 9e^{3t}$</p>
+
+        <p>The solution to the general equation is therefore:</p>
+
+        <p>$y(t) = 4e^{2t} - 3e{3t}$</p>
+
+    <h3 id="equal_real_eig">Equal Real Eigenvalues with Multiplicity Two</h3>
+
+      <p>For equal real eigenvalues, there are two cases we want to consider:</p>
+        <ol>
+          <li>Where the repeated eigenvalue produces multiple linearly independent eigenvectors</li>
+          <li>When the repeated eigenvalue produces only one eigenvector</li>
+        </ol>
+
+      <p>In the first case, the solution to the system will be just like the solution for distinct eigenvalues, $\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2} + \ldots + c_n \overrightarrow{x_n}$. In the second case, we'll still use the single eigenvector for the solution $\overrightarrow{x_1}$, but then need a special equation:</p>
+
+      <p>$(A - \lambda_1 I) \overrightarrow{p} = \overrightarrow{k_1}$</p>
+
+      <p>in order to find the second solution:</p>
+
+      <p>$\overrightarrow{x_2} = \overrightarrow{k_1} te^{\lambda_1 t} + \overrightarrow{p_1} e^{\lambda_1 t}$</p>
+
+      <p>Substituting the single eigenvector into $(A - \lambda I) \overrightarrow{p} = \overrightarrow{k_1}$ for $\overrightarrow{k_1}$ allows us to find a second vector $\overrightarrow{p_1}$ that we can use for the second solution, $\overrightarrow{x_2}$.</p>
+
+      <p>An eigenvalue with multiplicity two is an eigenvalue that shows up twice in the characteristic equation.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the general solution to the following system:</p>
+
+        <p>$
+          \overrightarrow{x}' = 
+          \begin{bmatrix}
+          3 & -1 & -1 \\
+          1 & 1 & -1 \\
+          1 & -1 & 1 \\
+          \end{bmatrix}
+          \overrightarrow{x}
+          $
+        </p>
+
+        <p>We'll need to start by finding the matrix $A - \lambda I$.</p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          3 & -1 & -1 \\
+          1 & 1 & -1 \\
+          1 & -1 & 1 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 & 0 \\
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          3 & -1 & -1 \\
+          1 & 1 & -1 \\
+          1 & -1 & 1 \\
+          \end{bmatrix}
+
+          - 
+
+          \begin{bmatrix}
+          \lambda & 0 & 0 \\
+          0 & \lambda & 0 \\
+          0 & 0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          3 - \lambda & -1 & -1 \\
+          1 & 1 - \lambda & -1 \\
+          1 & -1 & 1 - \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>and then find its determinant $|A - \lambda I|$</p>
+
+        <p>$
+          |A - \lambda I| = (3 - \lambda)
+          \begin{vmatrix}
+          1 - \lambda & -1 \\
+          -1 & 1 - \lambda \\
+          \end{vmatrix}
+
+          -
+
+          (-1)
+          \begin{bmatrix}
+          1 & -1 \\
+          1 & 1 - \lambda \\
+          \end{bmatrix}
+
+          + 
+
+          (-1)
+          \begin{bmatrix}
+          1 & 1 - \lambda \\
+          1 & -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$|A - \lambda I| = (3 - \lambda) [(1 - \lambda) - (-1)(-1)] + [(1)(1 - \lambda) - (-1)(1)] - [(1)(-1) - (1 - \lambda)(1)]$</p>
+        <p>$|A - \lambda I| = (3 - \lambda) (1 - 2 \lambda + \lambda^2 - 1) + (1 - \lambda + 1) - (-1 - 1 + \lambda)$</p>
+        <p>$|A - \lambda I| = (3 - \lambda) (-2 \lambda + \lambda^2) + 1 - \lambda + 1 + 1 + 1 - \lambda$</p>
+        <p>$|A - \lambda I| = -6 \lambda + 3 \lambda^2 + 2\lambda^2 - \lambda^3 + 4 - 2 \lambda$</p>
+        <p>$|A - \lambda I| = 4 - 8 \lambda + 5 \lambda^2 - \lambda^3$</p>
+
+        <p>Solve the characteristic equation for the eigenvalues.</p>
+
+        <p>$4 - 8 \lambda + 5 \lambda^2 - \lambda^3 = 0$</p>
+        <p>$\lambda^3 - 5 \lambda^2 + 8 \lambda - 4 = 0$</p>
+        <p>$(\lambda - 1)(\lambda - 2)(\lambda - 2) = 0$</p>
+        <p>$\lambda = 1, 2, 2$</p>
+
+        <p>We'll handle $\lambda_1 = 1$ first, starting with finding $A - 1I$.</p>
+
+        <p>$
+          A - 1I = 
+          \begin{bmatrix}
+          3-1 & -1 & -1 \\
+          1 & 1-1 & -1 \\
+          1 & -1 & 1-1 \\
+          \end{bmatrix}
+          $
+
+          $
+          A - 1I = 
+          \begin{bmatrix}
+          2 & -1 & -1 \\
+          1 & 0 & -1 \\
+          1 & -1 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put this matrix into reduced row echelon form.</p>
+
+        <p>$
+          \begin{bmatrix}
+          1 & 0 & -1 \\
+          2 & -1 & -1 \\
+          1 & -1 & 0 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 0 & -1 \\
+          0 & -1 & 1 \\
+          1 & -1 & 0 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 0 & -1 \\
+          0 & -1 & 1 \\
+          0 & -1 & 1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 0 & -1 \\
+          0 & 1 & -1 \\
+          0 & -1 & 1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 0 & -1 \\
+          0 & 1 & -1 \\
+          0 & 0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn this into a system of equations, we get:</p>
+
+        <p>$k_1 - k_3 = 0$</p>
+        <p>$k_2 - k_3 = 0$</p>
+
+        <p>or </p>
+
+        <p>$k_1 = k_3$</p>
+        <p>$k_2 = k_3$</p>
+
+        <p>If we choose $k_3 = 1$, we get $k_1 = 1$ and $k_2 = 1$, or:</p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and therefore </p>
+
+        <p>$\overrightarrow{x_1} = \overrightarrow{k_1} e^{\lambda_1 t}$</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^t
+          $
+        </p>
+
+        <p>Then for the repeated eigenvalues $\lambda_2 = \lambda_3 = 2$, we find:</p>
+
+        <p>$
+          A - 2I = 
+          \begin{bmatrix}
+          3-2 & -1 & -1 \\
+          1 & 1-2 & -1 \\
+          1 & -1 & 1-2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - 2I = 
+          \begin{bmatrix}
+          1 & -1 & -1 \\
+          1 & -1 & -1 \\
+          1 & -1 & -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put this matrix into reduced row echelon form.</p>
+
+        <p>$
+          \begin{bmatrix}
+          1 & -1 & -1 \\
+          0 & 0 & 0 \\
+          1 & -1 & -1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & -1 & -1 \\
+          0 & 0 & 0 \\
+          0 & 0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn this first row into an equation, we get:</p>
+
+        <p>$k_1 - k_2 - k_3 = 0$</p>
+        <p>$k_1 = k_2 + k_3$</p>
+
+        <p>We'll choose $(k_2, k_3) = (1, 0)$, which results in $k_1 = 1$.</p></p>
+
+        <p>$
+          k_2 = 
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and therefore</p>
+
+        <p>$\overrightarrow{x_2} = \overrightarrow{k_2} e^{\lambda_2 t}$</p>
+
+        <p>$
+          x_2 = 
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          0 \\
+          \end{bmatrix}
+          e^{2t}
+          $
+        </p>
+
+        <p>We can find a second linearly independent eigenvector from $k_1 = k_2 + k_3$. If we choose $(k_2, k_3) = (0,1)$ instead, we get $k_1 = 1$, and find a second eigenvector.</p>
+
+        <p>$
+          \overrightarrow{k_3} = 
+          \begin{bmatrix}
+          1 \\
+          0 \\
+          1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and therefore:</p>
+
+        <p>$\overrightarrow{x_3} = \overrightarrow{k_3} e^{\lambda_3 t}$</p>
+
+        <p>$
+          \overrightarrow{x_3} = 
+          \begin{bmatrix}
+          1 \\
+          0 \\
+          1 \\
+          \end{bmatrix}
+          e^{2t}
+          $
+        </p>
+
+        <p>$\overrightarrow{k_2} = (1,1,0)$ and $\overrightarrow{k_3} = (1,0,1)$ are linearly independent of one another because there is no constant by which we can multiply either vector that results in the other vector. Therefore, the general solution will be:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2} + c_3 \overrightarrow{x_3}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          1 \\
+          \end{bmatrix}
+          e^t
+
+          + 
+
+          c_2
+          \begin{bmatrix}
+          1 \\
+          1 \\
+          0 \\
+          \end{bmatrix}
+
+          + 
+
+          c_3
+          \begin{bmatrix}
+          1 \\
+          0 \\
+          1 \\
+          \end{bmatrix}
+          e^{2t}
+          $
+        </p>
+
+        <p>Let's do another example with real eigenvalues, but one where we find only one eigenvector associated with the two equal eigenvalues.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the general solution to the following system of differential equations.</p>
+
+        <p>$x_1'(t) = 2x_1 - x_2$</p>
+        <p>$x_2'(t) = x_1 + 4x_2$</p>
+
+        <p>We can represent this system in matrix form as:</p>
+
+        <p>$\overrightarrow{x}' = A \overrightarrow{x}$</p>
+
+        <p>$
+          \overrightarrow{x}' = 
+
+          \begin{bmatrix}
+          2 & -1 \\
+          1 & 4 \\
+          \end{bmatrix}
+          \overrightarrow{x}
+          $
+        </p>
+
+        <p>We'll need to find the matrix $A - \lambda I$</p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          2 & -1 \\
+          1 & 4 \\
+          \end{bmatrix}
+
+          - 
+
+          \lambda
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          2 & -1 \\
+          1 & 4 \\
+          \end{bmatrix}
+
+          - 
+
+          \begin{bmatrix}
+          \lambda & 0 \\
+          0 & \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - \lambda I = 
+
+          \begin{bmatrix}
+          2 - \lambda & -1 \\
+          1 & 4 - \lambda \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>and then find its determinant, $|A - \lamdba I|$</p>
+
+        <p>$|A - \lamdba I| = (2 - \lambda) (4 - \lambda) - (-1)(1)$</p>
+        <p>$|A - \lamdba I| = 8 - 2 \lambda - 4 \lambda + \lambda^2 + 1$</p>
+        <p>$|A - \lamdba I| = \lambda^2 - 6 \lambda + 9$</p>
+
+        <p>Solve for the characteristic equation for eigenvalues.</p>
+
+        <p>$\lambda^2 - 6 \lambda + 9 = 0$</p>
+        <p>$(\lambda - 3)(\lambda - 3) = 0$</p>
+        <p>$\lambda = 3, 3$</p>
+
+        <p>For these eigenvalues, $\lambda_1 = \lambda_2 = 3$, we find:</p>
+
+        <p>$
+          A - 3I = 
+          \begin{bmatrix}
+          2-3 & -1 \\
+          1 & 4-3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>$
+          A - 3I = 
+          \begin{bmatrix}
+          -1 & -1 \\
+          1 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Put this matrix into reduced row echelon form.</p>
+
+        <p>$
+          \begin{bmatrix}
+          1 & 1 \\
+          1 & 1 \\
+          \end{bmatrix}
+
+          \to 
+
+          \begin{bmatrix}
+          1 & 1 \\
+          0 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>If we turn the first row into an equation, we get:</p>
+
+        <p>$k_1 + k_2 = 0$</p>
+        <p>$k_1 = -k_2$</p>
+
+        <p>We'll choose $k_2 = -1$, which results in $k_1 = 1$.</p>
+
+        <p>$
+          \overrightarrow{k_1} = 
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Other than the trivial solution $k_1 = (0,0)$, any other $(k_1, k_2)$ pair we find from $k_1 = -k_2$ will result in a vector that is linearly dependent with the $\overrightarrow{k}_1 = (1, -1)$ vector we already found. So we can say that the eigenvalue $\lambda_1 = \lambda_2 = 3$ produces only one eigenvector.</p>
+
+        <p>$\overrightarrow{x_1} = \overrightarrow{k_1} e^{\lambda_1 t}$</p>
+
+        <p>$
+          \overrightarrow{x_1} = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^{3t}
+          $
+        </p>
+
+        <p>Because we only find one eigenvector for the two eigenvalues $\lambda_1 = \lambda_2 = 3$, we have to use $\overrightarrow{k_1} = (1, -1)$ to find a second solution.</p>
+
+        <p>$(a - \lambda_1 I) \overrightarrow{p_1} = \overrightarrow{k}$</p>
+
+        <p>$
+          \begin{bmatrix}
+          -1 & -1 \\
+          1 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          p_1 \\
+          p_2 \\
+          \end{bmatrix}
+
+          = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+        <p>Expanding this matrix equation as a system of equations gives:</p>
+
+        <p>$-p_1 - p_2 = 1$</p>
+        <p>$p_1 + p_2 = -1$</p>
+
+        <p>This is equivalent to just one equation, because multiplying through the second equation by -1 results in the first equation. There are an infinite number of value pairs we can choose for $\overrightarrow{p_1} = (1, -2)$. Then our second solution will be:</p>
+
+        <p>$
+          \overrightarrow{x_2} = 
+
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          te^{3t}
+
+          + 
+
+          \begin{bmatrix}
+          1 \\
+          -2 \\
+          \end{bmatrix}
+          e^{3t}
+          $
+        </p>
+
+        <p>and the general solution to the homogenous system is:</p>
+
+        <p>$\overrightarrow{x} = c_1 \overrightarrow{x_1} + c_2 \overrightarrow{x_2}$</p>
+
+        <p>$
+          \overrightarrow{x} = 
+
+          c_1
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          e^{3t}
+
+          + 
+
+          c_2
+          \left(
+          \begin{bmatrix}
+          1 \\
+          -1 \\
+          \end{bmatrix}
+          te^{3t}
+
+          + 
+
+          \begin{bmatrix}
+          1 \\
+          -2 \\
+          \end{bmatrix}
+          e^{3t}
+          \right)
+          $
+        </p>
+
+
+
+
+
+
+
+        </br></br>
+        <p>Here is a link to <a href="diff_eqs_pt4.html">part 4</a></p>
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+

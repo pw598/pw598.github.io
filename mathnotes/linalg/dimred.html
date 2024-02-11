@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+<h1>Dimension Reduction, Mike Cohen Course</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#mixing_sep">Sources, Mixing, & Source Separation</a></td><td><a href="#opt_criteria">Weight Optimization Criteria</a></td></tr>
+ <tr><td><a href="#eigendecomp">Eigendecomposition</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#covar_mat">Covariance Matrices</a></td><td><a href="#creating_covar_mat">Creating Covariance Matrices</a></td></tr>
+ <tr><td><a href="#quadratic_form">The Quadratic Form</a></td><td>&nbsp;</td></tr>
+ <tr><td><a href="#pca">Principal Components Analysis (PCA)</a></td><td><a href="#pca_orthog">PCA Orthogonality</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#svd">Singular Value Decomposition (SVD) Instead</a></td></tr>
+ <tr><td><a href="#ged">Generalized Eigendecomposition (GED)</a></td><td><a href="#two_stage">Two-Stage Compression and Source Separation</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#zca">Zero-Phase Components Analysis (ZCA) Pre-Whitening</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#reg">Regularization</a></td></tr>
+ <tr><td><a href="#ica">Independent Components Analysis (ICA)</a></td><td></td></tr>
+</tbody></table>
+
+
+    <p>The goal of feature extraction is to transform a set of features, such that $p_{new} \lt p_{old}$, but while keeping most of the underlying information. One method of feature extraction is dimensionality reduction, and a collection of methods which help to do this, as well as seperate sources, is linear spatial filters.</p>
+
+    <p>A spatial filter is a set of weights, such that when applied to a set of variables, it optimizes for some criteria. They are designed such that each component isolates a pattern in the data that may be difficult to identify in any manifest variables. Also known as spatial decompositions, linear spatial filters are heavily used in signal detection, and their definition can be broken down as follows:</p>
+        <ul>
+          <li>Filters define new data points as transformations of existing ones</li>
+          <li>Spatial refers to a focus on objects rather than time points</li>
+          <li>Linear means based on addition and scalar-multiplication only</li>
+        </ul>
+
+
+
+    <h2 id="mixing_sep">Sources, Mixing, &amp; Source Separation</h2>
+
+        <p>Signal mixing at time of data capture or generation motivates multivariate analysis; i.e., the identification of patterns across the array of sensors, rather than separating into mass-univariate analysis. Other multivariate analysis methods include Tucker decomposition and non-negative matrix-factorization.</p>
+
+        <p>There are many potential sources of signals, such as anatomical, computational, or statistical. True sources are called latent constructs, the sensors called manifest variables, and the interpretive reconstruction of sources called components. Picture several musicians in a room with multiple microphones, feeding into a single audio receiver. $S$ is a matrix that contains multiple sources and all of their time courses. We don't actually know $S$, but wish to estimate it. Matrix $A$, sometimes called the mixing matrix, transforms the sources $S$ into the manifest variables that are actually measured by sensors, data matrix $X$. $W$, a weights matrix, then transforms $X$ into our estimation of $Y$, the estimated source components.</p>
+
+        <p>$AS = X$ represents the sources of information matrix $S$ mixing with the effect of the sensors/equipment ($A$), and producing the resulting data in matrix $X$. $W^T = Y$ represents the weights-matrix multiplying $X$ in order to reconstruct the signals. Given that $Y$ is a reconstruction of $S$, one could also express this as $AY = X$, and by further derivation, $W^{-T} = A$. $W^{-T}$ is sometimes called the 'forward model' or activation pattern.</p>
+
+        <p>Source separation can occur with or without dimension reduction, and vice versa.</p>
+
+
+        <h3 id="opt_criteria">Weight Optimization Criteria</h3>
+
+            <p>Depending on the decomposition method, weights optimize for some criteria. The spatial filter PCA optimizes the component weights for maximal variance, while forcing all components to be mutually orthogonal. ICA optimizes for independence and non-Gaussianity, and is often used for cleaning (like denoising brain signals of muscle activity) but often not appropriate for determining the ground-truth pattern. GED optimizes for independence and maximum multivariate signal-to-noise ratio.</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Abbrev</th><th>Name</th><th>Description</th></tr></thead><tbody>
+             <tr><td>PCA</td><td>Principal Components Analysis</td><td>Orthogonal, has maxiumum covariance power</td></tr>
+             <tr><td>GED</td><td>Generalized Eigendecomposition</td><td>Has idependence, maximizes the multivariate signal/noise ratio</td></tr>
+             <tr><td>ICA</td><td>Independent Components Analysis</td><td>Has independence, is non-Gaussian</td></tr>
+             <tr><td>SVD</td><td>Singular Value Decomposition</td><td>Same result as eigendecompostion on the covariance matrix</td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;</td><td>Can handle rectangular matrices </td></tr>
+            </tbody></table>
+
+            </br>
+            <p>Dimension in the context of multivariate signal processing, can be defined in several ways. Geometrically, zero dimensions are represented by a point, one dimension by a line, and two dimensions by a plane, etc. Dimension may also refer to the number of channels or variables.</p>
+
+
+
+    <h2 id="eigendecomp">Eigendecomposition</h2>
+
+        <p>Spatial filtering techniques largely employ eigendecomposition, a linear algebra concept, as their method of solving for feature importance. For example, PCA is eigendecomposition upon a covariance matrix. Matrix-vector multiplication usually has the effect of rotating the vector, but when it applies no rotation, then the matrix is acting upon the vector as a scalar would, and in these cases, that vector is called an eigenvector, and that scalar an eigenvalue. The larger the eigenvalue, the greater the presumed feature importance. The eigendecomposition equation is that $Av = \lambda v$, where $A$ represents the matrix, $v$ represents the eigenvector, and $\lambda$ represents the eigenvalue. To make the sizes right when solving, $\lambda$ gets multiplied by the identity matrix.</p>
+
+        <p>Eigendecomposition is done upon the covariance matrix, which is necessarily square. If non-square, SVD (singular value decomposition) can be used instead.</p>
+
+
+
+    <h2 id="covar_mat">Covariance Matrices</h2>
+
+        <p>Many techniques in statistics, data analysis, and signal processing involve working with or decomposing covariance matrices. Covariance is a measure of the strength and sign of the linear relationship between two variables, in the scale of the original data. Correlation is a single number that reflects this relationship when normalized to between $0$ and $1$. </p>
+
+        <p>The covariance between a pair of variables is:</p>
+
+        <p>$$C = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x}) (y_i - \bar{y})$$</p>
+
+        <p>Correlation is:</p>
+
+        <p>$$r = \frac{ \sum_{i=1}^n (x_i - \bar{x}) (y_i - \bar{y}) }{ \sqrt{ \sum_{i=1}^n (x_i - \bar{x})^2 \sum_{i=1}^n (y_i - \bar{y})^2 } }$$</p>
+
+        <p>In matrix notation:</p>
+
+        <p>$$C = (n-1)^{-1} XX^T$$</p>
+        <p>$$R = \Sigma^{-1} C \Sigma^{-1}$$</p>
+        <p>where $\Sigma$ is a diagonal matrix of standard devations.</p>
+
+
+        <h3 id="creating_covar_mat">Creating Covariance Matrices</h3>
+
+            <p>Selecting data for covariance matrices is one of the most important decisions when designing spatial filters. One decision is whether to have one or multiple covariance matrices, potentially taking an average over multiple segments of time/observations. When data is non-stationary, averaging over multiple events is a possible downfall of the one-matrix approach. Longer time windows can be more stable, but shorter time windows give more temporal specificity, and segments should be long enough to capture the time-scale of dynamics.</p></p>
+
+            <p>Sorting the channels/variables in the covariance matrix (such as by location, if using sensors) makes it easier to visually interpret and evaluate. For wave data, non-phase locked data can have a very large impact on the covariance matrix, relative to phase-locked data. </p>
+
+            <p>Pre-emptive data cleaning strategies include:</p>
+                <ol>
+                    <li>Start with clean data</li>
+                    <li>Mechanical cleaning of artifacts, noisy channels, etc.</li>
+                    <li>Clean data with independent components analysis (ICA)</li>
+                    <li>Apply temporal filters</li>
+                    <li>Compute covariance matrices in appropriate time windows</li>
+                </ol>
+
+            <p>One more method is distance-based covariance cleaning, where the distance between each of the individual covariance matrices and the average covariance matrix are calculated, such as by the Frobenius norm or Euclidean distance. The z-score distance measure can also be used, to identify outliers.</p>
+
+
+
+    <h2 id="quadratic_form">The Quadratic Form</h2>
+
+        <p>Take a square matrix, take a vector with the same number of elements as there are rows and columns in the square matrix, and then pre-multiply and post-multiply the matrix with that vector:</p>
+
+        <p>$$w^TCw$$</p>
+
+        <p>where for our applications, $C$ is a covariance matrix</p>
+
+        <p>This can be thought of as the energy in matrix $C$ at each coordinate in $w$</p>
+
+        <p>$$
+            w^TAw =
+
+            \begin{bmatrix} 
+            x & y & z \\ 
+            \end{bmatrix}
+
+            \begin{bmatrix} 
+            a & f & d \\ 
+            f & b & e \\
+            d & e & c \\ 
+            \end{bmatrix}
+
+            \begin{bmatrix} 
+            x \\
+            y \\ 
+            z \\
+            \end{bmatrix}
+        $$</p>
+
+            <p>Consider a function which takes a matrix and a vector $w$, and the output is the quadratic form</p>
+
+            <p>$$f(C,w) = w^TSw = \epsilon \text{ (a single number)}$$</p>
+
+            <p>The normalized quadratic form is:</p>
+
+            <p>$$argmax \biggl\{ \frac{w^TCw}{w^Tw} \biggr\}$$</p>
+
+
+
+    <h2 id="pca">Principal Components Analysis (PCA)</h2>
+
+        <p>The goal of PCA is to create a weighted combination of channels such that the resulting component has maximal variance, given the constraint that the magnitude of the weights vector must equal one.</p>
+
+        <p>Variance:</p>
+        <p>$$\sigma^2 = \frac{1}{n-1} \sum_{i=1}^n (w_i - \bar{w})^2$$</p>
+
+        <p>Magnitude:</p>
+        <p>$$||w||^2 = \sum_{i=1}^n w_i^2$$</p>
+
+        <p>Maximizing either variance or vector magnitude has the effect of maximizing the other.</p>
+
+        <p>The mathematical description of the objective of PCA is to take our single component that is defined as the weighted combination of all data channels, and maximize the variance of that, which is the same as maximizing the magnitude squared of $w^TX$, a vector.</p>
+
+        <p>$$argmax_w ||w^TX||^2$$</p>
+
+        <p>But we add a constraint to the weighted combination of channels, since w can be arbitrarily large</p>
+
+        <p>$$argmax_w \frac{ ||w^TX||^2 }{ ||w||^2 }$$</p>
+
+        <p>The magnitude squared of $w$ is the same as the dot product of $w$ with itself, $w^Tw$. Note that $w^TX$ is a row vector. We can derive that this is equivalent to the formula looked at earlier.</p>
+
+        <p>$$\frac{ ||wTX||^2 }{ ||w^2|| }$$</p>
+        <p>$$= \frac{ (w^TX)(w^TX)^T }{ w^Tw }$$</p>
+        <p>$$= \frac{ w^TXX^Tw }{ w^Tw }$$</p>
+        <p>$$= \frac{ w^TCw }{ w^Tw }$$</p>
+        <p>$$= w^TCw, \text{ such that } ||w|| = 1$$</p>
+        <p>$$\lambda = argmax_w \biggl\{ \frac{w^TCw}{w^Tw} \biggr\}$$</p>
+
+        <p>In matrix form:</p>
+
+        <p>$$\Lambda = (W^TW)^{-1} W^TCW$$</p>
+        <p>$$\Lambda = W^{-1}W^{-T}W^TCW$$</p>
+        <p>$$\Lambda = W^{-1}CW$$</p>
+        <p>$$W \Lambda = CW$$</p>
+
+        <p>Note that this is the eigenvalue equation. We have an eigendecomposition of matrix $C$, where $W$ are the eigenvectors, and $\Lambda$ is a diagonal matrix with the eigenvalues.</p>
+
+        <p>This means that the solution to our objective is simply to do an eigendecomposition on covariance matrix $C$, and we get the weights that tell us how to linearly combine all the channels to maximize variance. The value of the normalized variance is encoded in $\lambda$.</p>
+
+        <p>The eigendecomposition of a covariance matrix tells us the covariance directions. $PC_1$ finds the direction of maximal covariance in the data space, and $PC_2$ finds the direction of maximal covariance that is orthogonal to all previous principal components.</p>
+
+            <h4>Steps to Perform a Principal Components Analysis (PCA):</h4>
+                <ol>
+                    <li>Compute the covariance matrix of the data</li>
+                        <ul>
+                            <li>Use appropriate time windows</li>
+                            <li>Mean-center (each channel should have a mean of $0$)</li>
+                            <li>Remove bad channels</li>
+                            <li>Temporal filtering</li>
+                        </ul>
+                    <li>Take the eigendecomposition of the covariance matrix</li>
+                    <li>Sort columns according to eigenvalue magnitude</li>
+                    <li>Compute the component scores, a.k.a. projections or component time series</li>
+                    <li>(Optional) Convert to percent variance explained. The eigenvalues are in the scale of the variance of the data, which can be difficult to interpret.</li>
+                        <ul>
+                            <li>Just divide all of the individual eigenvalues by the sum over all of the eigenvalues</li>
+                        </ul>
+                    <li>Inspect and interpret. Visualize the results</li>
+                </ol>
+
+
+        <h3 id="pca_orthog">PCA Orthogonality</h3>
+
+            <p>Various perspectives on orthogonality:</p>
+                <ul>
+                    <li>Geometric: orthogonal vectors meet at a right angle</li>
+                    <li>Algebraic: orthogonal vectors have a dot product of zero</li>
+                    <li>Statistical: orthogonal vectors have correlation of zero</li>
+                </ul>
+
+            <p>Proof of orthogonality, using assumptions $C = C^T$ and $\lambda_1 \neq \lambda_2$, is given as:</p>
+
+            <p>$$\lambda_1 w_1^T w_2 = (Cw_1)^T w_2$$</p>
+            <p>$$= w_1^TC^Tw = w_1 \lambda_2 w_2 = \lambda_2 w_1^T w_2$$</p>
+            <p>$$\lambda_1 w_1^T w_2 = \lambda_2 w_1^T w_2$$</p>
+            <p>$$\lambda_1 w_1^T w_2 - \lambda w_1^T w_2 = 0$$</p>
+            <p>$$(\lambda_1 - \lambda_2) w_1^T w_2 = 0$$</p>
+
+            <p>The implication of all principal components being pairwise orthogonal is that PCA is great for squeezing out low-variance dimensions, but that PCA is generally not good for source separation, unless the sources are already orthogonal in the data space. Since all pairs of eigenvectors are orthogonal, their dot product is zero. Since this is the case for an eigenvectors matrix $W$, all of the off-diagonal elements in matrix $W^TW$ are zero. The diagonal elements are the dot product of the eigenvector with itself. Software packages tend to take one extra step and normalize the eigenvectors to be unit length, making for ones on the diagonal. This is a special property of the eigenvectors of a symmetric matrix, making for $W^TW = I$. This means that $W^T$ is the same as $W^{-1}$, because $W^T = W^{-1}$.</p>
+
+            <p>Eigenvectors are unit-normed. They point in a direction but do not encode importance. The eigenvalues encode variance (importance) but not direction. The sum of all eigenvalues is the total variation in the signal.</p>
+
+
+        <h3 id="svd">Singular Value Decomposition (SVD) Instead</h3>
+
+            <p>SVD and eigendecomposition are both valid methods for PCA, and in fact give the same result. SVD is a way of decomposing one matrix into 3 matrices such that the product of these 3 matrices equals the original data $X$.</p>
+
+            <p>$$X = U \Sigma V^T$$</p>
+
+            <p>$U$ refers to the column space of $X$; $V^T$ refers to an orthogonal basis for the row space of $X$, and $\Sigma$ refers to the signular values of $X$. $\Sigma$ is the same size as $X$, but is a diagonal matrix (similar to $\Lambda$, the eigenvalues matrix).</p>
+
+            <p>$$X = U \Sigma V^T$$
+            <p>$$XX^T = U \Sigma V^T (U \Sigma V^T)^T$$</p>
+            <p>$$XX^T = U \Sigma V^T V^TT \Sigma^T U^T$$</p>
+            <p>$$XX^T = U \Sigma I \Sigma^T V^T$$</p>
+            <p>$$XX^T = U \Sigma^2 V^T$$</p>
+
+
+            <h4>Relationship Between Eigendecomposition and SVD:</h4>
+
+                <p>The eigenvalues of $C$ are the squared singular values of $X$. The eigenvectors of $C$ are the left singular vectors of $X$. Therefore, PCA can be computed on the covariance matrix $C$, or SVD can be computed on the data matrix $X$, and the results are the same.</p>
+
+
+            <p>Advantages and disadvantages of eigendecomposition and SVD include:</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Eigendecomposition</th><th>SVD</th></tr></thead><tbody>
+             <tr><td>More code</td><td>Less code</td></tr>
+             <tr><td>Memory-Friendly</td><td>Memory-Intensive</td></tr>
+             <tr><td>Easier to control data selection and averaging</td><td>More difficult to exclude noisy or irrelevant data</td></tr>
+            </tbody></table>
+
+            </br>
+            <p>Key limitations of PCA as it applies to source separation are:</p>
+                <ol>
+                    <li>True sources are rarely orthogonal, but PCA is limited to orthogonal rotations</li>
+                    <li>Variance does not necessarily mean relevance. The most interesting patterns in the data may not have the largest variance, and PCA may focus on artifacts or uninteresting patterns</li>
+                    <li>PCA is not amenable to hypothesis testing</li>
+                </ol>
+
+            <p>In summary, PCA is great for reducing data from $M$ to $d$ dimensions, where $1 \lt d \lt M$, but it is theoretically and empirically suboptimal for source separation, where $d=1$.</p>
+
+
+
+    <h2 id="ged">Generalized Eigendecomposition (GED)</h2>
+
+        <p>GED is a multivariate, contrast-enhancing, and source-separating spatial filter, which allows for inferential statistical evaluation. It is a hypothesis-driven source separation and dimension reduction method. Statistically, we have a null hypothesis that the $S$ (signal) and $R$ (reference) matrices are equivalent.</p>
+
+        <p>$$\lambda = argmax_w \biggl\{ \frac{w^TSw}{w^TRw} \biggr\}$$</p>
+
+        <p>The objective of GED is to find the vector $w$ that maximizes $\lambda$. We follow the same procedure we did for PCA; we consider not just one individual weight vector, but a full solution of vectors, which means $W$ turns into a matrix.</p>
+
+        <p>$$\Lambda = (W^TRW)^{-1}W^TSW$$</p>
+        <p>$$\Lambda = W^{-1} R^{-1} W^{-T} W^TSW$$</p>
+        <p>$$W \Lambda = (R^{-1} S) W$$</p>
+        <p>$$RW \Lambda = SW$$</p>
+
+        <p>This is called generalized eigendecomposition or the generalized eigenvalue equation. GED will ignore the factors that are common to $S$ and $R$. Remember that $S$ and $R$ are both covariance matrices.</p>
+
+        <p>The eigenvectors of a GED are not contrained to be orthogonal, as in PCA, because the multiplication of two symmetric matrices $S$ and $R$ does not result in a symmetric product matrix. One implication is that non-orthogonal data can be well-separated in the GED space. The component time series is the data passed through the eigenvector, and the component spatial filter is the covariance matrix $S$ passed through that same filter.</p>
+
+        <p>Component time series: $w_n^TX$</p>
+        <p>Component spatial map: $w_n^TS$</p>
+
+
+            <h4>Sign Uncertainty</h4>
+
+                <p>Sign uncertainty of an eigenvector occurs because an eigenvector is merely pointing along a 1D subspace. However, the sign of the eigenvector determines the sign of the component. 3 strategies for dealing with the component sign issue are:</p>
+                    <ol>
+                        <li>Ignore it, as the component sign does not affect spectral, time-frequency, or synchronization analyses</li>
+
+                        <li>Force the largest-magnitude forward model element to be positive</li>
+
+                        <li>Force each subject's component to be positively correlated with the group-average (flipping the sign of negative correlations)</li>
+                    </ol>
+
+
+            <h4>Constructing the $S$ and $R$ Matrices</h4>
+
+                <p>The quality of source separation results depends on the quality of covariance matrices $S$ and $R$. A requirement is that the same channels/variables are in the same order. Recommendations are:</p>
+                    <ol>
+                        <li>Keep as many variables constant as possible</li>
+                        <li>Use a similar number of time points and trials or data segments</li>
+                        <li>Beware the dangers of overfitting</li>
+                    </ol>
+
+                <p>Common contrasts to emphasize when selecting $S$ and $R$ are:</p>
+                    <ul>
+                        <li>Experiment Conditions</li>
+                        <li>Time Windows</li>
+                        <li>Frequency Ranges</li>
+                        <li>Average vs. Single Trials</li>
+                    </ul>
+
+
+        <h3 id="two_stage">Two-Stage Compression and Source Separation</h3>
+
+            <p>The idea of two-stage compression and source separation is to:</p>
+                <ol>
+                    <li>Use PCA to compress the data from $M$ to $r$ dimensions</li>
+                    <li>Perform GED for source separation</li>
+                </ol>
+
+            <p>This guarantees full-rank matrices, and helps to keep them smaller. It should be used when the data are reduced-rank or the GED solutions are poor. There is a danger that the PCA could remove relevant but low-variance information.</p>
+
+            <p>We first create a new dataset $Y$ which is the principal components by time (instead of channels by time)</p>
+
+            <p>$$Y = V_{1:r}^TX$$</p>
+
+            <p>The eigenvectors $V$ are used as a spatial filter to multiply the channel data. $r$ represents the number of components to keep. Next, we run GED on $Y$ instead of $X$.</p>
+
+
+        <h3 id="zca">Zero-Phase Components Analysis (ZCA) Pre-Whitening</h3>
+
+            <p>ZCA pre-whitening can be applied as a preprocessing step before performing a GED. The idea of applying ZCA whitening is to fan out the data so that the covariance structure is removed. The resulting data will have a covariance matrix that is some constant times the identity matrix.</p>
+
+            <p>You start with your data in matrix $X$ (say a channels by time matrix), then compute the PCA of the data matrix, which will give you a matrix of eigenvectors ($W$) and eigenvalues ($D$). You then take those PCA/eigendecomposed matrices and apply them back to the original data, but modulate the eigenvalues by raising to the inverse square root, $-\frac{1}{2}$. The result will be a matrix $Y$ that is the same size as the data matrix. Then, proceed with GED upon $Y$.</p>
+
+            <p>$$Y = WD^{-1/2}W^TX$$</p>
+
+            <p>What the negative square root in the matrix exponent does is change (invert) the relationship between the eigenvalues, such that the small eigenvalues get larger and the large eigenvalues either get smaller or only a bit larger (values of 1 remain unchanged). So the effect of whitening is to shrink large data directions and expand small data directions. In neuroscience and electrophysiology data, large directions (directions with large covariance) tend to contain higher spatial frequency, so activity that's restricted to a smaller number of electrodes. Whitening the data will reduce the low spatial frequency information and increase the high spatial frequency information. That means that ZCA whitening will increase the spatial precision of the resulting maps.</p>
+
+            <p>One tip is to use the covariance matrix from a baseline period. This will attenuate noise and background activity that is common betwen the baseline and the task. Another tip is to whiten only some dimensions of the data to shrink only the largest features. This will make the whitening even more selective to just the largest features of the data.</p>
+
+
+        <h3 id="reg">Regularization</h3>
+
+            <p>Regularization is used in GED, and involves shifting a matrix. To shift a matrix means to take a square matrix and add some small number to the diagonal elements.</p>
+
+            <p>$$\tilde{A} = A + \lambda I$$</p>
+
+            <p>And this can be used to bring a matrix to full rank. For example, the following shift brings this matrix from rank $2$ to rank $3$</p>
+
+            <p>$$ 
+                A = 
+                \begin{bmatrix} 
+                1 & 3 & -19\\ 
+                5 & -7 & 59\\
+                -5 & 2 & -24\\ 
+                \end{bmatrix}
+
+                + 
+
+                0.01
+                \begin{bmatrix} 
+                1 & 0 & 0\\ 
+                0 & 1 & 0\\
+                0 & 0 & 1\\ 
+                \end{bmatrix}
+
+                = 
+
+                \begin{bmatrix} 
+                1.01 & 3 & -19\\ 
+                5 & -6.99 & 59\\
+                -5 & 2 & -23.99\\ 
+                \end{bmatrix}
+            $$</p>
+
+            <p>The following rank-deficient matrix,</p>
+
+            <p>$$
+                \begin{bmatrix} 
+                1 & 0 & 0\\ 
+                0 & 1 & 0\\
+                0 & 0 & 0\\ 
+                \end{bmatrix}
+            $$</p>
+
+            <p>because there is a column of zeros, can be visualized in $\mathbb{R}^3$ as an infinitely flat disk; but with increasing amounts of regularization, it becomes more spherical. The mechanism of regularization in GED is to shift the $R$ matrix by some small amount. Regularization inflates $R$, which guarantees a full-rank matrix. It smoothes the GED solution by pushing GED toward PCA (in which higher-variance solutions are preferred). Excessive regularization can be detrimental.</p>
+
+            <p>$$\tilde{R} = (1 - \gamma) R + \gamma \alpha I$$</p>
+                <ul>
+                    <li>$\alpha$ is the average of the eigenvalues of $R$</li>
+                    <li>$\gamma$ is the regularization parameter, and varies between $0$ and $1$</li>
+                </ul>
+
+            <p>$$\alpha = n^{-1} \sum_{i=1}^n \lambda_i$$</p>
+
+            <p>When $\gamma = 1$, $R$ becomes the identity matrix, and our GED becomes a PCA on matrix $S$</p>
+
+
+            <h4>When and How Much to Regularize?</h4>
+                <ul>
+                    <li>Regularize as little as possible, as much as necessary</li>
+                    <li>Excessive regularization turns GED into PCA</li>
+                    <li>Can fix a small amount or use cross-validation</li>
+                    <li>Use for low-rank matrices, noisy data, or a too-similar $S$ and $R$</li>
+                </ul>
+
+
+            <h4>Complex Eigenvalues</h4>
+
+                <p>Eigenvectors and eigenvalues can be complex, even for real-valued matrices. Real-valued solutions are guaranteed only for symmetric matrices ($R^{-1}S$ is not symmetric). Complex solutions in GED generally indicate low-quality or inseparable matrices. Inseparable means that $S$ and $R$ are so close to each other that there are not really any features that can discriminate between them.</p>
+
+                <p>Complex solutions can always be resolved. Ways of doing so are as follows:</p>
+
+
+            <h4>Eradicating Complex Eigenvalues</h4>
+                <ul>
+                    <li>Data Method: use more data (longer time windows, wider spectral bands, more trials)</li>
+                    <li>PCA Method: compress data to matrix rank</li>
+                    <li>Regularization Method: add regularization to make $R$ full-rank (don't need to regularize $S$)</li>
+                </ul>
+
+                <p>Ensuring data is in double precision rather than integers helps to increase numerical stability</p>
+
+
+
+    <h2 id="ica">Independent Components Analysis (ICA)</h2>
+
+        <p>ICA tries to find weighted combinations of signals such that the components have signals that are non-Gaussian. The JADE algorithm solves for this by examining kurtosis, but there are also other methods.</p>
+
+        <p>The first step of ICA is to whiten (a.k.a. sphering) the data to remove covariance. You do a PCA on the mixed data and that decorrelates the dataset. Linear dependencies are removed, but shared information (where for example, $PC_1$ tells us something about $PC_2$) is preserved. Then, rotate axes (oblique) to minimize shared information.</p>
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

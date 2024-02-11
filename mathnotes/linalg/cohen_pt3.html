@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+        
+
+
+
+
+
+<h1>Linear Algebra, Cohen Pt. 3</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#eigdecomp">Eigendecomposition</td><td><a href="#eigvalues">Eigenvalues</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#finding_eigvectors">Finding Eigenvectors</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#diagonalization">Diagonalization</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#mat_powers_eigdecomp">Matrix Powers and Eigendecomposition</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#eig_distinct_repeated">Eigenvectors of Distinct and Repeated Eigenvalues</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#eig_symmetric_mat">Eigendecomposition of Symmetric Matrices</td></tr>
+ <tr><td><a href="#svd">Singular Value Decomposition (SVD)</td><td><a href="#svd_subspaces">SVD and the Four Subspaces</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#spectral_theory">Spectral Theory of Matrices</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#svd_low_rank">SVD for Low-Rank Approximations</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#conver_pct_var">Convert Singular Values to Percent Variance</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#svd_inv_pseudo">SVD, Matrix Inverse, and Pseudoinverse</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#svd_pseudo">SVD and Matrix Pseudoinverse</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#svd_left_inv">SVD and the Left-Inverse</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#condition_num_mat">Condition Number of a Matrix</td></tr>
+ <tr><td><a href="#quad_form">The Quadratic Form and Definiteness</td><td><a href="#norm_quad_form">The Normalized Quadratic Form</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#eigvectors_quad_form">Eigenvectors and The Quadratic Form Surface</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#pca">Application of Normalized Quadratic Forms - PCA</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#quad_form_ged">Quadratic Form of GED</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#definiteness_geom_eigvalues">Matrix Definiteness, Geometry, and Eigenvalues</td></tr>
+</tbody></table>
+
+    <h2 id="eigdecomp">Eigendecomposition</h2>
+
+        <p>Eigendecomposition is defined only for square matrices. The purpose is to extract two sets of features - the eigenvectors and eigenvalues. For an $m \times m$ matrix there are $m$ of each. They are paired; each eigenvalue has an eigenvector.</p>
+
+        <p>When multiplying a matrix by a vector, the result is going to be another vector. The effect of matrix $A$ is usually going to involve a rotation of $v$ geometrically. Sometimes there are matrix/vector pairs such that the matrix $A$ does not rotate $w$, and in such cases, we can rewrite $Av=w$ as $\lambda v = Av$, where $\lambda$ is a scalar called an eigenvalue of the matrix and $v$ is an eigenvector.</p>
+
+
+        <h3 id="eigvalues">Eigenvalues</h3>
+
+            <p>There will be as  many eigenvector and eigenvalue pairs as matrix $A$ has columns and rows:</p>
+
+            <p>$$Av = \lambda v$$</p>
+            <p>$$Av - \lambda v = 0$$</p>
+            <p>$$(A - \lambda I) v = 0 \rightarrow Bv = 0$$</p>
+
+            <p>This means the eigenvector is in the null space of vector $A$ when shifted by $-\lambda I$. To have a non-trivial null space, $A - \lambda I$ is a singular matrix because the null space of a full-rank square matrix is the empty set. To be non-trivial, $v$ must contain at least one non-zero element. This also indicates that the determinant of $|A - \lambda I|$ is $0$.</p>
+
+            <p>We know all of the matrix elements except for $\lambda$, and we know the determinant is $0$, so we can solve for $\lambda$. $|A - \lambda I| = 0$, called the characteristic equation of the matrix.</p>
+
+
+            <h4>Example:</h4>
+
+                <p>Solve for $\lambda$ in</p>
+
+                    $$
+                    \begin{bmatrix} 
+                    1 & 5 \\
+                    2 & 4 \\
+                    \end{bmatrix}
+
+                    \rightarrow
+
+                    \left\vert
+
+                    \begin{bmatrix} 
+                    1 & 5 \\
+                    2 & 4 \\
+                    \end{bmatrix}
+
+                    - 
+
+                    \lambda
+
+                    \begin{bmatrix} 
+                        1 & 0 \\
+                        0 & 1 \\
+                        \end{bmatrix}                              
+
+                        \right\vert
+
+                        = 
+
+                        0
+                        $$
+                    </p>
+
+
+                    <p>Answer:</p>
+
+                    <p>
+                        $$
+                        \begin{vmatrix} 
+                        1-\lambda & 5 \\
+                        2 & 4-\lambda \\
+                        \end{vmatrix}                              
+
+                        =
+
+                        0
+                        $$
+                    </p>
+
+
+                <p>$$(1 - \lambda)(4 - \lambda) - 10 = 0$$</p>
+                <p>$$4 - \lambda - 4\lambda - \lambda^2 - 10 = 0$$</p>
+                <p>$$\lambda^2 + 4 - 5\lambda - 10 = 0$$</p>
+                <p>$$\lambda^2 - 5\lambda - 6 = 0$$</p>
+                <p>$$(\lambda - 6)(\lambda + 1) = 0$$</p>
+                <p>$$\lambda = 6, \lambda = -1$$</p>
+
+                    <p>For finding the eigenvalues of a $2 \times 2$ matrix, we can use the trace-determinant shortcut. You subtract $\lambda$ from the diagonal elements, set the determinant to zero, and write out the determinant equation.
+
+                    <p>$$
+                        \begin{vmatrix} 
+                        a-\lambda & b \\
+                        c & d-\lambda \\
+                        \end{vmatrix}    
+
+                        = 
+
+                        0
+                        $$
+                    </p>
+
+                    <p>$$(a - \lambda)(d - \lambda) - bc = 0$$</p>
+
+
+                    <p>Then expand and combine like terms:</p>
+
+                    <p>$$\lambda^2 + ad - a \lambda - d \lambda - bc = 0$$</p>
+                    <p>$$\lambda - (a+d) \lambda + (ad - bc) = 0$$</p>
+
+                    <p>Note that ($a+d$) is the trace and ($ad-bc$) is the determinant. So the shortcut is;</p>
+
+                    <p>$$\lambda^2 - tr(A) \lambda + det(A) = 0$$</p>
+
+                    <p>For a diagonal matrix, where all the diagonal elements are non-zero and off-diagonal elements are $0$, the eigenvalues are simply equal to the diagonal elements going left-to-right.</p>
+
+
+        <h3 id="finding_eigvectors">Finding Eigenvectors</h3>
+
+            <p>The eigenvectors of a matrix reveal important directions in that matrix. You can think of those directions as being invariant to transformations. Eigenvectors also identify subspaces of multivariate datasets that have maximal covariance. In many cases, you might be more interested in finding the eigenvectors than the eigenvalues, except for identifying which eigenvalue is the largest. However, the eigenvalues must be found in order to identify the eigenvectors.</p>
+                <ul>
+                    <li>Step 1: Find all eigenvalues $\lambda$</li>
+                    <li>Step 2: For each $\lambda$, find $v \in N(A-I)$</li>
+                </ul>
+
+
+            <h4>Example:</h4>
+
+                <p>
+                    $$
+                    \begin{bmatrix} 
+                    1-3 & 2 \\
+                    2 & 1-3 \\
+                    \end{bmatrix}  
+
+                    \rightarrow
+
+                    \begin{bmatrix} 
+                    -2 & 2 \\
+                    2 & -2 \\
+                    \end{bmatrix}                 
+
+                    \begin{bmatrix} 
+                    ? \\
+                    ? \\
+                    \end{bmatrix}   
+
+                    =
+
+                    \begin{bmatrix} 
+                    0 \\
+                    0 \\
+                    \end{bmatrix}
+                    $$              
+                </p>
+
+
+                <p>The vector that will produce 
+                    $
+                    \begin{bmatrix} 
+                    0 \\
+                    0 \\
+                    \end{bmatrix}
+                    $
+
+                    is 
+
+                    $
+                    \begin{bmatrix} 
+                    1 \\
+                    1 \\
+                    \end{bmatrix}
+                    $
+
+                    . Therefore, $\lambda_1 = 3$ has a corresponding eigenvector of 
+                    $
+                    \begin{bmatrix} 
+                    1 \\
+                    1 \\
+                    \end{bmatrix}
+                    $
+
+                    , and $\lambda_2 = -1$ has a corresponding eigenvector of 
+
+                    $
+                    \begin{bmatrix} 
+                    1 \\
+                    -1 \\
+                    \end{bmatrix}
+                    $
+                </p>
+
+
+                <p>It is also true that 
+                    $
+                    \begin{bmatrix} 
+                    -1 \\
+                    1 \\
+                    \end{bmatrix}
+                    $
+
+                    is an acceptable eigenvector in the second case, and geometrically these are on the same line, just interpreted in different directions from the origin. They are in the same subspace, as are other options like 
+
+                    $
+                    \begin{bmatrix} 
+                    -3 \\
+                    3 \\
+                    \end{bmatrix}
+                    $
+
+                    , or generally:
+
+                    $
+                    \beta
+                    \begin{bmatrix} 
+                    -1 \\
+                    1 \\
+                    \end{bmatrix}
+                    $
+                    .
+                </p>
+
+                <p>An eigenvector is a basis for a subspace and it does not really matter what the individual elements are, only where they point. For a similar reason, it is practical to use eigenvectors of normalized length, as is output by many software packages.</p>
+
+
+                <p>Example:</p>
+
+                <p>
+                    $$
+                    \begin{bmatrix} 
+                    3 & 1 \\
+                    4 & 6 \\
+                    \end{bmatrix}
+                    $$
+                </p>
+
+                <p>$$              
+                    \begin{vmatrix} 
+                    3-\lambda & 1 \\
+                    4 & 6-\lambda \\
+                    \end{vmatrix}
+
+                    = 
+
+                    0
+                    $$
+
+                </p>
+
+
+                <p>$$(3 - \lambda)(6 - \lambda) - 4 = 0$$</p>
+                <p>$$\lambda^2 + 18 - 9 \lambda - 4 = 0$$</p>
+                <p>$$\lambda - 9 \lambda + 14 = 0$$</p>
+                <p>$$(\lambda - 7)(\lambda - 2) = 0$$</p>
+                <p>$$\lambda = 7, \lambda = 2$$</p>
+
+                <p>For each $\lambda$, we then find $v \in N(A - \lambda I)$.</p>
+
+                <p>For the first eigenvector:</p>
+                    $$
+                    \begin{bmatrix} 
+                    3-2 & 1 \\
+                    4 & 6-2 \\
+                    \end{bmatrix}
+
+                    \rightarrow
+
+                    \begin{bmatrix} 
+                    1 & 1 \\
+                    4 & 4 \\
+                    \end{bmatrix}                
+
+                    v_1
+
+                    = 
+
+                    \begin{bmatrix} 
+                    0 \\
+                    0 \\
+                    \end{bmatrix}                 
+
+
+                    v_1 = 
+
+                    \begin{bmatrix} 
+                    1 \\
+                    -1 \\
+                    \end{bmatrix} 
+                    $$
+
+                <p>or any other vector in the same subspace</p>
+
+
+                <p>For the second eigenvalue:</p>
+                    $$
+                    \begin{bmatrix} 
+                    3-7 & 1 \\
+                    4 & 6-7 \\
+                    \end{bmatrix}
+
+                    \rightarrow
+
+                    \begin{bmatrix} 
+                    -4 & 1 \\
+                    4 & -1 \\
+                    \end{bmatrix}                
+
+                    v_2
+
+                    = 
+
+                    \begin{bmatrix} 
+                    0 \\
+                    0 \\
+                    \end{bmatrix}                 
+                    $$
+                </p>
+
+                <p>
+                    $$
+                    v_2 = 
+
+                    \begin{bmatrix} 
+                    1 \\
+                    4 \\
+                    \end{bmatrix} 
+                    $$
+                </p>
+
+                <p>or any other vector in the same subspace</p>
+
+
+
+        <h3 id="diagonalization">Diagonalization</h3>
+
+            <p>We can write $m$ equations for a $m \times m$ matrix $A$</p>
+
+            <p>$$Av_1 = \lambda_1 v_1$$</p>
+            <p>$$Av_2 = \lambda_2 v_2$$</p>
+            <p>$$Av_3 = \lambda_3 v_3$$</p>
+
+            <p>These can be simplified by incorporating them all into a simple matrix equation, by taking advantage of them all being linked to $A$.</p>
+                
+            <p>   
+                $$
+                \begin{bmatrix} 
+                v_{11} & v_{12} & v_{13} \\
+                v_{21} & v_{22} & v_{23} \\
+                v_{31} & _{32} & v_{33} \\
+                \end{bmatrix} 
+
+                \begin{bmatrix} 
+                \lambda_1 & 0 & 0 \\
+                0 & \lambda_2 & 0 \\
+                0 & 0 & \lambda_3 \\
+                \end{bmatrix} 
+
+                = 
+
+                \begin{bmatrix} 
+                \lambda_1 v_{11} & \lambda_2 v_{12} & \lambda_3 v_{13} \\
+                \lambda_1 v_{21} & \lambda_2 v_{22} & \lambda_3 v_{23} \\
+                \lambda_1 v_{31} & \lambda_2 v_{32} & \lambda_3 v_{33} \\
+                \end{bmatrix}
+                $$
+            </p>              
+
+            <p>This matrix equation can be written as $AV = V \Lambda$. Note the order of matrix $\Lambda$ compared to $V$ is flipped from that of the scalar lambda in the equation $Av = \lambda v$ (which is done by convention).</p>
+
+            <p>This matrix-equation formulation provides conceptual insight into one of the core ideas of eigendecomposition, which is finding a set of basis vectors $V$ such that the original matrix $A$ is diagonal in that basis space. This can be seen by right-multiplying both sides of this equation by $V$. This is valid if the columns of $V$ form a linearly independent set, and when there are $m$ distinct eigenvalues.</p>
+
+            <p>$$AV = V \Lambda$$</p>
+            <p>$$A = V \Lambda V^{-1}$$</p>
+
+            <p>$\Lambda$ being a diagonal matrix is why eigendecomposition is sometimes called diagonalization.</p>
+
+
+        <h3 id="mat_powers_eigdecomp">Matrix Powers and Eigendecomposition</h3>
+
+            <p>Matrix powers can be very tedious to calculate, but eigendecomposition can assist by simplifying to diagonal-matrix operations. We have established $A = V \Lambda V^{-1}$, let's consider solving $A^4$.</p>
+
+            <p>$$A = V \Lambda V^{-1}$$</p>
+            <p>$$A^4 = (V \Lambda V{-1}) (V \Lambda V{-1}) (V \Lambda V{-1}) (V \Lambda V{-1})$$</p>
+
+            <p>Note that the parentheses above are just for visual grouping. We can eliminate or rearrange them</p>
+
+            <p>$$A^4 = V \Lambda (V^{-1}V)\Lambda (V^{-1}V)\Lambda (V^{-1}V)\Lambda V^{-1}$$</p>
+
+            <p>Therefore:</p>
+
+            <p>$$A^4 = V \Lambda \Lambda \Lambda \Lambda V^{-1}$$</p>
+            <p>$$A^4 = V \Lambda^4 V^{-1}$$</p>
+
+            <p>Calculating the powers of diagonal matrix $\Lambda$ is easy because of its diagonal structure; you simply raise the diagonal elements to the specified power.</p>
+
+
+        <h3 id="eig_distinct_repeated">Eigenvectors of Distinct and Repeated Eigenvalues</h3>
+
+            <p>Distinct eigenvalues lead to distinct eigenvectors. When there are distinct eigenvalues, the corresponding eigenvectors are also distinct. Each eigenvector is a basis vector that spans a line, a one-dimensional subspace, and they are linearly independent from each other. When you have a repeated eigenvalue, there are two possible cases. One is to have both eigenvectors on the same 1D subspace. The second is that you do not have an eigenvector, but an eigenplane, from which you can pick any two vectors which span that plane. Any two vectors that are in the plane and are linearly independent will form a basis for that plane.</p>
+
+
+        <h3 id="eig_symmetric_mat">Eigendecomposition of Symmetric Matrices</h3>
+
+            <p>Eigendecomposition of symmetric matrices has two notable properties:</p>
+                <ol>
+                    <li>The eigenvalues are guaranteed to be real valued as opposed to complex</li>
+                    <li>The eigenvectors are all pairwise orthogonal ($v_1^T v_2 = 0$)</li>
+                </ol>
+
+            <p>Any given pair of eigenvectors of a symmetric matrix is orthogonal as long as they have distinct eigenvalues. When those eigenvectors are columns of a matrix, and we multiply that matrix by its transpose, each column is orthogonal to each other column. $V^TV$ will be a diagonal matrix where the diagonal elements just contain the magnitudes of each vector.</p>
+
+            <p>If we normalize each eigenvector, all the diagonal elements become $1$, which means $V^TV$ is the identity matrix, and that $V^T$ is equal to $V^{-1}$. So it is a $Q$-like matrix (recall QR decomposition), in which all the columns are pairwise orthogonal, and every column has a magnitude equal to $1$.</p>
+
+            <p>Orthogonal matrices are useful for several reasons; one is that they are pure rotation matrices. Another property of these matrices is that their inverse is easier to compute, as it is simply equal to the transpose. Eigendecomposition is also a valid operation on singular (as opposed to full-rank) matrices. It is easier than computing the eigenvalues to a full rank matrix because at least one eigenvalue must be zero.</p>
+
+
+            <p>Example:</p>
+
+                <p>
+                    $$
+                    \begin{bmatrix} 
+                    1 & 1 \\
+                    2 & 2 \\
+                    \end{bmatrix}                 
+
+                    \rightarrow
+                    $$
+                </p>
+
+                <p>$$\lambda^2 - 3 \lambda + 0 = 0$$</p>
+                <p>$$\lambda(\lambda - 3) = 0$$</p>
+                <p>$$\lambda = 0, 3$$</p>
+
+
+            <p>Example:</p>
+
+                <p>$$\text{For } \lambda_1,$$:</p>
+
+                <p>
+                    $$
+                    \lambda_1
+
+                    \rightarrow
+
+                    \begin{bmatrix} 
+                    1-0 & 1 \\
+                    2 & 2-0 \\
+                    \end{bmatrix} 
+
+                    =
+
+                    \begin{bmatrix} 
+                    1 & 1 \\
+                    2 & 2 \\
+                    \end{bmatrix}                 
+
+                    v_1
+
+                    \rightarrow
+
+
+                    v_1 
+
+                    = 
+
+                    \begin{bmatrix} 
+                    1 \\
+                    -1 \\
+                    \end{bmatrix}    
+                    $$
+                </p>
+
+
+            </br>
+                <p>$$\text{For } \lambda_2,$$:</p>
+
+                    <p>
+                    $$
+                    \lambda_2
+
+                    \rightarrow
+
+                    \begin{bmatrix} 
+                    1-3 & 1 \\
+                    2 & 2-3 \\
+                    \end{bmatrix} 
+
+                    =
+
+                    \begin{bmatrix} 
+                    -2 & 1 \\
+                    2 & -1 \\
+                    \end{bmatrix}                 
+
+                    v_2
+
+                    \rightarrow
+
+
+                    v_2 
+
+                    = 
+
+                    \begin{bmatrix} 
+                    1 \\
+                    2 \\
+                    \end{bmatrix}    
+                    $$
+                </p>
+
+
+                <p>Singular matrices will have an eigenvalue equal to 0, because the determinant equals the product of all eigenvalues</li>
+
+
+
+    <h2 id="svd">Singular Value Decomposition (SVD)</h2>
+
+        <p>SVD is similar to eigendecomposition, but more general because it works on rectangular matrices in addition to square matrices. The goal of SVD is to decompose a matrix $A$ into the product of three other matrices.
+
+        <p>$$A = U \Sigma V^T$$
+
+        <p>$U$ and $V$ are always orthogonal matrices and $\Sigma$ is called the matrix of singular values, which is a diagonal matrix containing the singular values of $A$. $U$ is an orthogonal basis for the column space of $A$, and $V^T$ is an orthogonal basis for the row space of $A$. $A$ is a $m \times n$ size matrix, $U$ is a square $m \times m$ matrix, $\Sigma$ is $m \times n$ like $A$, and $V^T$ is $n \times n$.</p>
+
+        <p>To begin solving we start with:</p>
+
+        <p>$$A = U \Sigma V^T$$</p>
+
+        <p>and then multiply $A$ by its transpose</p>
+
+        <p>$$A^TA = (U \Sigma V^T)^TU \Sigma V^T$$</p>
+        <p>$$A^TA = V^{TT} \Sigma^T U^TU \Sigma V^T$$</p>
+
+        <p>$U$ is an orthogonal matrix, so its transpose equals its inverse, giving us:</p>
+
+        <p>$$A^TA = V \Sigma^T I \Sigma V^T$$</p>
+
+        <p>Because $\Sigma$ is a diagonal matrix, multiplying its transpose gives $\Sigma^2$</p>
+
+        <p>$$A^TA = V \Sigma^2 V^T$$</p>
+
+        <p>Now that we've multiplied $A^TA$ and expressed that in terms of SVD, we've come back to a form that looks exactly like the eigendecomposition of $A^TA$ where $V$ would be the eigenvectors of $A^TA$, and $\Sigma^2$ are the eigenvalues. In the context of SVD, these are usually called the right singular values. $\Sigma$ is just the square root of the singular values or eigenvalues of $A^TA$.</p>
+
+        <p>Then, to compute $U$, we follow a similar procedure, but instead of computing the SVD of $A^TA$, we compute the SVD of $AA^T$.</p>
+
+        <p>$$A = U \Sigma V^T$$</p>
+        <p>$$AA^T = U \Sigma V^T (U \Sigma V^T)^T$$</p>
+        <p>$$AA^T = U \Sigma V^T V^{TT} \Sigma^T U^T$$</p>
+        <p>$$AA^T = U \Sigma I \Sigma^T U^T$$</p>
+        <p>$$AA^T = U \Sigma^2 U^T$$</p>
+
+        <p>Again, this is nothing more than the eigendecomposition of $AA^T$. That means $U$ is an orthogonal matrix that spans the column space of $AA^T$. These are called the left singular values.</p>
+
+        <p>Matrix $V$ is an orthogonal basis for the row space, and the eigenvectors of $A^TA$, and $U$ is a basis for the column space of matrix $A$, but computing the eigendecomposition of $AA^T$. The eigenvalues of these two expressions are the same, and those are the squared singular values of matrix $A$.</p>
+
+        <p>We can rewrite this decomposition such that $A = U \Sigma V^T$ is broken into the following two equations:</p>
+
+        <p>$$AV = U \Sigma$$</p>
+        <p>$$U^TA = \Sigma V^T$$</p>
+
+        <p>$V$ is acting like a transformation matrix that moves $A$ into an orthogonal basis given by the column space of $U$.</p>
+
+        <p>From the perspective of the second equation, we multply both sides of $A = U \Sigma V^T$ by $U^T$ to get rid of $U$ on the right-hand side of the equation, and now each row of $V^T$ (i.e., the columns of $V$) is in the row space of $A$, and each row of $U^T$ (the columns of $U$) provides the weightings to bring $A$ into $V$.</p>
+
+
+        <h3 id="svd_subspaces">SVD and the Four Subspaces</h3>
+
+            <p>Recall that all matrices have 4 subspaces: 1) column space, 2) row space, 3) null space, 4) left null space. SVD provides orthogonal basis vectors for each of these subspaces.</p>
+
+            <p>Consider some $7 \times 3$ size matrix $A$. Recall that $U$ provides an orthogonal basis for the column space of $A$, and is a $7 \times 7$ orthogonal matrix, also called the left singular vectors. $\Sigma$ provides the singular values of $A$ and is equally tall as $A$; and $V^T$, sometimes called the right singular values, provides an orthogonal basis for the row space of $A$.</p>
+
+            <p>$\Sigma$ is a diagonal matrix the same height as $A$, and the diagonal elements contain singular values which are the square roots of the eigenvalues of $AA^T$ or $A^TA$. They can be zero but not negative. They are arranged such that the largest singular value is at the top-left, and the values decrease in each column to the right, eventually getting to singular values of $0$ for a reduced-rank matrix. Any zero-valued singular values correspond to the null space of the matrix.</p>
+
+            <p>The rank of $U$ corresponds to the number of non-zero singular values in $\Sigma$. The first $1$ through $r$ columns correspond to the column space of matrix $A$, and columns $r+1$ through $m$ provide an orthogonal basis for the left null space of matrix $A$; i.e., the null space of $A^T$. Together, the column space $C(A)$ and left null space $N(A^T)$ together span all of $\mathbb{R}^M$, which is the ambient dimensionality in which the column space lives. Recall that the column space and left null space are orthogonal subspaces.</p>
+
+            <p>We have a complementary situation for matrix $V$. The first $r$ rows of $V^T$ (i.e. columns of $V$) form an orthogonal basis for the row space of $A$, and the rows corresponding to $r+1$ through the end of the matrix provide an orthogonal basis for the null space of $A$. Together, the rows space $R(A)$ and the null space $N(A)$ span all of $\mathbb{R}^N$, the ambient space in which the rows are embedded.</p>
+
+
+        <h3 id="spectral_theory">Spectral Theory of Matrices</h3>
+
+            <p>The spectral theory of matrices is about breaking a single matrix up into individual rank-1 'layer' matrices, such that the original matrix is represented by their sum. The SVD will tell you the important directions in the matrix that are combinations across columns or rows. The singular values tell which directions have relative importance. Recall that if matrix $A$ is singular, the last singular values will be zeros.</p>
+
+
+        <h3 id="svd_low_rank">SVD for Low-Rank Approximations</h3>
+
+            <p>Remember that the columns of the $U$ matrix and the $V$ matrix - i.e., the left-singular vectors and right-singular vectors - along with the $\Sigma$ matrix of singular values, are sorted according to the magnitude of the singular values. The idea of low rank approximation is that you reconstruct something close to $A$ not by multiplying all 3 of these matrices together, but by taking just a subset of all 3 matrices; the first $k$ columns, the first $k$ singular values, and the first $k$ rows of $V^T$. You will still have an $m \times n$ reconstruction of $A$, but it is going to be of rank $k$, preserving only the important information.</p>
+
+
+        <h3 id="conver_pct_var">Convert Singular Values to Percent Variance</h3>
+
+            <p>There is a way to transform the singular values into an intrinsically interpretable and meaningful scale. To better understand that normalization factor, we need to think about what the singular values mean in the context of a matrix. Remember that the spectral theory of matrices tells us that any matrix can be formed by combining rank by combining rank-1 matrices, derived as the outer product of a column in the $U$ matrix, and a row of $V^T$.</p>
+
+            <p>The length of all the $U$ and $V^T$ vectors is unit length, a length of $1$. They communicate directions but not magnitude. If you sum up all of the singular values in the matrix, that tells you the total importance of all the directions in the matrix. i.e., the sum of singular values tells you about the total magnitude of the information in the matrix.</p>
+
+            <p>The sum of all the singular values is actually the total variance of matrix A and any one value can be evaluated according to how much of the total variance it explains. Each singular value multiplied by the corresponding column of $U$ and row of $V^T$ forms a rank-1 matrix.</p>
+
+            <p>To normalize singular values:</p>
+
+            <p>$$\sigma_i = 100 ~\sigma_i / \sum \sigma$$</p>
+
+            <p>The normalized singular values can then be interpreted as the largest component in the reconstructed matrix accounting for a given percentage of total variance.</p>
+
+
+        <h3 id="svd_inv_pseudo">SVD, Matrix Inverse, and Pseudoinverse</h3>
+
+            <p>The psuedoinverse is an approximation to the inverse for a non-invertible matrix. The one-sided inverse can be computed for a rectangular matrix that has either full column rank of full row rank, but what if you have a square matrix that is rank defecient? We can conduct a pseudoinverse, in this case discussing the Moore-Penrose pseudoinverse.</p>
+
+            <p>$$A = U \Sigma V^T$$</p>
+            <p>$$A^{-1} = (U \Sigma V^T)^{-1}$$</p>
+            <p>$$A^{-1} = v^{-T} \Sigma U{-1}$$</p>
+            <p>$$A^{-1} = V \Sigma^{-1} U^T$$</p>
+
+            <p>Because $U$ and $V$ are orthogonal matrices, thier inverses are their transposes, so we essentially just swap the order of $U$ and $V$.</p>
+
+
+        <h3 id="svd_pseudo">SVD and Matrix Pseudoinverse</h3>
+
+            <p>The procedure for taking the pseudoinverse is:</p>
+
+            <p>$$A = U \Sigma V^T$$</p>
+            <p>$$A^* = (U \Sigma V^T)^*$$</p>
+            <p>$$A^* = V^{-T} \Sigma^* U^{-1}$$</p>
+            <p>$$A^* = V \Sigma^* U^T$$</p>
+
+            <p>Ultimately we get to the same procedure where we are still swapping $V$ and $U$, and we don't have inverses because all we have to do is transpose these matrices. The way $\Sigma^*$ gets implemented is to invert only the singular values that are not equal to zero. For example:</p>
+
+            <p>$$
+                \Sigma = 
+
+                \begin{bmatrix} 
+                a & 0 & 0 \\
+                0 & b & 0 \\
+                0 & 0 & 0 \\
+                \end{bmatrix}    
+
+                \rightarrow
+
+                \Sigma^* = 
+
+                \begin{bmatrix} 
+                1/a & 0 & 0 \\
+                0 & 1/b & 0 \\
+                0 & 0 & 0 \\
+                \end{bmatrix}    
+                $$
+            </p>
+            
+            <p>The normal inverse involves reciprocating each diagonal element, and the pseudoinverse involves reciprocating each non-zero diagonal element</p>
+
+
+        <h3 id="svd_left_inv">SVD and the Left-Inverse</h3>
+
+            <p>If $A$ is a tall matrix and $U \Sigma V^T$ is its SVD, then the left-inverse can be computed as $V \Sigma^{-1}+ U^T$. We take the left-inverse of $A$, and apply corresponding operations on the right side:</p>
+
+            <p>$$A = U \Sigma^{-1} U^T$$</p>
+            <p>$$(A^TA)^{-1}A^T = ( (U \Sigma V^T)^T U \Sigma V^T )^{-1} (U \Sigma V^T)^T )$$</p>
+
+            <p>Then simplify:</p>
+
+            <p>$$(A^TA)^{-1}A^T = (V \Sigma^T U^TU \Sigma V^T)^{-1} V \Sigma U^T$$</p>
+            <p>$$= (V \Sigma^2 V^T)^{-1} V \Sigma U^T$$</p>
+            <p>$$= V \Sigma^{-1} U^T$$</p>
+
+            <p>Applying the left-inverse to $A$ assumes it is full column-rank. But we can replace $V \Sigma^{-1} U^T$ with a term that uses the pseudoinverse of $\Sigma$ instead $(A^* = V \Sigma^* U^T)$ to remove this requirement, providing a left-pseudoinverse of $A$.</p>
+
+
+        <h3 id="condition_num_mat">Condition Number of a Matrix</h3>
+
+            <p>The condition number of a matrix is used to indicate the spread of information in a matrix. It is defined as the ratio of the maximum singular value to the minimum singular value, $\sigma_{max} / \sigma_{min}$. >A matrix is called well-conditioned when the condition number is relatively small and ill-conditioned when the condition number is relatively large. The condition number of any singular matrix is not a number, because it involves dividing by zero.</p>
+
+            <p>Singular matrices can contain a lot of useful information, and having a high condition number isn't necessarily a bad thing. One way to interpret the condition number is as an indicator of the dominanace of large-scale structure in the matrix. The condition number is used as an indicator of the reliability or sensitivity of a matrix, and the idea is that a matrix with a large condition number is more sensitive to small perturbations.</p>
+
+            <p>Geometrically, if you think of a matrix as representing some kind of shape, then the condition number is the ratio of the narrowest to thickest spreads in that shape. So you can represent a sphere using a $3 \times 3$ matrix. The identity matrix is a perfect representation of a sphere. Change the $1$ in one of the columns to $0.5$ and it will represent a deflated sphere; change it to $0$ and the shape becomes a circular disc.</p>
+
+
+
+    <h2 id="quad_form">The Quadratic Form and Definiteness</h2>
+
+        <p>The quadratic form is an operation that applies to square matrices, and leads to a property called the definiteness of a matrix. If we start with a square matrix $S$ and an $m$-dimensional vector called $w$, we can pre-multiply $S$ by $w^T$ and post-multiply by $w_1$ and the result (due to their sizes) will be a single number.</p>
+
+        <p>This can be interpreted as the amount of energy in a matrix over a corrdinate space defined by vector $w$.</p>
+
+
+            <p>Example:</p>
+                <p>
+                    $$
+                    S
+
+                    = 
+
+                    \begin{bmatrix} 
+                    a & b \\
+                    c & d \\
+                    \end{bmatrix}   
+                    $$
+
+
+                    $$
+                    w
+
+                    = 
+
+                    \begin{bmatrix} 
+                    x \\
+                    y \\
+                    \end{bmatrix}   
+                    $$
+                </p>
+
+                <p>$$w^TSw = ax^2 + (b+c)xy + dy^2$$</p>
+
+                <p>The quadratic form is for square matrices, and if symmetric there will also be the property that $[s^TSw]^T$ is equal to $w^TSw$</p>
+
+                <p>$$[s^TSw]^T = w^TSW^Tw^{TT}$$</p>
+                <p>$$= w^TS^Tw$$</p>
+                <p>$$= w^TSw$$</p>
+
+                <p>Though the quadratic form will work for any square matrix, it's also essential that $w$ contains the same number of rows.</p>
+
+
+        <h3 id="norm_quad_form">The Normalized Quadratic Form</h3>
+
+            <p>The normalized quadratic form normalizes the trivial growth out of the magnitude of the quadratic form resulting from increases in vector $w$ (i.e. it is normalized for the magnitude of vector $w$).</p>
+
+            <p>$$argmax_w \biggl\{ \frac{w^TSw}{w^Tw} \biggr\}$$</p>
+
+            <p>
+                $$
+                \begin{bmatrix} 
+                a & b \\
+                c & d \\
+                \end{bmatrix}   
+
+                \begin{bmatrix} 
+                x \\
+                y \\
+                \end{bmatrix}
+
+                = 
+
+                \frac{ ax^2 + 2bxy + dy^2 }{ x^2 + y^2 }
+                $$
+            </p>
+
+
+
+<!-- **skipped over a chapter/video** -->
+
+
+        <h3 id="eigvectors_quad_form">Eigenvectors and The Quadratic Form Surface</h3>
+
+            <p>Eigenvectors point along the ridges and valleys of the normalized quadratic form surface. A 2D matrix has two eigenvalues and two eigenvectors. Its normalized quadratic form has two important directions (the ridge and the valley). These are directions where energy is constant at a minimum and constant at a maximum. Along these directions, the matrix doesn't really do anything to the vector (just scales it). The eigenvector with the smaller eigenvalue points along the direction of the valley, and the eigenvector with the larger eigenvalue points along the direction of the ridge.</p>
+
+
+        <h3 id="pca">Application of Normalized Quadratic Forms - PCA</h3>
+
+            <p>The eigendecomposition of a covariance matrix is called a principal components analysis (PCA). A covariance matrix contains all of the pairwise linear interactions amongst a set of channels/variables in a dataset as the dot product of each pair of sensors/variables. The covariance matrix of $A$ is $AA^T$, or $A^TA$. The goals is to find a vector of weights for all the channels such that the weighted sum of all channels maximizes the ratio of the normalized quadratic form:</p>
+
+            <p>$$\frac{w^TSw}{w^Tw}$$</p>
+
+            <p>where $S$ is a covariance matrix.</p>
+
+            <p>We can think of the weight vector $w$ not just as a vector, but as a set of $M$ possible solutions for a set of $M$ channels/variables. More generally, we think about transforming this $w$ from a vector to a square matrix $W$. We compute the inverse of $W^TW$ and then multiply that by the numerator.</p>
+
+            <p>$$\Lambda = (W^TW)^{-1} W^TSW$$</p>
+
+            <p>And now on the left we no longer have one scalar solution; we have an entire set of solutions. So this lower-case lambda becomes upper case.</p>
+
+            <p>By reducing:</p>
+
+            <p>$$\Lambda = (W^TW)^{-1} W^TSW$$</p>
+            <p>$$\Lambda = W^{-1} W^{-T} W^T SW$$</p>
+            <p>$$\Lambda = W^{-1}SW$$</p>
+            <p>$$W \Lambda = SW$$</p>
+
+            <p>Note that this is the eigenvalue equation in matrix form. This means that the solution to the problem of the vector that maximizes the normalized quadratic form of a covariance matrix is the eigenvectors of that matrix and this capital lambda.</p>
+
+            <p>Once you've applied the eigendecomposition onto covariance matrix $S$, you find the $W$ associated with the largest $\Lambda$; i.e., the eigenvector associated with the largest eigenvalue. That is used as a set of weights to multiply each individual channel and then sum them together, giving us:</p>
+
+            <p>$$y = A^T w_h$$</p>
+
+            <p>where $y$ is a component time series called the PC scores, and $w_j$ is the eigenvector associated with the largest eigenvalue, which may be called the factor, the filter, or the weights.</p>
+
+
+        <h3 id="quad_form_ged">Quadratic Form of GED</h3>
+
+            <p>In the previous section, the concept of using a normalized quadratic form for PCA was introduced. The idea was to find a vector $w$ that maximizes the energy of the normalized quadratic form:</p>
+
+            <p>$$w_m = argmax_w \biggl\{ \frac{w^TSw}{w^Tw} \biggr\}$$</p>
+
+            <p>Another way of rewriting that statement is to maximize the energy in teh non-normalized quadratic form, such that $w^Tw = 1$.</p>
+
+            <p>$$w_m = argmax_w \{w^TSw\} \text{ s.t. } w^Tw = 1$$</p>
+
+            <p>We saw that the solution to this equation is to perform an eigendecomposition on a symmetric covariance matrix $S$; and the $w$'s were the eigenvectors of this matrix (and lambdas the corresponding eigenvalues).</p>
+
+            <p>Because $S$ is symmetric, all of the w's are pairwise orthogonal. When you solve this problem and get a whole matrix of $w$'s, that is an orthogonal matrix.</p>
+
+            <p>In GED, we insert another matrix named $R$ into the denominator. $R$ is also a symmetric matrix, such as a covariance matrix. That leads us to the form of GED.</p>
+
+            <p>$$w_m = argmax_w \biggl\{ \frac{w^TSw}{w^TRw} \biggr\}$$</p>
+            <p>$$w_m = argmax_w \{w^TSw\} \text{ s.t. } w^TRw = 1$$</p>
+
+            <p>In other contexts - for example, in statistics - this form is sometimes called the Rayleigh quotient. If we have a GED and W is the matrix of eigenvectors, then W^TW will not produce the identity matrix, however $W^TRW$ will.</p>
+
+
+        <h3 id="definiteness_geom_eigvalues">Matrix Definiteness, Geometry, and Eigenvalues</h3>
+
+            <p>The definiteness of a matrix refers to the sign of its energy landscape. That is the geometric perspective of the quadratic form. This is referring exclusively to the non-normalized quadratic form. The question is whether the quadratic form is positive everywhere, or somewhere in between.</p>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Category</th><th>Geometry</th><th>Eigenvalues</th><th>Invertibility</th></tr></thead><tbody>
+             <tr><td>Positive Definite</td><td>Always Positive</td><td>All Positive</td><td>Definitely</td></tr>
+             <tr><td>Positive Semi-Definite</td><td>Positive & Zero</td><td>All Non-Negative</td><td>No</td></tr>
+             <tr><td>Indefinite</td><td>Positive & Negative</td><td>Positive and Negative</td><td>Possibly</td></tr>
+             <tr><td>Negative Semi-Definite</td><td>Negative & Zero</td><td>All Non-Positive</td><td>No</td></tr>
+            </tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

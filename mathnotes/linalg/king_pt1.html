@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+<h1>Linear Algebra, King Pt. 1</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#ops_1mat">Operations on One Matrix</a></td><td><a href="#linear_sys">Linear Systems in Two Unknowns</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sub_method">Substitution Method</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#elim_method">Elimination Method</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#linear_sys_3unk">Linear Systems in Three Unknowns</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sys_with_matrices">Representing Systems with Matrices</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#simple_row_ops">Simple Row Operations</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#pivot_ref">Pivot Entries and Row-Echelon Forms</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#gauss_jordan">Gauss-Jordan Elimination</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#num_solutions">Number of Solutions to the Linear System</a></td></tr>
+ <tr><td><a href="#ops_2mat">Operations on Two Matrices</a></td><td><a href="#mat_mult">Matrix Multiplication</a></td></tr>
+ <tr><td><a href="#mat_as_vect">Matrices as Vectors</a></td><td><a href="#linear_combo_span">Linear Combination and Span</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#linear_sub">Linear Subspaces</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#basis">Basis</a></td></tr>
+</tbody></table>
+
+
+	<h2 id="ops_1mat">Operations on One Matrix</h2>
+
+		<h3 id="linear_sys">Linear Systems in Two Unknowns</h3>
+
+			<p>A linear system is a system of equations, defined for an unknown set of variables, where each of the variables is linear (the variables are first degree, raised to the power of $1$). We'll review 3 ways of solving systems of linear equations: 1) substitution, 2) elimination, and 3) graphing.</p>
+
+
+		<h3 id="sub_method">Substitution Method</h3>
+			<ol>
+				<li>Isolate a variable by itself in one of the equations</li>
+				<li>Take the expression from step #1, and plug it into the other equation</li>
+				<li>Solve the equation in step #2 for the remaining variable</li>
+				<li>Use the result from step #3 and plug it into the equation from step #1</li>
+			</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the unique solution to the following system of equations:</p>
+
+				<p>$y = x + 3$</p>
+				<p>$3x - 3y = 10$</p>
+
+				<p>We'll use the substitution method. Since $y$ is already solved for in the first equation, step 1 is completed, and we'll go on to step 2 by substituting $x+3$ for $y$ in the other equation.</p>
+
+				<p>$2x - 3y = 10$</p>
+				<p>$2x - 3(x+3) = 10$</p>
+
+				<p>Solve for $x$. Start by distributing the $-3$.</p>
+
+				<p>$2x - 3x - 9 = 10$</p>
+
+				<p>Combine like terms.</p>
+
+				<p>$-x - 9 = 10$</p>
+
+				<p>Add $9$ to both sides.</p>
+
+				<p>$-x - 9 + 9 = 10 + 9$</p>
+				<p>$-x = 19$</p>
+
+				<p>Multiply both sides by $-1$.</p>
+
+				<p>$-x(-1) = 19(-1)$</p>
+				<p>$x = -19$</p>
+
+				<p>To find $y$, we'll plug in $-19$ for $x$ in the first equation.</p>
+
+				<p>$y = x + 3$</p>
+				<p>$y = -19 + 3$</p>
+				<p>$y = -16$</p>
+
+				<p>The unique solution is $(-19, -16)$.</p>
+
+
+		<h3 id="elim_method">Elimination Method</h3>
+			<ol>
+				<li>If necessary, rearrange both equations so that the x-terms are first, followed by the y-terms, the equals sign, and the constant term, in that order.</li>
+				<li>Multiply one or both equations by a constant that will allow either the x-terms or the y-terms to cancel when the equations are added or subtracted.</li>
+				<li>Add or subtract the equations</li>
+				<li>Solve for the remaining variable</li>
+				<li>Plug the result of step 4 into one of the original equations and solve for the other variable</li>
+			</ol>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the unique solution to the following system of equations:</p>
+
+				<p>$y = 3x - 4$</p>
+				<p>$-x + 2y = 12$</p>
+
+				<p>First, we'll rearrange the first equation so that its individual parts are in the correct places for elimination. Subtract $3x$ from both sides.</p>
+
+				<p>$y = 3x - 4$</p>
+				<p>$-3x + y = 3x - 3x - 4$</p>
+				<p>$-3x + y = -4$</p>
+
+				<p>Next, multiply the result above by $2$ so that the y-terms will cancel when we subtract the equations.</p>
+
+				<p>$s(-3x + y) = 2(-4)$</p>
+				<p>$-6x + 2y = -8$</p>
+
+				<p>Now we'll subtract the equations.</p>
+
+				<p>$-6x + 2y - (-x + 2y) = -8 - (12)$</p>
+				<p>$-6x + 2y + x - 2y = -8 - 12$</p>
+
+				<p>Combine like terms.</p>
+
+				<p>$-6x + x + 2y - 2y = -20$</p>
+				<p>$-5x + 0 = 20$</p>
+				<p>$-5x = -20$</p>
+
+				<p>Divide both sides by $-5$.</p>
+
+				<p>$\frac{-5x}{-5} = \frac{-20}{-5}$</p>
+
+				<p>To solve for $y$, we'll plug in $4$ for $x$ in the original first equation.</p>
+
+				<p>$y = 3x - 4$</p>
+				<p>$y = 3(4) - 4$</p>
+				<p>$y = 12 - 4$</p>
+				<p>$y = 8$</p>
+
+				<p>The unique solution is $(4,8)$.</p>
+
+
+		<h3 id="linear_sys_3unk">Linear Systems in Three Unknowns</h3>
+
+			<p>If a system of 3 linear equations has solutions, each solution will consist of one value for each variable. If the 3 equations in such a system are linearly independent of each other, the system will have either one solution or no solutions.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Solve the following system of equations.</p>
+
+				<p>$[1]: -x - 5y + z = 17$</p>
+				<p>$[2]: -5x - 5y + 5z = 5$</p>
+				<p>$[3]: 2x + 5y - 3z = -10$</p>
+
+				<p>The coefficients of $y$ in equations $[1]$ and $[3]$ are $-5$ and $5$. If we add these two equations, the $y$ terms will cancel out and we'll get an equation in only the variables $x$ and $z$.</p>
+
+				<p>$(-x - 5y + z) + (2x + 5y - 3z) = 17 + (-10)$</p>
+
+				<p>Remove parentheses and combine like terms.</p>
+
+				<p>$-x - 5y + z + 2x + 5y - 3z = 17 - 10$</p>
+				<p>$-x + 2x - 5y + z - 3z = 17 - 10$</p>
+				<p>$x - 2z = 7$</p>
+
+				<p>The coefficients of $y$ in equations $[2]$ and $[3]$ are $-5$ and $5$ respectively, and so we can add these two equations to get another equation in only variables $x$ and $z$.</p>
+
+				<p>$(-5x - 5y + 5z) + (2x + 5y - 3z) = (5) + (-10)$</p>
+
+				<p>Remove parentheses and combine like terms.</p>
+
+				<p>$-5x - 5y + 5z + 2x + 5y - 3z = 5 - 10$</p>
+				<p>$-5x + 2x - 5y + 5y + 5z - 3z = 5 - 10$</p>
+				<p>$-3x + 2x = -5$</p>
+
+				<p>The coefficients of $z$ in our two new equations are $-2$ and $2$ respectively. If we add these two equations, we can eliminate the variable $z$, then solve for $x$.</p>
+
+				<p>$x - 2z = 7$</p>
+				<p>$-3x + 2x = -5$</p>
+				<p>$(x - 2z) + (-3x + 2z) = 7 + (-5)$</p>
+
+				<p>Remove parentheses and combine like terms.</p>
+
+				<p>$x - 2z - 3x + 2z = 7 - 5$</p>
+				<p>$x - 3x - 2z + 2z = 7 - 5$</p>
+				<p>$-2x = 2$</p>
+				<p>$x = -1$</p>
+
+				<p>Choose one of the new equations, and plug in $-1$ for $x$, then solve for $z$. We'll choose $x - 2z = 7$.</p>
+
+				<p>$-1 - 2z = 7$</p>
+				<p>$-2z = 8$</p>
+				<p>$z = -4$</p>
+
+				<p>Now choose one of the 3 original equations, and plug in $-1$ for $x$ and $-4$ for $z$, and solve for $y$. We'll choose equation $[1]: -x - 5y + z = 17$.</p>
+
+				<p>$- (-1) - 5y + (-4) = 17$</p>
+
+				<p>Simplify and solve for $y$.</p>
+
+				<p>$1 - 5y - 4 = 17$</p>
+				<p>$-5y + 1 - 4 = 17$</p>
+				<p>$-5y - 3 = 17$</p>
+				<p>$-5y = 20$</p>
+				<p>$y = -4$</p>
+
+				<p>The solution is $(-1, -4, -4)$ or $x=-1$, $y=-4$, and $z=-4$.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use any method to solve the following system of equations.</p>
+
+				<p>$[1]: 3a - 3b + 4c = -23$</p>
+				<p>$[2]: a + 2b - 3c = 25$</p>
+				<p>$[3]: 4a - b + c = 25$</p>
+
+				<p>None of the terms with the same variable have the same coefficient, or coefficients that are equal in value but opposite in sign. So we'll need to multiply one of the equations by some number such that by combining the resulting equation with one of the other two, we'll be able to eliminate a variable. Multiplying equation $[2]$ by $3$, we can eliminate the variable $a$ by subtracting the resulting equation from equation $[1]$.</p>
+
+				<p>$3(a + 2b - 3c) = 3(25)$</p>
+				<p>$[4]: 3a + 6b - 9c = 75$</p>
+
+				<p>Now subtract equation $[4]$ from equation $[1]$.</p>
+
+				<p>$[1]: 3a - 3b + 4c = -23$</p>
+				<p>$[4]: 3a + 6b - 9c = 75$</p>
+				<p>$(3a - 3b + 4c) - (3a + 6b - 9c) = (-23) - (75)$</p>
+
+				<p>Eliminate the parentheses, then combine like terms.</p>
+
+				<p>$3a - 3b + 4c - 3a - 6b + 9c = -23 - 75$</p>
+				<p>$3a - 3a - 3b - 6b + 4c + 9c = -23 - 75$</p>
+				<p>$[5]: -9b + 13c = -98$</p>
+
+				<p>We need to get another equation in only the variables $b$ and $c$. Let's use equations $[2]$ and $[3]$. This time we need to multiply equation $[2]$ by $4$, so we can subtract it from equation $[3]$ and eliminate the variable $a$.</p>
+
+				<p>$[2]: a + 2b - 3c = 25$</p>
+
+				<p>Remove the parentheses.</p>
+
+				<p>$4(a + 2b - 3c) = 4(25)$</p>
+				<p>$[6]: 4a + 8b - 12c = 100$</p>
+
+				<p>Now we'll subtract equation $[6]$ from equation $[3]$.</p>
+
+				<p>$[3]: 4a - b + c = 25$
+				<p>$(4a - b + c) - (4a + 8b - 12c) = (25) - (100)$</p>
+
+				<p>Eliminate the parentheses and combine like terms.</p>
+
+				<p>$4a - b + c - 4a - 8b + 12c = 25 - 100$</p>
+				<p>$4a - 4a - b - 8b + c + 12c = 25 - 100$</p>
+				<p>$[7]: -9b + 13c = -75$</p>
+
+				<p>With $[5]$ and $[7]$, we now have a system of two equations in the variables $b$ and $c$.</p>
+
+				<p>$[7]: -9b + 13c = -75$</p>
+
+				<p>If we subtract $[7]$ from $[5]$, we get:</p>
+
+				<p>$(-9b + 13c) - (-9b + 13c) = -98 - (-75)$</p>
+
+				<p>Eliminate the parentheses, and combine like terms.</p>
+
+				<p>$-9b + 13c + 9b - 13c = -98 + 75$</p>
+				<p>$0 = -23$</p>
+
+				<p>$0$ does not actually equal $-23$, so the original system of equations has no solution.</p>
+
+
+		<h3 id="sys_with_matrices">Representing Systems with Matrices</h3>
+
+			<p>We can bring the coefficients from the left side of an equation and the constants from the right side of an equation into what is called an augmented matrix. For example, the system:
+
+			<p>$3x + 2y = 7$
+			<p>$x - 6y = 0$
+
+			<p>could become:
+
+			<p>$
+				\begin{bmatrix}
+				3 & 2 & 7 \\
+				1 & -6 & 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>or
+
+			<p>$
+				\begin{bmatrix}
+				3 & 2 & | & 7 \\
+				1 & -6 & | & 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Note the variables must first be aligned in the system of equations.</p>
+
+
+		<h3 id="simple_row_ops">Simple Row Operations</h3>
+
+			<p>Some simple row operations we need to understand in order to be able to simplify matrices are:</p>
+				<ol>
+					<li>Switching rows in the matrix</li>
+					<li>Multiplying or dividing a row by a constant</li>
+					<li>Adding or subtracting one row from another</li>
+				</ol>
+
+			<p><b>Switching Two Rows:</b></p>
+
+			<p>You can switch any two rows in a matrix without changing the value of the matrix.</p>
+
+			<p><b>Multiplying a Row by a Constant:</b></p>
+
+			<p>You can multiply any row in a matrix by any non-zero constant without changing the value of the matrix. We are not limited to multiplying only one row; you can multiply as many rows as desired and the constants do not need to be the same.</p>
+
+			<p><b>Adding a Row to Another Row:</b></p>
+
+			<p>It is also acceptable to add one row to another. This doesn't consolidate two rows into one, but rather, replaces a row with the sum of itself and another row.</p>
+
+
+		<h3 id="pivot_ref">Pivot Entries and Row-Echelon Forms</h3>
+
+			<p>Now that we know how to use row operations to manipulate matrices, our goal will be to use these row operations to change the matrix into either row-echelon form, or reduced-row echelon form. Before understanding these, we must be able to identify pivot entries in a matrix.</p>
+
+			<p>A pivot entry (a.k.a. leading entry) is the first non-zero entry in each row. Any column that houses one is called a pivot column.</p>
+
+
+			<h4>Row-Echelon Forms</h4>
+
+				<p>A matrix is in row-echelon form (ref) if:</p>
+					<ol>
+						<li>All the pivot entries are equal to $1$</li>
+						<li>Any row(s) that consist of only zeros are at the bottom of the matrix</li>
+						<li>The pivot in each row sits in a column to the right of the column that houses the pivot in the row above it</li>
+					</ol>
+
+				<p>If a matrix is in row-echelon form, and if, in each column, the pivot entry is the only non-zero entry, then the matrix is in reduced row-echelon form (rref). For example:</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & -2 & 0 & 0 & | & 3 \\
+					0 & 0 & 1 & 0 & | & 4 \\
+					0 & 0 & 0 & 1 & | & -3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Use row operations to put the following matrix into reduced row-echelon form.</p>
+
+				<p>$
+					\begin{bmatrix}
+					0 & 1 & 0 & 0 \\
+					5 & 0 & -5 & 0 \\
+					0 & 0 & 0 & 0 \\
+					0 & 0 & 0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We can divide $R_2$ by $5$, or equivalently, multiply by $1/5$.</p>
+
+				<p>$
+					\begin{bmatrix}
+					0 & 1 & 0 & 0 \\
+					5/5 & 0/5 & -5/5 & 0/5 \\
+					0 & 0 & 0 & 0 \\
+					0 & 0 & 0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Now we need to put the pivot entries into a staircase pattern. Switch the first and second rows, $R_1 \leftrightarrow R_2$.</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & -1 & 0 \\
+					0 & 1 & 0 & 0 \\
+					0 & 0 & 0 & 0 \\
+					0 & 0 & 0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Switch the third and fourth rows, $R_3 \leftrightarrow R_4$.
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & -1 & 0 \\
+					0 & 1 & 0 & 0 \\
+					0 & 0 & 0 & 1 \\
+					0 & 0 & 0 & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Now all pivot entries are $1$, the zeroed-out row is at the bottom, the pivot entries follow a staircase pattern, and all pivot columns include only the pivot entry (and otherwise all zeros); so the matrix is in reduced row-echelon form.
+
+				<p>In reduced row-echelon form, we can pull the value of each variable directly from the matrix.
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & 0 & | & a \\
+					0 & 1 & 0 & | & b \\
+					0 & 0 & 1 & | & c \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>$1x + 0y + 0z = a$</p>
+				<p>$0x + 1y + 0z = b$</p>
+				<p>$0x + 0y + 0z = c$</p>
+
+				</br>
+
+				<p>$x = a$</p>
+				<p>$y = b$</p>
+				<p>$z = c$</p>
+
+
+		<h3 id="gauss_jordan">Gauss-Jordan Elimination</h3>
+
+			<p>Also known as Gaussian elimination, Gauss-Jordan elimination is an algorithm to get a matrix into reduced row-echelon form.</p>
+				<ol>
+					<li>Optional: pull out any scalars from each row in the matrix</li>
+
+					<li>If the first entry in the first row is $0$, swap it with another row that has a non-zero entry in its first column</li>
+
+					<li>Multiply through the first row by a scalar to make the leading entry equal to $1$</li>
+
+					<li>Add scaled multiples of the first row to every other row in the matrix until every entry in the first column, other than the leading $1$ in the first row, is a $0$.</li>
+
+					<li>Repeat from step #2 until the matrix is in reduced row-echelon form</li>
+				</ol>
+
+
+		<h4>Example:</h4>
+
+			<p>Use Gauss-Jordan elimination to solve the following system:</p>
+
+			<p>$
+				\begin{bmatrix}
+				-1 & -5 & 1 & | & 17 \\
+				-5 & -5 & 5 & | & 5 \\
+				2 & 5 & -3 & | & -10 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Step 1: we can divide through the second row by $5$, reducing those values. After $(1/5)R_2 \rightarrow R_2$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				-1 & -5 & 1 & | & 17 \\
+				-1 & -1 & 1 & | & 1 \\
+				2 & 5 & -3 & | & -10 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Step 2 (first row): the first entry in the first row is non-zero, so there is no need to swap it with another row.</p>
+
+			<p>Step 3 (first row): multiply row $1$ by $-1$ to get a leading $1$ in the first row. After $-R_1 \rightarrow R_1$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				-1(-1) & -(-5) & -(1) & | & -(17) \\
+				-1 & -1 & 1 & | & 1 \\
+				2 & 5 & -3 & | & -10 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 5 & -1 & | & 17 \\
+				-1 & -1 & 1 & | & 1 \\
+				2 & 5 & -3 & | & -10 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Step 4 (first row): replace row 2 with the sum of rows 1 and 2. After $R_1 + R_2 \rightarrow R_2$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 5 & -1 & | & -17 \\
+				1-1 & 5-1 & -1+1 & | & -17+1 \\
+				2 & 5 & -3 & | & -10 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 5 & -1 & | & -17 \\
+				0 & 4 & 0 & | & -16 \\
+				2 & 5 & -3 & | & -10 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Subtract $2 \times row 1$ from row 3. After $R_3 - 2R_1 \rightarrow R_3$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 5 & -1 & | & -17 \\
+				0 & 4 & 0 & | & -16 \\
+				2-2(1) & 5-2(5) & -3-2(-1) & | & -10 - 2(-17) \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 5 & -1 & | & -17 \\
+				0 & 4 & 0 & | & -16 \\
+				0 & -5 & -1 & | & 24 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>We now have $1,0,0$ in the first column. It is time to go back to step 2, but with the second row.</p>
+
+			<p>Step 2 (second row): the second entry in the second row is non-zero, so there is no need to swap it with another row.</p>
+
+			<p>Step 3 (second row): multiply row 2 by $1/4$ to get a leading $1$ in the second row. After $(1/4) R_2 \rightarrow R_2$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 5 & -1 & | & -17 \\
+				\frac{1}{4}(0) & \frac{1}{4}(4) & \frac{1}{4}(0) & | & \frac{1}{4}(-16) \\
+				0 & -5 & -1 & | & 24 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 5 & -1 & | & -17 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & -5 & -1 & | & 24 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Step 4 (second row): replace row 1 with the sum of $(-5 \times$ row 2) and row $1$. After $-5R_2 + R_1 \rightarrow R_1$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				-5(0)+1 & -5(1)+5 & -5(0)-1 & | & -5(-4) - 17 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & -5 & -1 & | & 24 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 0 & -1 & | & 3 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & -5 & -1 & | & 24 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Replace row 3 with the sum of $(5 \times$ row 2) and row 3. After $5R_2 + r_3 \rightarrow R_3$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 0 & -1 & | & 3 \\
+				0 & 1 & 0 & | & -4 \\
+				5(0)+0 & 5(1)-5 & 5(0)-1 & | & 5(-4)+24 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 0 & -1 & | & 3 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & 0 & -1 & | & 4 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>We now have $0,1,0$ in the second column. It's time to go back to step 2, this time with the third row.</p>
+
+			<p>Step 2 (third row): the third entry in the third row is non-zero, so there is no need to swap it with another row.</p>
+
+			<p>Step 3 (third row): multiply row 3 by $-1$ to get a leading $1$ in the third row. After $-R_3 \rightarrow R_3$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 0 & -1 & | & 3 \\
+				0 & 1 & 0 & | & -4 \\
+				-(0) & -(0) & -(-1) & | & -4 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 0 & -1 & | & 3 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & 0 & 1 & | & -4 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Step 4 (third row): replace row 1 with the sums of rows 1 and 3. After $R_1 + R_3 \rightarrow R_1$, the matrix is:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1+0 & 0+0 & -1+1 & | & 3-4 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & 0 & 1 & | & -4 \\
+				\end{bmatrix}
+
+				\rightarrow
+
+				\begin{bmatrix}
+				1 & 0 & 0 & | & -1 \\
+				0 & 1 & 0 & | & -4 \\
+				0 & 0 & 1 & | & -4 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>The matrix is now in reduced row-echelon form. From thsi matrix, we get the solution set:</p>
+
+			<p>$1x + 0y + 0z = -1$</p>
+			<p>$0x + 1y + 0z = -4$</p>
+			<p>$0x + 0y + 1z = -4$</p>
+
+			</br>
+
+			<p>$x = -1$</p>
+			<p>$y = -4$</p>
+			<p>$z = -4$</p>
+
+
+		<h3 id="num_solutions">Number of Solutions to the Linear System</h3>
+
+			<p>Up to now, we have only looked at systems with exactly one solution. But systems can also have no solutions or infinitely many solutions. A unique solution is produced when the reduced row-echelon matrix looks like:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 0 & 0 & | & a \\
+				0 & 1 & 0 & | & b \\
+				0 & 0 & 1 & | & c \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Having no solutions is associated with finding a rref matrix that looks like:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 0 & 0 & | & a \\
+				0 & 1 & 0 & | & b \\
+				0 & 0 & 0 & | & c \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>Here, if $c$ is nonzero, you'll have a last row that tells you:</p>
+
+			<p>$0z = c$</p>
+			<p>$0 = c$</p>
+
+			<p>But we said $c$ is nonzero, so this indicates that the system has no solution.</p>
+
+			<p>When there are infinitely many solutions, the matrix can look like:</p>
+
+			<p>$
+				\begin{bmatrix}
+				1 & 0 & 0 & | & a \\
+				0 & 1 & 0 & | & b \\
+				0 & 0 & 0 & | & 0 \\
+				\end{bmatrix}
+				$
+			</p>
+
+			<p>The zero row at the bottom (including on the right side) tells us there are infinitely many solutions to the system.</p>
+
+
+			<h4>Pivot Entries and Free Entries</h4>
+
+				<p>The ones in the first and second row of the following matrix are called pivots.</p>
+
+				<p>$
+					\begin{bmatrix}
+					1 & 0 & 0 & | & a \\
+					0 & 1 & -3 & | & b \\
+					0 & 0 & 0 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Any other non-zero values on the left side of the matrix are called free entries. You can think about free entries as independent variables, in the sense that they can be set equal to anything, and you'll still be able to find a solution to the system.</p>
+
+
+	
+	<h2 id="ops_2mat">Operations on Two Matrices</h2>
+
+		<h3 id="mat_mult">Matrix Multiplication</h3>
+
+			<p>Matrix multiplication does not follow the commutative property (though it is associative and distributive); i.e., the order is important. Also, the number of columns in the first matrix must be equal to the number of rows in the second matrix.</p>
+
+
+			<h4>The Dot Product</h4>
+
+				<p>The dot product is the tool we'll use to multiply matrices. The product of two $2 \times 2$ matrices looks like:</p>
+
+				<p>$
+					\begin{bmatrix}
+					R_{1,1} & R_{1,2} \\
+					R_{2,1} & R_{2,2} \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					C_{1,1} & C_{1,2} \\
+					C_{2,1} & C_{2,2} \\
+					\end{bmatrix}
+
+					=
+
+					\begin{bmatrix}
+					R_{1,1} C_{1,1} + R_{1,2} C_{2,1} & R_{1,1} C_{1,2} + R_{1,2} C_{2,2} \\
+					R_{2,1} C_{1,1} + R_{2,2} C_{2,1} & R_{2,1} C_{1,2} + R_{2,2} C_{2,2} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+			<h4>The Elimination Matrix</h4>
+
+				<p>We've seen how a collection of row operations can change a matrix into reduced row-echelon form. Each of those individual row operations can be represented by a matrix, and the collection of all operations can be brought together in one matrix, called the elimination matrix, $E$.</p>
+
+
+
+	<h2 id="mat_as_vect">Matrices as Vectors</h2>
+
+		<h3 id="linear_combo_span">Linear Combination and Span</h3>
+
+			<p>Any expression which is just the sum of scaled vectors is called a linear combination. Linear combinations can sum any number of vectors.</p>
+
+
+			<h4>Span of a Vector Set</h4>
+
+				<p>The span of a set of vectors is the collection of all vectors which can be represented by some linear combination of the set.</p>
+
+				<p>Consider the basis vectors $\hat{i} = (1,0)$ and $\hat{j} = (0,1)$ in $\mathbb{R}^2$. Any vector in $\mathbb{R}^2$ can be achieved as a linear combination of the basis vectors. Because you can get to any vector in $\mathbb{R}^2$ with a linear combination of $\hat{i}$ and $\hat{j}$, you can say that $\hat{i}$ and $\hat{j}$ span $\mathbb{R}^2$. If a set of vectors spans a space, you can use a linear combination of those vectors to reach any vector in the space.</p>
+
+				<p>Similarly, we can get to any vector in $\mathbb{R}^3$ using a linear combination of the basis vectors $\hat{i}$, $\hat{j}$, and $\hat{k}$, which means that those basis vectors span $\mathbb{R}^3$, the entirety of 3D space. We can write this as:</p>
+
+				<p>$span(\hat{i}, \hat{j}) = \mathbb{R}^2$</p>
+				<p>$span(\hat{i}, \hat{j}, \hat{k}) = \mathbb{R}^3$</p>
+
+				<p>Note that the span ofthe zero vector is always just the origin.</p>
+
+
+			<h4>Span and Linear Independence</h4>
+
+				<p>Our next step is to be able to determine when a vector set spans a space, and when it does not. How can we determine when a point in the space is or isn't reachable by a linear combination of the vector set? The answer has to do with whether or not the vectors in the set are linearly dependent or independent.</p>
+					<ul>
+						<li>Any two 2D linearly independent vectors will span $\mathbb{R}^2$. The 2D basis vectors $\hat{i}$ and $\hat{j}$ are linearly independent, so they span $\mathbb{R}^2$.</li>
+
+						<li>Any 3D linearly independent vectors will span $\mathbb{R}^3$. The 3D basis vectors $\hat{i}$, $\hat{j}$, and $\hat{k}$ are linearly independent, and span $\mathbb{R}^3$.</li>
+
+						<li>Any $n$-dimensional linearly independent vectors will span $\mathbb{R}^n$. But we can never span $\mathbb{R}^n$ with fewer than $n$ vectors.</li>
+					</ul>
+
+				<p>Assuming we have enough vectors to span the space, they must also be different enough from each other that they can cover the whole vector space. It's easier to think about when this will not be the case.</p>
+					<ul>
+						<li>When two 2D vectors lie along the same line, or along parallel lines, they are collinear, and linearly dependent.</li>
+
+						<li>When three 3D vectors lie in the same space, they are called coplanar, and are linearly dependent.</li>
+
+						<li>When $n$ $n$-dimensional vectors lie in the same $(n-1)$-dimensional space, they are linearly dependent, and will not span $\mathbb{R}^n$.</li>
+					</ul>
+
+
+			<h4>Testing for Linear Independence</h4>
+
+				<p>A reliable way to determine whether a set of vectors is linearly dependent is to set up a system of equations that includes the vectors in the set, and one constant term for each vector. For example, given the vectors:</p>
+
+				<p>$
+					v_1 = 
+					\begin{bmatrix}
+					1 \\
+					0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>and</p>
+
+				<p>$
+					v_2 = 
+					\begin{bmatrix}
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>We took the sum of the vectors in the set, put a constant in front of each one, and set the sum equal to the zero vectors. Now we can break the equation up into a system of equations.</p>
+
+				<p>$c_1(1) + c_2(0) = 0$</p>
+				<p>$c_1(0) + c_2(1) = 0$</p>
+
+				<p>Then solve the system. In this case, we would find that $c_1 = 0$ and $c_2 = 0$. If the only values that can make the system true are $0$, this indicates linear independence.</p>
+
+				<p>We can use the same method to test for linear independence in 3 dimensions. If the only solution is one in which all constants are $0$, then the vectors are linearly independent.</p>
+
+
+		<h3 id="linear_sub">Linear Subspaces</h3>
+
+			<h4>Definition of a Subspace</h4>
+
+				<p>We have referred to $\mathbb{R}^2, \mathbb{R}^3, \ldots, \mathbb{R}^n$ as a space. Within these spaces, we can define subspaces. As an example, a subspace (or linear subspace) of $\mathbb{R}^2$ is a set of 2D vectors within $\mathbb{R}^2$, where the set meets 3 specific conditions:</p>
+					<ol>
+						<li>The set includes the zero vector. This means $(0,0)$ in $\mathbb{R}^2$, or $(0,0,0)$ in $\mathbb{R}^3$, needs to be a member of the set in order to be a subspace.</li>
+
+						<li>The set is closed under scalar multiplication. This means that, for any $\overrightarrow{v}$ in the vector set $V$, $c \overrightarrow{v}$ must also be in $V$. In other words, we need to be able to take any member $\overrightarrow{v}$ of the set $V$, multiply it by any real-numbered scalar $c$, and end up with a resulting vector $c \overrightarrow{v}$ that is still in $V$. If you choose a member of $V$, multiply it by a real number scalar, and end up with a vector outside of $V$, then the set $V$ is not closed under scalar multiplication, and therefore $V$ is not a subspace.</li>
+
+						<li>The set is closed under addition. This means that, if $\overrightarrow{s}$ and $\overrightarrow{t}$ are both vectors in the set $V$, then the vector $\overrightarrow{s} + \overrightarrow{t}$ must also be in $V$. We need to be able to take any two members $\overrightarrow{s}$ and $\overrightarrow{t}$ of the set $V$, add them together, and end up with a resulting $\overrightarrow{s} + \overrightarrow{t}$ that is stil in $V$. What we're really saying is that any linear combination of the members of $V$ will also be in $V$.</li>
+					</ol>
+
+				<p>The first condition, that a subspace must include the zero vector, is logically already included as part of the second condition, that a subspace is closed under multiplication. This means we can simplify the definition to be expressed only as the other two conditions.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Show that the following set is not a subspace of $\mathbb{R}^2$.</p>
+
+				<p>$
+					M = \biggl\{ 
+
+					\begin{bmatrix}
+					x \\
+					y \\
+					\end{bmatrix}
+
+					\in
+
+					\mathbb{R}^2 | y \le 0
+					\biggr\}
+					$
+				</p>
+
+				<p>The notation tells us that the set $M$ is all of the 2D vectors $(x,y)$ in the plane $\mathbb{R}^2$, where the value of $y$ must be $y \le 0$. If we show this in the $\mathbb{R}^2$ plane, $y \le 0$ constrains us to the third and fourth (lower) quadrants.</p>
+
+				<p>We can say that $M$ does include the zero vector, because there are no restrictions on $x$.</p>
+
+				<p>Second, let's check whether $M$ is closed under addition. We'll take two theoretical vectors in $M$:</p>
+
+				<p>$
+					m1 =
+					\begin{bmatrix}
+					x_1 \\
+					y_1 \\
+					\end{bmatrix}
+					$
+
+					and
+
+					$
+					m_2 =
+					\begin{bmatrix}
+					x_2 \\
+					y_2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>and find their sum.</p>
+
+				<p>$
+					\overrightarrow{m_1} + \overrightarrow{m_2} =
+
+					\begin{bmatrix}
+					x_1 + x_2 \\
+					y_1 + y_2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>Because $x_1$ and $x_2$ can be either positive or negative, the sum $x_1 + x_2$ can either be positive or negative. Because $y_1$ and $y_2$ must be negative, the sum $y_1 + y_2$ must be negative. A vector with negative $y_1 + y_2$ must fill in the third or fourth (lower) quadrants, so the set is closed under addition.</p>
+
+				<p>Finally, we'll see if $M$ is closed under multiplication. Given a vector in $M$ like:</p>
+
+				<p>$
+					\overrightarrow{m} = 
+
+					\begin{bmatrix}
+					2 \\
+					-3 \\
+					\end{bmatrix}
+					$
+				</p>
+
+				<p>we need to be able to multiply it by any real number scalar and find a resulting vector that is still inside $M$. Multiplying $\overrightarrow{m} = (2,-3)$ by any positive scalar will result in a vector that's still in $m$. $x$ will stay positive and $y$ will stay negative, putting the result in the fourth quadrant. But multiplying $\overrightarrow{m}$ by any negative scalar will result in a vector outside of $M$. $y$ would become positive, and therefore, $M$ is not closed under scalar multiplication, and so the set $M$ is not a subspace of 3D vector space, $\mathbb{R}^2$.</p>
+
+
+			<h4>Spans as Subspaces</h4>
+
+				<p>We said that $\mathbb{R}^2$ itself, any line through $(0,0)$, and the zero vector $\overrightarrow{O} = (0,0)$ are all subspaces of $\mathbb{R}^2$, and that any line through $(0,0,0)$, any plane through $(0,0,0)$, and the vector $\overrightarrow{O} = (0,0,0)$ are all subspaces of $\mathbb{R}^3$. With this pattern in mind, we can conclude that every span is a subspace.</p>
+
+
+		<h3 id="basis">Basis</h3>
+
+			<p>The concept of a basis is closely connected to the idea of linear independence. We could say, for example, that $\mathbb{R}^2$ is spanned by the vector set $V$ that includes all of the following vectors:</p>
+
+
+			<p>$
+				\mathbb{R}^2 = span(V) = span \left(
+
+				\begin{bmatrix}
+				1 \\
+				2 \\
+				\end{bmatrix},
+
+				\begin{bmatrix}
+				2 \\
+				4 \\
+				\end{bmatrix},
+
+				\begin{bmatrix}
+				1 \\
+				3 \\
+				\end{bmatrix}
+
+				\right)
+				$
+			</p>
+
+
+			<p>But the first two vectors are linearly dependent, which means that including $v_2 = (2,4)$ does not actually add new information. It is simpler to say:</p>
+
+
+			<p>$
+				\mathbb{R}^2 = span(V) = span \left(
+
+				\begin{bmatrix}
+				1 \\
+				2 \\
+				\end{bmatrix},
+
+				\begin{bmatrix}
+				1 \\
+				3 \\
+				\end{bmatrix}
+
+				\right)
+				$
+			</p>
+
+
+			<p>When you have a set of linearly independent vectors that span a vector space like $\mathbb{R}^2$, you can say that the vector set forms a basis for that vector space $\mathbb{R}^2$. If you have a basis for a space, it means you have enough vectors to span the space, but not more than is needed. So a vector set is a basis if:</p>
+				<ol>
+					<li>It spans the space, and</li>
+					<li>It is linearly independent</li>
+				</ol>
+
+			<p>If any subspace $Q$ is given as the span of a set of vectors, and if all the vectors in the set are linearly independent, then the set of vectors is a basis for the subspace $Q$.</p>
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="king_pt2.html">part 2</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
+
+
+
+

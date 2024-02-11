@@ -1,0 +1,1912 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+
+
+
+<h1>Linear Algebra, King Pt. 4</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#inverses">Inverses</td><td><a href="#inverse_trans">Inverse of a Transformation</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#surjective_injective">Surjective and Injective</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#invertibility">Invertibility From the Matrix-Vector Product</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#inv_trans_linear">Inverse Trasformations are Linear</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#inv_trans_mat_vect">Inverse Transformations as Matrix-Vector Products</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#finding_mat_inverse">Finding the Matrix Inverse</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#mat_inv_singular">Matrix Inverses, Invertible and Singular Matrices</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#solving_systems">Solving Systems with Inverse Matrices</a></td></tr>
+ <tr><td><a href="#determinants">Determinants</a></td><td><a href="#det_along_rows_cols">The Determinant Along Different Rows and Columns</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#cramers_rule">Cramer's Rule for Solving Systems</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#det_to_find_area">Using Determinants to Find Area</a></td></tr>
+ <tr><td><a href="#transposes">Transposes</a></td><td><a href="#transposes_det">Transposes and Their Determinants</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#transpose_prod_sum_inv">Transposes of Products, Sums, and Inverses</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#null_col_space">Null and Column Spaces of the Transpose</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#space_dims">Space and Dimensions</a></td></tr>
+ <tr><td>&nbsp;</td><td><a href="#prod_mat_transpose">The Product of a Matrix and Its Transpose</a></td></tr>
+</tbody></table>
+
+
+
+  <h2 id="inverses">Inverses</h2>
+
+    <h3 id="inverse_trans">Inverse of a Transformation</h3>
+
+      <p>The identity transformation maps vectors to themselves. What we want to know is whether we can use a transformation to map a vector from one subset $A$ to another subset $B$, and then undo the process, mapping the result we get in $B$ back into $A$, and end up with the same vector in $A$ that we have started with. If we can do this for every vector $\overrightarrow{a}$ in $A$, then the transformation is invertible. If $T: A \to B$, then $T$ is invertible only if its inverse $T^{-1}: B \to A$ exists, such that the composition of $T$ with $T^{-1}$ and vice versa are both defined by the identity transformations.</p>
+
+      <p>$T^{-1} \cdot T = I_A$</p>
+      <p>$T \cdot T^{-2} = I_B$</p>
+
+      <p>If a transformation is invertible, there are three other conclusions we can make:</p>
+        <ol>
+          <li>Its inverse transformation is unique. An invertible transformation will have exactly one inverse.</li>
+
+          <li>When you apply the transformation $T$ to a vector $\overrightarrow{a}$ in $A$, you'll be mapped to one unique vector $\overrightarrow{b}$ in $B$. The transformation can never map you from $\overrightarrow{a}$ to multiple values $\overrightarrow{b_1}$ and $\overrightarrow{b_2}$ in $B$.</li>
+
+          <li>When you apply the inverse transformation $T^{-1}$ to a vector $\overrightarrow{b}$ in $B$, you'll be mapped back to one unique vector $\overrightarrow{a}$ in $A$. The unique inverse transformation can never map you from $\overrightarrow{b}$ in $B$ back to multiple vectors in $A$.</li>
+        </ol>
+
+
+    <h3 id="surjective_injective">Surjective and Injective</h3>
+
+      <p>If $T$ is a transformation that maps vectors in the subset $A$ to vectors in subset $B$, and if every vector $\overrightarrow{b}$ in $B$ is being mapped to at least once by some vector(s) $\overrightarrow{a}$ in $A$ such that $T(\overrightarrow{a}) = \overrightarrow{b}$, then $T$ is a surjective transformation, also called an onto transformation.</p>
+        <ul>
+          <li>i.e., if every vector $\overrightarrow{b}$ in $B$ is begin mapped to, the $T$ is surjective, or onto</li>
+        </ul>
+
+      <p>If $T$ is a transformation that maps vectors in the subset $A$ to vectors in the subset $B$, and if every vector $\overrightarrow{b}$ in $B$ is being mapped to by at most one vector $\overrightarrow{a}$ in $A$ such that $T(\overrightarrow{a}) = \overrightarrow{b}$, then $T$ is an injective transformation, also called a one-to-one transformation.</p>
+        <ul>
+          <li>If every $\overrightarrow{a}$ maps to a unique $\overrightarrow{b}$, then $T$ is injective, or one-to-one</li>
+        </ul>
+
+      <p>A transformation $T$ is invertible only if $T$ is both surjective and injective.</p>
+
+
+    <h3 id="invertibility">Invertibility From the Matrix-Vector Product</h3>
+
+      <p>Any linear transformation can be written as a matrix-vector product.</p>
+
+      <p>$T(\overrightarrow{x}) = M \overrightarrow{x}$, where $M$ is a $m \times n$ matrix</p>
+
+      <p>The transformation is surjective if the column space of $M$ is the entire codomain, $\mathbb{R}^M$.</p>
+
+      <p>$C(M) = \mathbb{R}^m$</p>
+
+      <p>The column space of $M$ will be the entire codomain. $\mathbb{R}^m$ only when $rref(M)$ has $m$ pivot entries. $m$ basis vectors make up the column space of $M$, $C(M)$, and the rank of $M$ is $m$.</p>
+
+      <p>In other words, the transformation is surjective if any of the following are observed to be true:</p>
+        <ul>
+          <li>$M$ becomes the identity matrix in rref</li>
+          <li>$M$ has $m$ pivot entries</li>
+          <li>$m$ basis vectors make up the column space of $M$</li>
+          <li>the rank of $M$ is $m$</li>
+        </ul>
+
+
+      <h4>Only Square Matrices are Invertible</h4>
+
+        <p>In order for a transformation to be surjective, the rank of $M$ must be $m$, meaning that we must have a pivot entry in every row. But in order for the transformation to be injective, the rank of $M$ must also be $n$. So a matrix is only surjective and injective if $m=n$. This implies that the transformation $T$ must map from a domain $\mathbb{R}^n$ to the codomain $\mathbb{R}^n$. A transformation can only be invertible when it maps $\mathbb{R}^n \to \mathbb{R}^n$.</p>
+
+        <p>Given a transformation $T(\overrightarrow{x}) = M \overrightarrow{x}$, if you can put the matrix $M$ into rref and get the identity matrix $I_n$, then:</p>
+          <ul>
+            <li>The matrix $M$ is a square $n \times n$ matrix</li>
+            <li>The transformation $T$ maps $\mathbb{R}^n \to \mathbb{R}^n$, and</li>
+            <li>$T$ is invertible</li>
+          </ul>
+
+
+    <h3 id="inv_trans_linear">Inverse Trasformations are Linear</h3>
+
+      <p>The inverse of an invertible linear transformation is itself a linear transformation, which means that the inverse transformation $T^{-1}$ is closed under addition and scalar multiplication.</p>
+
+      <p>$T^{-1} (\overrightarrow{u} + \overrightarrow{v}) = T^{-1}(\overrightarrow{u}) + T^{-1}(\overrightarrow{v})$</p>
+      <p>$T^{-1} (c \overrightarrow{u}) = c ~T^{-1}(\overrightarrow{u})$</p>
+
+      <p>In other words, as long as the original transformation $T$ is a linear transformation itself, and is invertible, then the inverse $T^{-1}$ is also a linear transformation.</p>
+
+
+    <h3 id="inv_trans_mat_vect">Inverse Transformations as Matrix-Vector Products</h3>
+
+      <p>Any linear transformation can be represented as a matrix-vector product. Normally, we rewrite the linear transformation $T: \mathbb{R}^n \to \mathbb{R}^n$ as:</p>
+
+      <p>$T(\overrightarrow{x}) = A \overrightarrow{x}$</p>
+
+      <p>where $A$ is a square $n \times n$ matrix. Because the inverse transformation $T^{-1}$ is a linear transformation as well, we can also write the inverse as a matrix-vector product.</p>
+
+      <p>$T^{-1}(\overrightarrow{x}) = A^{-1} \overrightarrow{x}$</p>
+
+      <p>Taking the composition of the inverse transformation $T^{-1}$ with T will always give us the identity matrix $I_n$, where $n$ is the dimension of the domain and codomain $\mathbb{R}^n$.</p>
+
+      <p>$(T^{-1} \cdot T)(\overrightarrow{x}) = I_n \overrightarrow{x}$</p>
+      <p>$(T \cdot T^{-1})(\overrightarrow{x}) = I_n \overrightarrow{x}$</p>
+
+      <p>The only way these can be true is if the matrices that are part of the matrix-vector products are inverses of one another.</p>
+
+      <p>$(T^{-1} \cdot T)(\overrightarrow{x}) = I_n \overrightarrow{x} \to (T^{-1} \cdot T)(\overrightarrow{x}) = A^{-1}A \overrightarrow{x}$</p>
+
+      <p>$(T \cdot T^{-1})(\overrightarrow{x}) = I_n \overrightarrow{x} \to (T^{-1} \cdot T)(\overrightarrow{x}) = AA^{-1} \overrightarrow{x}$</p>
+
+      <p>The only way that $A^{-1}A$ and $AA^{-1}$ can both equal $I_n$ is if $A$ and $A^{-1}$ are inverses of one another.</p>
+
+
+    <h3 id="finding_mat_inverse">Finding the Matrix Inverse</h3>
+
+      <p>If we start with $A$, but augment it with the identity matrix, all we have to do to find $A^{-1}$ is work on the augmented matrix $A$ until it is in rref. i.e., we'll start with 
+
+      $
+      \begin{bmatrix}
+      A | I \\
+      \end{bmatrix}
+      $
+
+      and end up with 
+
+      $
+      \begin{bmatrix}
+      I | A^{-1} \\
+      \end{bmatrix}
+      $
+      .
+      </p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the inverse of:</p>
+
+        <p>$
+          A =
+
+          \begin{bmatrix}
+          -2 & 4 & 0 \\
+          1 & -1 & 4 \\
+          0 & 6 & -4 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \to
+          \begin{bmatrix}
+          -2 & 4 & 0 & | & 1 & 0 & 0 \\
+          1 & -1 & 4 & | & 0 & 1 & 0 \\
+          0 & 6 & -4 & | & 0 & 0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>We start by switching $R_2$ and $R_1$ to get a $1$ into the first entry of the first row.</p>
+
+        <p>$
+          \to
+          \begin{bmatrix}
+          1 & -1 & 4 & | & 0 & 1 & 0 \\
+          -2 & 4 & 0 & | & 1 & 0 & 0 \\
+          0 & 6 & -4 & | & 0 & 0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Now zero out the rest of the first column.</p>
+
+        <p>$
+          \to
+          \begin{bmatrix}
+          1 & -1 & 4 & | & 0 & 1 & 0 \\
+          0 & 2 & 8 & | & 1 & 2 & 0 \\
+          0 & 6 & -4 & | & 0 & 0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Find the pivot entry in the second row.</p>
+
+        <p>$
+          \to
+          \begin{bmatrix}
+          1 & -1 & 4 & | & \frac{1}{2} & 2 & 0 \\
+          0 & 1 & 4 & | & \frac{1}{2} & 1 & 0 \\
+          0 & 6 & -4 & | & 0 & 0 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Zero out the rest of the second column.</p>
+
+
+        <p>$
+          \to
+          \begin{bmatrix}
+          1 & 0 & 8 & | & \frac{1}{2} & 2 & 0 \\
+          0 & 1 & 4 & | & \frac{1}{2} & 1 & 0 \\
+          0 & 6 & -4 & | & 0 & 0 & 1 \\
+          \end{bmatrix}
+
+          \to
+          \begin{bmatrix}
+          1 & 0 & 8 & | & \frac{1}{2} & 2 & 0 \\
+          0 & 1 & 4 & | & \frac{1}{2} & 1 & 0 \\
+          0 & 0 & -28 & | & -3 & -6 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Find the pivot entry in the third row.</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          1 & 0 & 8 & | & \frac{1}{2} & 2 & 0 \\
+          0 & 1 & 4 & | & \frac{1}{2} & 1 & 0 \\
+          0 & 0 & 1 & | & \frac{3}{28} & \frac{3}{14} & -\frac{1}{28} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Zero out the rest of the third column.</p>
+
+
+        <p>$
+          \to
+          \begin{bmatrix}
+          1 & 0 & 0 & | & -\frac{5}{14} & \frac{2}{7} & \frac{2}{7} \\
+          0 & 1 & 4 & | & \frac{1}{2} & 1 & \frac{1}{7} \\
+          0 & 0 & 1 & | & \frac{3}{28} & \frac{3}{14} & -\frac{1}{28} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Now that $A$ has been put into rref, we can say:</p>
+
+
+        <p>$
+          A^{-1} =
+
+          \begin{bmatrix}
+          -\frac{5}{14} & \frac{2}{7} & \frac{2}{7} \\
+          \frac{1}{2} & 1 & \frac{1}{7} \\
+          \frac{3}{28} & \frac{3}{14} & -\frac{1}{28} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+    <h3 id="mat_inv_singular">Matrix Inverses, Invertible and Singular Matrices</h3>
+
+      <p>Another way to find the matrix inverse, which will help identify when the matrix is invertible, requires use of the determinant. The determinant of a $2 \times 2$ matrix,</p>
+
+      <p>$
+        M =
+
+        \begin{bmatrix}
+        a & b \\
+        c & d \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>is $|M| = ad - bc$. The inverse of $M$ is given by:</p>
+
+
+      <p>$
+        M^{-1} = \frac{1}{|M|}
+        \begin{bmatrix}
+        d & -b \\
+        -c & a \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>$
+        M^{-1} = \frac{1}{ad-bc}
+        \begin{bmatrix}
+        d & -b \\
+        -c & a \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>i.e., the formula for the inverse matrix is a fraction with a numerator of $1$ and the determinant as the denominator, multiplied by another matrix.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Find the inverse of the following matrix.</p>
+
+        <p>$
+          K =
+
+          \begin{bmatrix}
+          -2 & 4 \\
+          3 & 0 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          K^{-1} =
+
+          \frac{1}
+          {
+          \begin{vmatrix}
+          -2 & 4 \\
+          3 & 0 \\
+          \end{vmatrix}
+          }
+
+          \begin{bmatrix}
+          0 & -4 \\
+          -3 & -2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          K^{-1} = \frac{1}{ -2(0) - 4(3) }
+
+          \begin{bmatrix}
+          0 & -4 \\
+          -3 & -2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          K^{-1} = \frac{1}{12}
+
+          \begin{bmatrix}
+          0 & -4 \\
+          -3 & -2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          K^{-1} =
+
+          \begin{bmatrix}
+          -\frac{0}{12} & \frac{4}{12} \\
+          \frac{3}{12} & \frac{2}{12} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          K^{-1} =
+
+          \begin{bmatrix}
+          0 & \frac{1}{3} \\
+          \frac{1}{4} & \frac{1}{6} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+    <h3 id="solving_systems">Solving Systems with Inverse Matrices</h3>
+
+      <p>Let's consider a simple system:</p>
+
+      <p>$3x + 4y = 6$</p>
+      <p>$-2x + y = 9$</p>
+
+      <p>and for the sake of illustration, compare to the generic system:</p>
+
+      <p>$ax + by = f$</p>
+      <p>$cx + dy = g$</p>
+
+      <p>We can represent a linear system like this as the coefficient matrix, multiplied by the column vector $(x,y)$, set equal to the column vector of the constants, $(f,g)$.</p>
+
+
+      <p>$
+        \begin{bmatrix}
+        a & b \\
+        c & d \\
+        \end{bmatrix}
+
+        \begin{bmatrix}
+        x \\
+        y \\
+        \end{bmatrix}
+
+        =
+
+        \begin{bmatrix}
+        f \\
+        g \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>If we call the coefficient matrix $M$, rename the column vector $(x,y)$ as $\overrightarrow{a}$, and rename the column vector $(f,g)$ as $\overrightarrow{b}$, we can say $M \overrightarrow{a} = \overrightarrow{b}$.</p>
+
+      <p>If we multiply both sides by the inverse matrix $M^{-1}$, we get:</p>
+
+      <p>$M^{-1}M \overrightarrow{a} = M^{-1} \overrightarrow{b}$</p>
+
+      <p>Since $M^{-1}M = I$, we have $I \overrightarrow{a} = M^{-1} \overrightarrow{b}$ and $I \overrightarrow{a} = \overrightarrow{a}$, therefore $\overrightarrow{a} = M^{-1} \overrightarrow{b}$.</p>
+
+      <p>We now have an equation that's solved for $\overrightarrow{a}$, which is representing the column vector $(x,y)$, which is the solution to the system.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use an inverse matrix to solve the system:</p>
+
+        <p>$3x - 4y = 6$</p>
+        <p>$-2x + y = 9$</p>
+
+        </br>
+
+        <p>$M \overrightarrow{a} = \overrightarrow{b}$</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          3 & -4 \\
+          -2 & 1 \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          x \\
+          y \\
+          \end{bmatrix}
+
+          =
+
+          \begin{bmatrix}
+          6 \\
+          -9 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Find the inverse of the coefficient matrix.</p>
+
+
+        <p>$
+          M =
+
+          \begin{bmatrix}
+          3 & -4 \\
+          -2 & 1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          M^{-1} = \frac{1}{ 3(1) - (-2)(-4) }
+
+          \begin{bmatrix}
+          1 & 4 \\
+          2 & 3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          M^{-1} = - \frac{1}{5}
+
+          \begin{bmatrix}
+          1 & 4 \\
+          2 & 3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          M^{-1} =
+
+          \begin{bmatrix}
+          -\frac{1}{5} & -\frac{4}{5} \\
+          -\frac{2}{5} & -\frac{3}{5} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>Then we can say that the solution to the system is:</p>
+
+        <p>$\overrightarrow{a} = M^{-1} \overrightarrow{b}$</p>
+
+
+        <p>$
+          \overrightarrow{a} =
+
+          \begin{bmatrix}
+          -\frac{1}{5} & -\frac{4}{5} \\
+          -\frac{2}{5} & -\frac{3}{5} \\
+          \end{bmatrix}
+
+          \begin{bmatrix}
+          6 \\
+          -9 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{a} =
+
+          \begin{bmatrix}
+          -\frac{1}{5}(6) & -\frac{4}{5}(-9) \\
+          -\frac{2}{5}(6) & -\frac{3}{5}(-9) \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{a} =
+
+          \begin{bmatrix}
+          -\frac{6}{5} + \frac{36}{5} \\
+          -\frac{12}{5} + \frac{27}{5} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{a} =
+          \begin{bmatrix}
+          \frac{30}{5} \\
+          \frac{15}{5} \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          \overrightarrow{a} =
+
+          \begin{bmatrix}
+          x \\
+          y \\
+          \end{bmatrix}
+
+          =
+
+          \begin{bmatrix}
+          6 \\
+          3 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>We conclude that the solution to the system is $\overrightarrow{a} = (x,y) = (6,3)$.</p>
+
+        <p>We can also express the system from this example as:</p>
+
+        <p>$3x - 4y = 6$</p>
+        <p>$-2x + y = -9$</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          3 \\
+          -2 \\
+          \end{bmatrix}
+          x
+
+          +
+
+          \begin{bmatrix}
+          -4 \\
+          1 \\
+          \end{bmatrix}
+          y
+
+          =
+
+          \begin{bmatrix}
+          6 \\
+          -9 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+
+  <h2 id="determinants">Determinants</h2>
+
+    <p>The formula for the inverse of a $2 \times 2$ matrix,</p>
+
+    <p>$
+      A^{-1} = \frac{1}{ad - bc}
+      \begin{bmatrix}
+      d & -b \\
+      -c & a \\
+      \end{bmatrix}
+      $
+    </p>
+
+
+    <p>is not defined if $ad-bc = 0$, giving a test that can be used to determine whether or not a matrix is invertible. If the determinant is $0$, you cannot find the inverse, but if the determinant is nonzero, then the matrix is invertible.</p>
+
+
+    <h3>The Determinant For $3 \times 3$ and $n \times n$ Matrices</h3>
+
+      <p>Given a matrix,</p>
+
+      <p>$
+        A =
+
+        \begin{bmatrix}
+        a & b & c \\
+        d & e & f \\
+        g & h & i \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>its determinant is:</p>
+
+
+      <p>$
+        |A| =
+
+        \begin{vmatrix}
+        a & b & c \\
+        d & e & f \\
+        g & h & i \\
+        \end{vmatrix}
+
+        =
+
+        a
+        \begin{vmatrix}
+        e & f \\
+        h & i \\
+        \end{vmatrix}
+
+        -
+
+        b
+        \begin{vmatrix}
+        d & f \\
+        g & i \\
+        \end{vmatrix}
+
+        +
+
+        c
+        \begin{vmatrix}
+        d & e \\
+        g & h \\
+        \end{vmatrix}
+        $
+      </p>
+
+
+      <p>$|A| = a(ei - fh) - b(di - fg) + c(dh - eg)$</p>
+      <p>$|A| = aei - afh - bdi + bfg + cdh - ceg$</p>
+      <p>$|A| = aei + bfg + cdh - afh - bdi - ceg$</p>
+
+      <p>We can expand this process to any $n \times n$ matrix. As with the $3 \times 3$ determinant, there are alternating signs, starting with a positive sign.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Use the determinant to say whether matrix $A$ is invertible.</p>
+
+
+        <p>$
+          A =
+
+          \begin{bmatrix}
+          1 & 2 & 3 & 4 \\
+          -3 & 0 & 2 & 2 \\
+          4 & -2 & 0 & 3 \\
+          4 & 1 & 2 & -1 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+
+        <p>$
+          |A| =
+
+          1
+          \begin{vmatrix}
+          0 & 1 & 2 \\
+          -2 & 0 & 3 \\
+          1 & 2 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          2
+          \begin{vmatrix}
+          -3 & 1 & 2 \\
+          4 & 0 & 3 \\
+          4 & 2 & -1 \\
+          \end{vmatrix}
+
+          +
+
+          3
+          \begin{vmatrix}
+          -3 & 0 & 2 \\
+          4 & -2 & 3 \\
+          4 & 1 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          4
+          \begin{vmatrix}
+          -3 & 0 & 1 \\
+          4 & -2 & 0 \\
+          4 & 1 & 2 \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+
+        <p>$
+          A =
+
+          1
+          \begin{vmatrix}
+          0 & 1 & 2 \\
+          -2 & 0 & 3 \\
+          1 & 2 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          2
+          \begin{vmatrix}
+          -3 & 1 & 2 \\
+          4 & 0 & 3 \\
+          4 & 2 & -1 \\
+          \end{vmatrix}
+
+          +
+
+          3
+          \begin{vmatrix}
+          -3 & 0 & 2 \\
+          4 & -2 & 3 \\
+          4 & 1 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          4
+          \begin{vmatrix}
+          -3 & 0 & 1 \\
+          4 & -2 & 0 \\
+          4 & 1 & 2 \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+
+        <p>$
+          A =
+
+          1
+          \left[
+
+          0
+          \begin{vmatrix}
+          0 & 3 \\
+          2 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          1
+          \begin{vmatrix}
+          -2 & 3 \\
+          1 & -1 \\
+          \end{vmatrix}
+
+          +
+
+          2
+          \begin{vmatrix}
+          -2 & 0 \\
+          1 & 2 \\
+          \end{vmatrix}
+
+          \right]
+
+
+          -
+
+
+          2
+          \left[
+
+          -3
+          \begin{vmatrix}
+          0 & 3 \\
+          2 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          1
+          \begin{vmatrix}
+          4 & 3 \\
+          4 & -1 \\
+          \end{vmatrix}
+
+          +
+
+          2
+          \begin{vmatrix}
+          4 & 0 \\
+          4 & 2 \\
+          \end{vmatrix}
+
+          \right]
+          $
+        </p>
+
+
+        <p>$        
+
+          +
+
+
+          3
+          \left[
+
+          -3
+          \begin{vmatrix}
+          -2 & 3 \\
+          1 & -1 \\
+          \end{vmatrix}
+
+          -
+
+          0
+          \begin{vmatrix}
+          4 & 3 \\
+          4 & -1 \\
+          \end{vmatrix}
+
+          +
+
+          2
+          \begin{vmatrix}
+          4 & -2 \\
+          4 & 1 \\
+          \end{vmatrix}
+
+          \right]
+
+
+          -
+
+
+          4
+          \left[
+
+          -3
+          \begin{vmatrix}
+          -2 & 0 \\
+          1 & 2 \\
+          \end{vmatrix}
+
+          -
+
+          0
+          \begin{vmatrix}
+          4 & 0 \\
+          4 & 2 \\
+          \end{vmatrix}
+
+          +
+
+          1
+          \begin{vmatrix}
+          4 & -2 \\
+          4 & 1 \\
+          \end{vmatrix}
+
+          \right]
+          $
+        </p>
+
+
+        <p>Now that we only have $2 \times 2$ size determinants remaining, we can evaluate the $ad-bc$ pattern.</p>
+
+        <p>$|A| = 1 [ 0( (0)(-1) - (3)(2) ) - 1( (-2)(-1) - (3)(1) ) + 2( (-2)(2) - (0)(1) ) ]$</p>
+        <p>$- 2 [ -3( (0)(-1) - (3)(2) ) - 1( (4)(-1) - (3)(4) ) + 2( (4)(2) - (0)(4) ) ]$</p>
+        <p>$+ 3 [ -3( (-2)(-1) - (3)(1) ) - 0( (4)(-1) - (3)(4) ) + 2( (4)(1) - (-2)(4) ) ]$</p>
+        <p>$- 4 [ -3( (-2)(2) - (0)(1) ) - 0( (4)(2) - (0)(4) ) + 1( (4)(1) - (-2)(4) ) ]$</p>
+
+        <p>$|A| = [0(0-6) - 1(2-3) + 2(-4-0)] - 2[-3(0-6) - 1(-4-12) + 2(8-0)]$</p>
+        <p>$+ 3[-3(2-3) - 0(-4-12) + 2(4+8)] - 4[-3(-4-0) - (8-0) + 1(4+8)]$</p>
+
+        <p>$|A| = 1[0(-6) - 1(-1) + 2(-4)] - 2[-3(-6) - 1(-16) + 2(8)]$</p> 
+        <p>$+ 3[-3(-1) - (0)(-16) + 2(12)] - 4[-3(-4) - 0(8) + 1(12)]$</p>
+
+        <p>$|A| = 1(0+1-8) - 2(18+16+16 + 3(3-0+24) - 4(12-0+12)$</p>
+        <p>$|A| = 1(-7) - 2(50) + 3(27) - 4(24)$</p>
+        <p>$|A| = -7 - 100 + 81 - 96$</p>
+        <p>$|A| = -122$</p>
+
+        <p>The determinant is nonzero, so we know that $A$ is invertible.</p>
+
+
+    <h3 id="det_along_rows_cols">The Determinant Along Different Rows and Columns</h3>
+
+      <p>So far, we have been using the first row of values as coefficients when finding the determinant, but can use any row for this purpose and get the same result. Recall that the signs follow a checkerboard pattern:</p>
+
+      <p>$
+        \begin{bmatrix}
+        + & - & + & - \\
+        - & + & - & + \\
+        + & - & + & - \\
+        - & + & - & + \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>So the determinant of $A$ along the second row would be:</p>
+
+
+      <p>$
+        |A| =
+
+        3
+        \begin{vmatrix}
+        2 & 3 & 4 \\
+        -2 & 0 & 3 \\
+        1 & 2 & -1 \\
+        \end{vmatrix}
+
+        +
+
+        0
+        \begin{vmatrix}
+        1 & 3 & 4 \\
+        4 & 0 & 3 \\
+        4 & 2 & -1 \\
+        \end{vmatrix}
+
+        -
+
+        1
+        \begin{vmatrix}
+        1 & 2 & 4 \\
+        4 & -2 & 3 \\
+        4 & 1 & -1 \\
+        \end{vmatrix}
+
+        +
+
+        2
+        \begin{vmatrix}
+        1 & 2 & 3 \\
+        4 & -2 & 0 \\
+        4 & 1 & 2 \\
+        \end{vmatrix}
+        $
+      </p>
+
+
+    <h3 id="cramers_rule">Cramer's Rule for Solving Systems</h3>
+
+      <p>Cramer's rule lets us use determinants to solve a system of linear equations. You can solve for any variable in the system by calculating $D_v/D$, where $D_V$ is the determinant of the coefficient matrix with the answer column values in the variable column you're trying to solve, and $D$ is the determinant of the coefficient matrix. To find the value of $y$, we need to find $D_y/D$.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Solve for $x$ in the system:</p>
+
+        <p>$2x - 3y = 5$</p>
+        <p>$3x + 12y = -8$</p>
+
+        <p>We need to start with the coefficient matrix for the system.</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          2 & -3 \\
+          3 & 12 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>The answer column matrix is built from the constants from the right side of the system,</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          5 \\
+          -8 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$D_x$ is the determinant of the coefficient matrix substituted into the $x$-column, so:</p>
+
+
+        <p>$
+          D_x =
+
+          \begin{vmatrix}
+          5 & -3 \\
+          -8 & 12 \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+        <p>$D$ is the determinant of the coefficient matrix, so:</p>
+
+
+        <p>$
+          D =
+
+          \begin{vmatrix}
+          2 & -3 \\
+          3 & 12 \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+        <p>Cramer's rule tells us that the value of $x$ in the system is:</p>
+
+        <p>$
+          s = \frac{D_x}{D} =
+
+          \frac
+          {
+          \begin{vmatrix}
+          5 & -3 \\
+          -8 & 12 \\
+          \end{vmatrix}
+          }
+
+          {
+          \begin{vmatrix}
+          2 & -3 \\
+          3 & 12 \\
+          \end{vmatrix}
+          }
+          $
+        </p>
+
+
+        <p>$x = \frac{ (5)(12) - (-3)(-8) }{ 2(12) - (3)(-3) }$</p>
+
+
+      <h4>Example:</h4>
+
+        <p>User Cramer's rule to solve for the value of $y$ that satisfies the system:</p>
+
+        <p>$3x - 2y = 7$</p>
+        <p>$5x - 8y = 21$</p>
+
+        <p>The coefficient matrix is:</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          3 & -2 \\
+          5 & -8 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>The answer column matrix is:</p>
+
+
+        <p>$
+          \begin{bmatrix}
+          7 \\
+          21 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$D_y$ is what we get when we plug the answer column matrix into the second column of the coefficient matrix (because the second column holds the coefficients on $y$), and take the determinant of the result.</p>
+
+
+        <p>$
+          D_y = 
+
+          \begin{vmatrix}
+          3 & 7 \\
+          5 & 21 \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+        <p>The determinant of the coefficient matrix is:</p>
+
+
+        <p>$
+          D =
+
+          \begin{vmatrix}
+          3 & -2 \\
+          5 & -8 \\
+          \end{vmatrix}
+          $
+        </p>
+
+
+        <p>Cramer's rule tells us that the value of $y$ in the system is:</p>
+
+
+        <p>$
+          y = \frac{D_y}{D} =
+
+          \frac
+          {
+          \begin{vmatrix}
+          3 & 7 \\
+          5 & 21 \\
+          \end{vmatrix}
+          }
+          {
+          \begin{vmatrix}
+          3 & -2 \\
+          5 & -8 \\
+          \end{vmatrix}
+          }
+          $
+        </p>
+
+
+        <p>$y = \frac{ (3)(21) - (7)(5) }{ (3)(-8) - (-2)(5) }$</p>
+        <p>$y = \frac{28}{-14} = -2$</p>
+
+        <p>Given a linear system of three equations in three unknowns, we can say that:</p>
+
+        <p>$x = \frac{D_x}{D}, y = \frac{D_y}{D}, z = \frac{D_z}{D}$</p>
+
+
+      <h4>Modifying Determinants</h4>
+
+        <p>Given a square matrix $A$, if you multiply one row or column of $A$ by a scalar $k$, the determinant just gets multiplied by $k$. If you multiply $n$ rows by the constant $k$, then the determinant of the new matrix will be $k^b|A|$.</p>
+
+
+      <h4>Sum of Two Rows</h4>
+
+        <p>When you have three identical $n \times n$ matrices, except that one row in each matrix is different, and the different row in the third matrix is the sum of the different rows from the first and second matrices, then the sum of the determinants of the first and second matrices is equal to the determinant of the third matrix.</p>
+
+
+      <h4>Swapped and Duplicate Rows</h4>
+
+        <p>If you switch any row in a matrix $A$ with any other row in the matrix, the determinant of the new matrix $B$ is equal to the negative determinant of $A$.</p>
+
+        <p>$|B| = -|A|$</p>
+
+        <p>When two identical rows are swapped with each other, the determinant starts at $0$, and ends at $0$ following the transformation.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>Verify that the row operation $R_2 - 3R_1 \to R_2$ doesn't change the value of $|A|$ for:</p>
+
+
+        <p>$
+          A =
+
+          \begin{bmatrix}
+          1 & 0 \\
+          3 & 2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>The matrix $A$ after the row operations would be:</p>
+
+
+        <p>$
+          A_R =
+
+          \begin{bmatrix}
+          1 & 0 \\
+          3-3(1) & 2-3(0) \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>$
+          A_R =
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 2 \\
+          \end{bmatrix}
+          $
+        </p>
+
+
+        <p>The determinant of $A$ before the row operation is:</p>
+
+
+        <p>$
+          |A| =
+
+          \begin{vmatrix}
+          1 & 0 \\
+          0 & 2 \\
+          \end{vmatrix}
+
+          = (1)(2) - (0)(3) = 2 - 0 = 2
+          $
+        </p>
+
+
+        <p>And the determinant of $A$ after the row operation is:</p>
+
+
+        <p>$
+          |A_R| =
+
+          \begin{bmatrix}
+          1 & 0 \\
+          0 & 2 \\
+          \end{bmatrix}
+
+          = (1)(2) - (0)(0) = 2 - 0 = 2
+          $
+        </p>
+
+
+    <h3 id="det_to_find_area">Using Determinants to Find Area</h3>
+
+      <p>Given a matrix,</p>
+
+      <p>$
+        A =
+
+        \begin{bmatrix}
+        a & b \\
+        c & d \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>if you separate the matrix into its column vectors, and call them $v_1$ and $v_2$,</p>
+
+
+      <p>$
+        v_1 =
+
+        \begin{bmatrix}
+        a \\
+        c \\
+        \end{bmatrix}
+        $
+
+        and
+
+        $
+        v_2 =
+
+        \begin{bmatrix}
+        b \\
+        d \\
+        \end{bmatrix}
+        $
+      </p>
+
+
+      <p>you can plot $v_1$ and $v_2$ in the xy-plane, and create a parallelogram using them as two of its adjacent sides. The area of the parallelogram using them as two of its adjacent sides. The area of the parallelogram is simply the absolute value of the determinant of the matrix $A$.</p>
+
+
+      <h4>Example:</h4>
+
+        <p>The rectangle $R$ with vertices $(1,1)$, $(1,6)$, and $(-3,1)$ is transformed by $T$. Find the area of the transformed figure $P$ if:</p>
+
+
+        <p>$
+          T(\overrightarrow{x}) = 
+
+          \begin{bmatrix}
+          -3 & 1 \\
+          4 & 0 \\
+          \end{bmatrix}
+
+          \overrightarrow{x}
+          $
+        </p>
+
+
+        <p>Horizontally, the rectangle $R$ is defined between $-3$ and $1$, so its width is $4$. Vertically, it is defined between $1$ and $6$, so its height is $5$. Therefore, the area is $20$. The determinant of $T$ is:</p>
+
+        <p>$
+          \begin{vmatrix}
+          -3 & 1 \\
+          4 & 0 \\
+          \end{vmatrix}
+
+          = (-3)(0) - (1)(4) = 0 - 4 = -4
+          $
+        </p>
+
+
+        <p>Therefore, the area of the transformed figure is:</p>
+
+        <p>$Area_p = | Area_R \cdot Det(T) |$</p>
+        <p>$Area_p = | 20(-4) |$</p>
+        <p>$Area_p = | -80 | = 80$</p>
+
+        <p>The area of the transformed figure is $80$ units.</p>
+
+
+
+	<h2 id="transposes">Transposes</h2>
+
+		<h3 id="transposes_det">Transposes and Their Determinants</h3>
+
+			<p>The transpose of a matrix is the matrix you get after swapping the row and column numbers for each element, and is indicated for a matrix $A$ as $A^T$.</p>
+
+			<p>The determinant of a transpose of a square matrix will be equal to the determinant of the original matrix.</p>
+
+
+		<h3 id="transpose_prod_sum_inv">Transposes of Products, Sums, and Inverses</h3>
+
+			<p>The transpose of a matrix product, $(XY)^T$, will be equivalent to the product of the individual transposes, but in the opposite order.</p>
+
+			<p>$(XY)^T = Y^T X^T$</p>
+
+			<p>This extends to any number of matrices.</p>
+
+			<p>$(XYZ)^T = Z^T Y^T X^T$</p>
+
+			<p>The transpose of their sum $(X+Y)^T$ is equivalent to the sum of their individual transposes.</p>
+
+			<p>$(X+Y)^T = X^T + Y^T$</p>
+
+			<p>For a square matrix $X$ and its inverse $X^{-1}$, their transposes are also inverses of each other.</p>
+
+
+		<h3 id="null_col_space">Null and Column Spaces of the Transpose</h3>
+
+			<p>If we start with an $m \times n$ matrix $A$, and if the rank of the matrix is $r$, then we know its null and column spaces.
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Subspace</th><th>Symbol</th><th>Space</th><th>Dimension</th></tr></thead><tbody>
+			 <tr><td>Column Space of $A$</td><td>$C(A)$</td><td>$\mathbb{R}^m$</td><td>$Dim(C(A)) = r$</td></tr>
+			 <tr><td>Null Space of $A$</td><td>$N(A)$</td><td>$\mathbb{R}^n$</td><td>$Dim(N(A)) = n-r$</td></tr>
+			</tbody></table>
+
+			<p>We could describe the column space of $A^T$ as both the columns of $A^T$, but also as the rows of $A$. We call the column space of $A^T$ the row space.</p>
+
+			<p>The null space of the transpose $A^T$ is the set of vectors $\overrightarrow{x}$ that satisfy $A^T \overrightarrow{x} = \overrightarrow{O}$. Taking the transpose of both sides, we get:</p>
+
+			<p>$\overrightarrow{x}^T (A^T)^T = \overrightarrow{O}$</p>
+			<p>$\overrightarrow{x}^T A = \overrightarrow{O}$</p>
+
+			<p>So we can say that the null space of the transpose $A^T$ is the set of vectors $\overrightarrow{x}^T$ that satisfy $\overrightarrow{x}^T A = \overrightarrow{O}$. We call the null space of the transpose the left null space, because $\overrightarrow{x}^T$ is to the left of $A$ in the equation $\overrightarrow{x}^T A = \overrightarrow{O}$.</p>
+
+			<table class="tableizer-table">
+			<thead><tr class="tableizer-firstrow"><th>Subspace</th><th>Symbol</th><th>Space</th><th>Dimension</th></tr></thead><tbody>
+			 <tr><td>Column Space of A</td><td>$C(A)$</td><td>$\mathbb{R}^m$</td><td>$Dim(C(A)) = r$</td></tr>
+			 <tr><td>Null Space of A</td><td>$N(A)$</td><td>$\mathbb{R}^n$</td><td>$Dim(N(A)) = n-r$</td></tr>
+			 <tr><td>Row Space of A</td><td>$C(A^T)$</td><td>$\mathbb{R}^n$</td><td>$Dim(C(A^T)) = r$</td></tr>
+			 <tr><td>Left Null Space of A</td><td>$N(A^T)$</td><td>$\mathbb{R}^m$</td><td>$Dim(N(A^T)) = m-r$</td></tr>
+			</tbody></table>
+
+
+		<h3 id="space_dims">Space and Dimensions</h3>
+
+			<p>Recall that the null and column spaces are subspaces, which sit inside some vector space $\mathbb{R}^i$ for some integer i. If $A$ is $m \times n$:</p>
+				<ul>
+					<li>The column space of $A$ and null space of $A^T$ are subspaces of $\mathbb{R}^m$</li>
+					<li>The null space of $A$ and column space of $A^T$ are subspaces of $\mathbb{R}^n$</li>
+				</ul>
+
+			<p>Recall that the dimension (the number of vectors needed to form the basis) of the column space $C(A)$ is given by the number of pivot columns in $rref(A)$, and that we also call this the rank of $A$.</p>
+
+			<p>Similarly, the number of vectors needed to form the basis of the null space of $A$ (the dimension of $N(A)$), will be the difference between the number of columns in $A$ and the rank of $A$. The number of vectors needed to form the basis of the null space of the transpose of $A$ (the dimension of $N(A^T)$), will be the difference between the number of rows in $A$ and the rank of $A$.</p>
+
+			<p>$Dim(N(A)) = n-r$</p>
+			<p>$Dim(N(A^T)) = m-r$</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Find the null and column subspaces of the transpose $M^T$, identify their spaces $\mathbb{R}^i$, and name the dimension of the subspaces of $M^T$.</p>
+
+
+				<p>$
+					M =
+
+					\begin{bmatrix}
+					2 & 0 \\
+					-1 & 4 \\
+					3 & -2 \\
+					0 & 7 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>The transpose of $M$ will be:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					2 & -1 & 3 & 0 \\
+					0 & 4 & -2 & 7 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>To find the null space, we'll augment the matrix.</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					2 & -1 & 3 & 0 & | & 0 \\
+					0 & 4 & -2 & 7 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Then put the augmented matrix into rref.</p>
+
+
+				<p>$
+          \to
+
+					\begin{bmatrix}
+					1 & -\frac{1}{3} & \frac{3}{2} & 0 & | & 0 \\
+					0 & 4 & -2 & 7 & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+          \to
+
+					\begin{bmatrix}
+					1 & -\frac{1}{2} & \frac{3}{2} & 0 & | & 0 \\
+					0 & 1 & -\frac{1}{2} & \frac{7}{4} & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+          \to
+          
+					\begin{bmatrix}
+					1 & 0 & \frac{5}{4} & \frac{7}{8} & | & 0 \\
+					0 & 1 & -\frac{1}{2} & \frac{7}{4} & | & 0 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Because we have pivot entries in the first two columns, we'll pull a system of equations from the matrix.</p>
+
+				<p>$x_1 + 0x_2 + \frac{5}{4}x_3 + \frac{7}{8}x_4 = 0$</p>
+				<p>$0x_1 + x_2 - \frac{1}{2}x_3 + \frac{7}{4}x_4 = 0$</p>
+
+				<p>Then solve the system's equations for the pivot variables.</p>
+
+				<p>$x_1 = - \frac{5}{4}x_3 - \frac{7}{8}x_4$</p>
+				<p>$x_2 = \frac{1}{2}x_3 - \frac{7}{4}x_4$</p>
+
+				<p>If we turn this into a vector equation, we get:</p>
+
+
+				<p>$
+					\begin{bmatrix}
+					x_1 \\
+					x_2 \\
+					x_3 \\
+					x_4 \\
+					\end{bmatrix}
+
+					=
+
+					x_3
+					\begin{bmatrix}
+					-\frac{5}{4} \\
+					\frac{1}{2} \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+
+					+
+
+					x_4
+					\begin{bmatrix}
+					-\frac{7}{8} \\
+					-\frac{7}{4} \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+
+				<p>Therefore, the null space of the transpose, which we call the left null space, is given by:</p>
+
+
+				<p>$
+					N(M^T) =
+
+					span \left(
+
+					\begin{bmatrix}
+					-\frac{5}{4} \\
+					\frac{1}{2} \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-\frac{7}{8} \\
+					-\frac{7}{4} \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>The space of the null space of the transpose is always $\mathbb{R}^m$. where m is the number of rows of the original matrix. The original matrix has 4 rows, so the null space of the transpose $N(M^T)$ is a subspace of $\mathbb{R}^4$.</p>
+
+				<p>The column space of the transpose $M^T$, which is the row space of $M$, is given by the columns in $M^T$ that contain pivot entries when $M^T$ is in rref. So the column space of $M^T$ is:</p>
+
+
+				<p>$
+					C(M^T) =
+
+					span \left(
+
+					\begin{bmatrix}
+					2 \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-1 \\
+					4 \\
+					\end{bmatrix}
+
+					\right)
+					$
+				</p>
+
+
+				<p>The space of the column space of the transpose is always $\mathbb{R}^n$, where $n$ is the number of columns in the original matrix $M$. The original matrix has two columns, so the column space of the transpose $C(M^T)$ is a subspace of $\mathbb{R}^2$.</p>
+
+				<p>Because there are two vectors that form the basis of $N(M^T)$, the dimension of $N(M^T)$ is $2$. The dimension of the null space of the transpose will always be the difference of the number of rows in the original matrix and the rank of the original matrix.</p>
+
+				<p>To summarize:</p>
+
+
+				<p>$
+					N(M^T) =
+
+					span \left(
+
+					\begin{bmatrix}
+					-\frac{5}{4} \\
+					\frac{1}{2} \\
+					1 \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-\frac{7}{8} \\
+					-\frac{7}{4} \\
+					0 \\
+					1 \\
+					\end{bmatrix}
+
+					\right)
+
+					\text{ in } \mathbb{R}^4, Dim(N(M^T)) = 2
+					$
+				</p>
+
+
+
+				<p>$
+					C(M^T) =
+
+					span \left(
+
+					\begin{bmatrix}
+					2 \\
+					0 \\
+					\end{bmatrix}
+					,
+
+					\begin{bmatrix}
+					-1 \\
+					4 \\
+					\end{bmatrix}
+
+					\right)
+
+					\text{ in } \mathbb{R}^2, Dim(C(M^T)) = 2
+					$
+				</p>
+
+
+		<h3 id="prod_mat_transpose">The Product of a Matrix and Its Transpose</h3>
+
+			<p>If the columns of $A$ are linearly independent, $A^TA$ is an invertible matrix. $A$ is any $m \times n$ matrix, so $A^T$ is an $n \times m matrix$, and $A^TA$ is a square $n \times n$ matrix.</p>
+
+			<p>If we can then put $A^TA$ into rref, and end up with the identity matrix $I_n$, that means all of the columns in the square $n \times n$ matrix $A^TA$ are linearly independent, and $A^TA$ is invertible.</p>
+
+
+			<h4>Example:</h4>
+
+				<p>Show that $A^TA$ is invertible using the following matrix:</p>
+
+
+				<p>$
+					A =
+
+					\begin{bmatrix}
+					1 & 1 \\
+					2 & 0 \\
+					-1 & -1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^T =
+
+					\begin{bmatrix}
+					1 & 2 & -1 \\
+					1 & 0 & -1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA = 
+
+					\begin{bmatrix}
+					1 & 2 & -1 \\
+					1 & 0 & -1 \\
+					\end{bmatrix}
+
+					\begin{bmatrix}
+					1 & 1 \\
+					2 & 0 \\
+					-1 & -1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1(1) + 2(2) - 1(-1)  &  1(1) + 2(0) - -1(-1) \\
+					1(1) + 0(2) - 1(-1)  &  1(1) + 0(0) - -1(-1) \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1+4+1 & 1+0+1 \\
+					1+0+1 & 1+0+1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					6 & 2 \\
+					2 & 2 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>To see whether $A^TA$ is invertible, we'll put the product matrix into rref. First, find the pivot entry in the first column, and zero out the rest of the first column.</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1 & \frac{1}{3} \\
+					2 & 2 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & \frac{1}{3} \\
+					0 & \frac{4}{3} \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Find the pivot entry in the second column, then zero out the rest of the second column.</p>
+
+
+				<p>$
+					A^TA =
+
+					\begin{bmatrix}
+					1 & \frac{1}{3} \\
+					0 & 1 \\
+					\end{bmatrix}
+
+					\to
+
+					\begin{bmatrix}
+					1 & 0 \\
+					0 & 1 \\
+					\end{bmatrix}
+					$
+				</p>
+
+
+				<p>Because the matrix $A^TA$ in rref is the identity matrix $I_2$, $A^TA$ is invertible.</p>
+
+
+
+
+
+
+
+
+
+            </br></br>
+            <p>Here is a link to <a href="king_pt5.html">part 5</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
