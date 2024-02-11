@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+<h1>Hypothesis Testing</h1>
+
+
+		<table class="tableizer-table">
+		<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+		 <tr><td><a href="#signif">Significance</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#procedure">Procedure</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#z_tests">Z-Tests</td><td><a href="#2s_z">Two-Sample Z-Test</td></tr>
+		 <tr><td><a href="#t_tests">T-Test</td><td><a href="#2s_t">Two-Sample T-Test</td></tr>
+		 <tr><td>&nbsp;</td><td><a href="#paired_t">Paired (Dependent Samples) T-Test</td></tr>
+		 <tr><td><a href="#proportions">Test of Proportions</td><td><a href="#prop_diff">Test for Difference Between Proportions</td></tr>
+		 <tr><td><a href="#chi2">Chi-Squared Test</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#anova">ANOVA (Analysis of Variance)</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#var_source">Sources of Variation</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#post_hoc">Post-Hoc Testing</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#non_param">Non-Parametric Testing</td><td><a href="#spearman">Spearman's Rank Correlation</td></tr>
+		 <tr><td>&nbsp;</td><td><a href="#kendall">Kendall's Rank Correlation</td></tr>
+		 <tr><td>&nbsp;</td><td><a href="#mann_whit">Mann-Whitney U-Test</td></tr>
+		 <tr><td><a href="#effect">Effect Size</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#power">Statistical Power</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#est_stats">Estimation Statistics</td><td>&nbsp;</td></tr>
+		 <tr><td><a href="#interval_est">Interval Estimation</td><td>&nbsp;</td></tr>
+		</tbody></table>
+
+
+		<p>To interpret data, we can assume a specific structured outcome and use statistical methods to confirm or reject the assumption. The assumption is called a hypothesis, and the tests used for this purpose called statistical hypothesis tests. The result of a test allows us to interpret whether the assumption reflected by the null hypothesis $H_0$ holds or should be rejected. The alternative hypothesis $H_1$ (or $H_A$) is the assumption that the null hypothesis will be rejected, and should be defined in such a manner that a distinct outcome can be tested for.</p>
+
+		<p>In general, each test calculates a test statistic that must be interpreted with some background in statstics and a deeper knowledge of the test itself. </p>
+
+
+	<h2 id="signif">Significance</h2>
+
+		<p>Many tests return a p-value that can be interpreted in the context of a chosen significance $\alpha$. We let the the p-value quantify the result of the test, either reject or fail to reject the $H_0$. The p-value can be thought of as the probability of observing the two data samples given the $H_0$. </p>
+
+		<p>The interpretation of the p-value is not whether the null hypothesis is true or false, but rather, whether the findings are observed on a statistically significant level. The p-value allows us to reason about whether or not the data fits the hypothesis, but is not the probability of the $H_0$ being true or false - i.e., it is not $\text{p(hypothesis|data)}$, but rather $\text{p(data|hypothesis)}$. A typical question we may have about two or more samples of data is whether or not they likely come from  the same distribution.</p>
+
+		<p>Choosing a p-value after the test is called p-hacking or hill-climbing, and could make the result fragile and misrepresentative.</p>
+
+
+	<h2 id="procedure">Procedure</h2>
+
+		<p>Hypothesis testing steps are as follows:</p>
+			<ol>
+				<li>Define the $H_0$ and $H_1$</li>
+				<li>Determine $\alpha$</li>
+				<li>Calculate an estimate of the parameter</li>
+				<li>Determine a test statistic and its distribution, where $H_0$ is correct</li>
+				<li>Calculate a test statistic from a sample</li>
+				<li>Determine critical value and region</li>
+				<li>Compare calculated value of test stat with the critical value and make a decision</li>
+			</ol>
+
+
+	<h2 id="z_tests">Z-Tests</h2>
+
+		<p>One use of a hypothesis test is to determine whether a sample mean is significantly different from a predefined value. The $H_0$ states that the population mean is equal to $\mu_0$; the $H_1$ states that it is different. The sample mean $\bar{y}$ is an estimator of the population mean.</p>
+
+		<p>$$Z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}$$</p>
+
+		<p>The test statistic may be compared with the standard normal distribution using a one or two-sided test, with critical region of size $\alpha$.</p>
+
+
+			<h5>Example: Determine Whether a Sample Mean is Different From a Predefined Value, Variances Known</h5>
+
+				<p>A filling process is set to fill tubs of cosmetic powder with 4 grams on average, with a standard deviation of 1 gram. A sample of tubs has an average weight of 4.6 grams. What can be said about the process, if concerned with both under-filling and over-filling?</p>
+
+				<p>$$Z = \frac{4.6 - 4.0}{1 / \sqrt{9}} = 1.8$$</p>
+
+				<p>At a confidence level of 95% ($Z=1.96$), we do not reject the $H_0$. However, if only concerned about over-filling, then we would reject the $H_0$, given that the critical point becomes $Z=1.645$.</p>
+
+
+		<h3 id="2s_z">Two-Sample Z-Test</h3>
+
+			<h5>Example: Difference Between Means of Two Samples, Variances Known and Equal</h5>
+
+				<p>The objective is to investigate the significance of the different between the means of two populations. Limitations are that the two populations should be normally distributed, with known and equal variances. Independent random samples of size $n_1$ and $n_2$ are taken from populations with means $\mu_1$ and $\mu_2$, giving sample means $\bar{x}_1$ and $\bar{x}_2$. The test statistic can be compared with the standard normal distribution using a one or two-tailed test.</p>
+
+				<p>$$Z = \frac{(x_1 - x_2)-(\mu_1 - \mu_2)}{\sigma \left( \frac{1}{n_1} + \frac{1}{n_2} \right)^{1/2}}$$</p>
+
+				<p>Two teams of salespeople are compared to see if their training led to different success rates. $9$ transactions yield an average success rate of $1.2$ in the first group, and $16$ transactions average $1.7$ for the second group. The variances of both teams are $0.275$ ($\sigma=1.4405$). Is there a difference between the two teams?</p>
+
+				<p>$$Z = \frac{1.2 - 1.7 - 0}{1.4405(\frac{1}{9} + \frac{1}{16})^{1/2}} = -0.833$$</p>
+
+				<p>The test statistic is in the range of $-1.96 \lt z \lt 1.96$, so the $H_0$ is not rejected with an $\alpha$ of $0.05$. It is also not rejected with a one-tailed test, in which the critical value is $-1.045$ or $1.045$.</p>
+
+
+			<h5>Example 3: Difference Between Means of Two Samples, Variances Known and Unequal</h5>
+
+				<p>This test also has the objective of investigating the significance of the difference between two populations, and its limitations are that 1) population variances must be known, and 2) populations should be approximately normally distributed. Independent random samples of size $n_1$ and $n_2$ are drawn from two populations with means $\mu_1$ and $\mu_2$ and variances $\sigma_1^2$ and $\sigma_2^2$.</p>
+
+				<p>$$Z = \frac{(\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2)}{\sigma \left( \frac{\sigma}{n_1} + \frac{\sigma}{n_2} \right)^{1/2}}$$</p>
+
+				<p>Brand A of potato chips has a more variable weight than brand B. Population variances are 0.000576 grams and 0.001089 grams. The means of the samples of size 13 and 8 are 80.02 and 79.98 grams. Is there a significant difference between the two (in a two-tailed context) in terms of weight?</p>
+
+				<p>$$Z = \frac{80.02 - 79.98 - 0}{\frac{0.000576}{13} + \frac{0.001089}{8}} = 2.98$$</p>
+
+				<p>We reject the $H_0$ using a two-tailed test</p>
+
+
+
+	<h2 id="t_tests">T-Test</h2>
+
+		<p>The Student's t-test is a hypothesis test of whether independent data samples known to follow a Gaussian distribution have the same distribution as each other. The $H_0$ assumption is that there is no difference between the two means.</p>
+
+
+			<h5>Example: Independent (One-Sample) T-Test</h5>
+
+				<p>A one-sample t-test tests whether a set of numbers could have been drawn from the same distribution of a specified mean.</p>
+
+				<p>$$t = \frac{\bar{x} - \mu}{s/\sqrt{n}} \text{, with d.f. } = n-1$$</p>
+
+				<p>Suppose we want to know whether the mean weight of a certain species of turtle is equal to $310$ pounds. We collect a sample of random turtles with the following information:</p>
+					<ul>
+						<li>Sample size $n = 40$</li>
+						<li>Mean weight $\bar{x} = 300$</li>
+						<li>Sample standard deviation $s = 18.5$</li>
+					</ul>
+
+				<p>$$t = \frac{300 - 310}{18.5 / \sqrt{40}} = -3.4187$$</p>
+
+				<p>$$d.f. = n - 1 = 39$$</p>
+
+				<p>p-value = $0.00149$</p>
+
+				<p>We reject the $H_0$, and have sufficient evidence to say that the mean weight of the species is not equal to $310$ pounds.</p>
+
+
+		<h3 id="2s_t">Two-Sample T-Test</h3>
+
+			<p>A two-sample t-test tests whether the mean of two sets of numbers could have been drawn from the same set. The degrees of freedom should be $n_1 + n_2 - 2$. The formula depends on:</p>
+				<ol>
+					<li><i>Paired or Unpaired:</i> whether two groups of data were drawn from the same individuals, such as before vs. after in a treatment or experiment</li>
+
+					<li><i>Equal or Unequal Variance:</i> speaks toward whether two groups of data were drawn from the same broader population</li>
+
+					<li><i>Equal or Unequal Sample Size</i></li>
+				</ol>
+
+
+			<h5>Example: Difference of Means of Two Populations, Small Samples and Variances Unknown But Equal</h5>
+
+				<p>The objective is to investigate the significance of the difference between the means of two population. Indepndent random samples of size $n_1$ and $n_2$ are taken from two populations with means $\mu_1$ and $\mu_2$.</p>
+
+				<p>The best estimate of population variance is then found as:</p>
+
+				<p>$$s^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$$</p>
+
+				<p>The test statistic is:</p>
+
+				<p>$$t = \frac{ (x_1-x_2) - (\mu_1 - \mu_2) }{ \left( \frac{1}{n_1} + \frac{1}{n_2} \right)^{1/2} }$$</p>
+
+				<p>It may be compared against a Student's t-distribution with $n_1 + n_2 - 2$ degrees of freedom, using either a one or two-tailed test.</p>
+
+				<p>Two snack foods are made in $30g$ packets. Random samples of size $12$ are taken from the production line of each, yielding a mean of $31.75$ grams with variance $112.25 gr^2$ and $28.67$ with variance $66.64 gr^2$. What can be said about the two production processes in relation to the weight of the packets?</p>
+
+				<p>$$s^2 = \frac{(11 \times 112.25) + (11 \times 66.64)}{22 - 2} = 89.445$$</p>
+
+				<p>$$t = \frac{31.75 - 28.67 - 0}{89.445 \left( \frac{1}{12} + \frac{1}{12} \right)^{1/2}} = 0.798$$</p>
+
+				<p>$$d.f. = 12 + 12 - 2 = 22$$</p>
+
+				<p>With a t-value of $0.798$, we reject the alternative hypothesis</p>
+
+
+<!--
+**validate the above**
+-->
+
+
+			<h5>Example: Small Samples and Unequal Variance</h5>
+
+				<p>A statistic for testing the difference between two populations with unequal variances is also a t-statistic</p>
+
+				<p>$$t = \frac{ (\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2) }{ \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} }$$</p>
+
+				<p>Degrees of freedom are no longer equal to $n_1 + n_2 - 2$, but rather:</p>
+
+				<p>$$\nu = \frac{ \left( \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right) }{ \frac{s_1^4}{n_1^2(n_1-1)} + \frac{s_2^4}{n_2^2(n2-1)} }$$</p>
+
+				<p>Two sales teams responsible for essentially identical products are compared by selecting samples from each and reviewing their respective profit contribution levels per employee over a period of two weeks. These are found to be $3166$ and $2240.4$, with estimated variances of $6328.27$ and $221661.3$. Samples sizes are $n_1 = 4$ and $n_2 = 9$. How do the teams compare?</p>
+
+				<p>$$t = \frac{ (3166 - 2240.4) - 0 }{ \left( \frac{6328.67}{4} + \frac{221661.3}{9} \right)^{1/2} } = 5.72$$</p>
+
+				<p>Degrees of freedom (rounded) is equal to $9$</p>
+
+				<p>The critical value $t_{9;0.025} = 2.26$, so we reject the $H_0$</p>
+
+
+		<h3 id="paired_t">Paired (Dependent Samples) T-Test</h3>
+
+			<p>There is a variant of the t-test that can be used when the data is paired, which usually happens when there are two observations for each subject, such as before and after an experiment. The idea of the paired t-test is to subtract the old value from the new, and test whether that difference is equal to 0. The greater power of this test is derived from the fact that the subtraction removed variability between subjects, keeping only what was caused by the treatment/experiment.</p>
+
+			<p>$$t = \frac{\bar{d} - \mu_d}{s/\sqrt{n}}$$</p>
+
+			<p>$$s = \frac{\sum (d_i - \bar{d})^2}{n-1}$$</p>
+				<ul>
+					<li>$\bar{d}$ is the mean difference</li>
+					<li>$s^2/n$ is the sum of squares divided by sample size</li>
+					<li>degress of freedom is equal to $n-1$</li>
+				</ul>
+
+
+			<h5>Example: Paired Comparison</h5>
+
+				<p>The objective of this test is to investigate the significance of the difference between two population means. No assumption is made about the population variances. Limitations include that the observations for the two samples must be obtained in pairs, and that the data is approximately normally distributed.</p>
+
+				<p>A new prep class was designed to improve statistics test scores. 5 students were selected at random and the number of correct answers on two practice exams were recorded, one before the class and one after.</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Student</th><th>Before Class</th><th>After Class</th></tr></thead><tbody>
+				 <tr><td>1</td><td>12</td><td>14</td></tr>
+				 <tr><td>2</td><td>15</td><td>18</td></tr>
+				 <tr><td>3</td><td>9</td><td>11</td></tr>
+				 <tr><td>4</td><td>12</td><td>10</td></tr>
+				 <tr><td>5</td><td>12</td><td>12</td></tr>
+				</tbody></table>
+
+				<p>Is there evidence to suggest that the mean number of correct answers after the class exceeds the mean number of correct answers before the class?</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Student</th><th>Before Class</th><th>After Class</th><th>d</th><th>d - $\bar{d}$</th><th>$(d - \bar{d})^2$</th></tr></thead><tbody>
+				 <tr><td>1</td><td>12</td><td>14</td><td>-2</td><td>-1</td><td>1</td></tr>
+				 <tr><td>2</td><td>15</td><td>18</td><td>-3</td><td>-2</td><td>4</td></tr>
+				 <tr><td>3</td><td>9</td><td>11</td><td>-2</td><td>-1</td><td>1</td></tr>
+				 <tr><td>4</td><td>12</td><td>10</td><td>2</td><td>3</td><td>9</td></tr>
+				 <tr><td>5</td><td>12</td><td>12</td><td>0</td><td>1</td><td>1</td></tr>
+				 <tr><td>Total</td><td>&nbsp;</td><td>&nbsp;</td><td>-5</td><td>&nbsp;</td><td>16</td></tr>
+				 <tr><td>Avg</td><td>&nbsp;</td><td>&nbsp;</td><td>-1</td><td>&nbsp;</td><td></td></tr>
+				</tbody></table>
+
+				<p>The sample mean of the difference is $-1$. The sample standard deviation of the difference is:</p>
+
+				<p>$$s_d = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (d_i - \bar{d})^2} = \sqrt{\frac{16}{4}} = 2$$</p>
+
+				<p>The test statistic is equal to:</p>
+
+				<p>$$t = \frac{\bar{d} - \mu_d}{s/\sqrt{n}} = \frac{-1 - 0}{2/\sqrt{5}} = -1.118$$</p>
+
+				<p>The test statistic is not extreme enough for us to reject the $H_0$</p>
+
+
+
+	<h2 id="proportions">Test of Proportions</h2>
+
+		<p>A proportion is the probability of a successful trial in a binomial experiment, $p = y / n$</p>
+
+		<p>The test of a proportion can utilize a binomial distribution, but for a large sample a normal approximation can be used. A sample is assumed to be large enough if the interval $p \pm \sqrt{\hat{p}\hat{q}/n}$ holds neither $0$ nor $1$. Here, $n$ is the sample size and $q = 1 - p$.</p>
+
+		<p>The two-sided test for a large sample has the hypotheses $H_0: p \neq p_0$. A Z random variable is used as a test statistic</p>
+
+		<p>$$Z = \frac{ \hat{p} - p_0}{ \sqrt{p_0q_0/n} }$$</p>
+
+
+			<h5>Example: Hypothesis Test of a Population Proportion</h5>
+
+				<p>There is a suspicion that due to pollution, a greater proportion of field mice is male compared to female. 200 mice were caught as a sample; 90 were female and 110 were male. The calculated value of the test statistic is:</p>
+
+				<p>$$Z = \frac{0.55 - 0.5}{(0.5)(0.5)/200} = 1.41$$</p>
+
+				<p>For a significance level of $\alpha$ = 0.05, the critical value is $Z_a = 1.65$. Since the calculated value $Z = 1.41$ is not as extreme, we cannot conclude a different sex ratio than 1:1.</p>
+
+				<p>The Z value can also be calculated using the number of individuals:</p>
+
+				<p>$$Z = \frac{y - \mu_0}{\sqrt{np_0q_0}} = \frac{110-100}{\sqrt{200(0.5)(0.5)}} = 1.41$$</p>
+
+
+
+		<h3 id="prop_diff">Test for Difference Between Proportions From 2 Populations</h3>
+
+			<p>Let $y_1$ and $y_2$ be the number of successes in two binomial experiments with sample sizes $n_1$ and $n_2$. For the estimation of $p_1$ - $p_2$, where $p_1$ and $p_2$ are the proportions of successes in two populations, proportions $\hat{p}_1$ and $\hat{p}_2$ from two samples can be used.</p>
+
+			<p>The test statistic is the standard normal variable:</p>
+
+			<p>$$Z = \frac{ (\hat{p}_1 - \hat{p}_2) - 0 }{ s_{\hat{p}_1-\hat{p_2}} }$$</p>
+
+			<p>Since the $H_0$ is that the proportions are equal:</p>
+
+			<p>$$s_{\hat{p}_1 - \hat{p}_2} = \sqrt{ \frac{\hat{p}\hat{q}}{n_1} + \frac{\hat{p}\hat{q}}{n_2} }$$</p>
+
+			<p>Or equivalently:</p>
+
+			<p>$$s_{\hat{p}_1 - \hat{p}_2} = \sqrt{ \hat{p}\hat{q} \left( \frac{1}{n_1} + \frac{1}{n_2} \right) }$$</p>
+
+			<p>where $\hat{q} = 1 - \hat{p}$</p>
+
+
+			<h5>Example: Test for Difference Between Two Proportions</h5>
+
+				<p>Test the difference between proportions of cows that returned to estrus after first breeding on two farms:</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Farm 1</th><th>Farm 2</th></tr></thead><tbody>
+				 <tr><td>$y_1 = 40$</td><td>$y_2 = 30$</td></tr>
+				 <tr><td>$n_1 = 100$</td><td>$n_2 = 100$</td></tr>
+				 <tr><td>$p_1 = 0.4$</td><td>$p_2 = 0.3$</td></tr>
+				</tbody></table>
+
+				<p>$$p = \frac{y_1 + y_2}{n_1 + n_2} = \frac{40 + 30}{100 + 100 = 0.35}$$</p>
+
+				<p>$$q = 1 - p = 0.65$$</p>
+
+				<p>$$Z = \frac{ (0.4 - 0.3) - 0 }{ \sqrt{ (0.35)(0.65)(\frac{1}{100} + \frac{1}{100} ) } } = 1.48$$</p>
+
+				<p>Since 1.48 is not as extreme as 1.96, there is not sufficient evidence to conclude that the proportion of cows that returned to estrus differs between the two farms.</p>
+
+
+
+	<h2 id="chi2">Chi-Squared Test</h2>
+
+		<p>The chi-squared test is a one-sided test that can be used for categorical features, and is commonly used to analyze things like click-through rates, or rank feature importance against a categorical target.</p>
+
+		<p>Assume that for some categorical characteristic, the number of individuals in each of $k$ categories has been counted. We commonly want to determine if the numbers in the categories are significantly different from hypothetical numbers defined by the theoretical properties in populations. The null hypothesis assumes that all proportions are equal, and the alternative hypothesis is that there is at least one difference.</p>
+
+		<p>The chi-squared test relies upon a contingency table - a crosstab containing recorded counts, with rows and columns usually reflecting mutually exclusive categories from the other rows or columns. They can be purely nominal, or ordinal; and are regarded as a frequency distribution. The row totals are one set of frequencies (the row-wise marginal distribution), and the column totals another (the column-wise marginal distribution).</p>
+
+		<p>The expected value of a cell, based on the assumption of independence, is called $E$. The observed value based on actual values, $O$, can then be used to determine whether a relationship exists between the two variables. The chi-squared test statistic compares the observed frequency distribution of each cell ($O$) with the expected frequency distribution, $E$ (in this case derived from the marginal probabilities on the assumption that characteristics are independent).</p>
+
+		<p>The chi-squared test statistic is:</p>
+
+		<p>$$\chi^2 = \frac{\sum_i [y_i - E(y_i)]^2} {E(y_i)}$$</p>
+
+		<p>and has a chi-square distribution with $k-1$ degrees of freedom, where $k$ is the number of categories, and $E(y_i)$ is the expected count in a category. Usually, the number of observations in each category should be at least 5.</p>
+
+			<h5>Example: Chi-Squared Test of the Difference between Observed and Expected Frequencies</h5>
+
+				<p>The expected proportions of white, brown, and pied rabbits in a population are 0.36, 0.48, and 0.16 respectively. In a sample of 400 rabbits there were 140 white, 240 brown, and 20 pied. Are the proportions in the sample different from expected?</p>
+
+				<table class="tableizer-table">
+				<thead><tr class="tableizer-firstrow"><th>Color</th><th>Observed</th><th>Expected</th></tr></thead><tbody>
+				 <tr><td>White</td><td>140</td><td>0.36 (400) = 144</td></tr>
+				 <tr><td>Brown</td><td>240</td><td>0.48 (400) = 192</td></tr>
+				 <tr><td>Pied</td><td>20</td><td>0.16 (400) = 64</td></tr>
+				</tbody></table>
+
+				<p>$$\chi^2 = \frac{\sum_i [y_i - E(y_i)]^2} {E(y_i)}$$</p>
+				<p>$$ = \frac{[140-144]^2} {144}$$</p>
+				<p>$$ = 42.361$$</p>
+
+				<p>The critical value at $\alpha$ = 0.05 is 5.991, so the result is statistically significant.</p>
+
+				<p>The chi-square test is not limited to only 2 samples; with k groups, the expected proportion of successes is:</p>
+
+				<p>$$p_0 = \frac{\sum_i y_i}{\sum_i n_i} \text{, for i = 1 to k}$$</p>
+
+
+	<h2 id="anova">ANOVA (Analysis of Variance)</h2>
+
+		<p>ANOVA is a technique used for analyzing the differences between the means of several groups. When there are multiple independent data samples, we can perform the t-test pairwise, on each combination of data samples to get an idea of which have different means, but this would be onerous. ANOVA is essentially an extension of the t-test to multiple samples, used to determine the effects of discrete, independent variables (each with categorical levels) upon a continuous dependent variable. The null hypothesis of ANOVA is that all groups are statistically indistinguishable, and the alternative hypothesis is that at least one level in one group is distinct from another in the same group.</p>
+
+		<p>ANOVA is only appropriate if there are categorical features (though one can discretize), and more than one factor or more than two levels within a factor. Otherwise, a simple t-test, which ANOVA is a generalization of, will suffice.</p>
+
+		<p>ANOVA is used to partition total variability into that which is explained by group vs. that unexplained, and the relative variability used to test significance. For a one-way analysis, 3 sources of variability are defined and measured with corresponding sums of squares.</p>
+
+		<h3 id="var_source">Sources of Variation</h3>
+
+			<p>Total Variability:</p>
+			<p>$$SS_{TOT} = \sum_i \sum_j (y_{ij} - \bar{y})^2$$</p>
+
+			<p>Variability Between Groups or Treatments:</p>
+			<p>$$SS_{TRT} = \sum_i \sum_j (\bar{y_{i}} - \bar{y})^2$$</p>
+
+			<p>Variability Within Groups or Treatments:</p>
+			<p>$$SS_{RES} = \sum_i \sum_j (y_{ij} - \bar{y_i})^2$$</p>
+
+			<p>The assumptions of ANOVA are as follows:</p>
+				<ul>
+					<li>Data are sampled independently</li>
+					<li>Data are normally distributed</li>
+					<li>Homogeneity of variance (roughly equal in each table cell)</li>
+				</ul>
+
+			<p>Main effects refer to one factor influencing the dependent variables even when other factors are ignored. For example, if symptoms of young people improve faster than old people, regardless of being in the control group or intervention group. Interactions refer to the effect of one factor depending on the levels of another. Intercept terms means the average dependent variable is not equal to zero, and it is often uninterpretable, however one example of an interpretation is that "symptoms improved for everyone after 10 days".</p>
+
+			<p>The steps to performing an ANOVA test are to:</p>
+				<ul>
+					<li>Review experiment design, ensure ANOVA is appropriate</li>
+					<li>Identify the dependent and independent variables</li>
+					<li>Create a table of factors and levels</li>
+					<li>Compute model and interpret results</li>
+				</ul>
+
+			<p>There are multiple variations of ANOVA. An example of one-way ANOVA is determining the impact of day of week upon movie purchases. An example of two-way ANOVA is determining the impact of both gender and day of week upon movie purchases. Multivariate ANOVA (MANOVA) may be used when there are more than two dimensions, and repreated-measures ANOVA (rmANOVA) can be used if at least one factor involves multiple measurements from the same individual, such as before vs after comparisons.</p>
+
+	        <h4>The One-Way ANOVA Table</h4>
+
+	          <table class="tableizer-table">
+	          <thead><tr class="tableizer-firstrow"><th>Variance Source</th><th>SS</th><th>DF</th><th>MS</th><th>F</th><th>p</th></tr></thead><tbody>
+	           <tr><td>Between Groups</td><td>SS<sub>B</sub></td><td>K - 1</td><td>MS<sub>B</sub></td><td>MS<sub>B</sub>/MS<sub>W</sub></td><td>p</td></tr>
+	           <tr><td>Within Groups</td><td>SS<sub>W</sub></td><td>N - K</td><td>MS<sub>W</sub></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+	           <tr><td>Total</td><td>SS<sub>T</sub></td><td>N - 1</td><td>&nbsp;</td><td>&nbsp;</td><td></td></tr>
+	          </tbody></table>
+
+	        <h4>The Two-Way ANOVA Table</h4>
+
+	          <table class="tableizer-table">
+	          <thead><tr class="tableizer-firstrow"><th>Variance Source</th><th>SS</th><th>DF</th><th>MS</th><th>F</th><th>p</th></tr></thead><tbody>
+	           <tr><td>Factor A</td><td>SS<sub>A</sub></td><td>a - 1</td><td>MS<sub>A</sub></td><td>MS<sub>A</sub>/MS<sub>W</sub></td><td>p</td></tr>
+	           <tr><td>Factor B</td><td>SS<sub>B</sub></td><td>b - 1</td><td>MS<sub>B</sub></td><td>MS<sub>B</sub>/MS<sub>W</sub></td><td>p</td></tr>
+	           <tr><td>A & B Interaction</td><td>SS<sub>AB</sub></td><td>(a-1)(b-1)</td><td>MS<sub>AxB</sub></td><td>MS<sub>AxB</sub>/MS<sub>W</sub></td><td>p</td></tr>
+	           <tr><td>Within</td><td>SS<sub>W</sub></td><td>N - ab</td><td>MS<sub>W</sub></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+	           <tr><td>Total</td><td>SS<sub>T</sub></td><td>N - 1</td><td>&nbsp;</td><td>&nbsp;</td><td></td></tr>
+	          </tbody></table>
+
+
+		<h3 id="post_hoc">Post-Hoc Testing</h3>
+
+			<p>Once a significant difference among groups is detected, it is natural to wonder which ones. When groups are balanced and have equal variances, it is best to use the Tukey test, defined by:</p>
+
+			<p>$$q = \frac{\bar{x}_b - \bar{x}_2}{MS_{Within} \sqrt{2/n}}$$</p>
+
+			<p>But if groups are not balanced with equal variances, the Games-Howell test is more accurate.</p>
+
+
+
+	<h2 id="non_param">Non-Parametric Testing</h2>
+
+		<p>Parametric testing involves assumptions about the distribution of data, quite often that it is normally distributed. Non-parametric counterparts are an alternative if unable or unwilling to rely on such assumptions, though they generally hold less power. Several start with a rank-transform of the data, followed by actions similar to their parametric counterparts upon the transformed data. Like parameterized testing, the null hypothesis is often that multiple samples were drawn from the same distribution, but because there are less assumptions, a more extreme difference may be required to obtain a significant p-value.</p>
+
+        <h4>Advantages & Limitations</h4>
+
+          <table class="tableizer-table">
+          <thead><tr class="tableizer-firstrow"><th>Parametric</th><th>Non-Parametric</th></tr></thead><tbody>
+           <tr><td>standard, widely used</td><td>not very standard</td></tr>
+           <tr><td>computationally fast</td><td>computationally slow</td></tr>
+           <tr><td>analytically proven</td><td>sensible, but less proven</td></tr>
+           <tr><td>incorrect if assumptions violated</td><td>less assumptions</td></tr>
+           <tr><td>&nbsp;</td><td>appropriate for small samples</td></tr>
+           <tr><td>&nbsp;</td><td>appropriate for non-numeric data</td></tr>
+           <tr><td>&nbsp;</td><td>some give different results each time</td></tr>
+          </tbody></table>
+          </br>
+
+
+
+		<h3 id="spearman">Spearman's Rank Correlation (a.k.a. Spearman's rho)</h3>
+
+			<p>Spearman's rank correlation ($\rho$) assesses how well the relationship between two variables can be described using a monotonic function. A monotonic relationship means that as one variable increases, the other variable increases or decreases consistently; but it does not necessarily mean that the value of one variable changes linearly with respect to another. Another difference from the Pearson correlation coefficient is that it works with rank-transformed data.</p>
+
+
+
+		<h3 id="kendall">Kendall's Rank Correlation (a.k.a. Kendall's Tau)</h3>
+
+			<p>Kendall rank correlation ($\tau$) is used to test the similarities in hte ordering of data when it is ranked by quantities. It is an alternative to Spearman correlation when sample size is small and has many tied ranks. Kendall's correlation coefficient uses pairs of observations and determines the strength of association based on concordance and discordance among pairs. A pair is concordant if ordered in the same way - i.e., if $(x_2 - x_1)$ and $(y_2 - y_1)$ have the same sign.</p>
+
+			<p>Kendall's correlation can be computed by first counting the number of concordant pairs (C) and the number of discordant pairs (D). A pair is concordant if they appear in the same order in their ranking lists.</p>
+
+			<p>$$M = C - D$$</p>
+			<p>$$\tau = M / (C+D)$$</p>
+
+			<p>Another way to interpret $\tau$ is that its statistic $M$ is the number of adjacent pairwise swaps needed to arrange on ranked list such that it resembles another. The maximum and minimum value that $\tau$ can take is +1 and -1 respectively.</p>
+
+
+
+		<h3 id="mann_whit">Mann-Whitney U-Test</h3>
+
+			<p>The Mann-Whitney U-test is a median-based alternative to the t-test, though only if unpaired. The two groups need not be of the same size, however at least 20 samples are recommended in order for it to be effective. Two samples are combined and rank-ordered together, and the strategy is to determine if the values from the two samples are randomly mixed, as opposed to clustered at the ends. It pools the transformed data into one set, concatenating the dataset with more points after the dataset with fewer, computing U by summing ranks only for the dataset with fewer points, and then converting U to Z, which can be converted to a p-value.</p>
+
+			<p>The null hypothesis of the Mann-Whitney U-test is that the distribution of two datasets are identical. The test statistic U is the smaller of two values U_1 and U_2, defined by the following set of equations:</p>
+
+			<p>$$U_1 = n_1 n_2 + \frac{n_1(n_1+1)}{2} - R_1$$</p>
+
+			<p>$$U_2 = n_1 n_2 + \frac{n_2(n_2+1)}{2} - R_2$$</p>
+
+			<p>Where $R_1$ and $R_2$ refer to the ranks of the first and second groups respectively</p>
+
+
+
+		<h3 id="wilcoxon">Wilcoxon-Sign-Rank Test</h3>
+
+			<p>The Mann-Whitney U-test is appropriate when samples are independent, but the Wilcoxon Sign-Rank test can be used for paired samples. The null hypothesis is that the two datasets have the same distribution.</p>
+
+			<p>The Wilcoxon Sign-Rank test also tests for a different in median rather than mean, and is used mainly when data violates the normality assumption. It removes equal pairs from the data, as they will not affect the outcome, and then rank-transforms the absolute differences between elements, before summing ranks where $x \gt y$ to create $W$. $W$ can be converted to a Z-statistic, which can be converted to a p-value.</p>
+
+
+
+	<h2 id="effect">Effect Size</h2>
+
+		<p>Statistical hypothesis tests report on the likelihood of the observed results given the assumptions, but do not comment on the size of the effect. Effect size methods refer to a suite of statistical tools for quantifying the size of the effect, to complement the results from hypothesis tests. Ideally, the effect size and results of a hypothesis test are presented side-by-side. The hypothesis test quantifies the likelihood, and effect size quantifies the effect assuming that the effect is present.</p>
+
+		<p>An effect size refers to the size of magnitude of an effect or result as it would be expected to occur in a population, and there is a selection of statistical tools used to calculate it. It is estimated from samples of data.</p>
+
+		<p>It is common to organize effect size statistical methods into two groups: 1) association metrics (like Pearson's r correlation coefficient) and 2) difference metrics. 3 types of calculated results include:</p>
+			<ol>
+				<li>Standardized Result: has a standard scale, allowing it to be interpreted generally regardless of application</li>
+				<li>Original Units Result: uses original units of the variable, which can aid interpretation</li>
+				<li>Unit-Free Result: there may not be units such as count or proportion, when looking at, for example, a correlation coefficient</li>
+			</ol>
+
+		<p>Thus, effect size can refer to the raw difference between group means, absolute effect size, or standardized measures of effect. Absolute effect size is useful when the units have meaningful interpretation, such as the number of hours of sleep. </p>
+
+		<p>Association effect size is usually referred to as the r family of methods, coming from Pearson's correlation coefficient (but may also include metrics like the $R^2$ coefficient of determination). The difference between groups is often referred to as the d family of methods. Cohen's d is calculated as the difference between $\mu_1$ and $\mu_2$ divided by the pooled standard deviation $s_p$ for two independent examples:</p>
+
+		<p>$$d = \frac{ \bar{X}-\bar{Y} }{ \frac{ \sqrt{  (n_1-1)\sigma_1^2 + (n_2-1)\sigma_2^2 } }{ n_1 + n_2 - 2 } }$$</p>
+
+		<p>Two other popular methods for quantifying the difference effect size are the odds ratio and relative risk ratio. They measure the odds and probability respectively of an outcome occuring from treatment compared another.</p>
+
+		<p>A workbook demonstrating effect size calculations in the Python module Pingouin is available here: **link**</p>
+
+
+
+	<h2 id="power">Statistical Power</h2>
+
+		<p>As effect size quantifies the size of effect, statistical power quantifies the probability of detecting an effect if there is one to detect. The test is often interpreted using a p-value; the probability of observing the results given that $H_0$ is true; the probability of obtaining a result more extreme than observed in the data. In other words, statistical power is the probability that a test will correctly reject a false $H_0$, and it only has relevance when the $H_0$ is false. More intuitively, it is the probability of accepting a $H_A$ when it is true. Low statistical power has a large risk of committing type II errors, and high statistical power lowers this risk.</p>
+
+		<p>Statistical power, effect size, sample size, and significance are highly related; each is a piece in the same puzzle. A power analysis involves estimating one of those 4 parameters given the 3 others. It answers questions like 'what is the power of my study?' and 'what size of sample should I use?'. The latter is probably the most common use of a power analysis.</p>
+
+		<p>As a practitioner, we can start with sensible defaults for some parameters such as $\alpha = 0.05$ and $power = 0.8$.</p>
+
+		<p>A workbook demonstrating statistical power calculations in the Python module Pingouin is available here: **link**</p>
+
+
+
+	<h2 id="est_stats">Estimation Statistics</h2>
+
+		<p>A group of methods referred to as 'new statistics' are seeing increased use instead of or in addition to p-values in order to quantify the magnitude of effects and the amount of certainty for certain values. This includes interval estimation methods quantifying the uncertainty around point estimates.</p>
+
+		<p>The 3 main classes of activation statistics are:</p>
+			<ol>
+				<li>Effect Size</li>
+				<li>Interval Estimation</li>
+				<li>Meta-Analysis</li>
+			</ol>
+
+		<p>Meta-analysis refers to methods for quantifying the findings across multiple similar studies</p>
+
+		<p>Whereas statistical hypothesis tests talk about whether the samples come from the same distribution or not, estimation statistics describe the size and confidence of the difference, allowing us to comment on how different one method is from another.</p>
+
+
+	<h2 id="interval_est">Interval Estimation</h2>
+
+		<p>Interval estimation refers to statistical methods fo rquantifying the uncertainty for an observation. There are 3 main groups:</p>
+			<ol>
+				<li>Tolerance Interval: the bounds or coverage a proportion of a distribution with a specific level of confidence</li>
+				<li>Confidence Interval: the bounds on the estimate of a single parameter</li>
+				<li>Prediction Interval: the bounds on a single observation</li>
+			</ol>
+
+		<p>A tolerance interval may be used to set expectations on observations in a population or help to identify outliers. A confidence interval can be used to interpret the range for a mean of a data sample. A prediction interval can be used to provide a range for a prediction or forecast from a model.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

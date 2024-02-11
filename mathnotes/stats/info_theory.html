@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+
+
+
+
+<h1>Information Theory</h1>
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#quant_info">Quantifying Information</td><td><a href="#entropy">Entropy</td></tr>
+ <tr><td><a href="#diverg">Divergence Between Distributions</td><td><a href="#cross_ent">Cross-Entropy</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#kl_diverg">Kullback-Liebler (KL) Divergence</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#js_diverg">Jenson-Shannon Divergence</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#log_loss">Log-Loss</td></tr>
+ <tr><td><a href="#info_gain">Information Gain</td><td></td></tr>
+</tbody></table>
+
+
+	<p>Information theory is a field of study concerned with quantifying information for communication, such as transmitting data across a noisy channel. It is a subfield of mathematics concerned with topics like data compression, and the limits of signal processing, including representing information in a compact fashion, as well as transmitting and storing it in a way that is robust to errors.</p>
+
+	<p>A cornerstone of it is the idea of quantifying how much information there is in a message. Information is defined as the resolution of uncertainty or surprise. The intuition behind quantifying information is the idea of measuring how much surprise there is in an event - i.e., how unlikely it is. Events that are rare are more surprising and therefore have more information than events that are common, and require more information to represent them. The basic intuition behind information thoery is that learning an unlikely event has occurred is more informative than learning a likely event has occurred.</p>
+
+
+	<h2 id="quant_info">Quantifying Information</h2>
+
+		<p>We can calculate the amount of information there is in an event by using the probability of the event. This is called Shannon-information, self-information, or simply information.</p>
+
+		<p>$$I(x) = -log(p(x))$$</p>
+			<ul>
+				<li>$I(x)$ is the information content of $x$</li>
+				<li>$log()$ refers to the base-2 logarithm</li>
+				<li>$p(x)$ is the probability of event $x$</li>
+				<li>The negative sign ensures that results are greater than or equal to zero</li>
+			</ul>
+
+		<p>The choice of a base-2 logarithm puts the units in bits, though the natural log could be used, in which case the units are nats. Bits can be directly interpreted as the amount of information required in order to send information across a noisy channel.</p>
+
+
+		<h3 id="entropy">Entropy</h3>
+
+			<p>Calculating information for a random variable is the same as calculating the information for the probability distribution of the events for the random variable. This is referred to as Shannon-entropy, information-entropy, or simply entropy. Entropy can be calculated for a random variable with k discrete states as:</p>
+
+			<p>$$H(x) = - \sum p(x) log_2(p_i)$$</p>
+
+			<p>The core idea of Shannon entropy is that given a signal, it is possible to measure the information content of that passage based on other features we can derive from the signal. An intended message with a single-step solution like a coin flip has lower entropy than that which requires two or more steps. Bits have an entropy of one, so to send a 3-character signal of 3 coin flips, the number potential outcomes is $2^3 = 8$, and the value of entropy equal to 3.</p>
+
+			<p>With a set of random uniform values X, we calculate the entropy of encoding a single symbol with the base-2 logarithm of X. With a set of related, interdependent values, we calculate the entropy of a single symbol by adding up the individual values of entropy for each possible symbol value in the set. The Shannon-entropy of a distribution is the expected amount of information in all events drawn from the distribution. </p>
+
+			<p>It is the negative of the sum of the probability of each event multiplied by the log of the probability of each event, and gives a lower bound on the amount of bits needed on average in order to encode symbols drawn from a distribution p. The largest entropy. </p>
+
+			<p>The lowest entropy is of a variable with a single event and therefore a probability of 1. The largest entropy for a value will be if all events are equally likely.</p>
+
+
+
+	<h2 id="diverg">Divergence Between Probability Distributions</h2>
+
+		<p>It is often desirable to quantify the difference between probability distributions for a random variable. For example, between a true distribution and an approximation fo that distribution. This is referred to as calculating the statistical distance between the two statistical objects.</p>
+
+		<p>Rather than using a distance measure, which can be difficult to interpret, it is common to calculate a divergence measure between the two probability distributions. A divergence is a scoring of how one distribution differs from another.</p>
+
+
+		<h3 id="cross_ent">Cross-Entropy</h3>
+
+			<p>Cross-entropy builds upon entropy, calculating the differnece between two probability distributions, by calculating the average number ofbits required to represent or transmit an event from one distribution compared to another. It is the average number of bits required to encode data coming from a source with distribution $P$ when we use model Q.</p>
+
+				<p>$$H(P,Q) = \sum_{x \in X} P(x) log(Q(x))$$</p>
+					<ul>
+						<li>$P(x)$ is the probability of the event $x$ in $P$</li>
+						<li>$Q(x)$ is the probability of event $x$ in $Q$</li>
+						<li>$log()$ is the base-2 logarithm</li>
+					</ul>
+
+
+		<h3 id="kl_diverg">Kullback-Liebler (KL) Divergence</h3>
+
+			<p>Kullback-Liebler divergence is represented as $KL(P||Q)$, where the $||$ operator indicates divergence of $P$ from $Q$, and is formulated as:</p>
+
+			<p>$$KL(P||Q) = - \sum_{x \in X} P(x) log \left( \frac{Q(x)}{P(x)} \right)$$</p>
+
+			<p>KL divergence is also known as relative entropy. It summarizes the number of additional bits required to represent an event.</p>
+
+			<p>When the probability for an event is from $P$ is large, but the probability for the same event in $Q$ is small, there is a large diverence. When the score is positive, it suggests both distributions are identical; otherwise, the score is positive.</p>
+
+			<p>If we are attempting to approximate an unknown probability distribution, then the target probability distribution from the data is $P$ and $Q$ is our approximation of the distribution. The KL divergence summarizes the number of additional bits required to represent an event.</p>
+
+			<p>The difference between KL divergence and cross-entropy is that KL divergence measures the number of bits required to represent a message with $Q$ instead of $P$, rather than the total number of bits. In other words, KL divergence is the average number of extra bits required to encode the data, due to the fact that distribution $Q$ was used to encode the data instead of the true distribution P.</p>
+				<ul>
+					<li>Cross-Entropy: the average number of total bits required to represent an event from $Q$ instead of P</li>
+					<li>KL Divergence: the average number of extra bits required to represent an event from $Q$ instead of P</li>
+				</ul>
+
+
+		<h3 id="js_diverg">Jenson-Shannon Divergence</h3>
+
+			<p>Jenson-Shannon divergence, a.k.a. JS divergence, is another way to quantify the difference between two probability distributions. It uses the KL divergence to calculate a normalized score that is symmetrical. i.e., </p>
+			<p>$$JS(P||Q) \equiv JUS(Q||P)$$</p>
+
+			<p>The JS divergence can be calculated as:</p>
+			<p>$$JS(P||Q) = \frac{1}{2}KL(P||M) + \frac{1}{2}KL(Q||M)$$</p>
+
+			<p>where $M$ is calculated as:</p>
+			<p>$$M = \frac{1}{2} (P + Q)$$</p>
+
+
+		<h3 id="log_loss">Log-Loss</h3>
+
+			<p>Logistic-Loss, a.k.a. log-loss, is the loss function commonly used to optimize a logistic regression model. A log-likelihood function is commonly used to optimize models under the probablistic framework of maximum likelihood estimation (MLE), which involves finding a set of parameters that best explain the observed data. Because it is more common to minimize a loss function than to maximize it, the log-likelihood function is optimized by adding a negative sign to the front, transofrming it into negative log-likelihood (NLL).
+
+			<p>$$NLL(P,Q) = - P(class0) \times log(Q(class0)) + P(class1) \times log(Q(class1))$$</p>
+
+			<p>Log-loss and cross-entropy can be used as a measure for evaluating predicted probabilities. For binary problems, cross-entropy and log-loss calculate the same thing, and can be used interchangably. Each predicted probability is compared to the actual class output (0 or 1), and a score calculated that penalizes the probability based on distance form the expected value.
+
+			<p>A model with perfect skill has a log-loss score of 0. To summarize the skill of a model, the log-loss is calculated for each probability, and the average loss reported.
+
+
+
+	<h2 id="info_gain">Information Gain (IG)</h2>
+
+			<p>Information gain calculates the reduction in entropy from splitting a dataset according to a given value of a random variable. It is simply the expected reduction in entropy caused by partitioning examples according to an attribute, and is used in the construction of decision trees, by selecting the variable which maximizes IG, in turn minimizing entropy by best splitting the data into groups.
+
+			<p>$$IG(S,a) = H(S) - H(S|a)$$</p>
+				<ul>
+					<li>$IG(S,a)$ is the information for dataset $S$ for a random variable</li>
+					<li>$H(S)$ is the entropy for the dataset before any change</li>
+					<li>$H(S|a)$ is the conditional entropy for the dataset given the variable $a$</li>
+				</ul>
+
+
+			<p>It is the number of bits saved when transforming the dataset</p>
+
+			<p>H(S|a), the conditional entropy for the dataset given the variable a, can be calculated by splitting the dataset into groups for each observed value of a and calculating the sum of the ratio of examples in each group out of the entire dataset multiplied by the entropy of each group.</p>
+
+			<p>$$H(S|a) = \sum_{v \in a} \frac{Sa(v)}{S} H(Sa(v))$$</p>
+				<ul>
+					<li>$\frac{Sa(v)}{S}$ is the ratio of the number of examples in the dataset where variable a has the value $v$</li>
+					<li>$H(Sa(v))$ is the entropy of the group of samples where variable a has the value v</li>
+				</ul>
+
+			<p>In addition to being used as a splitting criterion for CART algorithms, IG can be used for feature selection prior to modeling.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

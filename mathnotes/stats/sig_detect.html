@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+  </head>
+
+
+<script language="Javascript">
+var password = prompt("Enter in the password")
+if (password == "euler") {
+location = "#.html"
+}
+else {
+location = "oops.html"
+}
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+  <body>
+    
+      <div id="content" class="p-4 p-md-5">
+
+            
+
+
+
+
+<h1>Signal Detection</h1>
+
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Topic</th><th>Subtopic</th></tr></thead><tbody>
+ <tr><td><a href="#err_types">Error Types</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#conf_matrix">The Confusion Matrix</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#thresh_metrics">Threshold Metrics</td><td><a href="#class_acc">Classification Accuracy</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#precision">Precision</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#recall">Recall</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#f-meas">The F-Measure</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#f-beta">The F-Beta Measure</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#sensitivity">Sensitivity</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#specificity">Specificity</td></tr>
+ <tr><td><a href="#roc">ROC Curves</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#precis_recall_curve">Precision-Recall Curves</td><td>&nbsp;</td></tr>
+ <tr><td><a href="#d_resp">D-Prime and Response Bias</td><td><a href="#d_prime">D-Prime</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#resp_bias">Response Bias</td></tr>
+ <tr><td><a href="#prob_met">Probablistic Metrics for Imbalanced Classification</td><td><a href="#log_loss">Log-Loss</td></tr>
+ <tr><td>&nbsp;</td><td><a href="#brier">Brier Score</td></tr>
+ <tr><td><a href="#eval_metric_diagram">Diagram - Choosing an Evaluation Metric</td><td></td></tr>
+</tbody></table>
+
+
+    
+
+    <h2 id="err_types">Error Types</h2>
+
+        <p>Nearly all reasoning takes place in the presence of uncertainty. Signal detection theory, a.k.a. detection theory, provides language and methods for decision analysis, and analyzing the response of variables in a trial or experiment. It aims to evaluate how users can distinguish meaningful or intentional signals from random noise. In a trial or experiment, an effect is either present or absent in each response, and there are 4 possible outcomes:</p>
+            <ol>
+                <li>A true positive (TP), a.k.a. a hit</li>
+                <li>A false positive (FP), a.k.a. a type I error, or false alarm</li>
+                <li>A true positive (TP), a.k.a. a correct rejection</li>
+                <li>A false negative (FN), a.k.a. a type II error, or miss</li>
+            </ol>
+
+        <img src="img/error_types.png" style="height: 300px; width: auto;"></br></br>
+        <img src="img/error_types2.png" style="height: 480px; width: auto;"></br>
+
+
+    <h2 id="conf_matrix">The Confusion Matrix</h2>
+
+        <p>A common method for describing the performance of a classification model is the confusion matrix. A confusion matrix displays TPs and true negatives (TNs) on the left-to-right diagonal, and in the binary case, false positives (FPs) on the right-to-left diagonal.</p>
+
+        <img src="img/conf_matrix.png" style="height: 100px; width: auto;"></br></br>
+        <img src="img/conf_matrix2.png" style="height: 75px; width: auto;"></br>
+
+
+
+    <h2 id="thresh_metrics">Threshold Metrics</h2>
+
+        <p>Another component of decision-making analysis is the criterion applied to the analysis, which can speak toward the bias of individual researchers or actors.</p>
+
+        <img src="img/sigdetect_formulas.jpg" style="height: 400px; width: auto;"></br>
+
+
+        <h3 id="class_acc">Classification Accuracy</h3>
+
+            <p>The simplest and most common classification metric is accuracy, and its complement, classification error:</p></br>
+            <p>$$Accuracy = \frac{ \text{correct predictions} }{ \text{total predictions} } = \frac{TP + TN}{TP + TN + FP + FN}$$</p></br>
+            <p>$$Error = \frac{ \text{incorrect predictions} }{ \text{total predictions} }$$</p></br>
+
+            <p>It is the percentage of correct predictions over all predictions, the TPs and TNs divided by tally of all predictions made.</p>
+
+            <p>But sometimes, such as in a medical context, the extent to which there are FPs or FNs may be more important than the overall accuracy rate. For imbalanced classification, where a minority class is of greatest interest, and low-skill predictions of the majority class achieve high accuracy, the accuracy metric is typically inappropriate.</p>
+
+
+        <h3 id="precision">Precision</h3>
+
+            <p>Also known as the positive predictive value, or positive predictive power, precision is the proportion of positive predictions that were correct, and helps to summarize the fraction of examples assigned to the wrong class.</p>
+
+            <p>$$Precision = \frac{TP}{TP + FP}$$</p>
+
+
+        <h3 id="recall">Recall</h3>
+
+            <p>Recall can be interpreted as how much of the relevant results were predicted correctly. It is the proportion of positive predictions to predictions that should have been positive.
+
+            <p>$$Recall = \frac{TP}{TP + FN}$$</p>
+
+            <p>Recall and sensitivity (mentioned below) are the same calculation, just by different names.</p>
+
+
+        <h3 id="f-meas">The F-Measure (a.k.a. F-Score, F1-Score)</h3>
+
+            <p>Precision and recall can be combined into a single score that seeks to balance both concerns:
+
+            <p>$$\text{F-Measure} = \frac{2 \times Precision \times Recall}{Precision \times Recall}$$</p>
+
+
+        <h3 id="f-beta">The F-Beta Measure</h3>
+
+            <p>The F-Beta measure is an abstraction of the F-measure where the balance of precision and recall (in the calculation of a harmonic mean) is controlled by a coefficient, \beta.</p>
+
+            <p>$$\text{F-Beta Measure} = \frac{ ((1 + \beta^2) \times Precision \times Recall) }{ (\beta^2 \times Precision \times Recall) }$$</p>
+
+
+        <h3 id="sensitivity">Sensitivity</h3>
+
+            <p>Sensitivity is the true positive rate and summarizes how well a positive class was predicted. Specificity is the complement of sensitivity.</p>
+
+            <p>$$Sensitivity = TP / (TP + FN)$$</p>
+
+
+        <h3 id="specificity">Specificity</h3>
+
+            <p>$$Specificity = TN / (FP + TN)$$</p>
+
+            <p>For imbalanced classification, sensitivity might be more interesting than specificity. The two metrics can be combined into a single score that balances both concerns, called the G-mean.</p>
+            
+            <p>$$\text{G-Mean} = \sqrt{ \text{sensitivity } + \text{ specificity} }$$</p>
+
+
+
+    <h2 id="roc">ROC Curves, a.k.a Isosensitivity Curves</h2>
+
+        <p>The receiver operating characteristic (ROC) curve is a diagnostic plot for summarizing the behavior of a model by calculating the FP rate and TP rate for a set of model predictions under different thresholds. The area under the ROC curve provides a single score to summarize the plot that can be used to compare models. A no-skill classifier will have aa score of 0.5, whereas a perfect classifier will have a score of 1.0, and a perfectly incorrect classifier a score of 0.0.</p>
+
+        <img src="img/roc.png" style="height: 400px; width: auto;">
+
+        <p>Multiclass evaluation can be done in a similar fashion to logistic regression; treating the data as a set of binary classes, and applying metrics to each class as though it were the only, before aggregating and averaging the scores for all classes.</p>
+
+
+    <h2 id="precis_recall_curve">Precision-Recall Curves</h2>
+
+        <p>Although generally effective, the area under the ROC curve can be an overly optimistic measure of performance in the presence of class-imbalance. An alternative is the precision-recall curve, which can be used in a similar way while focusing on the minority class. It plots the FP rate (a.k.a. false alarm rate) on the x-axis and the TP rate (a.k.a. hit rate) on the y-axis. A no-skill classifier will be a horizontal line on the plot with a precision that is proportional to the number of positive examples in the dataset. A perfect classifier is represented by a point in the top right.</p>
+
+        <img src="img/precis_recall_curve.jpg" style="height: 325px; width: auto;">
+
+
+    <h2 id="d_resp">D-Prime and Response Bias</h2>
+
+        <h3 id="d_prime">D-Prime</h3>
+
+            <p>D-Prime is a measure of discrimination necessary to distinguish between the number of all 'yes' responses (including false positives), and the number of correct 'yes' responses. For two univariate distributions $a$ and $b$ with the same standard deviation, it is denoted by $d'$. To calculate d', the hits and false alarms are converted to their proportion of total events, and z-scores, and then $d'$ is equal to $z(H) - z(FA)$</p>
+
+            <p>A d-prime value of zero reflects pure guessing; a value of one is good, and a value of two is very good. This scale makes it less interpretable for some, as it requires mindfulness of it's nature. Two limitations of d-prime are that 1) it cannot work when the hits of FPs are at 0% or 100%, and 2) it is insensitive to response bias.</p>
+
+
+        <h3 id="resp_bias">Response Bias</h3>
+
+            <p>Response bias is the tendency to report 'true' more than 'false', or vice versa. The first two steps to calculate response bias are the same as with d-prime.</p>
+                <ol>
+                    <li>Convert hits and false-positives to their proportions</li>
+                    <li>Convert proportions to $z$, using an appropriate chart/plot</li>
+                    <li>Take the 'negative average'</li>
+                </ol>
+                <p>$$\text{RB}=\frac{z(FA)+z(H)}{2}$$</span></p>
+
+            <p>The more negative a response bias, the more it indicates bias toward a 'yes' response; the more positive it is, the more it indicates a bias toward 'no' responses. Sometimes it is best to bias toward avoiding false positives, or false negatives, based on the nature of the situation. To avoid false positives, a model with a high probability threshold will help. Such trade-offs are represented in the true positive rate (a.k.a. sensitivity) and false positive rate.</p>
+
+            <p>$$TPR = \frac{TP}{TP+FN}$$</p>
+
+            <p>$$FPR = \frac{FP}{FP+TN}$$</p>
+
+
+
+    <h2 id="prob_met">Probablistic Metrics for Imbalanced Classification</h2>
+
+        <p>Probablistic metrics are designed to quantify the uncertainty in a classifier's predictions, and are useful for problems where we are less interested in incorrect vs. correct and more concerned about quantifying the uncertainty the model's predictions. They asses the reliability of classifiers, not only measuring when they fail, but measuring whether they have selected the wrong class with a high or low probability. Evaluating a model based on probabilities requires that the probabilities are calibrated.
+
+
+        <h3 id="log_loss">Log-Loss, a.k.a Cross-Entropy, Negative Log-Likelihood</h3>
+
+            <p>A common metric for evaluating predicted probabilities is cross-entropy, a.k.a. negative log-likelihood, or log loss. For a binary classification dataset where the expected values are y and the predicted values $\bar{y}$, it is calculated as:</p>
+
+            <p>$$LogLoss = -((1-y) \times log(1-\bar{y}) + y \times log(bar{y}))$$</li></p>
+
+            <p>It can be generalized by adding terms:</p>
+
+            <p>$$LogLoss = - \sum y_c log(\bar{y}c)$$</p>
+
+            <p>The score summarizes the average difference between two probability distributions. A perfect classifier has a log loss of $0.0$, with worse values being positive up to infinity.</p>
+
+
+        <h3 id="brier">Brier Score</h3>
+
+            <p>Another popular score is the Brier score, the benefit of which is that it focuses on the positive class. It is the mean squared error between the expected probabilities for the positive class and the predicted probabilities, and summarizes the magnitude of the error in probability predictions. It is an error score between 0 and 1, where a model with perfect performance has a score of 0. The skill of a model can be summarized as the average Brier score across all probabilities predicted for a test dataset.</p>
+
+            <p>$$BrierScore = \frac{1}{N} \sum (\bar{y} - y_i)^2$$</p>
+
+            <p>As with log-loss, we expect that the score will be suitable with a well-balanced dataset and misleading when there is a large imbalance between the two classes.</p>
+
+            <p>The difference in Brier score by classifier may be small, in which case one may want to scale it against a reference score, obtaining what is called the Brier skill score</p>
+
+            <p>$$BSS = \frac{1 - BrierScore}{BrierScore_{ref}}$$</p>
+
+
+
+    <h2 id="eval_metric_diagram">Diagram - Choosing an Evaluation Metric</h2>
+
+        <img src="img/choosing_eval_metric.png" style="height: 500px; width: auto;"></br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+        </div>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/popper.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
