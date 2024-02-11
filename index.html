@@ -1,15 +1,204 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>MathNotes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<head>
-  <meta charset="utf-8">
-  <title></title>
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="stylesheet" href="css/collapse-list.css">
+    <script src="js/collapse-list.js"></script>
 
-<body>
-  <p></p>
-  <button>Click me!</button>
-  <script src="index.js"></script>
-</body>
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+
+
+  </head>
+  <body>
+
+<ul class="collapse">
+    <li>
+    ARTICLES
+        <ul class="collapse">
+            <li></li>
+            <li>
+                Probability Distributions
+                <ul>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/Distributions%20I%20-%20Discrete.ipynb">Probability Distributions I - Discrete Distributions</a></li>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/Distributions%20II%20-%20Continuous.ipynb">Probability Distributions II - Continuous Distributions</a></li>
+                </ul>
+            </li>
+            <li>
+                Survival Analysis
+                <ul>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/SA1%20-%20Intro%20to%20Survival%20Analysis%20in%20Python.ipynb">Survival Analysis I - Survival Analysis in Python</a></li>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/SA2%20-%20Non-Parametric%20Estimators%20in%20Lifelines.ipynb">Survival Analysis II - Non-Parametric Estimators in Lifelines</a></li>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/SA3%20-%20Cox%20Proportional%20Hazards%20Model.ipynb">Survival Analysis III - Cox Proportional Hazards Model</a></li>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/SA4%20-%20Parametric%20Survival%20Analysis.ipynb">Survival Analysis IV - Parametric Models</a></li>
+                </ul>
+            </li>
+            <li>
+                Supervised Learning
+                <ul>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/Supervised%20Learning%20-%20Regression.ipynb">Regression in Python</a></li>
+                </ul>
+            </li>
+            <li>
+                Descriptive Statistics
+                <ul>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/Descriptive%20Statistics%20I%20-%20Central%20Tendency.ipynb">Descriptive Statistics I - Central Tendency</a></li>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/Descriptive%20Statistics%20II%20-%20Variability.ipynb">Descriptive Statistics II - Variability</a></li>
+                    <li><a href="https://github.com/pw598/Articles/blob/main/Descriptive%20Statistics%20III%20-%20Measures%20of%20Relationship.ipynb">Descriptive Statistics III - Measures of Relationship</a></li>
+                </ul>
+            </li>
+                        
+            <!-- <li>
+                Statistics
+                <ul>
+                    <li>Unparameterized Testing</li>
+                </ul>
+            </li> -->
+
+        </ul>
+    </li>
+  </br>
+  </br>
+    <li>
+    WORKBOOKS
+        <ul class="collapse">
+            <li></li>
+            <li>
+                Forecasting
+                <ul>
+                    <li><a href="">Forecasting I - Baseline Methods</a></li>
+                    <li><a href="">Forecasting II - Exponential Smoothing</a></li>
+                    <li><a href="">Forecasting III - Autoregressive Models</a></li>
+                </ul>
+            </li>
+            <li>
+                Recommender Systems
+                <ul>
+                    <li><a href="">RecSystems I - Baseline Methods</a></li>
+                    <li><a href="">RecSystems II - Collaborative Filtering</a></li>
+                    <li><a href="">RecSystems III - Content-Based (TF-IDF)</a></li>
+                    <li><a href="">RecSystems IV - Singular Value Decomposition</a></li>
+                </ul>
+            </li>
+            <li>
+                Supervised Learning
+                <ul>
+                    <li><a href="https://github.com/pw598/Workbooks/blob/main/Classification%20-%20Penguins%20Species.ipynb">Palmer's Penguins Species Classification</a></li>
+                    <li><a href="https://github.com/pw598/Workbooks/blob/main/Classification%20-%20Sonar%20Returns.ipynb">Sonar Returns Classification</a></li>
+                    <li><a href="https://github.com/pw598/Workbooks/blob/main/Regression%20-%20Abalone%20Age%20Regression.ipynb">Abalone Age Regression</a></li>
+                </ul> 
+            </li> 
+            <li>
+                Visualization
+                <ul>
+                    <li><a href="https://github.com/pw598/Workbooks/blob/main/Matplotlib%20rcParams.ipynb">Matplotlib rcParams</a></li>
+                    <li><a href="https://github.com/pw598/Workbooks/blob/main/Predictive%20Viz%20with%20mlxtend.ipynb">Predictive Visualization with mlxtend</a></li>
+                </ul> 
+            </li> 
+        </ul>
+    </li>
+  </br>
+  </br>
+    <li>
+    STREAMLIT APPS
+        <ul class="collapse">
+            <li></li>
+            <li><a href="https://sympy-calculus.streamlit.app/">Derivatives and Antiderivatives in Sympy</a></li>
+            <li><a href="https://effectsize.streamlit.app/">Effect Size &amp; Statistical Power</a></li>
+            <li><a href="https://shapleyvalues.streamlit.app/">Shapley Values</a></li>
+            <li><a href="https://fuzzylookup-1.streamlit.app/">Fuzzy Lookup</a></li>
+        </ul>
+    </li>
+  </br>
+  </br>
+    <li>
+    MATHNOTES SITE   
+        <ul class="collapse">
+            <li>
+                Algebra &amp; Trigonometry
+                <ul>
+                    <li><a href="mathnotes/alg_trig/algebra.html">Algebra</a></li>
+                    <li><a href="mathnotes/alg_trig/precalc.html">Pre-Calculus</a></li>
+                    <li><a href="mathnotes/alg_trig/trig.html">Trigonometry</a></li>
+                </ul>
+            </li>
+            <li>
+                Calculus
+                <ul>
+                    <li><a href="mathnotes/calc1.html">Calc I</a></li>
+                    <li><a href="mathnotes/calc2.html">Calc II</a></li>
+                    <li><a href="mathnotes/calc3.html">Calc III</a></li>
+                    <li><a href="mathnotes/diff_eqs.html">Differential Equations</a></li>
+                </ul>
+            </li>
+            <li>
+                Linear Algebra
+                <ul>
+                    <li><a href="mathnotes/linalg_cohen.html">Cohen</a></li>
+                    <li><a href="mathnotes/linalg_king.html">King</a></li>
+                    <li><a href="mathnotes/dimred.html">Dimension Reduction</a></li>
+                </ul>
+            </li>
+            <li>
+                Probability
+                <ul>
+                    <li><a href="mathnotes/prob.html">Blitzstein</a></li>
+                    <li><a href="mathnotes/prob/biostats_animal_science.html">Biostats for Animal Science</a></li>  
+                </ul>
+            </li>
+            <li>
+                Statistics
+                <ul>
+                    <li><a href="mathnotes/stats/sig_detect.html">Signal Detection</a></li> 
+                    <li><a href="mathnotes/stats/testing.html">Statistical Testing</a></li>
+                    <li><a href="mathnotes/stats/info_theory.html">Information Theory</a></li>
+                </ul>
+            </li>
+            <li>
+                Signal Processing
+                <ul>
+                    <li><a href="mathnotes/guide_to_dsp.html">Guide to DSP</a></li> 
+                    <li><a href="mathnotes/sigproc_cohen.html">Cohen Courses</a></li>  
+                </ul>
+            </ul>
+        </ul>
+    </li>
+</ul>
+    </body>
 </html>
