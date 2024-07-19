@@ -1,0 +1,86 @@
+---
+title: "R Templates - 04A Evaluation, Metrics"
+output: html_notebook
+---
+
+# Accuracy
+
+```{r}
+library(caret)
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# prepare resampling method
+control <- trainControl(method="cv", number=5)
+set.seed(7)
+fit <- train(diabetes~., data=PimaIndiansDiabetes, method="glm", metric="Accuracy", trControl=control)
+# display results
+print(fit)
+```
+# Kappa
+
+```{r}
+library(caret)
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# prepare resampling method
+control <- trainControl(method="cv", number=5)
+set.seed(7)
+fit <- train(diabetes~., data=PimaIndiansDiabetes, method="glm", metric="Kappa", trControl=control)
+# display results
+print(fit)
+```
+# Log Loss
+
+```{r}
+library(caret)
+# load the dataset
+data(iris)
+# prepare resampling method
+control <- trainControl(method="cv", number=5, classProbs=TRUE, summaryFunction=mnLogLoss)
+set.seed(7)
+fit <- train(Species~., data=iris, method="rpart", metric="logLoss", trControl=control)
+# display results
+print(fit)
+```
+# RMSE
+
+```{r}
+library(caret)
+# load data
+data(longley)
+# prepare resampling method
+control <- trainControl(method="cv", number=5)
+set.seed(7)
+fit <- train(Employed~., data=longley, method="lm", metric="RMSE", trControl=control)
+# display results
+print(fit)
+```
+# ROC
+
+```{r}
+library(caret)
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# prepare resampling method
+control <- trainControl(method="cv", number=5, classProbs=TRUE, summaryFunction=twoClassSummary)
+set.seed(7)
+fit <- train(diabetes~., data=PimaIndiansDiabetes, method="glm", metric="ROC", trControl=control)
+# display results
+print(fit)
+```
+# R-Squared
+
+```{r}
+library(caret)
+# load data
+data(longley)
+# prepare resampling method
+control <- trainControl(method="cv", number=5)
+set.seed(7)
+fit <- train(Employed~., data=longley, method="lm", metric="Rsquared", trControl=control)
+# display results
+print(fit)
+```

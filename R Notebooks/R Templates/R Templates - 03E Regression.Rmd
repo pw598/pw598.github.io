@@ -1,0 +1,269 @@
+---
+title: "R Templates - 03E Regression"
+output: html_notebook
+---
+
+# Bagging CART
+
+```{r}
+library(ipred)
+# load data
+data(longley)
+# fit model
+fit <- bagging(Employed~., data=longley, control=rpart.control(minsplit=5))
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6])
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+
+```{r}
+library(rpart)
+# load data
+data(longley)
+# fit model
+fit <- rpart(Employed~., data=longley, control=rpart.control(minsplit=5))
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6])
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# Conditional Decision Trees
+
+```{r}
+library(party)
+# load data
+data(longley)
+# fit model
+fit <- ctree(Employed~., data=longley, controls=ctree_control(minsplit=2,minbucket=2,testtype="Univariate"))
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6])
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# Cubist
+
+```{r}
+library(Cubist)
+# load data
+data(longley)
+# fit model
+fit <- cubist(longley[,1:6], longley[,7])
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6])
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# Elastic Net
+
+```{r}
+library(glmnet)
+# load data
+data(longley)
+x <- as.matrix(longley[,1:6])
+y <- as.matrix(longley[,7])
+# fit model
+fit <- glmnet(x, y, family="gaussian", alpha=0.5, lambda=0.001)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, x, type="link")
+# summarize accuracy
+mse <- mean((y - predictions)^2)
+print(mse)
+```
+# FFN
+
+```{r}
+library(nnet)
+# load data
+data(longley)
+x <- longley[,1:6]
+y <- longley[,7]
+# fit model
+fit <- nnet(Employed~., longley, size=12, maxit=500, linout=T, decay=0.01)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, x, type="raw")
+# summarize accuracy
+mse <- mean((y - predictions)^2)
+print(mse)
+```
+# Gradient Boosted Machine
+
+```{r}
+library(gbm)
+# load data
+data(longley)
+# fit model
+fit <- gbm(Employed~., data=longley, distribution="gaussian", n.minobsinnode=1)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6], n.trees=1)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# KNN
+
+```{r}
+library(caret)
+# load data
+data(longley)
+# fit model
+fit <- knnreg(longley[,1:6], longley[,7], k=3)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6])
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# MARS
+
+```{r}
+library(earth)
+# load data
+data(longley)
+# fit model
+fit <- earth(Employed~., longley)
+# summarize the fit
+print(fit)
+# summarize the importance of input variables
+evimp(fit)
+# make predictions
+predictions <- predict(fit, longley)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# OLS
+
+```{r}
+data(longley)
+# fit model
+fit <- lm(Employed~., longley)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# PLS Regression
+
+```{r}
+library(pls)
+# load data
+data(longley)
+# fit model
+fit <- plsr(Employed~., data=longley, validation="CV")
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley, ncomp=6)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# PCA Regression
+
+```{r}
+library(pls)
+# load data
+data(longley)
+# fit model
+fit <- pcr(Employed~., data=longley, validation="CV")
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley, ncomp=6)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# Random Forest
+
+```{r}
+library(randomForest)
+# load data
+data(longley)
+# fit model
+fit <- randomForest(Employed~., data=longley)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley[,1:6])
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# Ridge Regression
+
+```{r}
+library(glmnet)
+# load data
+data(longley)
+x <- as.matrix(longley[,1:6])
+y <- as.matrix(longley[,7])
+# fit model
+fit <- glmnet(x, y, family="gaussian", alpha=0, lambda=0.001)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, x, type="link")
+# summarize accuracy
+mse <- mean((y - predictions)^2)
+print(mse)
+```
+# Stepwise Linear Regression
+
+```{r}
+data(longley)
+# fit model
+base <- lm(Employed~., longley)
+# summarize the fit
+summary(base)
+# perform step-wise feature selection
+fit <- step(base)
+# summarize the selected model
+print(fit)
+# make predictions
+predictions <- predict(fit, longley)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+# SVM
+
+```{r}
+library(kernlab)
+# load data
+data(longley)
+# fit model
+fit <- ksvm(Employed~., longley)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, longley)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+

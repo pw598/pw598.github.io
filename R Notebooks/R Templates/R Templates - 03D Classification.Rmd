@@ -1,0 +1,230 @@
+---
+title: "R Templates - 03D Classification"
+output: html_notebook     
+---
+
+# Bagging CART
+
+```{r}
+library(ipred)
+# load data
+data(iris)
+# fit model
+fit <- bagging(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4], type="class")
+# summarize accuracy
+table(predictions, iris$Species)
+```
+
+# Classification and Regression Trees (CART)
+
+```{r}
+library(rpart)
+# load data
+data(iris)
+# fit model
+fit <- rpart(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4], type="class")
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# FFN
+
+```{r}
+library(nnet)
+data(iris)
+# fit model
+fit <- nnet(Species~., data=iris, size=4, decay=0.0001, maxit=500)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4], type="class")
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Flexible Discriminant Analysis
+
+```{r}
+library(mda)
+data(iris)
+# fit model
+fit <- fda(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Gradient Boosted Machine
+
+```{r}
+library(gbm)
+# load data
+data(iris)
+# fit model
+fit <- gbm(Species~., data=iris, distribution="multinomial")
+# summarize the fit
+print(fit)
+# make predictions
+probabilities <- predict(fit, iris[,1:4], n.trees=1)
+predictions <-  colnames(probabilities)[apply(probabilities, 1, which.max)]
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# KNN
+
+```{r}
+library(caret)
+data(iris)
+# fit model
+fit <- knn3(Species~., data=iris, k=5)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4], type="class")
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Linear Discriminant Analysis
+
+```{r}
+library(MASS)
+data(iris)
+# fit model
+fit <- lda(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])$class
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Logistic Regression
+
+```{r}
+library(VGAM)
+# load data
+data(iris)
+# fit model
+fit <- vglm(Species~., family=multinomial, data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+probabilities <- predict(fit, iris[,1:4], type="response")
+predictions <- apply(probabilities, 1, which.max)
+predictions[which(predictions=="1")] <- levels(iris$Species)[1]
+predictions[which(predictions=="2")] <- levels(iris$Species)[2]
+predictions[which(predictions=="3")] <- levels(iris$Species)[3]
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Mixture Discriminant Analysis
+
+```{r}
+library(mda)
+data(iris)
+# fit model
+fit <- mda(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Naive Bayes
+
+```{r}
+library(e1071)
+data(iris)
+# fit model
+fit <- naiveBayes(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# PLS Discriminant Analysis
+
+```{r}
+library(caret)
+data(iris)
+x <- iris[,1:4]
+y <- iris[,5]
+# fit model
+fit <- plsda(x, y, probMethod="Bayes")
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Quadratic Discriminant Analysis
+
+```{r}
+library(MASS)
+data(iris)
+# fit model
+fit <- qda(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])$class
+# summarize accuracy
+table(predictions, iris$Species)
+```
+
+# Random Forest
+
+```{r}
+library(randomForest)
+# load data
+data(iris)
+# fit model
+fit <- randomForest(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# Regularized Discriminant Analysis
+
+```{r}
+library(klaR)
+data(iris)
+# fit model
+fit <- rda(Species~., data=iris, gamma=0.05, lambda=0.01)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4])$class
+# summarize accuracy
+table(predictions, iris$Species)
+```
+# SVM
+
+```{r}
+library(kernlab)
+data(iris)
+# fit model
+fit <- ksvm(Species~., data=iris)
+# summarize the fit
+print(fit)
+# make predictions
+predictions <- predict(fit, iris[,1:4], type="response")
+# summarize accuracy
+table(predictions, iris$Species)
+```
+
