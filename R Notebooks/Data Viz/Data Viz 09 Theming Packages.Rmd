@@ -1,0 +1,83 @@
+---
+title: "Data Viz 09 Theming Packages"
+output: html_notebook
+---
+
+```{r}
+## STEP 1: LOAD ggplot2 AND HistData
+library(ggplot2)
+library(HistData)
+## STEP 2: CRAFTING A BUBBLE PLOT
+bubble <- ggplot(Armada, aes(x = sailors, y = soldiers)) + 
+  geom_point(aes(colour = Armada, size = ships), alpha = .6) +
+  scale_color_brewer(palette = 'Set3' ,guide = F) +
+  scale_size_continuous(range = c(5,25)) + 
+  geom_text(aes(label = Armada), size = 3) + 
+  xlim(100,2000) + ggtitle('La Felicisima Armada')
+bubble
+```
+
+```{r}
+## STEP 1: FiveThirTyEigth THEME
+library(ggthemes)
+bubble +
+  theme_fivethirtyeight()
+## STEP 2> Stata THEME
+bubble + theme_stata() + 
+  scale_colour_stata(guide = F)
+## STEP 3: Pander THEME
+bubble + theme_pander() + 
+  scale_color_pander(guide = F)
+```
+
+
+```{r}
+## STEP 1: USE USCS Genome Browser COLOR SCALE
+library(ggsci)
+bubble + 
+  theme_bw() + 
+  scale_color_ucscgb(guide = F)
+## STEP 1: USE RIcky and Morty COLOR SCALE
+bubble +
+  theme_bw() +
+  scale_color_rickandmorty(guide = F)
+```
+
+
+```{r}
+## STEP 1: DESING A CUSTOM THEME FUNCTION
+theme_custom <- function(s.legend1 = 14, 
+                         s.legend2 = 14,
+                         s.axes1 = 14, 
+                         s.axes2 = 15, ...){
+  theme_classic() +
+    theme(legend.text = element_text(size = s.legend1),
+          legend.title = element_text(size = s.legend2),
+          axis.text = element_text(size = s.axes1),
+          axis.title = element_text(size = s.axes2),
+          plot.title = element_text(size = 18), ...)}
+## STEP 2: TEST IT
+bubble + theme_custom()
+```
+
+
+```{r}
+## STEP 1:
+library(hrbrthemes)
+library(tidyverse)
+extrafont::loadfonts()
+## STEP 2:
+p <- ggplot(data = Puromycin, 
+            aes(x = conc,
+                y = rate)) +
+  geom_point(size = 4, aes(colour = state)) +
+  labs(title = 'Reaction Velocity of\nan Enzymatic Reaction',
+       subtitle = 'thiss ys missspelled')
+## STEP 3:
+p + theme_ipsum_rc() +
+  scale_color_ipsum()
+## STEP 4: 
+gg_check(p)
+```
+
+

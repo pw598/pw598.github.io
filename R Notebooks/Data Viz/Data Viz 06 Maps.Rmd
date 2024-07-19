@@ -1,0 +1,160 @@
+---
+title: "Data Viz 06 Maps"
+output: html_notebook
+---
+
+```{r}
+## STEP 1
+library(HistData)                                                                   # loading package with data
+
+## STEP 2 - MAPPING WITH ggplot2
+library(ggplot2)                                                                    # loading ggplot2
+ggplot(data = Snow.streets) +                                                       # initializing plot
+  geom_path(aes(x = x, y = y, group = street))                                      # calling geom_path() to draw the streets
+
+
+## STEP 3 - MAPPING WITH ggvis
+library(ggvis)                                                                      # loading ggvis
+Snow.streets %>% group_by(street) %>%                                               # call the data and group by street
+  ggvis(x = ~x, y = ~y) %>% layer_paths()                                           # calling layer_paths() to draw lines
+
+
+## STEP 4 - MAPPING WITH plotly
+library(plotly)                                                                    # loading plotly
+plot_ly(data = Snow.streets, type = 'scatter', showlegend = F) %>%                 # initialize plot, ask to hide legends  
+  group_by(street) %>% add_lines(x = ~x, y = ~y)                                   # add_lines() actually draw the lines
+```
+```{r}
+## STEP 1: LOADING AND INITIALIZING
+library(HistData); library(plotly)                                                                      # Load Required packges                                                                 
+plot_ly(data = Snow.streets, type = 'scatter') %>%  group_by(street) %>%                                # initialize plotly object
+## STEP 2: DRAW STREETS    
+  add_lines(x = ~x, y = ~y, hoverinfo = 'none',                                                         # use add_lines to draw streets
+            line = list(color = 'rgba(0, 0, 0, 1)'), showlegend = F) %>%                                # choose the color and hide legends
+## STEP 3: REPRESENT DEATHS
+  add_markers(data = Snow.deaths, x = ~x, y = ~y,  hoverinfo = 'none',                                  # use add_markers to display points
+              marker = list(symbol = 0, size = 4, color = 'rgba(153, 0, 0, 1)'),                        # choose symbol, size and color
+              name = 'cholera\ndeath') %>%                                                              # add a name to be displayed by legends
+## STEP 4: DRAW THE WATER PUMPS  
+  add_markers(data = Snow.pumps, x = ~x, y = ~y,                                                        # use add_markers to set up more points
+              hoverinfo = 'text', text = ~label,                                                        # set up a text to show up when mouse is hovered
+              marker = list(symbol = 2, size = 10, color = 'rgba(0, 0, 153, 1)'),                       # choose symbol, size and color
+              name = 'water\npump') %>%                                                                 # properly name it
+## STEP 5: HIDE AXES AND ADD A TITTLE
+  layout(xaxis = list(visible = F), yaxis = list(visible = F), title = '1854 London')                   # really?
+```
+
+
+```{r}
+## STEP 1: STORING COORDINATES
+library(ggplot2)                                                                            # Load ggplot2
+us_map <- map_data('state')                                                                 # store US states coordinates
+## STEP 2: STORING GSP
+library(Ecdat)                                                                              # Load Ecdat
+us_prod <- Produc[Produc$year == 1985,]                                                     # Store US states production for 1985
+## STEP 3: MERGE DATAS
+us_prod$region <- gsub('_',' ',tolower(us_prod$state))                                      # Create a new column with same sane convention from us_map
+merged_data <- dplyr::left_join(us_map,us_prod[,c('region','gsp')],by = 'region')           # merge the data into a single data frame
+## STEP 4: PLOT THE MAP
+choropleth <- ggplot(data = merged_data) +                                                  # Initialize ggplot with merged_data
+  geom_polygon(aes(x = long, y = lat, group = group, fill = gsp), color = 'black') +        # call geom_polygon() to draw the map
+  theme_void() + theme(legend.position = 'bottom') +                                        # summon void theme and move legends
+  scale_fill_continuous( guide = guide_colorbar(barheight = unit(2,units = 'mm'),           # decrease legends heigh
+                                                barwidth = unit(5,units = 'cm')))           # increase legends width
+choropleth 
+```
+
+
+```{r}
+## STEP 1: GET THE COORDINATES
+tristate <- c('new york','new jersey','connecticut')                                                 # creating a vector with tri-state names
+long_lim <- merged_data$long[merged_data$region %in% tristate]                                       # Getting longitudes
+lat_lim <- merged_data$lat[merged_data$region %in% tristate]                                         # getting latitudes
+outer <- merged_data[!merged_data$region %in% tristate,]                                             # separating outer states
+## STEP 2: ZOOMING IN
+library(ggplot2)                                                                                      # load ggplot2
+choropleth +                                                                                          # Plot base
+  geom_polygon(data = outer,                                                                          # select outer states
+               aes(x = long, y = lat, group = group), fill = 'gray', color = 'black') +               # fill gray
+  coord_fixed(xlim = c(min(long_lim),max(long_lim)),                                                  # zooming longitudinal
+              ylim = c(min(lat_lim),max(lat_lim)),                                                    # zooming latitudinal     
+              ratio = 1.3)                                                                            # fixe aspect ratio
+```
+
+
+```{r}
+## STEP 1: CENTERING TITLES AND SUBITLES
+library(ggplot2)                                                            # Loading package
+choropleth <- choropleth + theme(plot.title =  element_text(hjust = .5),    # setting titles centered
+                                 plot.subtitle = element_text(hjust = .5))  # setting subtitles centered
+## STEP 2: ADOPTING MERCATOR PROJECTION
+choropleth + coord_map() +                                                  # choosing mercator projection
+  ggtitle('US Map - mercator projection')                                   # adding an informative title
+## STEP 3: ADOPTING THE GILBERT PROJECTION
+choropleth + coord_map(projection = 'gilbert') +                            # choosing gilbert projection
+  ggtitle('US Map - gilbert projection')                                    # adding an informative title   
+## STEP 4: ADOPTING THE CONIC PROJECTION
+choropleth + coord_map(projection = 'conic', lat0 = 50) +                   # adopting conic projection with latitude zero = 50 
+  labs(title = 'US Map - conic projection',                                 # adding an informative title ...
+       subtitle = 'latitute zero = 50')                                     # .... and subtitle
+```
+
+
+```{r}
+## STEP 1: LOADING AND MANIPULATING DATA
+library(Ecdat)                                                           # Loading Ecdat
+data(bankingCrises)                                                      # attaching the data frame
+row_year <- match(2009,bankingCrises$year)                               # selecting the row number for the year 2009
+countries <- colnames(bankingCrises[,bankingCrises[row_year,] == 1])     # creating a vectors for countries that suffered a baking crises in 2009
+## STEP 2: PRESETTING GLOBE PROPERTIES
+axis_props <- list(
+  showgrid = T, gridcolor = toRGB("gray40"), gridwidth = 0.5
+)
+globe <- list(
+  showland = T, showlakes = T, showcountries = T, showocean = T,
+  countrywidth = 0.5,
+  landcolor = toRGB("grey90"),
+  lakecolor = toRGB("white"),
+  oceancolor = toRGB("white"),
+  projection = list(
+    type = 'orthographic',
+    rotation = list(
+      lon = -100, lat = 40, roll = 0
+  ),
+  lonaxis = axis_props,
+  lataxis = axis_props
+  )
+)
+## STEP 3? MAPPING GLOBE
+library(plotly)                                                          # Loading plotly
+plot_geo(width = 528, height = 528, locationmode = 'country names') %>%  # initializing plotly object
+  add_trace(locations = ~countries, showscale = F, z = 1,                # naming the countries to be plotted
+            hoverinfo = 'text', text = ~countries) %>%                   # picking hover information
+  layout(geo = globe)                                                    # calling for a globe
+```
+
+
+```{r}
+library(ggplot2)
+h1 <- ggplot(data = merged_data) +                                                  
+  geom_polygon(aes(x = long, y = lat, group = group, fill = gsp), 
+               color = 'black') + theme_void()
+## STEP 2: PRESET COLORS,BREAKS,LABELS AND BAR SIZE
+clrs <- rev(viridis::magma(8))
+brks <- c(0,10000,seq(100000,500000,100000))
+lbls <- format(brks, nsmall = 2, big.mark = ',', scientific = F)
+bar <- guide_colorbar(barheight = unit(4,units = 'cm'), 
+                      barwidth = unit(2,units = 'mm'))
+## STEP 3: CHANGE COLOR SCAE
+h2 <- h1 + scale_fill_gradientn(colors = clrs, breaks = brks, labels = lbls, 
+                                guide = bar, name = 'GSP (US$)') 
+## STEP 4: PICK A PROJECTION, ADD INFORMATIVE TITLE, REPOSITION LEGENDS 
+h3 <- h2 + coord_map() + 
+  labs(title = 'Gross State Product (GSP) - 1985', 
+       subtitle = 'United States of America') +
+  theme(legend.position = c(.9,.1), 
+        text = element_text(face = 'bold'), 
+        plot.title = element_text(hjust = .5), 
+        plot.subtitle = element_text(hjust = .5))
+h3
+```

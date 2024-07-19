@@ -1,0 +1,158 @@
+---
+title: "Data Viz 07 Faceting"
+output: html_notebook
+---
+
+```{r}
+data_titanic <- as.data.frame(Titanic)
+library(ggplot2)
+bar <- ggplot(data_titanic, aes(x = Survived)) + 
+  geom_bar(aes(fill = Survived, weight = Freq)) + 
+  facet_grid(Sex ~ Age)
+bar
+plotly::ggplotly(bar)
+```
+
+```{r}
+## STEP 1: MANIPULATE DATA
+library(car)                                                        # load car package                              
+data_box <- Salaries                                                # store data into a new object
+data_box$discipline <- factor(data_box$discipline,                  # factor discipline
+                              labels = c('theoretical','applied'))  # picking appropriate labels
+## STEP 2: CRAFTING THE FACETED BOXPLOT
+library(ggplot2)                                                    # load ggplot2
+boxplot <- ggplot(data = data_box) +                                # initialize the ggplot
+  geom_boxplot(aes(x = sex, y = salary), position = 'identity') +   # calls the boxplot geometry
+  facet_grid(rank ~ discipline)                                     # add facets
+boxplot
+## STEP 3: COERCE IT INTO A plotly
+plotly::ggplotly(boxplot)
+```
+
+
+```{r}
+scatter + 
+  scale_x_continuous(labels = seq(1.6,2,.2), 
+                     breaks = seq(160,200,20)) + 
+  xlab('heigth (meters)')
+```
+
+
+```{r}
+## STEP 1: MANIPULATING DATA
+data_sport <- DAAG::ais                                  # Storing data into a separeted object
+sports <- c('B_Ball','Field','Row','T_400m')             # picking the sports to look after
+data_sport <- data_sport[data_sport$sport %in% sports,]  # filtering data accordingly to those sports
+## STEP 2: DRAWING THE FACETED SCATTERPLOT
+library(ggplot2)                                         # Loading ggplot2
+scatter <- ggplot(data_sport) +                          # initializing plot
+  geom_point(aes(x = ht, y = wt), alpha = .4) +          # calling for point geometry
+  facet_grid(sex ~ sport)                                # stacking the facets
+scatter                                                  # summoning the result
+## STEP 3: COERCE TO plotly's
+plotly::ggplotly(scatter)
+```
+
+
+```{r}
+choropleth + geom_polygon(data = us_map[us_map$region == 'tennessee' ,], 
+                          aes(x = long, y = lat, group = group), fill = 'grey')
+```
+
+
+```{r}
+## STEP 1: STORING COORDINATES
+library(ggplot2)                                                                            # Load ggplot2
+us_map <- map_data('state')                                                                 # store US states coordinates
+## STEP 2: STORING GSP
+library(Ecdat)                                                                              # Load Ecdat
+us_prod1 <- Produc[Produc$year == 1970,]                                                    # Store US states production for 1970
+us_prod2 <- Produc[Produc$year == 1986,]                                                    # Store US states production for 1986
+## STEP 3: MERGE DATAS
+us_prod1$region <- gsub('_',' ',tolower(us_prod1$state))                                     # Create a new column with same sane convention from us_map
+us_prod2$region <- gsub('_',' ',tolower(us_prod2$state))                                     # Create a new column with same sane convention from us_map
+merged_data1 <- dplyr::left_join(
+  us_map,us_prod1[,c('region','gsp','year')],by = 'region')                                 # merge the data into a single data frame
+merged_data2 <- dplyr::left_join(
+  us_map,us_prod2[,c('region','gsp','year')],by = 'region')                                 # merge the data into a single data frame
+## STEP 4: BIND THE ROWS FROM THE TWO DATA FRAMES
+merged_data <- rbind(merged_data1,merged_data2)
+## STEP 5: PLOT THE FACETED MAP
+choropleth <- ggplot(data = merged_data[!is.na(merged_data$year),]) +                       # Initialize ggplot with merged_data
+  geom_polygon(aes(x = long, y = lat, group = group, fill = gsp),                           # call geom_polygon() to draw the map
+               color = 'grey') +                                                            # pick grey borders
+  facet_wrap(~ year, ncol = 1) + coord_map() + theme_void()                                 # call facets
+choropleth 
+```
+
+
+```{r}
+## STEP 1: MANIPULATE DATA
+titanic <- as.data.frame(Titanic)
+survived <- c('Yes','No')
+count1 <- c(sum(titanic$Freq[ titanic$Survived == 'Yes' & 
+                                     titanic$Age == 'Child']),
+           sum(titanic$Freq[ titanic$Survived == 'No' & 
+                                    titanic$Age == 'Child']))
+count2 <- c(sum(titanic$Freq[ titanic$Survived == 'Yes' & 
+                                     titanic$Age == 'Adult']),
+           sum(titanic$Freq[ titanic$Survived == 'No' & 
+                                    titanic$Age == 'Adult']))
+## STEP 2: CREATE A DEFAULT TITLE LIST
+title <- list(
+  font = list(size = 18),
+  xref = 'paper',
+  yref = 'paper',
+  yanchor = 'bottom',
+  xanchor = 'center',
+  align = 'center',
+  x = .5,
+  y = 1,
+  showarrow = FALSE
+)
+## STEP 3: USING APPEND TO PROPERLY ATTACH TITLE
+title1 <- append(title,list(text = 'Child'), 0)
+title2 <- append(title,list(text = 'Adult'), 0)
+## STEP 4: DRAW TWO SEPARATED BAR PLOTS
+library(plotly)
+b1 <- plot_ly(x = survived, y = count1, type = 'bar', 
+              color = survived, showlegend = F) %>% 
+  layout(annotations = title1)
+b2 <- plot_ly(x = survived, y = count2, type = 'bar', 
+              color = survived) %>% 
+  layout(annotations = title2)
+## STEP 5: JOIN THESE TWO TO FORM A FACETED LIKE BAR PLOT
+subplot(b1,b2, shareY = T, titleX = T, titleY = T, 
+        nrows = 1)
+```
+
+```{r}
+## STEP 1: DRAW THE BASE BAR PLOT
+library(ggplot2)
+base <- ggplot(data = as.data.frame(Titanic), 
+               aes(x = Survived)) + 
+  geom_bar(aes(fill = Survived, weight = Freq), 
+           colour = 'black', width = 1) + 
+  facet_grid(Sex ~ Age) + theme_bw()
+## STEP 2: CORRECT LABELS 
+h1 <- base + ylab('persons ( un.)') + 
+  xlab('')
+## STEP 3: GROW LABELS AND ADJUST BIN COLORS
+h2 <- h1 + 
+  scale_y_continuous(labels = seq(0,16000,200), 
+                     breaks = seq(0,16000,200),
+                     minor_breaks = 0) +
+  scale_fill_manual(values = c('No' = 'red',
+                               'Yes' = 'seagreen'),
+                    name = 'Survived :')
+## STEP 4: ADJUST THEME 
+h3 <- h2 + theme(text = element_text(size = 14),
+                 axis.text = element_text(size = 14),
+                 legend.text = element_text(size = 13),
+                 strip.text = element_text(size = 13),
+                 legend.position = c(.5,-.1), legend.direction = 'horizontal',
+                 strip.background = element_rect(fill = 'lightyellow'),
+                 plot.margin = unit(c(.2,.2,1,.2),'cm'))
+h3
+```
+

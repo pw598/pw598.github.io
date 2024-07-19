@@ -1,0 +1,139 @@
+---
+title: "Data Viz 03 Discrete Predictor, Continuous Response"
+output: html_notebook
+---
+
+```{r}
+## STEP 1: PERFORM car PACKAGE INSTALLATION CHECK
+if(!require(car)){ install.packages('car') }
+## STEP 2: CHECK DATA SET DOCUMENTATION
+library(car)
+?Salaries
+## STEP 3: CHECK FIRST FEW ROWS AND OBJECT TYPE
+head(Salaries)
+class(Salaries)
+```
+```{r}
+## STEP 1: SEPARETE OUTLIERS
+library(ggplot2) ; library(car)
+out_data <- Salaries[match((boxplot.stats(Salaries$salary))$out,
+                           Salaries$salary),]
+## STEP 2: PLOT WITH ggplot2
+set.seed(50)
+box1 <- ggplot(Salaries, aes( x = rank, y = salary))
+box1 + geom_boxplot( notch = T, outlier.shape = NA ) +
+  geom_jitter( data = out_data, height = 0, width = .2)
+```
+
+
+```{r}
+## STEP 1: PICK COLORS TO USE
+color1 <- 'deepskyblue2'
+color2 <- 'darkred'
+## STEP 2: CREATE A VECTOR OF COLORS
+library(car)
+color_fill <- ifelse(Salaries$sex == 'Male',color1,color2)
+color_fill <- color_fill[with(Salaries,order(rank,salary))]
+## STEP 3: FIT color_fill TO THE fill PARAMETER
+library(ggplot2)
+dot1 <- ggplot(Salaries, aes( x = rank, y = salary))
+dot1 + geom_dotplot(binaxis = 'y', dotsize = .32, 
+                    stackdir = 'center', colour = color_fill, 
+                    fill = color_fill)
+```
+
+
+```{r}
+library(ggplot2) ; library(car)
+dot1 <- ggplot(Salaries, aes( x = rank, y = salary))
+dot1 + geom_boxplot(outlier.size = 0) +
+  geom_dotplot(binaxis = 'y', 
+               dotsize = .3, 
+               stackdir = 'center',
+               fill = 'red', alpha = .5)
+  
+library(plotly)
+box2 <- plot_ly(data = Salaries, x = ~rank, 
+                y = ~salary, type = 'box', 
+                boxpoints = 'all', 
+                marker = list(color = 'red', 
+                              opacity = .2))
+box2
+```
+
+
+```{r}
+## STEP 1: COERCE rank INTO NUMERICAL JITTERED CATEGORIES
+set.seed(10)
+library(car)
+dt <- Salaries
+dt$rk <- 3 + runif(length(dt$rank), 
+                   max = .2, min = -.2)
+dt$rk[ dt$rank == 'AssocProf'] <- dt$rk[ dt$rank == 'AssocProf'] - 1
+dt$rk[ dt$rank == 'AsstProf'] <- dt$rk[ dt$rank == 'AsstProf'] - 2
+## STEP 2: PLOT POINTS WITH ggvis AND REWORK LABELS
+library(ggvis)
+dt %>% ggvis(x = ~rk, y = ~salary) %>% 
+  layer_points(opacity := .3) %>%
+  add_axis('x',values = c(1,1), title = '',
+           properties = axis_props(labels = list(text = 'Assistant Professor'))) %>%
+  add_axis('x',values = c(2,2), title = '',
+           properties = axis_props(labels = list(text = 'Associated Professor'))) %>%
+  add_axis('x',values = c(3,3), title = 'Rank', 
+           properties = axis_props(labels = list(text = 'Professor'))) 
+## STEP 3: PLOT POINTS WITH plotly AND REWORK LABELS
+library(plotly)
+plot_ly(dt, x = ~rk, y =~salary , type = 'scatter', 
+        mode = 'markers', alpha =.4) %>%
+  layout(xaxis = list(tickvals = c(1,2,3),
+                      ticktext = c('Assistant Professor', 
+                                   'Associated Professor', 
+                                   'Professor')))
+## STEP 4: geom_jitter() CAN HANDLE IT USING ggplot2
+library(ggplot2)
+ggplot(Salaries, aes(x = rank, y = salary)) + 
+  geom_jitter(alpha = .4, height = 0, 
+              width = .3)
+```
+
+
+```{r}
+## STEP 1: DRAWING BASE PLOT
+library(ggplot2) ; library(car)
+hq_1 <- ggplot(Salaries, aes(x = rank, y = salary)) +
+  geom_violin( fill = 'wheat2', colour = 'coral1',
+               size = 1.2) +
+  stat_summary( geom = 'errorbar', fun.y = mean,
+                aes(ymin = ..y.., ymax = ..y.. , colour = sex), 
+                width = .7, size = 1.5) +
+  theme_minimal()
+## STEP 2: CORRECT AXES TITLES
+hq_2 <- hq_1 + xlab('') +
+  ylab('9 Months Salary (US$ 1,000.00)')
+## STEP 3: GROW MORE BREAKS AND REWORK AXES LABELS
+hq_3 <- hq_2 +
+  scale_y_continuous(breaks = seq(50000,225000,25000),
+                     labels = seq(50,225,25),
+                     minor_breaks = 0) +
+  scale_x_discrete(labels = c('Assistant\nProfessor',
+                              'Associated\nProfessor',
+                              'Professor'))
+## STEP 4: REWORK BAR COLORS
+hq_4 <- hq_3 +
+  scale_colour_manual(
+    values = c('Female' = 'red', 
+               'Male' = 'navyblue'),
+    name = 'Mean Salary')
+## STEP 5: RESIZE TEXTS AND REPOSITION LEGENDS
+hq_5 <- hq_4 +
+  theme(legend.justification = c('left', 'top'), 
+        legend.position = c(.05,.95),
+        legend.background = element_rect(color = "black", size = 1, 
+                                         linetype = "solid"),
+        legend.text = element_text(size = 14, face = 'bold'),
+        legend.title = element_text(size = 14, face = 'bold'),
+        axis.text = element_text(size = 15, face = 'bold'),
+        axis.title = element_text(size = 13, face = 'bold'))
+hq_5
+```
+

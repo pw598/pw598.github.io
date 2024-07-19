@@ -1,0 +1,88 @@
+---
+title: "Data Viz 10 Specialized Plots"
+output: html_notebook
+---
+
+```{r}
+## STEP 1: LOAD PACKAGES
+library(ggforce)
+library(ggplot2)
+## STEP 2: DRAW FACET USING facet_zoom()
+ggplot(data = boot::motor, 
+       aes(x = times, y = accel)) + 
+  geom_point(aes(color = factor(strata))) +
+  facet_zoom(xy = factor(strata) == 1,
+             horizontal = F)
+```
+
+```{r}
+## STEP 1: LOAD ggplot2 AND HistData
+library(ggplot2)
+library(HistData)
+bubble <- ggplot(Armada, aes(x = sailors, y = soldiers)) + 
+  geom_point(aes(colour = Armada, size = ships), alpha = .6) +
+  scale_color_brewer(palette = 'Set3' ,guide = F) +
+  scale_size_continuous(range = c(5,25)) + 
+  xlim(100,2000) + ggtitle('La Felicisima Armada')
+## STEP 2: PLOT USING ggrepel
+library(ggrepel)
+bubble + 
+  geom_text_repel(aes(label = Armada), 
+                  point.padding = 3) + 
+  theme_classic()
+```
+
+
+```{r}
+## STEP 1: CREATE YOUR igraph OBJECT
+library(car)
+library(igraph)
+graph <- graph_from_data_frame(Migration)
+## STEP 2: CREATE A NEW NODE
+tmp_dt <- Migration[1:10,]
+V(graph)$pops66 <- tmp_dt$pops66[match(tmp_dt$source,V(graph)$name)]
+## STEP 3: DRAW A NETORK TO DENOTE COMPLEXITY
+set.seed(10)
+library(ggraph)
+ggraph(graph, layout = 'lgl') +  
+  geom_edge_fan(aes(colour = migrants), alpha = .4) +
+  geom_node_point(colour = 'darkgreen',size = 4) +
+  theme_void()
+## STEP 4: SIMPLIFY THE FIGURE
+ggraph(graph, layout = 'star') +  
+  geom_edge_fan(aes(colour = migrants, 
+                    filter = migrants > 2*10^4), 
+                width = 1, 
+                arrow = arrow(length = unit(4, 'mm')), 
+                end_cap = circle(9, 'mm')) +
+  geom_node_label(aes(label = name, size = pops66)) +
+  theme_void()
+```
+
+
+```{r}
+## STEP 1: STORE DATA SETS INTO DIFFERENT OBJECTS
+library(car)
+dt1 <- Migration[1:10,]
+dt2 <- Salaries
+## STEP 2: CALL geom_lollipop() TO DRAW A LOLLIPOP PLOT
+library(ggalt)
+ggplot(data = dt1, 
+       aes(y=reorder(source, pops66), 
+           x=pops66)) +
+  geom_lollipop(point.colour = 'navyblue',
+                point.size = 4,
+                horizontal = T) +
+  theme_classic()
+## STEP 3: USE geom_bkde() TO DRAW ALTERNATIVE 1 DIMENSION DENSITY PLOT
+ggplot(data = dt2, 
+       aes(x = salary, 
+           fill = discipline)) + 
+  geom_bkde(alpha = .2) + theme_classic()
+## STEP 4: USE geom_bkde2D() TO DRAW ALTERNATIVE 2 DIMENSIONS DENSITY PLOT
+ggplot(data = dt2, 
+       aes(x = yrs.since.phd,
+           y = yrs.service)) +
+  stat_bkde2d(aes(fill = ..level..),
+              geom = 'polygon')
+```
