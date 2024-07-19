@@ -1,0 +1,230 @@
+---
+title: "Data Viz 02 Continuous Variables"
+output: html_notebook
+---
+
+
+```{r}
+## STEP 1: ggplot2 SIMPLE SCATTERPLOT
+library(ggplot2)                                                        # Load package
+sca1 <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width))     # initialize ggplot
+sca1 + geom_point() +                                                   # call point geometry
+  ggtitle('Simple ggplot2 scatterplot')                                 # add title
+## STEP 2: plotly SIMPLE SCATTERPLOT
+library(plotly)                                                         # load plotly
+sca2 <- plot_ly(data = iris, x = ~Petal.Length, y = ~Petal.Width,       # initialize plotly
+                type = 'scatter', mode = 'markers')                     # pick graph type and mode
+sca2 %>% layout(title = 'Simple plotly scatterplot')                    # add title
+## STEO 3: ggvis SIMPLE SCATTERPLOT
+library(ggvis)                                                          # load ggvis
+sca3 <- iris %>% ggvis(x = ~Petal.Length, y = ~Petal.Width)             # initilize ggvis object
+sca3 %>% layer_points()                                                 # add point geometry
+# ggvis lacked a funtion to add title
+```
+
+
+```{r}
+## STEP 1: WRAPING THE HACK
+library(ggvis)
+ggvis_title <- function(vis, plot_title, title_size = 18, shift = 0, ...){ 
+  add_axis(vis, 'x', ticks = 0, orient = 'top', 
+           properties = axis_props( axis = list(strokeWidth = 0),
+                                    labels = list(strokeWidth = 0), 
+                                    grid = list(strokeWidth = 0),
+                                    title = list(fontSize = title_size, dy = -shift, ...)),
+           title = plot_title)
+}
+## STEP 2
+sca3 %>% ggvis_title('simple ggvis scatterplot')
+```
+
+
+```{r}
+## STEP 1: SHAPES AND COLORS WITH ggplot2
+library(ggplot2)
+sca1 <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width))
+sca1 + geom_point(aes(shape = Species, colour = Species))
+## STEP 2: SHAPES AND COLORS WITH plotly
+library(plotly)
+sca4 <- plot_ly(iris, x = ~Petal.Length, y = ~Petal.Width, 
+                type = 'scatter', mode = 'markers', symbol = ~Species)
+sca4
+## STEP 3: SHAPES AND COLORS WITH ggvis
+library(ggvis)
+sca3 <- ggvis(data = iris, x = ~Petal.Length, y = ~Petal.Width)
+sca3 >%> layer_points( shape = ~Species, fill = ~Species)
+```
+
+
+```{r}
+palette <- data.frame(x = rep(seq(1,5,1),5))
+palette$y <- c(rep(5,5),rep(4,5),rep(3,5),rep(2,5),rep(1,5))
+library(ggplot2)
+ggplot(data = palette,aes(x,y)) +
+  geom_point(shape = seq(1,25,1), size = 10, fill ='white') +
+  scale_size(range = c(2, 10)) +
+  geom_text(nudge_y = .3, label = seq(1,25,1))
+```
+
+
+```{r}
+## STEP 1: REDUCED POINTS WITH ggplot2
+library(ggplot2)
+sca5 <- ggplot(diamonds, aes(x = carat, y = price))
+sca5 + geom_point(shape = '.')
+## STEP 2: REDUCED POINTS WITH plotly
+library(plotly)
+sca6 <- plot_ly(diamonds, x = ~carat, y = ~price, type = 'scatter', 
+                mode = 'markers', marker = list(size = .8))
+sca6
+## STEP 3: REDUCED POINTS WITH ggvis
+library(ggvis)
+sca7 <- diamonds %>% ggvis(x = ~carat, y = ~price)
+sca7 %>% layer_points( size := .5)
+```
+
+
+```{r}
+## STEP 1: JITTER WITH ggplot2
+set.seed(100)
+library(ggplot2)
+sca1 <- ggplot( iris, aes( x = Petal.Length, y = Petal.Width))
+sca1 + geom_point( position = 'jitter', 
+                   aes(shape = Species, colour = Species))
+## STEP 2: CREATING NOISE VARIABLES
+jx <- rnorm(length(iris$Petal.Length), mean = 0, sd = .2)
+jy <- rnorm(length(iris$Petal.Width), mean = 0, sd = .06)
+## STEP 3: ADD NOISE TO THE VARIABLES USING plotly
+library(plotly)
+sca8 <- plot_ly(iris, x = ~Petal.Length + jx, y = ~Petal.Width + jy, 
+                type = 'scatter', mode = 'markers', symbol = ~Species)
+sca8
+## STEP 4: DO ABOUT THE SAME USING ggbis
+library(ggvis)
+sca3 <- ggvis( data = iris)
+sca3 %>% layer_points( x = ~Petal.Length + jx , y = ~Petal.Width + jy,
+                       shape = ~Species, fill = ~Species)
+```
+
+```{r}
+## STEP 1:
+library(ggplot2)
+sca1 <- ggplot( iris, aes( x = Petal.Length, y = Petal.Width))
+sca1 + geom_point( alpha = .5 , 
+                   aes(shape = Species, colour = Species))
+## STEP 2:
+library(plotly)
+sca9 <- plot_ly( iris, x = ~Petal.Length, y = ~Petal.Width, 
+                 type = 'scatter', mode = 'markers', alpha = .5, symbol = ~Species)
+sca9
+# STEP 3:
+library(ggvis)
+sca3 <- ggvis(iris, x = ~Petal.Length, y = ~Petal.Width)
+sca3 %>% layer_points( opacity := .5, shape = ~Species, fill = ~Species)
+```
+
+
+```{r}
+library(ggplot2)
+sca5 <- ggplot(diamonds, aes( x = carat, y = price))
+sca5 + geom_hex()
+```
+
+
+```{r}
+set.seed(50) ; library(ggplot2)
+rug <- ggplot(iris,
+              aes(x = Petal.Length, 
+                  y = Petal.Width, 
+                  colour = Species))
+rug <- rug +
+  geom_jitter(aes( shape = Species), alpha = .4) +
+  geom_rug(position = 'jitter' , show.legend = F, alpha = .4)
+rug
+## STEP 2: COERCING INTO plotly
+plotly::ggplotly(rug)
+```
+
+
+```{r}
+library(ggplot2) 
+base_p <- ggplot(iris, aes( x = Petal.Length, y = Petal.Width, colour = Species))
+scatter <- base_p + geom_point( alpha = .5, aes(shape = Species)) + 
+  geom_rug(alpha = .5, sides = 'tr', show.legend = F) +
+  theme(legend.position = 'bottom')
+## STEP 2: DRAW MARGINAL PLOTS WITH ggExtra
+library(ggExtra)
+ggMarginal(scatter, iris, type = 'histogram', bins = 150)
+```
+
+
+
+```{r}
+library(plotly)
+marg_plot <- subplot(
+  plot_ly(data = iris, x = ~Petal.Length, type = 'histogram',
+          color = ~Species, alpha =.5),
+  plotly_empty(),
+  plot_ly(data = iris, x = ~Petal.Length, y = ~Petal.Width, type = 'scatter',
+          mode = 'markers', symbol = ~Species, color = ~Species, alpha = .5),
+  plot_ly(data = iris, y = ~Petal.Width, type = 'histogram', 
+          color = ~Species, alpha = .5),
+  nrows = 2, heights = c(.2, .8), widths = c(.8,.2), margin = 0,
+  shareX = TRUE, shareY = TRUE
+)
+layout(marg_plot, showlegend = F, barmode = 'overlay')
+```
+
+```{r}
+## STEP 1: DRAW REGRESSIONS USING ggplot2
+library(ggplot2)
+scatter <- ggplot(data = iris, 
+                  aes(x = Petal.Length, y = Petal.Width)) + 
+  geom_point(alpha = .5, aes(colour = Species, shape = Species))
+scatter + 
+  geom_smooth(method = 'lm', se = F, show.legend = F, aes(group = Species))
+## STEP 2: REGRESSION LINES USING ggvis
+library(ggvis)
+ggvis( iris, x = ~Petal.Length, y = ~Petal.Width, opacity := .5) %>%
+  layer_points( shape = ~Species, fill = ~Species) %>% group_by(Species) %>%
+  layer_model_predictions( model = 'lm', stroke = ~Species)
+## STEP 3: REGRESSION LINES USING plotly
+library(plotly)
+plot_ly(iris, x = ~Petal.Length, y = ~Petal.Width, 
+        showlegend = F, alpha = .5, color = ~Species) %>% 
+  add_markers(showlegend = T, symbol = ~Species) %>%
+  add_lines(data = iris %>% filter(Species == 'setosa'), 
+            y = ~fitted(lm( Petal.Width ~ Petal.Length))) %>%
+  add_lines(data = iris %>% filter(Species == 'versicolor'),
+            y = ~fitted(lm( Petal.Width ~ Petal.Length))) %>%
+  add_lines(data = iris %>% filter(Species == 'virginica'),
+            y = ~fitted(lm( Petal.Width ~ Petal.Length)))
+```
+
+
+```{r}
+## STEP 1: QUANTILE REGRESSION LINES WITH ggplot2
+library(ggplot2)
+ggplot( diamonds, aes( carat, price)) + 
+  geom_point(shape = '.') +
+  geom_quantile(quantiles = c(.2, .4, .6, .8), 
+                colour = 'blue', size = 1) +
+  ylim(0, max(diamonds$price))
+## STEP 2: FIT QUANTILES
+library(quantreg)
+q20 <- fitted(rq( price ~ carat, data = diamonds, tau = .2))
+q40 <- fitted(rq( price ~ carat, data = diamonds, tau = .4))
+q60 <- fitted(rq( price ~ carat, data = diamonds, tau = .6))
+q80 <- fitted(rq( price ~ carat, data = diamonds, tau = .8))
+## STEP 3: PLOTTING THEM USING plotly
+library(plotly)
+c = I('black')
+plot_ly(ggplot2::diamonds, x = ~carat, y = ~price, type = 'scatter',
+        mode = 'markers', marker = list(size = .8)) %>%
+  add_lines(y = ~q20, color = c, marker = NULL) %>%
+  add_lines(y = ~q40, color = c, marker = NULL) %>%
+  add_lines(y = ~q60, color = c, marker = NULL) %>%
+  add_lines(y = ~q80, color = c, marker = NULL) %>%
+  layout(yaxis = list(range = c(0,20000)), showlegend = F)
+```
+
