@@ -1,0 +1,273 @@
+---
+title: "R Stats Cookbook - 07 Time-Series Analysis"
+output: html_notebook
+---
+
+# 01 ARIMA
+
+```{r}
+set.seed(95)
+build_series = function(coef){
+start_value    = 90
+values         = c(start_value)
+previous_value = values
+
+  for (x in 1:200){
+    current_value  = coef*previous_value + rnorm(1,0,10)
+    values         = c(values,current_value)
+    previous_value = current_value
+  }
+return (values)
+}
+
+ss1 = build_series(1)
+ss2 = build_series(1)
+ss3 = build_series(1)
+
+
+plot(ss1,type="l",ylim=c(-200,300))
+lines(ss2,col="red")
+lines(ss3,col="green")
+```
+```{r}
+s1 = build_series(0.2)
+s2 = build_series(0.2)
+s3 = build_series(0.2)
+
+plot(s1,type="l",ylim=c(-50,50))
+lines(s2,col="red")
+lines(s3,col="green")
+```
+
+```{r}
+acf(s1)
+```
+```{r}
+arima(s1,order=c(1,0,0),include.mean = FALSE )
+```
+
+```{r}
+acf(ss1)
+```
+
+```{r}
+arima(ss1,order=c(1,0,0),include.mean = FALSE )
+```
+
+```{r}
+s1_d = diff(s1)
+plot(s1_d,type="l")
+```
+
+```{r}
+acf(s1_d)
+```
+# 02 SARIMAX
+
+```{r}
+library(forecast)  
+car_production                  =read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/car_production.csv")  
+car_production$indice_tiempo    = as.Date(car_production$indice_tiempo,"%Y-%m-%d")  
+car_production                  = ts(car_production$produccion_automotriz_unidades,start=c(1981,1),frequency = 12)  
+
+plot.ts(car_production) 
+```
+# 03 Auto ARIMA
+
+```{r}
+library(forecast) 
+average_temp                  = read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/temperature.csv") 
+average_temp$indice_tiempo    = as.Date(average_temp$indice_tiempo,"%Y-%m-%d") 
+average_temp                  = ts(average_temp$temperatura_promedio,start=c(2001,1),frequency = 12)
+
+plot.ts(average_temp)
+lines(best_mode$fitted,col="red") 
+```
+
+
+```{r}
+best_mode                     = auto.arima(average_temp,max.p=5,max.q=5,max.Q=2,max.P=2,allowmean = TRUE,allowdrift = FALSE)
+plot.ts(average_temp) 
+```
+
+```{r}
+predictions <- forecast(best_mode$fitted,48) 
+plot(predictions) 
+```
+# 04 - VAR
+
+```{r}
+library(vars) 
+oilgas                      =read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/fuel_series.csv") 
+colnames(oilgas)            = c("time_index","oil_processed","gasoil_prod","fueloil_prod","butane")
+joined_data                 =ts(oilgas[-1],start=c(1996,1),frequency=12) 
+m = VAR(joined_data,p=12)
+summary(m)
+```
+
+```{r}
+restrict(m, method = "ser") 
+```
+
+```{r}
+any(roots(m)>0.9999)
+```
+
+```{r}
+normalitytest <- normality.test(m)
+plot(normalitytest)
+```
+
+```{r}
+plot(m)
+```
+
+```{r}
+var.2c.fevd <- fevd(m, n.ahead = 5)
+var.2c.irf <- irf(m, impulse = "oil_processed",
+                  response = c("butane", "gasoil_prod", "fueloil_prod"), boot = TRUE)
+plot(var.2c.irf)
+```
+# 05 Facebook Prophet
+
+```{r}
+library(Rcpp)
+
+currency_sales                       =read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/sold_usd_oilseeds.csv") 
+currency_sales$indice_tiempo         = as.Date(currency_sales$indice_tiempo,"%Y-%m-%d") 
+colnames(currency_sales)             = c("ds","y") 
+
+model    <- prophet::prophet(currency_sales,changepoints=c("2003-10-01","2007-10-01","2011-10-01","2015-10-01")) 
+future   <- prophet::make_future_dataframe(model,periods=36,freq="month",include_history = TRUE) 
+preds    <- predict(model,future) 
+plot(model,preds) 
+```
+
+```{r}
+beer_prices                       = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter07/beerprices.csv") 
+beer_prices$indice_tiempo         = as.Date(beer_prices$indice_tiempo,"%Y-%m-%d") 
+colnames(beer_prices)          = c("ds","y") 
+beer_prices1                      = beer_prices[1:106,] 
+plot(ts(beer_prices$y,frequency=12,start=c(1993,1)))
+```
+
+```{r}
+model    <- prophet::prophet(beer_prices1) 
+future   <- prophet::make_future_dataframe(model,periods=48,freq="month",include_history = TRUE) 
+preds    <- predict(model,future) 
+plot(model,preds) 
+```
+# 06 Modeling Count Temporal Data
+
+```{r}
+library("tscount") 
+library(dummy) 
+library(dplyr) 
+
+data               = read.table("E1.txt",sep="\t",head=T) 
+data$home_away     = ifelse(data$ha == "H", 1, 0) 
+data$date          = as.Date(data$date,format="%m/%d/%Y") 
+data               = data %>% mutate(diff_days = as.numeric(date-lag(date))) 
+data[is.na(data)]  = 0  
+model <- tsglm(data$Goals, model = list(past_obs = c(1:3)), link = "log", distr = "poisson",xreg = cbind(data$home_away,data$pos,data$diff_days,data$champions_next_days_after,data$champions_next_days_before)) 
+summary(model)
+
+```
+
+```{r}
+J = matrix(c(0,7,10,1,1),c(1,5)) 
+predict(model, n.ahead = 1,  level   = 0.9, global  = TRUE, B       = 2000, newxreg = J)$pred 
+```
+
+```{r}
+J = matrix(c(0,7,10,0,0),c(1,5)) 
+predict(model, n.ahead = 1,  level   = 0.9, global  = TRUE,  B       = 2000,   newxreg = J)$pred 
+```
+
+```{r}
+library(ggplot2) 
+frame = data.frame(true_vals = model$response, fit =  round(model$fitted.values)) 
+ggplot(frame,aes(1:38)) + geom_line(aes(y = true_vals, colour = "Observed goals")) + geom_line(aes(y = fit, colour = "predicted goals")) 
+```
+# 07 Imputing
+
+```{r}
+library(imputeTS) 
+library(ggplot2) 
+
+biodisel_prod                        = read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/biodiesel.csv") 
+biodisel_prod$indice_tiempo          = as.Date(biodisel_prod$indice_tiempo,"%Y-%m-%d") 
+biodisel_prod_removed = biodisel_prod 
+biodisel_prod_removed[c(30,60,90,100,109,120),2] <- NA 
+biodisel_prod_removed = na.kalman(biodisel_prod_removed) 
+```
+
+```{r}
+miss_lines = biodisel_prod_removed[c(30,60,90,100,109,120),1] 
+plot(biodisel_prod_removed,type="l",col="red",lwd=6,xlab="Time",ylab="biodiesel_production") 
+
+abline(v = miss_lines[1], untf = FALSE,col="gray") 
+abline(v = miss_lines[2], untf = FALSE,col="gray") 
+abline(v = miss_lines[3], untf = FALSE,col="gray") 
+abline(v = miss_lines[4], untf = FALSE,col="gray") 
+abline(v = miss_lines[5], untf = FALSE,col="gray") 
+abline(v = miss_lines[6], untf = FALSE,col="gray") 
+lines(biodisel_prod,type="l",pch=15) 
+```
+
+```{r}
+biodisel_prod_removed = biodisel_prod 
+biodisel_prod_removed[c(30,60,90,100,109,120),2] <- NA 
+ggplot_na_distribution(biodisel_prod_removed$biodisel_produccion) 
+```
+
+```{r}
+ggplot_na_distribution2(biodisel_prod_removed$biodisel_produccion) 
+```
+
+```{r}
+statsNA(biodisel_prod_removed$biodisel_produccion) 
+```
+# 08 Anomaly Detection
+
+```{r}
+library(anomalize) 
+library(dplyr) 
+library(tibbletime) 
+library(anomalize)
+
+currency_sales                       = read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/sold_usd_oilseeds.csv") 
+currency_sales$indice_tiempo         = as.Date(currency_sales$indice_tiempo,"%Y-%m-%d") 
+
+results_anomalies                    = tibbletime::as_tbl_time(currency_sales,indice_tiempo) %>%time_decompose(promedio_diario,merge = TRUE) %>% anomalize(remainder) %>% time_recompose() 
+
+results_anomalies %>% plot_anomaly_decomposition(ncol=3,alpha_dots = 0.3) 
+```
+
+```{r}
+results_anomalies                    = tibbletime::as_tbl_time(currency_sales,indice_tiempo) %>%time_decompose(promedio_diario, merge = TRUE) %>% anomalize(remainder,alpha=0.10,max_anoms=0.02) %>% time_recompose() 
+results_anomalies %>% plot_anomaly_decomposition(ncol=3,alpha_dots = 0.3) 
+```
+
+
+```{r}
+results_anomalies                    = tibbletime::as_tbl_time(currency_sales,indice_tiempo) %>% time_decompose(promedio_diario, merge = TRUE,method="twitter") %>% anomalize(remainder,alpha=0.10,max_anoms=0.02) %>% time_recompose() 
+results_anomalies %>% plot_anomaly_decomposition(ncol=3,alpha_dots = 0.3) 
+```
+# 09 Spectral Decomp
+
+```{r}
+library(imputeTS) 
+# library(timesboot) 
+
+steel                        =read.csv("https://raw.githubusercontent.com/pw598/R/main/R_statistics_cookbook-main/Ch07%20Time%20Series%20Analysis/steel.csv") 
+steel                        = ts(steel$valor,start=c(1993,1),frequency = 12) 
+plot.ts(steel) 
+```
+
+```{r}
+steel_trend  = decompose(steel) 
+corrected    = steel - steel_trend$trend 
+corrected    = imputeTS::na.kalman(corrected) 
+plot.ts(corrected)  
+```

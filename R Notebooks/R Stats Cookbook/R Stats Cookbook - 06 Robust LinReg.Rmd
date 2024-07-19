@@ -1,0 +1,174 @@
+---
+title: "R Stats Cookbook - 06 Robust LinReg"
+output: html_notebook
+---
+
+```{r}
+set.seed(10)
+x1 = rnorm(100,0,2)
+x2 = rnorm(100,0,2)
+y = x1 + x2 + rnorm(100,0,1)
+y[100] = 100
+
+plot(x1,y)
+```
+
+```{r}
+e = lm(y ~ -1+ x1 + x2) 
+summary(e) 
+```
+
+```{r}
+rlm_model = rlm(y ~ -1 + x1 + x2,psi =psi.huber) 
+summary(rlm_model) 
+```
+
+```{r}
+rlm_model = rlm(y ~ -1 + x1 + x2,psi = psi.hampel) 
+summary(rlm_model) 
+```
+
+```{r}
+rlm_model = rlm(y ~ -1 + x1 + x2,psi = psi.bisquare) 
+summary(rlm_model) 
+```
+# 02 Robust Covariance Matrices
+
+```{r}
+library(MASS) 
+library(robust) 
+
+Sigma <- matrix(c(2,1,1,2),2,2) 
+d     <- mvrnorm(n = 1000, mu=c(5,5), Sigma) 
+covClassic(d,cor = TRUE) 
+```
+```{r}
+cov.rob(d,cor = TRUE) 
+```
+
+```{r}
+cov.rob(d,cor = TRUE) 
+d[1:200,1:2] = matrix(rnorm(400,20,10),c(50,2)) 
+covClassic(d,cor = TRUE) 
+```
+
+```{r}
+cov.rob(d,cor = TRUE) 
+```
+# 03 Robust Logistic Regression
+
+```{r}
+library(robust) 
+set.seed(1000)
+x1       = rnorm(1000)   
+x2       = rnorm(1000) 
+link_val = 2 + 2*x1 + 5*x2   
+pr       = 1/(1+exp(-link_val))      
+y        = rbinom(1000,1,pr)   
+df       = data.frame(y=y,x1=x1,x2=x2) 
+glm( y~x1+x2,data=df,family="binomial") 
+```
+
+```{r}
+robust::glmRob(y~x1+x2,data=df,family="binomial") 
+```
+```{r}
+x1       = rnorm(1000)   
+x2       = rnorm(1000) 
+link_val = 2 + 2*x1 + 5*x2   
+pr       = 1/(1+exp(-link_val))      
+y        = rbinom(1000,1,pr)   
+x1[1:50] = 10*rnorm(50) 
+df       = data.frame(y=y,x1=x1,x2=x2) 
+glm( y~x1+x2,data=df,family="binomial") 
+```
+
+```{r}
+robust::glmRob(y~x1+x2,method="cubif",data=df,family="binomial") 
+```
+
+```{r}
+x1       = rnorm(1000)   
+x2       = rnorm(1000) 
+link_val = 2 + 2*x1 + 5*x2   
+pr       = 1/(1+exp(-link_val))      
+y        = rbinom(1000,1,pr)   
+x1[1:100] = 10*rnorm(100) 
+df       = data.frame(y=y,x1=x1,x2=x2) 
+glm( y~x1+x2,data=df,family="binomial") 
+```
+
+```{r}
+robust::glmRob(y~x1+x2,mthod="cubif",data=df,family="binomial")
+```
+# 04 Robust ANOVA
+
+```{r}
+library(robust) 
+r = PlantGrowth
+d = aov(weight ~ group,data=r ) 
+summary(d)
+plot(d, 2) 
+
+robanova = robust::lmRob(weight ~ group,data=r ) 
+robust::anova.lmRob(robanova) 
+
+r[1,1] = 50
+r[2,1] = 50
+d = aov(weight ~ group,data=r ) 
+
+plot(d, 2) 
+```
+
+```{r}
+summary(d)
+```
+
+```{r}
+robanova = robust::lmRob(weight ~ group,data=r )
+robust::anova.lmRob(robanova)
+```
+# Robust PCA
+
+```{r}
+library(MASS) 
+library(rospca) 
+set.seed(100) 
+matrix = diag(10) 
+matrix[2,1] = 0.8 
+matrix[1,2] = 0.8 
+matrix[4,3] = 0.8 
+matrix[3,4] = 0.8 
+matrix[5,6] = 0.8 
+matrix[6,5] = 0.8 
+
+d     <- mvrnorm(n = 1000, mu=rep(0,10), matrix) 
+prcomp(d,scale=TRUE,center=TRUE) 
+x1 = rospca::robpca(d) 
+x1$eigenvalues 
+```
+
+
+```{r}
+d[1:1,1:10] <- -400 
+prcomp(d,scale=TRUE,center=TRUE) 
+x1 = rospca::robpca(d) 
+x1$eigenvalues 
+```
+# 07 Robust Clustering
+
+```{r}
+library(tclust) 
+library(ggplot2)
+data ("geyser2") 
+
+clus_kmeans     <- kmeans (geyser2, centers = 3) 
+clus_tkmeans    <- tkmeans (geyser2, k = 3, alpha = 0.05) 
+geyser2$cluster <- as.factor(clus_kmeans$cluster) 
+
+ggplot(geyser2, aes(x=geyser2$`Eruption length`, y=geyser2$`Previous eruption length`,color=geyser2$cluster))   + labs(x = "Eruption length", y = "Previous eruption length")+theme(legend.position="none") +  geom_point(aes(size=3,alpha = 0.2)) 
+```
+
+```{r}
+plot (clus_tkmeans,main="Robust k-means",xlab="X-axis label", ylab="y-axix label")
+```

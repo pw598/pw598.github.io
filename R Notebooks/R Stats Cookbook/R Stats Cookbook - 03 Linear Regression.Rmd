@@ -1,0 +1,197 @@
+---
+title: "R Stats Cookbook - 03 Linear Regression"
+output: html_notebook
+---
+
+# OLS Matrix
+
+```{r}
+set.seed(10)
+sim_data1  = runif(1000)*100 
+sim_data2  = sim_data1 + runif(1000)*100 
+depvar     = 40 + sim_data2 + sim_data1 + rnorm(1000,0,20) 
+model_data = data.frame(cbind(depvar,sim_data1,sim_data2)) 
+summary(lm(data=model_data,depvar ~ sim_data1 + sim_data2)) 
+```
+```{r}
+X              = as.matrix(model_data[c("sim_data1","sim_data2")]) 
+X              = cbind(rep(1,1000),X) 
+colnames(X)[1] = "intercept" 
+Y              = as.matrix(model_data["depvar"])
+beta                =  solve(t(X) %*% X) %*% (t(X) %*% Y) 
+beta
+```
+```{r}
+predictions    = X %*%  beta  
+head(predictions)
+```
+```{r}
+residuals      = predictions - Y 
+sd_c           = var(residuals)[1] 
+cov_matrix     = solve(t(X) %*% X ) * sd_c 
+diag(cov_matrix) = sqrt(diag(cov_matrix)) 
+print(paste("Std Error:",diag(cov_matrix))) 
+Y              = as.matrix(model_data["depvar"]) 
+```
+# 02 sjplot
+
+```{r}
+library(sjPlot) 
+library(lme4)
+clients <- read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter03/sales_clients_combos.csv") 
+model1 <- lm(Sales ~ Strategy + (Client) + (Salesman),data=clients) 
+tab_model(model1) 
+```
+
+# 03 Correlations
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter03/shoes_sales.csv") 
+
+library(caret) 
+library(car)
+
+X = data[-1] 
+
+findLinearCombos(X) 
+```
+```{r}
+X = as.matrix(X) 
+det(t(X) %*% X) 
+```
+```{r}
+model = lm(data=data,Sales ~ women_apparel_price + male_apparel_price+ shoes_female_price + shoes_male_price +shoes_kids_prices+shoes_male_price_b+prices_shoes) 
+summary(model) 
+```
+
+```{r}
+det(t(X[,c(-6,-7)]) %*% X[,c(-6,-7)]) 
+```
+
+```{r}
+fixedmodel = lm(data=data,Sales ~ women_apparel_price + male_apparel_price+ shoes_female_price + shoes_male_price +shoes_kids_prices) 
+summary(fixedmodel)
+```
+```{r}
+vif(fixedmodel)
+```
+
+```{r}
+aggregated_apparel    = data$women_apparel_price + data$male_apparel_price 
+aggregated_femalekids = data$shoes_female_price + data$shoes_kids_prices 
+finalmodel = lm(data=data,Sales ~  aggregated_apparel + shoes_male_price + aggregated_femalekids) 
+summary(finalmodel) 
+```
+
+```{r}
+vif(finalmodel) 
+```
+# 04 Hypothesis
+
+```{r}
+library(multcomp) 
+data  = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter03/house_prices.csv") 
+model = lm(Property_price ~ size + number.bathrooms + number.bedrooms + number.entrances +  size_balcony  + size_entrance,data=data) 
+summary(model)
+```
+```{r}
+summary(glht(model,linfct = c("number.bathrooms + number.entrances + number.bedrooms + size_balcony + size_entrance - size  = 0")))
+```
+```{r}
+summary(glht(model,linfct = c("number.entrances + number.bathrooms - size_balcony - size_entrance = 0"))) 
+```
+# 05 Homoscedasticity Test
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter03/people_shopping.csv")
+model = lm(sales ~ people_in + discount,data=data) 
+plot(model) 
+```
+```{r}
+library("lmtest")
+bptest(model) 
+```
+# 06 Sandwich
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter03/people_shopping.csv")
+model = lm(sales ~ people_in + discount,data=data) 
+library("lmtest")
+bptest(model) 
+```
+
+```{r}
+summary(model)
+```
+
+```{r}
+library(sandwich)
+coeftest(model, vcov=vcovHC(model)) 
+```
+# 07 VarSelection
+
+```{r}
+library("olsrr") 
+library(dplyr) 
+model = lm(data=Boston,medv ~ .) 
+head(ols_step_all_possible(model) %>% arrange(desc(adjr))) 
+
+# took too long
+
+```
+
+```{r}
+ols_step_forward_p(model) 
+```
+```{r}
+ols_step_backward_p(model) 
+```
+```{r}
+ols_step_both_p(model) 
+```
+
+```{r}
+ols_step_forward_aic(model) 
+```
+
+```{r}
+ols_step_backward_aic(model) 
+```
+
+```{r}
+ols_step_both_aic(model)
+```
+# 10 Leverage
+
+```{r}
+library(car) 
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter03/house_prices_aug.csv") 
+model = lm(Property_price ~ size + number.bathrooms + number.bedrooms +number.entrances +size_balcony  +size_entrance,data=data) 
+plot(model)
+```
+
+```{r}
+leveragePlots(model) 
+```
+```{r}
+outlierTest(model) 
+```
+
+```{r}
+plot(hatvalues(model), type = "h") 
+```
+
+```{r}
+cooksd <- sort(cooks.distance(model)) 
+cutoff <- 4/((nrow(data)-length(model$coefficients)-1))  
+plot(model, which=4, cook.levels=cutoff) 
+```
+
+
+```{r}
+model2 = lm(Property_price ~ size + number.bathrooms + number.bedrooms +number.entrances +size_balcony  +size_entrance,data=data[-c(408),])
+
+model
+model2
+```
+

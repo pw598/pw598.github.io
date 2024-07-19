@@ -1,0 +1,310 @@
+---
+title: "R Stats Cookbook - 01 Getting Started"
+output: html_notebook
+---
+
+# 01 MLE
+
+```{r}
+library(bbmle)
+N <- 1000
+xx <- rgamma(N, shape=20,rate=2)
+LL <- function(shape, rate) {
+R = suppressWarnings(dgamma(xx, shape=shape, rate=rate))
+        return(-sum(log(R)))
+}
+
+P_1000 = mle2(LL, start = list(shape = 1, rate=1))
+summary(P_1000)
+```
+
+```{r}
+N <- 10
+x <- rgamma(N, shape=20,rate=2)
+LL <- function(shape, rate) {
+  R = suppressWarnings(dgamma(x, shape=shape, rate=rate))
+  return(-sum(log(R)))
+}
+
+P_10 = mle2(LL, start = list(shape = 1, rate=1))
+summary(P_10)
+```
+
+```{r}
+confint(P_1000)
+confint(P_10)
+```
+
+# 02 Densities
+
+```{r}
+vals = rnorm(10000,0,1)
+plot(main = "density",density(vals))
+abline(v=2,col="red")
+```
+
+
+```{r}
+print(paste("Area to the left of x=2",pnorm(2,0,1)))
+print(paste("Area to the right of x=2",1-pnorm(2,0,1)))
+print(paste("90th Quantile: x value that has 97.72% to the left",qnorm(0.9772,0,1)))
+print(paste("Area to the left of x=3",pchisq(3,33)))
+```
+# 03 Bar Plots Using ggplot
+
+```{r}
+library(ggplot2)
+library(reshape)
+
+datag = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter01/03/ctgs.csv")
+transformed_data  = melt(datag,id.vars = "Company")
+
+ggplot(transformed_data, aes(x = Company, y = value, fill = variable)) + geom_bar(stat = "identity")
+```
+
+```{r}
+ggplot(transformed_data, aes(x = Company, y = value, fill = variable)) + geom_bar(stat = "identity",position=position_dodge())
+```
+
+# 04 Generating Random Numbers
+
+```{r}
+library(ggplot2)
+library(tidyr)
+
+rnorm_result  = data.frame(rnorm = rnorm(10000,0,1))
+inverse_way   = data.frame(inverse = qnorm(runif(10000),0,1))
+
+total_table   = cbind(rnorm_result,inverse_way)
+transp_table  = gather(total_table)
+colnames(transp_table) = c("method","value")
+
+ggplot(transp_table, aes(x=value,fill=method)) + geom_density(alpha=0.25) 
+```
+
+
+```{r}
+rpois_result           = data.frame(rpois   = rpois(10000,5))
+inverse_way            = data.frame(inverse = qpois(runif(10000),5))
+total_table            = cbind(rpois_result,inverse_way)
+transp_table           = gather(total_table)
+colnames(transp_table) = c("method","value")
+ggplot(transp_table, aes(x=value,fill=method)) + geom_histogram(alpha=0.8,binwidth = 1) 
+```
+# 05 Complex Data Processing with dplyr
+
+```{r}
+library(dplyr)
+mtcars
+mtcars %>% group_by(am,gear) %>% summarise(mean_hp = mean(hp),sum_mpg = sum(mpg)) %>% ungroup %>% arrange(mean_hp)
+```
+# 06 3D Visulization
+
+```{r}
+library(plot3D)
+
+x = rnorm(100)
+y = rnorm(100)
+z = x + y + rnorm(100,0,0.3)
+idrow = 1:100
+
+scatter3D(x, y, z, bty = "g", colkey = TRUE, main ="x-y-z plot",phi = 10,theta=50)
+text3D(x, y, z,  labels = idrow, add = TRUE, colkey = FALSE, cex = 0.5)
+```
+# 07 Formatting Tables
+
+```{r}
+library(expss)
+library(formattable)
+
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter01/07/person_salary.csv",stringsAsFactors = FALSE)
+Green = "#71CA97"
+Green2 = "#DeF7E9"
+
+table__out = data.frame(table(data$Career,data$Age))
+colnames(table__out) = c("Career","Age","Freq")
+formattable(table__out,align =c("c","c","c"), list("Freq"= color_tile(Green, Green2)))
+
+formattable(data,align =c("c","c","c","c"), list(
+  "Person" = formatter("span", style = ~ style(color = "grey",font.weight = "bold")), 
+  "Salary"= color_tile(Green, Green2),
+  "Contacted" = formatter("span",
+                         style = x ~ style(color = ifelse(x, "green", "red")),
+                         x ~ icontext(ifelse(x, "ok", "remove"), ifelse(x, "Yes", "No")))))
+```
+
+# 08 Simple Random Sampling
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+voters_data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter01/08/voters_.csv")
+
+proportions_10sample = c()
+for (q in 2:1000){
+  sample_data = mean(sample(voters_data$Vote,10,replace = FALSE))
+  proportions_10sample = c(proportions_10sample,sample_data)
+}
+
+proportions_50sample = c()
+for (q in 2:1000){
+  sample_data = mean(sample(voters_data$Vote,50,replace = FALSE))
+  proportions_50sample = c(proportions_50sample,sample_data)
+}
+
+proportions_100sample = c()
+for (q in 2:1000){
+  sample_data = mean(sample(voters_data$Vote,100,replace = FALSE))
+  proportions_100sample = c(proportions_100sample,sample_data)
+}
+
+proportions_500sample = c()
+for (q in 2:1000){
+  sample_data = mean(sample(voters_data$Vote,500,replace = FALSE))
+  proportions_500sample = c(proportions_500sample,sample_data)
+}
+
+joined_data50  = data.frame("sample_size"=50,"mean"=mean(proportions_50sample), "q2.5"=quantile(proportions_50sample,0.025),"q97.5"=quantile(proportions_50sample,0.975))
+joined_data10  = data.frame("sample_size"=10,"mean"=mean(proportions_10sample), "q2.5"=quantile(proportions_10sample,0.025),"q97.5"=quantile(proportions_10sample,0.975))
+joined_data100 = data.frame("sample_size"=100,"mean"=mean(proportions_100sample), "q2.5"=quantile(proportions_100sample,0.025),"q97.5"=quantile(proportions_100sample,0.975))
+joined_data500 = data.frame("sample_size"=500,"mean"=mean(proportions_500sample), "q2.5"=quantile(proportions_500sample,0.025),"q97.5"=quantile(proportions_500sample,0.975))
+
+data_sim       = rbind(joined_data10,joined_data50,joined_data100,joined_data500)
+data_sim        = data_sim %>% mutate(Nq2.5 = mean - 1.96*sqrt(mean*(1-mean)/sample_size),N97.5 = mean + 1.96*sqrt(mean*(1-mean)/sample_size))
+data_sim$sample_size = as.factor(data_sim$sample_size)
+
+ggplot(data_sim, aes(x=sample_size, y=mean, group=1)) +
+  geom_point(aes(size=2), alpha=0.52) +  theme(legend.position="none") +
+  geom_errorbar(width=.1, aes(ymin=q2.5, ymax=q97.5), colour="darkred") + labs(x="Sample Size",y= "Candidate A ratio", title="Candidate A ratio by sample size", subtitle="Proportion of people voting for candidate A, assuming 50-50 chance", caption="Circle is mean / Bands are 95% Confidence bands")
+```
+# 09 DiagrammeR
+
+```{r}
+library('DiagrammeR')
+
+grViz("
+digraph dot {
+      
+      graph [layout = dot]
+      
+      node [shape = circle,
+      style = filled,
+      color = grey,
+      label = '']
+      
+      node [fillcolor = white,fixedsize = true, width = 2]
+      a[label = 'Company A']
+      
+      node [fillcolor = white]
+      b[label = 'IT+RD Consulting'] c[label = 'General Consulting'] d[label = 'Other Activities']
+      
+      node [fillcolor = white]
+      
+      edge [color = grey]
+      a -> {b c d}
+      b -> {e[label = '254';color=blue] f[label = '83%';color=green]}
+      c -> {k[label = '132';color=blue] l[label = '61%';color=green]}
+      d -> {q[label = '192';color=blue] r[label = '47%';color=green]}
+      }")
+```
+
+# 11 Interactive Plots with ggplot GUI
+
+```{r}
+library("ggplotgui")
+ggplot_shiny(mtcars)
+
+# creates a shiny app
+```
+
+# 13 Using R6 Classes Inheritance
+
+```{r}
+library(R6)
+
+customers = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter01/13/Customers_data.csv")
+
+Customer = R6Class(public=list(Customer_id = NULL,Name = NULL,City = NULL,
+initialize = function(customer_id,name,city,Missing_product,Missing_since){
+  self$Customer_id  <- customer_id
+  self$Name         <- name
+  self$City         <- city
+},
+is_city_in_america = function(){
+  return (upper_(self$City) %in% c("NEW YORK","LONDON","MIAMI","BARCELONA"))
+},
+full_print = function(){
+  print("------------------------------------")
+  print(paste("Customer name ->",self$Name))
+  print(paste("Customer city ->",self$City))
+  print("------------------------------------")
+}
+),private=list(
+upper_ = function(x){
+ return (toupper(x))
+}
+))
+
+list_of_customers = list()
+for (row in 1:nrow(customers)){
+  row_read = customers[row,]
+  customer = Customer$new(row_read$Customer_id,row_read$Name,row_read$City)
+  list_of_customers[[row]] <- (customer)
+}
+
+list_of_customers[[1]]$full_print()
+```
+# 14 Modeling Sequences with TrailMineR
+
+```{r}
+library(TraMineR)
+
+datax       <- read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter01/14/data__model.csv",stringsAsFactors = FALSE)
+mvad.labels <- c("CLOSED","L1", "L2", "L3")
+mvad.scode  <- c("CLD","L1", "L2", "L3")
+mvad.seq    <- seqdef(datax, 3:22, states = mvad.scode,labels = mvad.labels)
+group__     <- paste0(datax$Sex,"-",datax$Age)
+
+
+seqfplot(mvad.seq, with.legend = T, border = NA,group=group__, main = "Sequence frequency plot")
+seqdplot(mvad.seq, with.legend = T,group=group__, border = NA, main = "State distribution plot")
+```
+# 15 Clustering Sequences with TraMineR
+
+```{r}
+library(TraMineR)
+
+datax       <- read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter01/15/data__model.csv",stringsAsFactors = FALSE)
+mvad.labels <- c("CLOSED","L1", "L2", "L3")
+mvad.scode  <- c("CLD","L1", "L2", "L3")
+mvad.seq    <- seqdef(datax, 3:22, states = mvad.scode,labels = mvad.labels)
+group__     <- paste0(datax$Sex,"-",datax$Age)
+
+
+seqHtplot(mvad.seq,group=group__, title = "Entropy index")
+
+
+dist.om1 <- seqdist(mvad.seq, method = "OM", indel = 1, sm = "TRATE")
+library(cluster)
+clusterward1 <- agnes(dist.om1, diss = TRUE, method = "ward")
+plot(clusterward1, which.plot = 2)
+cl1.4 <- cutree(clusterward1, k = 4)
+cl1.4fac <- factor(cl1.4, labels = paste("Type", 1:4))
+
+seqrplot(mvad.seq, diss = dist.om1, group = cl1.4fac,border = NA)
+```
+```{r}
+library(dplyr)
+library(leaflet)
+
+line         = data.frame(lat = c(-54.777255,-38.038561),long=c(-64.936853,-57.529756),mag="start")
+sub_data     = data.frame(lat = c(-54.777255,-38.038561,-46.12,-46.73333333333333),long=c(-64.936853,-57.529756,-59.69,-60.13333333333333),mag=c("start","end","sound anomaly","last known position"))
+area_search  = data.frame(lat=-46.12,long=-59.69)
+
+leaflet(data = sub_data) %>% addTiles() %>%
+  addMarkers(~long, ~lat, popup = ~as.character(mag), label = ~as.character(mag)) %>%
+  addPolylines(data = line, lng = ~long, lat = ~lat) %>% addCircles(lng = -59.69, lat = -46.12, weight = 1,radius = 120000)
+```
+
+

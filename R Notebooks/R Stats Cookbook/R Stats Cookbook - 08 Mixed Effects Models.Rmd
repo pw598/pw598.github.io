@@ -1,0 +1,214 @@
+---
+title: "R Stats Cookbook - 08 Mixed Effects Models"
+output: html_notebook
+---
+
+# 01 Standard and ANOVA
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter08/sample_random_regression.csv") 
+data$clientid = as.factor(data$clientid) 
+library("lme4")
+lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (-1 + salespeople_involved|clientid) + (-1 + time_spent_deal|clientid) ) 
+```
+
+```{r}
+lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (1  + salespeople_involved|clientid) ) 
+```
+
+
+```{r}
+lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (1  + time_spent_deal + salespeople_involved|clientid) ) 
+```
+
+```{r}
+model = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (-1 + salespeople_involved|clientid) + (-1 + time_spent_deal|clientid) ) 
+ranef(model) 
+```
+# 02 Useful MM Plots
+
+```{r}
+library(dplyr) 
+library("lme4") 
+library(ggplot2) 
+library(sjPlot)
+library(sjmisc)
+
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter08/sample_random_regression.csv") 
+data$clientid = as.factor(data$clientid) 
+
+ggplot(data=data, aes(x=salespeople_involved, y=deal_size, col=clientid))+  
+  geom_point(size=.7, alpha=.8, position = "jitter")+ 
+  geom_smooth(method=lm,se=FALSE, size=0.6, alpha=.5)+theme_minimal()+labs(title="Linrved",  subtitle="The  lsses", col= "Yeance") 
+```
+
+# 04 Crossed and Nested
+
+```{r}
+data       = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter08/company_areas.csv") 
+xtabs(~ Group + Person, data)  
+```
+
+```{r}
+lmer(Rating ~ -1 + (1 | Group/Person)        , data = data) 
+```
+
+```{r}
+lmer(Rating ~ -1 + (1 | Group) + (1 | Person), data = data) 
+```
+
+
+```{r}
+data2       = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter08/company_areas2.csv") 
+xtabs(~ Group + Person, data2)
+```
+
+
+```{r}
+lmer(Rating ~ -1 + (1 | Group/Person)        , data = data2) 
+```
+
+
+```{r}
+lmer(Rating ~ -1 + (1 | Group) + (1 | Person), data = data2) 
+```
+# 05 Robust Mixed Effects
+
+```{r}
+library(lme4)
+library(robustlmm)
+set.seed(10) 
+
+X = 7*runif(1000) 
+G = c() 
+
+for (x in 1:100){ 
+  G = c(G,rep(x,10)) 
+} 
+
+pre____frame          = cbind(X=X,G=G,NOISE = rnorm(1000,0,0.03)) 
+shocks_frame          = cbind(G = 1:100,shocks = rnorm(100,0,1)) 
+merged_frame          = merge(pre____frame,shocks_frame,by="G") 
+merged_frame$Y        = 10 + merged_frame$shocks + merged_frame$NOISE 
+XYG                   = merged_frame[,c(1,2,5)] 
+
+lmer(data=XYG, Y ~ 1 + (1|G))
+```
+
+```{r}
+rlmer(data=XYG, Y ~ 1 + (1|G))
+```
+
+```{r}
+lmer(data=XYG, Y ~ 1 + (1|G))
+rlmer(data=XYG, Y ~ 1 + (1|G))
+
+positions = sample(1:1000, 50, replace=T)
+XYG[positions,"Y"] = rnorm(1,50,10)
+
+lmer(data=XYG, Y ~ 1 + (1|G))
+```
+
+```{r}
+rlmer(data=XYG, Y ~ 1 + (1|G))
+```
+
+```{r}
+model = rlmer(data=XYG, Y ~ 1 + (1|G))
+plot(model)
+```
+# 06 Choosing the Best Linear Mixed Model
+
+```{r}
+library("lme4") 
+library(cAIC4) 
+set.seed(25) 
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter08/sample_random_regression.csv") 
+data$clientid = as.factor(data$clientid) 
+data$ERR_1  = rnorm(100,0,10) 
+data$ERR_2  = rnorm(100,0,10) 
+data$ERR_3  = rnorm(100,0,10) 
+data$ERR_4  = rnorm(100,0,10) 
+
+m1 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (-1 + salespeople_involved|clientid) + (-1 + time_spent_deal|clientid) ) 
+m2 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (1  + salespeople_involved|clientid) ) 
+m3 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + (1  + time_spent_deal + salespeople_involved|clientid) )  
+m4 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + ERR_1 + ERR_2 + ERR_3 + ERR_4 + (1  + time_spent_deal + salespeople_involved|clientid) )  
+m5 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + ERR_1 + ERR_2 + ERR_3  + (1  + time_spent_deal + salespeople_involved|clientid) )
+m6 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + ERR_1 + ERR_2  + (1  + time_spent_deal + salespeople_involved|clientid) )  
+m7 = lmer(data=data,deal_size ~ salespeople_involved + time_spent_deal + ERR_1  + (1  + time_spent_deal + salespeople_involved|clientid) ) 
+
+cAIC(m1)$caic 
+cAIC(m2)$caic 
+cAIC(m3)$caic 
+cAIC(m4)$caic 
+cAIC(m5)$caic 
+cAIC(m6)$caic 
+cAIC(m7)$caic 
+```   
+# 07 Mixed Generalized Linear Models
+
+```{r}
+library(lme4) 
+library(emmeans) 
+library(MASS) 
+set.seed(10) 
+fixed_std_model  = glm(decrease ~ treatment,family=poisson(),data=OrchardSprays) 
+summary(fixed_std_model ) 
+```
+
+```{r}
+emmeans(fixed_std_model, list(pairwise ~ treatment), adjust = "tukey",type="response")
+```
+
+```{r}
+predict(fixed_std_model,data.frame(treatment="D"),type="response")
+```
+
+```{r}
+plot(fixed_std_model) 
+```
+
+```{r}
+model_1 = lme4::glmer(decrease ~ treatment + (1|colpos) + (1|rowpos), family = poisson(), 
+                      data = OrchardSprays) 
+ss <- getME(model_1,c("theta","fixef")) 
+model_2 <- update(model_1,start=ss) 
+summary(model_2) 
+```
+
+```{r}
+ranef(model_2) 
+```
+
+```{r}
+fixef(model_2) 
+```
+
+```{r}
+VarCorr(model_2) 
+```
+
+```{r}
+plot(model_2, resid(., scaled=TRUE) ~ fitted(.) | colpos, abline = 0)  
+```
+
+```{r}
+plot(model_2, resid(., scaled=TRUE) ~ fitted(.) | rowpos, abline = 0) 
+```
+
+```{r}
+emmeans(model_2, list(pairwise ~ treatment), adjust = "tukey",type="response") 
+```
+
+```{r}
+fixed_std_model  = glm.nb(decrease ~ treatment,data=OrchardSprays) 
+summary(fixed_std_model)  
+```
+
+```{r}
+model_2 = lme4::glmer.nb(decrease ~ treatment + (1|colpos) + (1|rowpos), data = OrchardSprays) 
+ss2 <- getME(model_2,c("theta","fixef")) 
+model_3 <- update(model_1,start=ss2) 
+summary(model_3)
+```

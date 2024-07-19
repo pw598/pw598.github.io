@@ -1,0 +1,121 @@
+---
+title: "MLWR3E 02 Understanding Data"
+output: html_notebook
+---
+
+```{r}
+usedcars <- read.csv("https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-with-R-Third-Edition/master/Chapter02/usedcars.csv", stringsAsFactors = FALSE)
+
+# get structure of used car data
+str(usedcars)
+```
+```{r}
+summary(usedcars$year)
+```
+
+
+```{r}
+summary(usedcars[c("price", "mileage")])
+```
+
+
+```{r}
+(36000 + 44000 + 56000) / 3
+mean(c(36000, 44000, 56000))
+
+median(c(36000, 44000, 56000))
+
+range(usedcars$price)
+
+diff(range(usedcars$price))
+```
+
+
+```{r}
+IQR(usedcars$price)
+
+quantile(usedcars$price)
+
+quantile(usedcars$price, probs = c(0.01, 0.99))
+
+quantile(usedcars$price, seq(from = 0, to = 1, by = 0.20))
+```
+
+
+```{r}
+boxplot(usedcars$price, main="Boxplot of Used Car Prices",
+      ylab="Price ($)")
+```
+
+
+```{r}
+boxplot(usedcars$mileage, main="Boxplot of Used Car Mileage",
+      ylab="Odometer (mi.)")
+```
+
+
+```{r}
+hist(usedcars$price, main = "Histogram of Used Car Prices",
+     xlab = "Price ($)")
+```
+
+```{r}
+hist(usedcars$mileage, main = "Histogram of Used Car Mileage",
+     xlab = "Odometer (mi.)")
+```
+
+
+```{r}
+var(usedcars$price)
+sd(usedcars$price)
+var(usedcars$mileage)
+sd(usedcars$mileage)
+```
+
+
+```{r}
+table(usedcars$year)
+table(usedcars$model)
+table(usedcars$color)
+```
+
+
+```{r}
+# compute table proportions
+model_table <- table(usedcars$model)
+prop.table(model_table)
+```
+
+
+```{r}
+# round the data
+color_table <- table(usedcars$color)
+color_pct <- prop.table(color_table) * 100
+round(color_pct, digits = 1)
+```
+
+
+```{r}
+# scatterplot of price vs. mileage
+plot(x = usedcars$mileage, y = usedcars$price,
+     main = "Scatterplot of Price vs. Mileage",
+     xlab = "Used Car Odometer (mi.)",
+     ylab = "Used Car Price ($)")
+```
+
+```{r}
+# new variable indicating conservative colors
+usedcars$conservative <-
+  usedcars$color %in% c("Black", "Gray", "Silver", "White")
+
+
+# checking our variable
+table(usedcars$conservative)
+```
+
+
+```{r}
+# Crosstab of conservative by model
+library(gmodels)
+CrossTable(x = usedcars$model, y = usedcars$conservative)
+```

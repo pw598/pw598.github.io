@@ -1,0 +1,341 @@
+---
+title: "MLWR3E 06 Regression"
+output: html_notebook
+---
+
+```{r}
+launch <- read.csv("https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-with-R-Third-Edition/master/Chapter06/challenger.csv")
+```
+
+```{r}
+# estimate beta manually
+b <- cov(launch$temperature, launch$distress_ct) / var(launch$temperature)
+b
+```
+
+
+```{r}
+# estimate alpha manually
+a <- mean(launch$distress_ct) - b * mean(launch$temperature)
+a
+```
+
+
+```{r}
+# calculate the correlation of launch data
+r <- cov(launch$temperature, launch$distress_ct) /
+       (sd(launch$temperature) * sd(launch$distress_ct))
+r
+cor(launch$temperature, launch$distress_ct)
+```
+
+
+```{r}
+# computing the slope using correlation
+r * (sd(launch$distress_ct) / sd(launch$temperature))
+```
+
+
+```{r}
+# confirming the regression line using the lm function (not in text)
+model <- lm(distress_ct ~ temperature, data = launch)
+model
+```
+
+
+```{r}
+summary(model)
+```
+
+
+```{r}
+# creating a simple multiple regression function
+reg <- function(y, x) {
+  x <- as.matrix(x)
+  x <- cbind(Intercept = 1, x)
+  b <- solve(t(x) %*% x) %*% t(x) %*% y
+  colnames(b) <- "estimate"
+  print(b)
+}
+
+# examine the launch data
+str(launch)
+```
+
+
+```{r}
+# test regression model with simple linear regression
+reg(y = launch$distress_ct, x = launch[2])
+```
+
+
+```{r}
+# use regression model with multiple regression
+reg(y = launch$distress_ct, x = launch[2:4])
+```
+
+
+```{r}
+# confirming the multiple regression result using the lm function (not in text)
+model <- lm(distress_ct ~ temperature + field_check_pressure + flight_num, data = launch)
+model
+```
+
+
+```{r}
+## Example: Predicting Medical Expenses ----
+## Step 2: Exploring and preparing the data ----
+insurance <- read.csv("https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-with-R-Third-Edition/master/Chapter06/insurance.csv", stringsAsFactors = TRUE)
+str(insurance)
+```
+
+
+```{r}
+# summarize the charges variable
+summary(insurance$expenses)
+```
+
+
+```{r}
+# histogram of insurance charges
+hist(insurance$expenses)
+```
+
+
+```{r}
+# table of region
+table(insurance$region)
+```
+
+
+```{r}
+# exploring relationships among features: correlation matrix
+cor(insurance[c("age", "bmi", "children", "expenses")])
+```
+
+```{r}
+# visualing relationships among features: scatterplot matrix
+pairs(insurance[c("age", "bmi", "children", "expenses")])
+```
+
+
+```{r}
+# more informative scatterplot matrix
+library(psych)
+pairs.panels(insurance[c("age", "bmi", "children", "expenses")])
+```
+
+
+```{r}
+## Step 3: Training a model on the data ----
+ins_model <- lm(expenses ~ age + children + bmi + sex + smoker + region,
+                data = insurance)
+ins_model <- lm(expenses ~ ., data = insurance) # this is equivalent to above
+
+# see the estimated beta coefficients
+ins_model
+```
+
+
+```{r}
+## Step 4: Evaluating model performance ----
+# see more detail about the estimated beta coefficients
+summary(ins_model)
+```
+
+
+```{r}
+## Step 5: Improving model performance ----
+
+# add a higher-order "age" term
+insurance$age2 <- insurance$age^2
+
+# add an indicator for BMI >= 30
+insurance$bmi30 <- ifelse(insurance$bmi >= 30, 1, 0)
+
+# create final model
+ins_model2 <- lm(expenses ~ age + age2 + children + bmi + sex +
+                   bmi30*smoker + region, data = insurance)
+
+summary(ins_model2)
+```
+
+
+```{r}
+# making predictions with the regression model
+insurance$pred <- predict(ins_model2, insurance)
+cor(insurance$pred, insurance$expenses)
+```
+
+
+```{r}
+plot(insurance$pred, insurance$expenses)
+abline(a = 0, b = 1, col = "red", lwd = 3, lty = 2)
+```
+
+
+```{r}
+predict(ins_model2,
+        data.frame(age = 30, age2 = 30^2, children = 2,
+                   bmi = 30, sex = "male", bmi30 = 1,
+                   smoker = "no", region = "northeast"))
+
+predict(ins_model2,
+        data.frame(age = 30, age2 = 30^2, children = 2,
+                   bmi = 30, sex = "female", bmi30 = 1,
+                   smoker = "no", region = "northeast"))
+
+predict(ins_model2,
+        data.frame(age = 30, age2 = 30^2, children = 0,
+                   bmi = 30, sex = "female", bmi30 = 1,
+                   smoker = "no", region = "northeast"))
+```
+
+
+```{r}
+#### Part 2: Regression Trees and Model Trees -------------------
+
+## Understanding regression trees and model trees ----
+## Example: Calculating SDR ----
+# set up the data
+tee <- c(1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 7)
+at1 <- c(1, 1, 1, 2, 2, 3, 4, 5, 5)
+at2 <- c(6, 6, 7, 7, 7, 7)
+bt1 <- c(1, 1, 1, 2, 2, 3, 4)
+bt2 <- c(5, 5, 6, 6, 7, 7, 7, 7)
+
+# compute the SDR
+sdr_a <- sd(tee) - (length(at1) / length(tee) * sd(at1) + length(at2) / length(tee) * sd(at2))
+sdr_b <- sd(tee) - (length(bt1) / length(tee) * sd(bt1) + length(bt2) / length(tee) * sd(bt2))
+
+# compare the SDR for each split
+sdr_a
+sdr_b
+```
+
+
+```{r}
+## Example: Estimating Wine Quality ----
+## Step 2: Exploring and preparing the data ----
+wine <- read.csv("https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-with-R-Third-Edition/master/Chapter06/whitewines.csv")
+
+# examine the wine data
+str(wine)
+```
+
+
+```{r}
+hist(wine$quality)
+```
+
+
+```{r}
+summary(wine)
+```
+
+
+```{r}
+wine_train <- wine[1:3750, ]
+wine_test <- wine[3751:4898, ]
+```
+
+
+```{r}
+## Step 3: Training a model on the data ----
+# regression tree using rpart
+library(rpart)
+m.rpart <- rpart(quality ~ ., data = wine_train)
+
+# get basic information about the tree
+m.rpart
+```
+
+```{r}
+# get more detailed information about the tree
+summary(m.rpart)
+```
+
+
+```{r}
+# use the rpart.plot package to create a visualization
+library(rpart.plot)
+
+# a basic decision tree diagram
+rpart.plot(m.rpart, digits = 3)
+```
+
+
+```{r}
+# a few adjustments to the diagram
+rpart.plot(m.rpart, digits = 4, fallen.leaves = TRUE, type = 3, extra = 101)
+
+## Step 4: Evaluate model performance ----
+
+# generate predictions for the testing dataset
+p.rpart <- predict(m.rpart, wine_test)
+```
+
+
+```{r}
+# compare the distribution of predicted values vs. actual values
+summary(p.rpart)
+summary(wine_test$quality)
+```
+
+
+```{r}
+# compare the correlation
+cor(p.rpart, wine_test$quality)
+```
+
+
+```{r}
+# function to calculate the mean absolute error
+MAE <- function(actual, predicted) {
+  mean(abs(actual - predicted))  
+}
+
+# mean absolute error between predicted and actual values
+MAE(p.rpart, wine_test$quality)
+```
+
+
+```{r}
+# mean absolute error between actual values and mean value
+MAE(5.87, wine_test$quality)
+```
+
+
+```{r}
+## Step 5: Improving model performance ----
+# train a Cubist Model Tree
+library(Cubist)
+m.cubist <- cubist(x = wine_train[-12], y = wine_train$quality)
+
+# display basic information about the model tree
+m.cubist
+```
+
+```{r}
+summary(m.cubist)
+```
+
+
+```{r}
+# generate predictions for the model
+p.cubist <- predict(m.cubist, wine_test)
+
+# summary statistics about the predictions
+summary(p.cubist)
+```
+
+
+```{r}
+# correlation between the predicted and true values
+cor(p.cubist, wine_test$quality)
+```
+
+
+```{r}
+MAE(wine_test$quality, p.cubist)
+```

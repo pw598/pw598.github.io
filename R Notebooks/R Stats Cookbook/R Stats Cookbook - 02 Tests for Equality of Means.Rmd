@@ -1,0 +1,247 @@
+---
+title: "R Stats Cookbook - 02 Tests for Equality of Means"
+output: html_notebook
+---
+
+# 01 T-Test
+
+```{r}
+library(dplyr) 
+library(car)
+
+data        = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/heights.csv") 
+data$Sample = as.factor(data$Sample) 
+leveneTest(Height ~ Sample,data) 
+
+sample1 = data %>% filter(Sample==1) %>% select(Height) 
+sample2 = data %>% filter(Sample==2) %>% select(Height) 
+
+t.test(sample1,sample2,var.equal=TRUE,conf.level = .95,alternative="two.sided") 
+```
+# 02 Fisher Behrens
+
+```{r}
+calc_effective_alphas <- function(n,sd1,sd2,equalvar){  
+  rejected <- 0 
+  for (x in 1:100000){ 
+    data1 <- rnorm(n,10,sd1) 
+    data2 <- rnorm(n,10,sd2) 
+    result <- t.test(data1,data2,var.equal=equalvar)$p.value 
+    if (result < 0.05){ 
+      rejected <- rejected + 1 
+    } 
+  } 
+  return (rejected/100000) 
+} 
+
+print(paste("n=10 / sd1=2 / sd2=5 / effective alpha=",calc_effective_alphas(10,2,5,TRUE))) 
+print(paste("n=10 / sd1=2 / sd2=20/ effective alpha=",calc_effective_alphas(10,2,20,TRUE))) 
+print(paste("n=10 / sd1=2 / sd2=5 / effective alpha=",calc_effective_alphas(10,2,5,FALSE))) 
+print(paste("n=10 / sd1=2 / sd2=20/ effective alpha=",calc_effective_alphas(10,2,20,FALSE))) 
+```
+```{r}
+calc_power <- function(n,sd1,sd2,equalvar){  
+  rejected <- 0 
+  for (x in 1:100000){ 
+    data1 <- rnorm(n,12,sd1) 
+    data2 <- rnorm(n,10,sd2) 
+    result <- t.test(data1,data2,var.equal=equalvar)$p.value 
+    if (result < 0.05){ 
+      rejected <- rejected + 1 
+    } 
+  } 
+  return (rejected/100000) 
+} 
+
+print(paste("n=10 / sd1=2 / sd2=20/ effective power=",calc_power(10,2,2,TRUE))) 
+print(paste("n=10 / sd1=2 / sd2=20/ effective power=",calc_power(10,2,2,FALSE))) 
+```
+# 03 Paired T-Test
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/pre_post_employee.csv") 
+
+t.test(data$post_bonus,data$pre_bonus,conf.level = .95,alternative="greater",paired=TRUE) 
+t.test(data$post_bonus,data$pre_bonus,conf.level = .95,alternative="less",paired=TRUE) 
+```
+# 04 ANOVA Mechanics
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/anova__lot_type.csv") 
+
+result = lm(Result ~ Lot,data=data) 
+SS_LOT = sum((predict(result)-mean(data$Result))**2) 
+
+result      = lm(Result ~ Lot + Food.Type,data=data) 
+SS_FOODTYPE = sum((predict(result)-mean(data$Result))**2) - SS_LOT 
+
+SS_ERROR = sum((predict(result)-data$Result)**2) 
+
+FF_LOT        = (SS_LOT/1)/(SS_ERROR/56) 
+FF_FOODTYPE   = (SS_FOODTYPE/2)/(SS_ERROR/56) 
+pval_LOT      = 1-pf(FF_LOT,1,56) 
+pval_FOODTYPE = 1-pf(FF_FOODTYPE,2,56) 
+
+print(paste("SS(ERROR) = ",SS_ERROR)) 
+print(paste("SS(LOT) =",SS_LOT,"/F(LOT) = ",FF_LOT,"pvalue = ",pval_LOT)) 
+print(paste("SS(FOODTYPE) =",SS_FOODTYPE,"/F(FOODTYPE) = ",FF_FOODTYPE,"pvalue = ",pval_FOODTYPE)) 
+
+anova(result)
+```
+# 05 Two-Way ANOVA
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/2wayanova.csv") 
+
+d = aov(Sales ~ Colour + Font + Font*Colour,data=data ) 
+plot(d, 2) 
+shapiro.test(residuals(d)) 
+```
+
+
+```{r}
+data = data[-c(22,44),] 
+d = aov(Sales ~ Colour + Font + Font*Colour,data=data ) 
+plot(d, 2) 
+shapiro.test(residuals(d)) 
+
+plot(d, 1) 
+```
+
+
+```{r}
+anova(d) 
+```
+
+```{r}
+rbind(TukeyHSD(d)$Colour,TukeyHSD(d)$Font) 
+```
+# 06 Types Squares
+
+```{r}
+library(dplyr) 
+library(car)
+r = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/2wayanova.csv") 
+r = r[-c(22,44),] 
+
+type1 = aov(Sales ~ Colour + Font + Font*Colour,data=r ) 
+summary(type1)
+```
+
+```{r}
+type2 = Anova(aov(Sales ~ Colour + Font,data=r ),type=c("II")) 
+type2
+```
+
+```{r}
+options(contrasts = c("contr.sum","contr.poly")) 
+type3 = Anova(aov(Sales ~ Colour + Font + Font*Colour,data=r ),type=c("III")) 
+type3 
+```
+# 07 Random ANOVA
+
+```{r}
+library(lme4) 
+library(lmerTest) 
+library(emmeans) 
+clients <- read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/clients.csv") 
+
+E = lmer(Sales ~ -1 + Strategy + (1|Client) + (1|Salesman),data=clients)
+summary(E)
+```
+
+```{r}
+result_lsmeans = lsmeans(E,pairwise ~ Strategy) 
+print(result_lsmeans)
+```
+
+```{r}
+anova(E)
+```
+# 08 Repeated Measures
+
+```{r}
+library(ggplot2) 
+library(nlme) 
+library(lmerTest)
+library(lsmeans) 
+data_company = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/employee_time_bonus.csv",stringsAsFactors = TRUE) 
+  
+ggplot(data_company,aes(x=Time,y=Performance)) + geom_line() +  
+  geom_point(data=data_company,aes(x=Time,y=Performance)) + 
+  facet_wrap(~Employee,nrow=3) 
+```
+
+```{r}
+fit <- lme(Performance ~ x_Bonus + x_Sector + Time + Time:x_Bonus , random = list( ~1 |Employee) , correlation = corAR1(form= ~Time|Employee), data = data_company) 
+summary(fit) 
+```
+
+```{r}
+anova(fit)
+```
+
+```{r}
+fit <- lme(Performance ~ x_Bonus + x_Sector + Time + Time:x_Bonus , random = list( ~1 |Employee) , data = data_company) 
+summary(fit) 
+```
+
+```{r}
+fit <- lme(Performance ~ x_Bonus + x_Sector + Time , random = list( ~1 |Employee) , correlation = corAR1(form= ~Time|Employee), data = data_company) 
+print(lsmeans(fit,pairwise ~ x_Bonus)) 
+```
+
+```{r}
+fit <- lme(Performance ~ x_Bonus + x_Sector + Time + Time:x_Bonus , random = list( ~1 + Time |Employee) , correlation = corAR1(form= ~Time|Employee), data = data_company) 
+summary(fit)
+```
+# 09 Multivariate T
+
+```{r}
+library(MASS) 
+library(Hotelling)
+
+class1 = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/class1.csv")
+class2 = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter02/class2.csv")
+
+sapply(class1,mean) 
+sapply(class2,mean) 
+```
+```{r}
+test_hotelling = hotelling.test(class1,class2) 
+print(test_hotelling) 
+```
+```{r}
+library(heplots) 
+
+class1$group = "1" 
+class2$group = "2" 
+combined = rbind(class1,class2) 
+combined$group = as.factor(combined$group) 
+
+boxM(cbind(combined$Math,combined$History,combined$Sociology)~group,data = combined) 
+```
+# 10 MANOVA
+
+```{r}
+library(MASS) 
+f = matrix(c(2,1,1,1,2,1,1,1,2),3,3) 
+
+x1 = mvrnorm(50,c(10,10,10),f) 
+x1 = cbind(x1,1) 
+x2 = mvrnorm(50,c(10,10,10),f) 
+x2 = cbind(x2,2) 
+x3 = mvrnorm(50,c(30,10,10),f) 
+x3 = cbind(x3,3) 
+
+
+total_data = data.frame(rbind(x1,x2,x3)) 
+colnames(total_data) = c("History","Math","Biology","class") 
+
+
+result = manova(cbind(History,Math,Biology) ~ class,data=total_data) 
+summary(result) 
+```
+```{r}
+summary.aov(result) 
+```

@@ -1,0 +1,361 @@
+---
+title: "MMLWR2E 10 Basket, Recommendation, Sequential"
+output: html_notebook
+---
+
+```{r}
+library(arules)
+library(arulesViz)
+
+data(Groceries)
+head(Groceries)
+str(Groceries)
+```
+```{r}
+itemFrequencyPlot(Groceries, topN = 10,type = "absolute")
+```
+
+
+```{r}
+itemFrequencyPlot(Groceries, topN = 15)
+```
+
+
+```{r}
+rules <- apriori(Groceries, 
+                 parameter = list(supp = 0.001, conf = 0.9, maxlen = 4))
+rules
+```
+
+
+```{r}
+options(digits = 3)
+rules <- sort(rules, by = "lift", decreasing = TRUE)
+inspect(rules[1:5])
+```
+
+
+```{r}
+rules <- sort(rules, by = "confidence", decreasing = TRUE)
+inspect(rules[1:5])
+```
+
+
+```{r}
+tab <- crossTable(Groceries)
+tab[1:3, 1:3]
+```
+
+
+```{r}
+tab["bottled beer", "bottled beer"]
+tab["bottled beer", "canned beer"]
+```
+
+
+```{r}
+beer.rules <- apriori(data = Groceries, 
+                      parameter = list(support = 0.0015, confidence = 0.3),
+                      appearance = list(default = "lhs", rhs = "bottled beer"))
+beer.rules
+```
+
+
+```{r}
+beer.rules <- sort(beer.rules, decreasing = TRUE, by = "lift")
+inspect(beer.rules)
+```
+
+
+```{r}
+tab["bottled beer", "red/blush wine"]
+tab["red/blush wine", "red/blush wine"]
+```
+
+
+```{r}
+tab["white wine", "white wine"]
+tab["bottled beer", "white wine"]
+```
+
+
+```{r}
+plot(beer.rules, method = "graph", measure = "lift", 
+     shading = "confidence")
+```
+
+
+```{r}
+ratings <- c(3,5,5,5,1,1,5,2,5,1,1,5,3,5,1,5,4,2,4,3,4,2,1,4)
+ratingMat <- matrix(ratings, nrow = 6)
+rownames(ratingMat) <- c("Homer","Marge","Bart","Lisa","Flanders","Me")
+colnames(ratingMat) <- c("Avengers","American Sniper","Les Miserable","Mad Max")
+ratingMat
+```
+
+
+```{r}
+svd <- svd(ratingMat)
+svd
+```
+
+```{r}
+sum(svd$d)
+```
+
+
+```{r}
+var <- sum(svd$d[1:2])
+var
+```
+
+
+```{r}
+var/sum(svd$d)
+```
+
+
+```{r}
+f1 <- function(x) {
+  score = 0
+  for(i in 1:n )
+    score <- score + svd$u[, i] %*% t(svd$v[, i]) * svd$d[i] 
+  return(score)
+}
+n = 4
+f1(svd)
+n = 2
+f1(svd)
+```
+
+
+```{r}
+library(psych)
+pca <- principal(ratingMat, nfactors = 2, rotate = "none")
+pca
+```
+
+
+```{r}
+library(recommenderlab)
+data(Jester5k)
+Jester5k
+```
+
+
+```{r}
+as(Jester5k[10, ], "list")
+```
+
+
+```{r}
+rowMeans(Jester5k[10, ])
+```
+
+
+```{r}
+colMeans(Jester5k[, 1])
+```
+
+
+```{r}
+hist(getRatings(Jester5k), breaks = 100)
+```
+
+
+```{r}
+hist(getRatings(normalize(Jester5k)), breaks = 100)
+```
+
+
+```{r}
+hist(rowCounts(Jester5k), breaks = 50)
+```
+
+
+```{r}
+set.seed(123)
+e <- evaluationScheme(Jester5k, 
+                      method = "split", train = 0.8, 
+                      given=15, goodRating = 5)
+recommenderRegistry$get_entries(dataType = "realRatingMatrix")
+```
+
+
+```{r}
+ubcf <- Recommender(getData(e, "train"), "UBCF")
+ibcf <- Recommender(getData(e, "train"), "IBCF")
+svd <- Recommender(getData(e, "train"), "SVD")
+popular <- Recommender(getData(e, "train"), "POPULAR")
+# pca <- Recommender(getData(e, "train"), "PCA")
+random <- Recommender(getData(e, "train"), "RANDOM")
+
+ubcf_pred <- predict(ubcf, getData(e, "known"), type = "ratings")
+ibcf_pred <- predict(ibcf, getData(e, "known"), type = "ratings")
+svd_pred <- predict(svd, getData(e, "known"), type = "ratings")
+pop_pred <- predict(popular, getData(e, "known"), type = "ratings")
+ran_pred <- predict(random, getData(e, "known"), type = "ratings")
+
+P1 <- calcPredictionAccuracy(ubcf_pred, getData(e, "unknown"))
+P1
+```
+
+```{r}
+P2 <- calcPredictionAccuracy(ibcf_pred, getData(e, "unknown"))
+P3 <- calcPredictionAccuracy(svd_pred, getData(e, "unknown"))
+P4 <- calcPredictionAccuracy(pop_pred, getData(e, "unknown"))
+P5 <- calcPredictionAccuracy(ran_pred, getData(e, "unknown"))
+
+error <- rbind(P1, P2, P3, P4, P5)
+rownames(error) <- c("UBCF", "IBCF", "SVD", "Popular", "Random")
+error
+```
+
+
+```{r}
+algorithms <- list(
+  POPULAR = list(name = "POPULAR"),
+  UBCF = list(name = "UBCF"),
+  IBCF = list(name = "IBCF"))
+algorithms
+```
+
+
+```{r}
+evlist <- evaluate(e, algorithms, n = c(5, 10, 15))
+options(digits = 3)
+set.seed(1)
+avg(evlist)
+```
+
+
+```{r}
+plot(evlist, legend = "topleft", annotate = TRUE)
+```
+
+
+```{r}
+plot(evlist, "prec", legend = "bottomright", annotate = TRUE)
+```
+
+
+```{r}
+R1 <- Recommender(Jester5k, method = "POPULAR")
+R1
+```
+
+
+```{r}
+recommend <- predict(R1, Jester5k[1:2], n = 5)
+as(recommend, "list")
+```
+
+
+```{r}
+rating <- predict(R1, Jester5k[300:309], type = "ratings")
+rating
+```
+
+
+```{r}
+as(rating, "matrix")[, 71:73]
+```
+
+
+```{r}
+Jester.bin <- binarize(Jester5k, minRating = 5)
+Jester.bin <- Jester.bin[rowCounts(Jester.bin) > 10]
+Jester.bin
+```
+
+
+```{r}
+set.seed(456)
+e.bin <- evaluationScheme(Jester.bin, 
+                          method = "cross-validation", k = 5, given = 10)
+algorithms.bin <- list("random" = list(name="RANDOM", param=NULL),
+                       "popular" = list(name = "POPULAR", param = NULL),
+                       "UBCF" = list(name="UBCF"))
+results.bin <- evaluate(e.bin, algorithms.bin, n = c(5, 10, 15))
+plot(results.bin, legend  ="topleft")
+```
+
+
+```{r}
+plot(results.bin, "prec", legend = "bottomright")
+```
+```{r}
+library(TraMineR)
+library(dplyr)
+df <- read.csv("https://raw.githubusercontent.com/pw598/R/main/Mastering-Machine-Learning-with-R-Second-Edition-main/data-master/sequential.csv")
+str(df)
+```
+
+
+```{r}
+table(df$Cust_Segment)
+table(df$Purchase1)
+table(unlist(df[, -1]))
+```
+
+
+```{r}
+dfCount <- count(df, Purchase1, Purchase2)
+dfCount <- arrange(dfCount, desc(n))
+dim(dfCount)
+```
+
+
+```{r}
+head(dfCount)
+```
+
+
+```{r}
+seq <- seqdef(df[, -1], xtstep = 1)
+head(seq)
+```
+
+
+```{r}
+seqiplot(seq, withlegend = "right")
+```
+
+
+```{r}
+seqiplot(seq)
+```
+
+
+```{r}
+seqdplot(seq)
+```
+
+
+```{r}
+seqdplot(seq, group = df$Cust_Segment)
+```
+
+```{r}
+seqmsplot(seq, group = df$Cust_Segment)
+```
+
+
+```{r}
+seqmtplot(seq, group = df$Cust_Segment)
+```
+
+
+```{r}
+seqE <- seqecreate(seq)
+subSeq <- seqefsub(seqE, pMinSupport = 0.05)
+plot(subSeq[1:10], col = "dodgerblue")
+```
+
+
+```{r}
+seqMat <- seqtrate(seq) 
+options(digits = 2)
+seqMat[2:4, 1:3]
+seqMat[, 1]
+```

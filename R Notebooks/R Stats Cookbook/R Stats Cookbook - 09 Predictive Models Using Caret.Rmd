@@ -1,0 +1,379 @@
+---
+title: "R Stats Cookbook - 09 Predictive Models Using Caret"
+output: html_notebook
+---
+
+# 01 Splitting and General Model Fitting
+
+```{r}
+library(caret)
+
+mushroom_data = read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data",head=FALSE)
+colnames(mushroom_data) = c("edible","cap-shape", "cap-surface", "cap-color","bruises","odor",
+                            "gill-attachment","gill-spacing","gill-size","gill-color","stalk-shape",
+                            "stalk-root","stalk-surface-above-ring","stalk-surface-below-ring","stalk-color-above-ring",
+                            "stalk-color-below-ring","veil-type","veil-color","ring-number","ring-type",
+                            "spore-print-color","population","habitat")
+
+
+
+trainIndex <- createDataPartition(mushroom_data$edible, p = .75, list = FALSE, times = 1)
+traindata <- mushroom_data[trainIndex,]
+testdata <- mushroom_data[-trainIndex,]
+
+
+
+
+total_proportion <- nrow(mushroom_data[mushroom_data$edible=="e",])/nrow(mushroom_data)
+train_proportion <- nrow(traindata[traindata$edible=="e",])/nrow(traindata)
+test_proportion <- nrow(testdata[testdata$edible=="e",])/nrow(testdata)
+print(paste("p of edible in data=",round(total_proportion,3),
+            "/p of edible in train=",round(train_proportion,3),
+            "/p of edible in test=",round(test_proportion,3)))
+```
+```{r}
+bootstrap_sample <- createResample(mushroom_data$edible,times=10,list=FALSE)
+kfolds_results = createFolds(mushroom_data$edible, k=4,list=FALSE)
+r1 = nrow(mushroom_data[kfolds_results==1 & mushroom_data$edible=="e",])/nrow(mushroom_data[kfolds_results==1,])
+r2 = nrow(mushroom_data[kfolds_results==2 & mushroom_data$edible=="e",])/nrow(mushroom_data[kfolds_results==2,])
+r3 = nrow(mushroom_data[kfolds_results==3 & mushroom_data$edible=="e",])/nrow(mushroom_data[kfolds_results==3,])
+r4 = nrow(mushroom_data[kfolds_results==4 & mushroom_data$edible=="e",])/nrow(mushroom_data[kfolds_results==4,])
+print(paste("proportion of edible in fold1=",r1,
+            "/proportion of edible in fold2=",r2,
+            "/proportion of edible in fold3=",r3,
+            "/proportion of edible in fold4=",r4))
+```
+
+```{r}
+r = rnorm(10,0,1)
+createTimeSlices(r,4,horizon=2)
+```
+# 02 Preprocessing
+
+```{r}
+library(MASS)
+library(caret)
+library(RANN)
+set.seed(100)
+data       <- read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter09/metals.csv")
+data = data[-1]
+trainIndex <- createDataPartition(data$metal_strength, p = .75,
+                                  list = FALSE, times = 1)
+traindata  <- data[trainIndex,]
+testdata   <- data[-trainIndex,]
+
+
+preprocess_object <-
+  preProcess(traindata[-1],method=c("medianImpute","scale","center"))
+x_transformed <- predict(preprocess_object,traindata[-1])
+combined_train_data <- cbind(x_transformed,traindata[1])
+
+
+control <- trainControl(method="none")
+tunegrid <- expand.grid(C=c(0.01))
+m3 <- train(metal_strength~., data=combined_train_data,
+            method="svmLinear",
+            metric="RMSE", tuneGrid=tunegrid, trControl=control)
+
+
+test_xdata  <- predict(preprocess_object,testdata[-1])
+y_test_pred <- predict(m3,test_xdata)
+postResample(pred = y_test_pred, obs = testdata$m)
+```
+
+```{r}
+control <- trainControl(method="none")
+tunegrid <- expand.grid(C=c(0.9))
+m3 <- train(metal_strength~., data=combined_train_data,
+            method="svmLinear", metric="RMSE", tuneGrid=tunegrid,
+            trControl=control)
+test_xdata  <- predict(preprocess_object,testdata[-1])
+y_test_pred <- predict(m3,test_xdata)
+postResample(pred = y_test_pred, obs = testdata$m)
+```
+
+
+```{r}
+control <-  trainControl(method="repeatedcv", number=4, repeats=1)
+tunegrid <- expand.grid(C=c(0.01,0.1,0.2,0.3,0.4,0.5))
+m3 <- train(metal_strength~., data=combined_train_data,
+            method="svmLinear",preProcess=c("medianImpute","scale","center")
+            ,metric="RMSE", tuneGrid=tunegrid, trControl=control)
+m3
+```
+
+
+```{r}
+m3$bestTune
+```
+# 03 Feature Selection
+
+```{r}
+library(MASS) 
+library(caret) 
+library(randomForest)
+
+control           <- trainControl(method="repeatedcv", number=4, repeats=1) 
+tunegrid          <- expand.grid(.mtry=c(2,3,4,5,6,7,8)) 
+data              <- Boston 
+result            = train(medv~., data=data, method="rf", metric="RMSE", tuneGrid=tunegrid,   
+                         trControl=control,importance=TRUE)$finalModel 
+
+result 
+```
+
+
+```{r}
+gbmImp            <- varImp(result) 
+importance(result) 
+```
+
+
+```{r}
+tunegrid          <- expand.grid(.mtry=c(1)) 
+result            = train(medv~., data=data[,c("medv","rm","lstat")], method="rf", metric="RMSE",   
+                          tuneGrid=tunegrid, trControl=control)$finalModel 
+result 
+```
+
+
+```{r}
+control <- rfeControl(functions=rfFuncs, method="cv", number=10) 
+results <- rfe(as.matrix(data[-14]),as.matrix(data[14]), sizes=c(1:5), rfeControl=control) 
+print(results) 
+```
+
+
+```{r}
+predictors(results) 
+```
+
+
+```{r}
+plot(results, type=c("g", "o")) 
+```
+# 04 Model Tuning
+
+```{r}
+library(caret) 
+
+set.seed(11) 
+mushroom_data           = read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data",head=FALSE) 
+
+colnames(mushroom_data) = c("edible","cap_shape", "cap_surface", "cap_color","bruises","odor", 
+                            "gill_attachment","gill_spacing","gill_size","gill_color","stalk_shape", 
+                            "stalk_root","stalk_surface_above_ring","stalk_surface_below_ring","stalk_color_above_ring", 
+                            "stalk_color_below_ring","veil_type","veil_color","ring_number","ring_type", 
+                            "spore_print_color","population","habitat") 
+
+
+edible                  = mushroom_data[,1] 
+mushroom_data           = mushroom_data[,-1] 
+
+
+mushroom_data           = mushroom_data[,-which(colnames(mushroom_data)=="veil_type")] 
+mushroom_dummy_model    = dummyVars(data=mushroom_data,~.,sep="__") 
+mushroom_data_model     = cbind(data.frame(predict(mushroom_dummy_model, mushroom_data)),  
+                               edible) 
+
+
+
+control                 = trainControl(method="repeatedcv", number=4, repeats=1) 
+metric                  = "Accuracy" 
+tunegrid                = expand.grid(.mtry=c(2,5,7,10)) 
+
+
+
+rf_default              = train(edible~., data=mushroom_data_model, method="rf", metric=metric,   
+                                tuneGrid=tunegrid,  trControl=control) 
+
+
+print(rf_default) 
+```
+
+
+```{r}
+rf_default$finalModel 
+```
+
+# 05 Classification and ROC
+
+```{r}
+library(MASS) 
+library(PRROC) 
+library(precrec) 
+library(pROC)
+
+set.seed(10) 
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter09/approved.csv") 
+data = data[,-c(1,7)] 
+data$Approved_ = "not_approved" 
+data$Approved_[data$Approved == 1] <- "approved" 
+data$Approved_ = as.factor(data$Approved_) 
+data = data[,-1] 
+
+trainIndex       <- createDataPartition(data$Approved_, p = .75,  list = FALSE,  times = 1)  
+traindata        <- data[trainIndex,]  
+testdata         <- data[-trainIndex,]  
+
+rctrl1          <- trainControl(method     = "cv",number=5,classProbs = TRUE,summaryFunction =   
+                                  twoClassSummary)
+model1          <- train(Approved_~.,traindata,  
+                         method     = "gbm",  verbose=FALSE, 
+                         trControl  = rctrl1,metric="ROC", 
+                         tuneLength = 10) 
+
+predictions_train = predict(model1,traindata) 
+confusionMatrix(traindata$Approved_,predictions_train) 
+```
+
+```{r}
+predictions_test = predict(model1,testdata) 
+confusionMatrix(testdata$Approved_,predictions_test) 
+```
+
+```{r}
+plot.roc(traindata$Approved_,predict(model1, traindata, type="prob")[,1],main="ROC curves,   
+         black=train,red=test") 
+plot.roc(testdata$Approved_,predict(model1, testdata, type="prob")[,1],col="red",add=TRUE) 
+```
+
+```{r}
+par(mfrow=c(2,1)) 
+sscurves <- evalmod(scores = predict(model1, traindata, type="prob")[,2], labels = traindata$Approved_) 
+plot(sscurves) 
+sscurves <- evalmod(scores = predict(model1, testdata, type="prob")[,2], labels = testdata$Approved_) 
+plot(sscurves) 
+```
+# 06 Gradient Boosting and Class Imbalance
+
+```{r}
+library(MASS) 
+library(PRROC) 
+library(precrec) 
+
+set.seed(10) 
+data = read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter09/approved.csv") 
+data = data[,-c(1,7)] 
+data$Approved_ = "not_approved" 
+data$Approved_[data$Approved == 1] <- "approved" 
+data$Approved_ = as.factor(data$Approved_) 
+data = data[,-1] 
+
+trainIndex       <- createDataPartition(data$Approved_, p = .75,  list = FALSE,  times = 1)  
+traindata        <- data[trainIndex,]  
+testdata         <- data[-trainIndex,]  
+
+rctrl1          <- trainControl(method     = "cv",number=5,classProbs = TRUE,summaryFunction =   
+                                  twoClassSummary)  
+
+baseline        <- train(Approved_~.,traindata,  
+                         method     = "gbm",  verbose=FALSE, 
+                         trControl  = rctrl1, 
+                         metric="ROC", 
+                         tuneLength = 10) 
+
+rctrl1          <- trainControl(method     = "cv",number=5,sampling="up",classProbs =   
+                                  TRUE,summaryFunction = twoClassSummary)  
+
+up              <- train(Approved_~.,traindata,  
+                         method     = "gbm",  verbose=FALSE, 
+                         trControl  = rctrl1, 
+                         metric="ROC", 
+                         tuneLength = 10) 
+
+rctrl1          <- trainControl(method     = "cv",number=5,sampling="smote",classProbs =   
+                                  TRUE,summaryFunction = twoClassSummary)  
+
+smote              <- train(Approved_~.,traindata,  
+                            method     = "gbm",  verbose=FALSE, 
+                            trControl  = rctrl1, 
+                            metric="ROC", 
+                            tuneLength = 10) 
+
+predictions_baseline = predict(baseline,testdata,type="prob") 
+predictions_up       = predict(up,testdata,type="prob") 
+predictions_smote       = predict(up,testdata,type="prob") 
+
+confusionMatrix(testdata$Approved_,predict(baseline,testdata))
+```
+
+```{r}
+confusionMatrix(testdata$Approved_,predict(up,testdata))
+```
+
+
+```{r}
+confusionMatrix(testdata$Approved_,predict(smote,testdata)) 
+```
+
+
+```{r}
+confusionMatrix(testdata$Approved_,predict(baseline,testdata),mode="prec_recall") 
+```
+
+
+```{r}
+confusionMatrix(testdata$Approved_,predict(up,testdata),mode="prec_recall") 
+```
+
+
+```{r}
+confusionMatrix(testdata$Approved_,predict(smote,testdata),mode="prec_recall") 
+```
+# 07 07 Lasso, Ridge, ElasticNet
+
+```{r}
+set.seed(100) 
+library(caret) 
+summary(lm(data=longley,Employed~.)) 
+```
+
+```{r}
+rctrl1 <- trainControl(method     = "cv",number=5) 
+ols_      <- train(Employed~.,longley, 
+                   method     = "lm",  
+                   trControl  = rctrl1, 
+                   tuneLength = 4,metric="RMSE", 
+                   preProc    = c("center", "scale")) 
+
+lasso_    <- train(Employed~.,longley,  
+                   method     = "lasso",  
+                   trControl  = rctrl1, 
+                   tuneLength = 10,metric="RMSE", 
+                   preProc    = c("center", "scale")) 
+
+ridge_     <- train(Employed~.,longley,  
+                    method     = "ridge",  
+                    trControl  = rctrl1, 
+                    tuneLength = 10,metric="RMSE", 
+                    preProc    = c("center", "scale")) 
+
+elasticnet_ <- train(Employed~.,longley,  
+                     method     = "glmnet",  
+                     trControl  = rctrl1, 
+                     tuneLength = 10,metric="RMSE", 
+                     preProc    = c("center", "scale")) 
+
+varImp((elasticnet_)) 
+```
+
+# 08 Logistic Regression
+
+```{r}
+set.seed(10) 
+library(caret)
+
+baseketball_data_2019 =  read.csv("https://raw.githubusercontent.com/PacktPublishing/R-Statistics-Cookbook/master/Chapter09/lakers_.csv") 
+baseketball_data_2019 = baseketball_data_2019[,-c(1,2)] 
+
+
+
+rctrl1 <- trainControl(method     = "cv",number=5)  
+baseketball_data_2019$win         = as.factor(baseketball_data_2019$win) 
+model1      <- train(win~.,baseketball_data_2019,  
+                     method     = "logreg",   
+                     metric     = "Accuracy", 
+                     trControl  = rctrl1,  
+                     tuneLength = 4) 
+```
