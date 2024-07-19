@@ -1,0 +1,44 @@
+---
+title: "MLWR 06 Survival"
+output: html_notebook
+---
+
+
+```{r}
+library(survival)
+data(cancer)
+str(cancer)
+```
+
+
+```{r}
+sfit <- survfit(Surv(time, status)~sex, data=cancer)
+summary(sfit)
+```
+
+
+```{r}
+library(survminer)
+s <- Surv(cancer$time, cancer$status)
+sfit <- (survfit(Surv(time, status)~sex, data=cancer))
+plot(sfit)
+```
+
+
+```{r}
+ggsurvplot(sfit)
+```
+
+
+```{r}
+ggsurvplot(sfit, risk.table = TRUE, legend.labs=c("Male", "Female"))
+```
+```{r}
+sfit <- survfit(Surv(time, status)~inst, data=cancer)
+ggsurvplot(sfit)
+```
+
+
+```{r}
+coxph(formula=Surv(time, status)~sex, data=cancer)
+```

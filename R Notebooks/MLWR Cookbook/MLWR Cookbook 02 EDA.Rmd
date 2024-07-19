@@ -1,0 +1,190 @@
+---
+title: "MLWR Cookbook 02 EDA"
+output: html_notebook
+---
+
+```{r}
+data(airquality)
+str(airquality)
+```
+
+
+```{r}
+head(airquality)
+```
+
+
+```{r}
+mydata <- airquality
+mydata$Month = factor(mydata$Month)
+str(mydata)
+```
+
+
+```{r}
+is.na(mydata$Ozone)
+```
+
+
+```{r}
+sum(is.na(mydata$Ozone)==TRUE) 
+```
+
+
+```{r}
+sum(is.na(mydata$Ozone)==TRUE) / length(mydata$Ozone)* 100
+```
+
+
+```{r}
+sapply(mydata, function(df){
+  +		sum(is.na(df)==TRUE)/length(df) *100
+   })
+```
+
+
+```{r}
+install.packages("Amelia")
+require(Amelia)
+missmap(mydata, main="Missing Map")
+```
+
+
+```{r}
+mydata$Ozone
+```
+
+
+```{r}
+max(table((factor(mydata$Ozone)),useNA="always"))
+```
+```{r}
+max(table((factor(mydata$Ozone))))
+```
+
+
+```{r}
+mydata$Ozone[which(is.na(mydata$Ozone))]=23
+table((factor(mydata$Ozone)),useNA="always")
+```
+
+
+```{r}
+table((factor(mydata$Solar.R)),useNA="always")
+```
+
+
+```{r}
+max(table((factor(mydata$Solar.R))))
+```
+
+
+```{r}
+mydata$Solar.R[which(is.na(mydata$Solar.R))]=259
+table((factor(mydata$Solar.R)),useNA="always")
+```
+
+
+```{r}
+barplot(table(mydata$Ozone), main="Ozone Observations", xlab="O bservations", ylab="Frequency")
+```
+
+
+```{r}
+barplot(table(mydata$Temp), main="Temperature Observations", xlab="Temprature", ylab="Frequency")
+
+```
+
+
+```{r}
+hist(mydata$Temp,  main="Temperature", xlab = " Temperature ")
+```
+```{r}
+hist(mydata$Temp,  main="Temperature", xlab = " Temperature ", breaks= 5)
+```
+
+
+```{r}
+hist(mydata$Temp,  main="Temperature", xlab = " Temperature ", prob=TRUE)
+```
+
+
+```{r}
+summary(mydata)
+```
+
+
+```{r}
+boxplot(mydata)
+```
+
+
+```{r}
+summary(mydata$Temp)
+```
+
+
+```{r}
+boxplot(mydata$Temp)
+```
+
+
+```{r}
+boxplot(mydata$Temp ~ mydata$Month, main="Month Wise Temperature", xlab="Month", ylab="Temperature")
+```
+
+
+```{r}
+plot(mydata$Temp ~ mydata$Day + mydata$Solar.R + mydata$Wind + mydata$Ozone, col="blue")
+```
+
+
+```{r}
+install.packages("corrplot")
+require(corrplot)
+mydata$Month = airquality$Month # Removing factors, using origi-nal data
+corrplot(cor(mydata),method="number")
+```
+
+
+```{r}
+attach(mydata)
+reg <- lm(Temp~Ozone)
+summary(reg)
+```
+
+
+```{r}
+predict(reg, data.frame(Ozone=c(80)))
+```
+
+
+```{r}
+Solar.R = 190
+Wind = 10
+Ozone = 45
+Month = 9 
+new_data = data.frame(Solar.R,Wind,Ozone,Month)
+new_data
+```
+
+
+```{r}
+reg<-lm(Temp~Ozone+Solar.R+Month,mydata)
+predict(reg,newdata = new_data)
+```
+
+
+```{r}
+corrplot(cor(mydata),method="color")
+```
+
+
+```{r}
+corrplot(cor(mydata),method="circle")
+```
+
+
+```{r}
+corrplot(cor(mydata),method="pie")
+```

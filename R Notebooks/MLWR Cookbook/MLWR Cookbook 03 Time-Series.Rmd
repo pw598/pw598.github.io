@@ -1,0 +1,172 @@
+---
+title: "MLWR Cookbook 03 Time-Series"
+output: html_notebook
+---
+
+```{r}
+class(AirPassengers)
+```
+```{r}
+start(AirPassengers)
+```
+
+
+```{r}
+end(AirPassengers)
+```
+
+
+```{r}
+summary(AirPassengers)
+```
+
+
+```{r}
+my_vector = sample(2500:4000, 72, replace=T)
+my_series = ts(my_vector, start=c(2011,1), end=c(2016,12), frequency = 12) 
+my_series
+```
+
+
+```{r}
+plot(my_series)
+```
+
+
+```{r}
+plot(AirPassengers)
+```
+
+
+```{r}
+cycle(AirPassengers)
+```
+
+
+```{r}
+aggregate(AirPassengers)
+```
+
+
+```{r}
+plot(aggregate(AirPassengers))
+```
+
+
+```{r}
+boxplot(AirPassengers~cycle(AirPassengers))
+```
+
+
+```{r}
+require(forecast)
+forecast(my_series, 4)
+```
+
+
+```{r}
+f = HoltWinters(my_series)
+forecast(f,4)
+```
+
+
+```{r}
+forecast(AirPassengers, 4)
+```
+
+
+```{r}
+head(my_series)
+```
+
+
+```{r}
+tail(my_series)
+```
+
+
+```{r}
+require(xts)
+```
+
+
+```{r}
+first(my_series)
+```
+
+
+```{r}
+first(my_series, "3 months")
+```
+```{r}
+last(my_series, "3 months")
+```
+
+
+```{r}
+first(my_series, "3 years")
+```
+```{r}
+window(my_series, start=c(2009,1), end=c(2013,12))
+```
+
+
+```{r}
+my_series1 = ts(my_vector, start=c(2011,1), end=c(2013,12), frequency = 4)
+my_series1[c(2,5,10,13)]=NA
+my_series1
+```
+
+
+```{r}
+ma(my_series, order=10)
+```
+
+
+```{r}
+library(forecast)
+t = ets(AirPassengers)
+t
+```
+
+
+```{r}
+plot(t)
+```
+
+
+```{r}
+val = forecast(t)
+plot(val)
+```
+
+
+```{r}
+sales = sample(400:10000, 72, replace= TRUE)
+sales
+```
+
+
+```{r}
+my_newseries = ts(sales, start=c(2011,1), end=c(2016,12), frequency = 12)
+my_newseries
+```
+
+
+```{r}
+lag.plot(AirPassengers, lags=10)
+```
+
+
+```{r}
+lag.plot(my_newseries, lags=10)
+```
+```{r}
+acf(AirPassengers)
+```
+
+
+```{r}
+acf(my_newseries)
+```
+

@@ -1,0 +1,131 @@
+---
+title: "R Templates - 01 Analyzing Data"
+output: html_notebook
+---
+
+# Class Distribution
+
+```{r}
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# distribution of class variable
+y <- PimaIndiansDiabetes$diabetes
+cbind(freq=table(y), percentage=prop.table(table(y))*100)
+```
+# Correlation Spearman
+  
+```{r}
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# calculate a correlation matrix for numeric variables
+correlations <- cor(PimaIndiansDiabetes[,1:8], method="spearman")
+# display the correlation matrix
+print(correlations)
+```
+# Correlation Pearson
+
+```{r}
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# calculate a correlation matrix for numeric variables
+correlations <- cor(PimaIndiansDiabetes[,1:8])
+# display the correlation matrix
+print(correlations)
+```
+
+
+```{r}
+library(mlbench)
+# load dataset
+data(BostonHousing)
+# list types for each attribute
+sapply(BostonHousing, class)
+```
+# Datasets
+
+```{r}
+# mlbench library
+library(mlbench)
+data(BostonHousing)
+data(BreastCancer)
+data(Glass)
+data(Ionosphere)
+data(PimaIndiansDiabetes)
+data(Sonar)
+data(Soybean)
+
+# The AppliedPredictiveModeling Library
+library(AppliedPredictiveModeling)
+data(abalone)
+
+# Built-In
+data(iris)
+data(longley)
+```
+
+# Dimensions
+
+```{r}
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# display the dimensions of the dataset
+dim(PimaIndiansDiabetes)
+```
+# Load CSV
+
+```{r}
+filename <- "iris.csv"
+# load the CSV file from the local directory
+dataset <- read.csv(filename, header=FALSE)
+# preview the first 5 rows
+head(dataset)
+```
+
+# Load URL
+
+```{r}
+library(RCurl)
+# specify the URL for the Iris data CSV
+urlfile <-'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+# download the file
+downloaded <- getURL(urlfile, ssl.verifypeer=FALSE)
+# treat the text data as a steam so we can read from it
+connection <- textConnection(downloaded)
+# parse the downloaded data as CSV
+dataset <- read.csv(connection, header=FALSE)
+# preview the first 5 rows
+head(dataset)
+```
+
+# Skewness
+
+```{r}
+library(mlbench)
+library(e1071)
+# load the dataset
+data(PimaIndiansDiabetes)
+# calculate skewness for each variable
+skew <- apply(PimaIndiansDiabetes[,1:8], 2, skewness)
+# display skewness, larger/smaller deviations from 0 show more skew
+print(skew)
+```
+
+
+```{r}
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# calculate standard deviation for all attributes
+sapply(PimaIndiansDiabetes[,1:8], sd)
+```
+# Summary
+
+```{r}
+data(iris)
+# summarize the dataset
+summary(iris)
+```
