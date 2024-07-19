@@ -1,0 +1,191 @@
+---
+title: "R Templates - 05 Improve Results"
+output: html_notebook
+---
+
+# Automatic Grid Search
+
+```{r}
+library(caret)
+# load the dataset
+data(iris)
+# prepare training scheme
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+# train the model
+model <- train(Species~., data=iris, method="lvq", trControl=control, tuneLength=5)
+# summarize the model
+print(model)
+# plot the effect of parameters on accuracy
+plot(model)
+```
+# Bagging
+
+```{r}
+library(ipred)
+library(rpart)
+library(mlbench)
+# load the dataset
+data(PimaIndiansDiabetes)
+# bag the decision tree
+model <- bagging(diabetes~., data=PimaIndiansDiabetes, nbagg=25, coob=TRUE)
+# make predictions on the training dataset
+predictions <- predict(model, PimaIndiansDiabetes[,1:8])
+# summarize accuracy
+table(predictions, PimaIndiansDiabetes$diabetes)
+```
+# Blending
+
+```{r}
+library(caret)
+library(caretEnsemble)
+# load the dataset
+data(PimaIndiansDiabetes)
+# define training control
+train_control <- trainControl(method="cv", number=10, savePredictions=TRUE, classProbs=TRUE)
+# train a list of models
+methodList <- c('glm', 'lda', 'knn')
+models <- caretList(diabetes~., data=PimaIndiansDiabetes, trControl=train_control, methodList=methodList)
+# create ensemble of trained models
+ensemble <- caretEnsemble(models)
+# summarize ensemble
+summary(ensemble)
+```
+
+# Custom Search
+
+```{r}
+library(randomForest)
+library(mlbench)
+library(caret)
+# configure multi-core (not supported on Windoews)
+# library(doMC)
+# registerDoMC(cores=8)
+
+# define the custom caret algorithm (wrapper for Random Forest)
+customRF <- list(type="Classification", library="randomForest", loop=NULL)
+customRF$parameters <- data.frame(parameter=c("mtry", "ntree"), class=rep("numeric", 2), label=c("mtry", "ntree"))
+customRF$grid <- function(x, y, len=NULL, search="grid") {}
+customRF$fit <- function(x, y, wts, param, lev, last, weights, classProbs, ...) {
+  randomForest(x, y, mtry=param$mtry, ntree=param$ntree, ...)
+}
+customRF$predict <- function(modelFit, newdata, preProc=NULL, submodels=NULL)
+   predict(modelFit, newdata)
+customRF$prob <- function(modelFit, newdata, preProc=NULL, submodels=NULL)
+   predict(modelFit, newdata, type = "prob")
+customRF$sort <- function(x) x[order(x[,1]),]
+customRF$levels <- function(x) x$classes
+
+# Load Dataset
+data(Sonar)
+dataset <- Sonar
+seed <- 7
+metric <- "Accuracy"
+
+# train model
+trainControl <- trainControl(method="repeatedcv", number=10, repeats=3)
+tunegrid <- expand.grid(.mtry=c(1:15), .ntree=c(1000, 1500, 2000, 2500))
+set.seed(seed)
+custom <- train(Class~., data=dataset, method=customRF, metric=metric, tuneGrid=tunegrid, trControl=trainControl)
+print(custom)
+plot(custom)
+
+# took too long
+
+```
+# Manual Grid Search
+
+```{r}
+library(caret)
+# load the dataset
+data(iris)
+# prepare training scheme
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+# design the parameter tuning grid
+grid <- expand.grid(size=c(5,10,20,50), k=c(1,2,3,4,5))
+# train the model
+model <- train(Species~., data=iris, method="lvq", trControl=control, tuneGrid=grid)
+# summarize the model
+print(model)
+# plot the effect of parameters on accuracy
+plot(model)
+```
+
+# Manual Search
+
+```{r}
+library(randomForest)
+library(mlbench)
+library(caret)
+# Load Dataset
+data(Sonar)
+dataset <- Sonar
+x <- dataset[,1:60]
+y <- dataset[,61]
+seed <- 7
+metric <- "Accuracy"
+# Manual Search
+trainControl <- trainControl(method="repeatedcv", number=10, repeats=3, search="grid")
+tunegrid <- expand.grid(.mtry=c(sqrt(ncol(x))))
+modellist <- list()
+for (ntree in c(1000, 1500, 2000, 2500)) {
+	set.seed(seed)
+	fit <- train(Class~., data=dataset, method="rf", metric=metric, tuneGrid=tunegrid, trControl=trainControl, ntree=ntree)
+	key <- toString(ntree)
+	modellist[[key]] <- fit
+}
+# compare results
+results <- resamples(modellist)
+summary(results)
+dotplot(results)
+```
+
+# Optimal Parameters
+
+```{r}
+library(mlbench)
+library(caret)
+# load the dataset
+data(PimaIndiansDiabetes)
+# prepare training scheme
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+# CART
+set.seed(7)
+tunegrid <- expand.grid(.cp=seq(0,0.1,by=0.01))
+fit.cart <- train(diabetes~., data=PimaIndiansDiabetes, method="rpart", metric="Accuracy", tuneGrid=tunegrid, trControl=control)
+# display the best configuration
+print(fit.cart$bestTune)
+```
+
+# Random Search
+
+```{r}
+library(caret)
+# load the dataset
+data(iris)
+# prepare training scheme
+control <- trainControl(method="repeatedcv", number=10, repeats=3, search="random")
+# train the model
+model <- train(Species~., data=iris, method="lvq", trControl=control, tuneLength=25)
+# summarize the model
+print(model)
+# plot the effect of parameters on accuracy
+plot(model)
+```
+
+# Stacking
+
+```{r}
+library(caret)
+library(caretEnsemble)
+# load the dataset
+data(PimaIndiansDiabetes)
+# define training control
+train_control <- trainControl(method="cv", number=10, savePredictions=TRUE, classProbs=TRUE)
+# train a list of models
+methodList <- c('glm', 'lda', 'knn')
+models <- caretList(diabetes~., data=PimaIndiansDiabetes, trControl=train_control, methodList=methodList)
+# create stacked ensemble of trained models
+ensemble <- caretStack(models, method='rpart')
+# summarize ensemble
+summary(ensemble)
+```
