@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+
+    <h3>Arrays</h3>
+
+        <p>Though it may be tempting to print tables and lists of intermediary data to the worksheet environment during a macro, it is more optimal, when possible, to use a programming structure called an array. To write from, read to, or loop through the elements of an array takes less time than to perform the corresponding operations using ranges of cells in the worksheet environment. Working with arrays will also help build transferable programming skills, since they commonly exist in other languages (though admittedly with greater capabilities than Excel), whereas a graphical interface to leverage as a hack for storing and processing data typically does not exist.</p>
+
+        <p>We’ll also look at some topics that integrate nicely with arrays, including some debugging tools and the <code>Timer</code>.</p>
+
+
+        <h4>Declaring Arrays</h4> 
+
+            <p>In Excel, an array is not a data type, but rather a container for data of a certain type. When declaring a 4x1 array of strings, the syntax is <code>Dim MyArr(1 to 4) as String</code>. When wanting to include a mix of data types as elements in an array, we declare it as type <code>Variant</code>. When declaring a two-dimensional array, let’s say a 4x2 <code>Variant</code> array, the syntax would be <code>Dim MyArr(1 to 4, 1 to 2) as Variant</code>. This creates an array of 4 rows and 2 columns.</p>
+
+
+
+    <h3>Debugging Tools</h3>
+
+        <p>At this point, I’d like to introduce a few features of the VB Editor: the Locals window, which displays existing variables and their values, the step-through feature, which lets you execute code one line at a time, and the break feature, which lets you execute code up until a certain point.</p>
+
+        <p>To open the Locals window, locate it under the View menu of the VB Editor. Now, as we step through code line by line, we will be able to view the variables. Next, we’ll create a macro which does nothing more than declare an array.</p>
+
+        <p>
+        <code> 
+        Sub CreateArray() </br>
+        Dim MyArr(1 To 4, 1 To 2) As Variant </br>
+        End Sub 
+        </code>
+        </p>
+
+        <p>Put your cursor within the macro, and press F8. The first line (the <code>Sub</code> statement) will highlight. Press F8 again and it will move to the next line, and so on. You should already see in the Locals window the existence of <code>MyArr</code>, which can be expanded to reveal 4 items, <code>MyArr(1)</code> through <code>MyArr(4)</code>, each corresponding to a row of the array. Each of these elements can be expanded to reveal two items, corresponding to the two respective columns.</p>
+
+        <img src="arr1.gif" style="height:400px;width:auto;" />
+
+        <p>The Value column indicates that these elements are currently empty. To exit the step-through mode, you can either continue to press F8 until the macro is finished, or press the Stop (Reset) button near the menus at the top of the screen.</p>
+
+        <img src="arr2.gif" style="height:100px;width:auto;" />
+
+        <p>Reading from and writing to arrays is commonly done with a loop, though it is also possible to point to a continuous range of cells all at once. Below, I create a new macro, declare a <code>Variant</code> array like before, but give it 40 rows instead of 4, and populate each element with a random number between 0 and 100. I want to view the results in the Locals window, but I don’t want to press F8 for every line of execution, because the loop will repeat 40x2 times. So, I put a break on the End Sub line by clicking just to the left of the text (you can click on the red dot to remove it), and this will prevent the macro from executing completely, so that I can inspect the variables before they get destroyed.</p>
+
+        <img src="arr3.gif" style="height:250px;width:auto;" />
+
+        <p>Now, with my cursor placed somewhere within the macro, I press F5 or the ‘Play’ button at the top to get the macro to execute up to the break point. After doing so, the array variable appears in the Locals window, this time with values populated.</p>
+
+        <img src="arr4.gif" style="height:450px;width:auto;" />
+
+
+
+        <h3>Working With Arrays</h3>
+
+        <p>Next, I’ll expand this macro to print the random values to the worksheet after the array has been built. If the range I assign the array to is shorter or narrower in size than the array, only part of the array will be printed. For example, if I use <code>Range("a1").Value = MyArr</code>, then only cell A1 will populate, and with the value at the top-left of <code>MyArr</code>. If I use <code>Range("a1:b2").Value = MyArr</code>, then the top-left 2x2 patch of the array will be printed to those 4 cells. Below I choose range A1:B40, since it is a 40x2 array.</p>
+
+        <img src="arr5.gif" style="height:250px;width:auto;" />
+
+        <p>If I had attempted to print it to more rows or columns than exist in the array, then the additional rows or columns will show #N/A errors.</p>
+
+        <p>To read an array from cells, we can similarly refer to the entire block of cells at once, such as:</p>
+
+        <p>
+        <code> 
+        Sub ReadArray() </br>
+        MyArr = Range("a1:b40") </br>
+        End Sub 
+        </code>
+        </p>
+
+        <p>Note that this doesn’t declare the array, and if we do, then we must 1) set it to the <code>Value</code> property of the cells, and b) either do not declare the size, or set the size using a <code>ReDim</code> statement. So, the following will work:</p>
+
+        <p> 
+        <code> 
+        Sub ReadToArray() </br>
+        Dim MyArr As Variant </br>
+        MyArr = Range("a1:b40").Value </br>
+        End Sub 
+        </code>
+        </p>
+
+        <p>As will the following:</p>
+
+        <p>
+        <code> 
+        Sub ReadToArray() </br>
+        Dim MyArr As Variant </br>
+        ReDim MyArr(1 To 40, 1 To 2) </br>
+        MyArr = Range("a1:b40").Value </br>
+        End Sub 
+        </code>
+        </p>
+
+
+        <h4>ReDim</h4>
+
+        <p>The <code>ReDim</code> keyword can be used to resize an array. It can only be used when the array is not dimensioned in its statement of declaration, such as in the below.</p>
+
+        <p> 
+        <code> 
+        Dim MyArr() As Variant </br>
+        ReDim MyArr(1 To 2, 1 To 4) </br>
+        ReDim MyArr(1 To 20, 1 To 40) 
+        </code>
+        </p>
+
+        <p>The first line creates the variable, the second line resizes it to 2x4, and the next line resizes it to 20x40. Note that when this occurs, the array is recreated, and any data held in its previous iteration is lost. To preserve the data of the original array (and create blank elements to fill out the rest), we can use the <code>Preserve</code> keyword. However, <code>Preserve</code> adds a constraint that we can only adjust the last dimension, such as in the following:</code></p>
+
+        <img src="arr6.gif" style="height:200px;width:auto;" />
+
+        <p>Had I tried to use <code>ReDim Preserve MyArr(1 to 20, 1 to 40)</code>, or even <code>ReDim Preserve MyArr(1 to 20, 1 to 4)</code>, then the result would be an error. To add rows to a multi-dimensional array in Excel VBA, you need to create a new array. When it is one-dimensional, however, the first column is the last column, and so you can freely <code>ReDim</code> and <code>Preserve</code> to add values to the list while preserving the old values.</p>
+
+
+        <h4>LBound and UBound</h4>
+
+        <p>You might be wondering, how do we get the size parameters of the array? When looping through one, for example, we do not want to have to hard-code the number of rows and columns. We can get this information through the <code>LBound</code> and <code>UBound</code> functions. The below creates a 1D two-element array and then uses a message box to show the lower and upper bound.</p>
+
+        <img src="arr7.gif" style="height:175px;width:auto;" /></br>
+        <img src="arr8.gif" style="height:175px;width:auto;" />
+
+        <p>For a 2D array, pass a second argument to the <code>LBound</code> and <code>UBound</code> functions, indicating which dimension of the array to look at (1 for rows, 2 for columns). For example, I’ll create a 2x4 array and then capture the upper bounds of each dimension in a message box.</p>
+
+        <img src="arr9.gif" style="height:175px;width:auto;" /></br>
+        <img src="arr10.gif" style="height:175px;width:auto;" />
+
+        <p>This assumes the lower bounds start at 1. Though I’m not sure why it would be practical, you could technically have the lower bound start at some other number that is lower than the upper bound. Therefore, a fully dynamic loop through a 2D array would look something like the following:</p>
+
+        <p>
+        <code> 
+        For i = LBound(MyArr, 1) To UBound(MyArr, 1) </br>
+        &nbsp;&nbsp;For j = LBound(MyArr, 2) To UBound(MyArr, 2) </br>
+        &nbsp;&nbsp;&nbsp;&nbsp;MyArr(i, j) = Cells(i, j) </br>
+        &nbsp;&nbsp;Next j </br>
+        Next i 
+        </code>
+        </p>
+
+
+
+    <h3>Speed Test</h3>
+
+        <p>For a speed comparison, I’ve generated a 20x4 table of random numbers in cells A1:D20, and will run and time two macros. The first will copy and paste the values in that table directly below the existing data, in a loop that will repeat 1000 times. The second will do the exact same, but store the data as an array and print it from that array, rather than performing the copy/paste operation.</p>
+
+        <p>To time a macro, we use the <code>Timer function</code>, which simply returns the current time (with a high degree of precision). I save the current time to a variable called <code>stTime</code>, let the code execute, and then save the current time tot a variable called <code>endTime</code>. The time it takes to execute is equal to the difference between the two. I set <code>Application.ScreenUpdating = False</code> so that screen updating does not add to the execution time.</p>
+
+        <img src="arr11.gif" style="height:375px;width:auto;" /></br>
+        <img src="arr12.gif" style="height:175px;width:auto;" />
+
+        <p>The result is 15.3 seconds, which would vary slightly from run to run. The macro which utilizes an array is as follows:</p>
+
+        <img src="arr13.gif" style="height:400px;width:auto;" />
+
+        <p>And the result – 0.3 seconds! Clearly the winner.</p>
+
+        <img src="arr14.gif" style="height:175px;width:auto;" />
+
+
+
+    <h3>Worksheet Functions on Arrays</h3>
+
+        <p>Conveniently, we can use <code>Application.WorksheetFunction</code> members on arrays, including <code>Sum</code>, <code>Min</code>, <code>Max</code>, and even <code>Vlookup</code>. Below I read in a 12x2 array where the first column is month numbers and the second column is month names, and then look up month #3 using the array, and display the result in a message box.</p>
+
+        <img src="arr15.gif" style="height:300px;width:auto;" /></br>
+        <img src="arr16.gif" style="height:200px;width:auto;" /></br>
+        <img src="arr17.gif" style="height:175px;width:auto;" />
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+    <h3>Built-In Functions</h3>
+
+        <p>Similar to the worksheet environment, the VBA environment has built-in functions (and as a side note, functions you create in the VBA environment can be called in the worksheet environment as a formula). The below discusses message/input functions, functions of the <code>Application.WorksheetFunction</code> class, the <code>Application</code> class, the <code>VBA</code> class, and text functions.</p>
+
+
+
+    <h3>Msgbox</h3>
+
+        <p>The <code>MsgBox</code> can be used to deliver information to a user, and grab simple responses from the user such as yes, no, or cancel (referred to on the back end as <code>vbYes</code>, <code>vbNo</code>, and <code>vbCancel</code>. The main arguments are as follows:</p>
+            <ol>
+                <li>Prompt: the message to display</li>
+                <li>Buttons: which potential user responses, such as yes, no, or cancel, to provide</li>
+                <li>Title: the title to display above the message</li>
+            </ol>
+
+        <p>For example, say we run a validation macro which discovers an illegal input by the user in cell A2. The macro could produce a message box to inform the user as such:</p>
+
+        <p><code>MsgBox "Illegal input in A2", , "Error Upon Validation"</code></p>
+
+        <p>And the result will look as follows:</p>
+
+        <img src="img1.gif" style="height:200px;width:auto;" />
+
+        <p>Leaving the second argument blank made the buttons argument default to <code>vbOKOnly</code>. A quirk is that, when a response is not being captured, if there are multiple arguments, then the arguments of the <code>MsgBox</code> are absent of brackets, whereas when grabbing a response, we do use brackets (confusing, but not my choice of design). When only displaying a message, you can do either. To capture a response from the user, we can create a variable and set it equal to the <code>MsgBox</code> function as it is called. For example:</p>
+
+        <p><code>Response = MsgBox("Potential Error in A2 - Continue?", vbYesNo, "Error Upon Validation")</code></p>
+
+        <p>If the response is no, the value of the variable <code>Response</code> will be <code>vbNo</code>. Given the response, we can use conditional statements to take specific actions that are dependent on the response. For example, given the response <code>vbNo</code>, we may want to stop execution of the macro encompassing the <code>MsgBox</code>, such as:</p>
+
+        <p>
+        <code> 
+        Response = MsgBox("Potential Error in A2 - Continue?", vbYesNo, "Error Upon Validation")</br>
+        If Response = vbNo Then</br>
+        &nbsp; &nbsp; Exit Sub</br>
+        End if
+        </code>
+        </p>
+
+        <p>We could also do this without explicitly referring to a variable, such as:</p>
+
+        <p>
+        <code>
+        If Msgbox("Potential Error in A2 - Continue?", vbYesNo, "Error Upon Validation") = vbNo Then</br>
+        &nbsp; &nbsp; Exit Sub</br>
+        End if
+        </code>
+        </p>
+
+        <p>To concatenate variables with the text we present to the user (in the message or title), we can use the ampersand. For example:</p>
+
+        <p>
+        <code>
+        Val = Range("a1").Value</br>
+        MsgBox("Range A1 Contains Value " & Val)
+        </code>
+        </p>
+
+        <p>To make the message span multiple lines, we can use the vbNewLine operator, such as:</p>
+
+        <p>
+        <code>
+        MsgBox("This is Line 1" & vbNewLine & "This is Line 2" & vbNewLine & "This is Line 3")
+        </code>
+        </p>
+
+        <img src="img2.gif" style="height:200px;width:auto;" />
+
+
+
+    <h3>InputBox</h3>
+
+        <p>Button options for the MsgBox include <code>vbYesNo</code>, <code>vbOKCancel</code>, <code>vbYesNoCancel</code>, and others (you will see them listed while typing as you populate that argument of the function). If you require input that doesn't conform to these simple responses, an alternative is the <code>InputBox</code>.</p>
+
+        <p>Suppose we require the name of the user. We can use the <code>InputBox</code> as follows:</p>
+
+        <p><code>UserName = InputBox("What is your name?")</code></p>
+
+        <img src="img3.gif" style="height:200px;width:auto;" />
+
+        <p>We can then print the user's name stored in the <code>UserName</code> variable to particular cells, or include it in the filename while saving, etc. We can use conditional statements to add a layer of validation, such as only accepting text or numerical input to our <code>InputBox</code>.</p>
+
+        <p>Additional arguments include the title, and the default value for entry. For example, the line of code</p>
+
+        <p><code>Rating = InputBox("How Would You Rate This Workbook out of 10?", "Please Provide Rating", 10)</code></p>
+
+        <p>will produce the following:</p>
+
+        <img src="img4.gif" style="height:200px;width:auto;" />
+
+
+
+    <h3>Application.WorksheetFunction</h3>
+
+        <p>Functions available in the worksheet environment are accessible in VBA under the <code>Application.WorksheetFunction</code> class, meaning that if you type that followed by a period, or search <code>WorksheetFunction</code> in the object browser, you will see a list including familiar operations like <code>Sum</code>, <code>Count</code>, <code>Counta</code>, etc., as well as lookup functions, statistical functions, and the rest. To get the sum of a series of values (such as those occupying a range of cells), I would use something like <code>MySum = Application.WorksheetFunction.Sum()</code>, with the items to sum over in the brackets. To perform a VLOOKUP upon a table spanning columns A and B of the active worksheet, I would use something like:</p>
+
+        <p><code>MyLkup = Application.WorksheetFunction.Vlookup(MyItem, Columns("A:B"), 2, False)</code></p>
+
+
+
+    <h3>Application Functions</h3>
+
+        <p>A level above the <code>WorksheetFunction</code> class is the <code>Application</code> class, the top of the hierarchy for most if not all objects that we can call upon. A couple of important Application-level functions are the <code>Application.ScreenUpdating</code> and <code>Application.EnableEvents</code> settings. </p>
+
+        <p><code>Application.ScreenUpdating = False</code> will speed up macro execution by preventing the display of active worksheets, etc. while the macro is running. <code>Application.EnableEvents = False</code> will prevent a macro from triggering events during execution (as we're usually only interested in triggers from the user). In both cases, you should set them back to <code>True</code> near the end of the macro, or else things like events will remain disabled.</p>
+
+
+
+    <h3>VBA Functions</h3>
+
+        <p>Another class of functions is <code>VBA</code> functions, notable capabilities of which include date manipulation and getting information about the Windows environment. There are many others (some of which we've covered, and did not require <code>VBA.</code> to precede them). I encourage you to explore them by typing <code>VBA.</code> or searching for it in the object browser.</p>
+
+        <p>Below illustrates the usage of 8 functions pertaining mostly to date manipulation, and an application of <code>VBA.Environ</code> in order to grab the Windows user name.</p>
+
+        <img src="img6.gif" style="height:375px;width:auto;" />
+
+
+
+    <h3>Text Functions</h3>
+
+        <p>Text functions are part of the <code>Strings</code> class, so if you search that in the object browser or type it followed by a period in the VB Editor, you will see the list of members. However, Excel does not require that we type the <code>Strings</code> keyword when calling upon them. Similar to the worksheet environment, we have <code>Left</code>, <code>Right</code>, <code>Mid</code>, as well as <code>Len</code> and <code>Trim</code>. Instead of UPPER and LOWER we have <code>UCase</code> and <code>LCase</code>, and we also have functions such as <code>Replace</code> <code>Split</code>, and <code>Join</code>.</p>
+
+        <p>Suppose that in column A we have data where each cell contains a list of items separated by commas, and for readability we want to insert a space after each comma. We could construct the following loop over rows, using the <code>Replace</code> operation within:</p>
+
+        <p>
+        <code>
+        LastRow = Range("a" & Rows.Count).End(xlUp).Row</br>
+        For i = 2 to LastRow</br>
+        &nbsp; &nbsp; Str = Range("a" & i).Value</br>
+        &nbsp; &nbsp; NewStr = Replace("Str, ",", ", ")</br>
+        &nbsp; &nbsp; Range("a" & i).Value = NewStr</br>
+        Next i
+        </code>
+        </p>
+
+        <p>The first argument of <code>Replace</code> is the text to search, the second is what we are searching for, a comma, and the second argument is what to replace it with, a comma followed by a space.</p>
+
+        <p>Suppose we now want to separate the items in the list. For example, cell A2 could contain the data <code>123, 456, 789</code>. Using the <code>Split</code> operation will convert the list into an array of separate items, based on a delimiter that we specify. Since the commas have a space after them, and supposing we don't want to have spaces in our separated elements, we will use a two-character delimiter; again, a comma followed by a space.</p>
+
+        <p>
+        <code>
+        MyArray = Split("123, 456, 789", ", ")</br>
+        Msgbox(MyArray(0))
+        </code>
+        </p>
+
+        <p>Executing the above code will produce a message box displaying "123", the first element of the 3-element array that was created by splitting the string upon the delimiter (note that the first element of the array is indexed by 0). Our first argument provided the text directly within the code, but we could also have referenced a cell or a variable instead.</p>    
+
+        <p>The opposite of the <code>Split</code> function is the <code>Join</code> function, which takes an array and concatenates the elements into a single string, glued together by a chosen delimiter. If we write the following, then the <code>Join</code> operation will undo the <code>Split</code> operation, and reconstruct the array from the split into the original text.</p>
+
+        <p>
+        <code>
+        MyArray = Split("123, 456, 789", ", ")</br>
+        Reconstructed = Join(MyArray, ", ")</br>
+        MsgBox(Reconstructed)
+        </code>
+        </p>
+
+        <img src="img5.gif" style="height:200px;width:auto;" />
+
+
+
+    <h3>Find</h3>
+
+        <p>Perhaps you are wondering where the FIND function resides. One version is callable as a <code>WorksheetFunction</code>, but there is also a VBA implementation which is a method under the <code>Range</code> object (this includes references to <code>Rows</code> or <code>Columns</code>). But they are not the same. The <code>WorksheetFunction.Find</code> method takes in:</p>
+            <ol>
+                <li>A character or series of characters to search for</li>
+                <li>A string within which to search for those characters, and</li>
+                <li>Optionally, a number of characters to skip over within that string before beginning the search.</li>
+            </ol>
+
+        <p>It returns a number specifying the index of the characters being searched for.</p>
+
+        <p>The <code>Range.Find</code> method takes in:</p>
+            <ol>
+                <li>A character, series of characters, or word to find</li>
+                <li>A range to search for cells which contain the search-item</li>
+            </ol>
+
+        <p>and then several other arguments, such as <code>LookAt</code>, which lets you specify <code>xlPart</code> to include cells where only part of the contents match the text being searched for, or <code>xlWhole</code> to return only cells where the entirety of the content is a match to the text being searched for.</p>
+
+        <p>An application of this is to locate columns of data based on their header. If you have a macro which imports data from one worksheet or workbook to another, this can allow you to insert additional columns while keeping the references in the code dynamic, such that no adjustment is required due to the new position of certain columns. Let's say we want to search the top row of the active sheet for a header that says "Sales".</p>
+
+        <p>
+        <comment>' Will require two arguments: row to search, and text to search for</comment></br>
+        <code>Function FindCol(Row as Long, Text as String) as Long</code></br>
+
+        <comment>' set an object called Rng to the cell location found by the search</comment></br>
+        <code>Set Rng = Rows(Row).Find(What:=Text, LookAt:=Whole, LookIn:=xlValues)</code></br>
+
+        <comment>' extract the column number of the cell location found</comment></br>
+        <code>FindCol = Rng.Column</code></br>
+
+        <code>End Function</code>
+        </p>
+
+        <p>Because the column number is saved to a variable with the same name as the function (<code>FindCol</code>), the function will return that value to the macro which called upon it (saving it to a specified variable if engineered as such). For example, the following code which calls upon the function will produce a message box with the column number of the header "Sales" (or produce an error if the text is not found).</p>
+
+        <p>
+        <code>
+        Sub GetSalesCol</br>
+
+        SalesCol = FindCol(1, "Sales")</br>
+        MsgBox(SalesCol)</br>
+
+        End Sub
+        </code>
+        </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

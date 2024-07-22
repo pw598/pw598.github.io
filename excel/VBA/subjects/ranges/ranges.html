@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+
+    <h3>What is a Range?</h3>
+
+        <p>A range is a collection of one or more cells. There are many ways to refer to range components, such as cells, rows, and columns. To reference a range in the familiar "A1" style, the Range keyword is used with the reference within brackets, such as <code>Range("a1").Select</code>.</p>
+
+        <p>To select a range of continuous cells, the start and end of the array must be separated by a colon, just like the regular worksheet environment (but with VBA keywords), such as <code>Range("a1:c6").Select</code>.</p>
+
+        <p>To select a non-continuous range, use a comma instead of the colon, like: <code>Range("a1","c6").Select</code>, or <code>Range("a1:a3","c3:c6").Select</code>.</p>
+
+
+
+    <h3>The Cells Keyword</h3>
+
+        <p>Another way to refer to a range is with the Cells keyword, which requires a row and column number, separated by brackets, such as <code>Cells(1,1).Select</code>. Alternatively, the column reference may be a letter, such as <code>Cells(1,"a").Select</code>.</p>
+
+        <p>To select multiple cells using the Cells keyword, the Range keyword must also be used, with the 'Cells'-references specifying the start and end of the range, such as: <code>Range(Cells(1,1),Cells(6,3)).Select</code>.</p>
+
+        <p>Using Cells with Range can be preferable to using the alphanumeric (ex. "A1") style of references, as purely numerical references can be easier to manipulate, and therefore more dynamic.</p>
+
+
+
+    <h3>Rows and Columns</h3>
+
+        <h4>Rows:</h4>
+
+            <p>Rows may be referred to in their entirety, using the Rows keyword, such as <code>Rows(1)</code>. Groups of rows may be referred to with a start and end-row, separated by a colon, and in bracketed quotation marks, like <code>Rows(“5:10”)</code>, or alternatively, the start and end row may be embedded in a Range statement (as with the Cells keyword), such as <code>Range(Rows(5),Rows(10)).Select</code>.</p>
+
+        <h4>Columns:</h4>
+
+            <p>Columns may also be referred to in their entirety, using the Columns keyword with either a bracketed integer, such as <code>Columns(3).Select</code>, or letter, such as <code>Columns("c").Select</code>. But unlike rows, a reference to a group of columns must either contain alphabetic references, like <code>Columns("a:c").Select</code>, or use the trick of embedding in a Range statement, like: <code>Range(Columns(5),Columns(10)).Select</code>.</p>
+
+
+
+    <h3>Assigning Values</h3>
+
+        <p>An assignment statement uses the equals sign, and an object on the left of that becomes equal to the result of the expression on the right.</p>
+
+        <p>For example, <code>Range("a1").Value = 2 + 3</code> will print the number 5 to cell A1. Or to change the color of cell C6 to red, we could use: <code>Range("c6").Interior.Color = vbRed</code>.</p>
+
+        <p>Values and properties can also be assigned to a group of cells at once, such as <code>Range("c1:c6").Interior.Color = vbRed</code>, or <code>Range("c1:c6").Value = Range("a1:a6").Value</code>.</p>
+
+        
+        <h4>Assignment Scope:</h4>
+
+            <p>The macro recorder will always record the action of activating a different workbook, or selecting a different sheet, before working with it. But ranges can actually be referred to across the open sheets and workbooks, without these extra steps. The result is cleaner code which is quicker to execute.</p>
+
+            <p>Excel's default assumption of scope, unless specified, is the current worksheet and workbook. If you want to refer to a cell or a range of a different parent object than the active sheet, and workbook, the parent object is followed by a period, and precedes the child object, such as:
+            <code>Sheets("Sheet1").Range("a2").Value = Sheets("MyCalculator").Range("b10").Value</code></p>
+
+            <p>If being done across workbooks, it could look something like this:</p>
+
+            <p><code>Workbooks(1).Sheets("Sheet1").Range("a2").Value =  _ <br />
+            Workbooks("MySource").Sheets("MySales").Range("d6").Value</code></p>
+
+            <p>In order to continue with the same command on a second line, the underscore symbol is used following a space, just like above.</p>
+
+
+
+    <h3>Copy and Paste</h3>
+
+        <p>Copy and Paste are also commonly used to assign values, or properites, but the syntax does not involve an equal sign, because the operation is a method rather than a simple assignment. A copy/paste of all elements from cell A1 to cell C1 can look like this:</p>
+
+        <p><code>Range("a1").Copy Range("c1")</code></p>
+
+        <p>It could also be written across multiple lines, such as:</p>
+
+        <p><code>Sheets("Sheet1").Range("a1").Copy</code> </p>
+        <p><code>Sheets("Sheet2").Range("b2").Paste</code></p>
+    
+        <p>This comes in handy when the references have long names, or when you want to perform additional actions in between the copy and the paste.</p>
+
+
+        <h4>PasteSpecial:</h4>
+
+            <p>A longer-form statement is necessary when you are not wanting to copy all elements. For example, it is common to want to paste values without pasting formulas or formatting. Each of these elements can be manipulated individually, with the <code>PasteSpecial</code> method.</p>
+
+            <p>Using the <code>PasteSpecial</code> method to paste only values would look something like this:</p>
+
+            <p><code>Range("a1").Copy</code></p>
+            <p><code>Range("c1").PasteSpecial(xlPasteValues)</code></p>
+            
+            <p>To do what the format painter does, and copy only formats to a new location, simply replace <code>xlPasteValues</code> with <code>xlPasteFormats</code>. The Intellisense dropdown will show the
+            full list of available selections while typing, as long as the syntax is being entered correctly.</p>
+
+            <p>Another useful type of paste is <code>xlPasteValuesAndNumberFormats</code>. This copies over the values, plus only the number-related formatting elements, such as how many digits to show after a decimal, and whether dollar-signs are shown on a particular column.</p>
+
+
+
+    <h3>Common Range Methods</h3>
+
+        <h4>Activate</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Activate</th></tr></thead><tbody>
+             <tr><td>Syntax & Parameters:</td><td>Activates a single cell, which must be inside the current selection</td></tr>
+             <tr><td>Description:</td><td>Range(<i>Reference</i>).<i>Expression</i></td></tr>
+             <tr><td>Examples:</td><td><code2>Range("a1:c3").Activate</code2> <comment>'activate A1:C3</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Set MyRange = Range("a1:c3")</code2> <comment>'create a range object</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>MyRange.Activate</code2> <comment>'select that range object, with cell A1 activated</comment></td></tr>
+            </tbody></table>
+
+
+        <h4>AutoFilter</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Autofilter</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Applies a filter to the desired range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td>expression.AutoFilter <i>(Field, Criteria1, Operator, Criteria2, SubField, VisibleDropDown)</i></td></tr>
+             <tr><td>Examples:</td><td><code2>Rows(1).Autofilter</code2> <comment>'add a filter to a table starting on row 1, or remove the application of a pre-existing filter</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("a1:c20").Autofilter</code2> <comment>'add or clear a filter to a table ranging A1:C20 (headers in row 1)</td></tr>
+             <tr><td>&nbsp;</td><td> <comment>'filter the second column of the table at A1:C20 to "MyFilterText"</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("a1:c20").AutoFilter Field:=2, Criteria1:="=MyFilterText", Operator:=xlAnd</code2></td></tr>
+             <tr><td>&nbsp;</td><td> <comment>'filter the second column of the table to rows containing "MyFilterText"</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("a1:c20").AutoFilter Field:=2, Criteria1:="=**MyFilterText**", Operator:=xlAnd</code2></td></tr>
+             <tr><td>&nbsp;</td><td> <comment>'filter the second column of the table at A1:C20 to numbers greater than 2</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>ActiveSheet.Range("$A$1:$A$7").AutoFilter Field:=1, Criteria1:=">2", Operator:=xlAnd</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>ClearContents</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>ClearContents</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Clears formulas and values from the range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.ClearContents</td></tr>
+             <tr><td>Examples:</td><td><code2>Worksheets("Sheet1").Range("a1:b20").ClearContents</code2> <comment>'clear contents of A1:B20 from Sheet1</comment></td></tr>
+            </tbody></table>
+
+
+        <h4>ClearFormats</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>ClearFormats</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Clears all formatting from the range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.ClearFormats</td></tr>
+             <tr><td>Examples:</td><td><code2>Worksheets("Sheet1").Range("a1:b20").ClearFormats</code2> <comment>'clear formats of A1:B20 from Sheet1</comment></td></tr>
+            </tbody></table>
+
+
+        <h4>Copy</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Copy</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Copies values and formatting from the range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Copy <i>(Destination)</i></td></tr>
+             <tr><td>Examples:</td><td><comment>'copy contents of A1:B20 from Sheet to the area starting at cell C1 of Sheet2</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Worksheets("Sheet1").Range("a1:b20").Copy Worksheets("Sheet2").Range("c1")</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Cut</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Cut</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Cuts values and formatting from the range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Cut <i>(Destination)</i></td></tr>
+             <tr><td>Examples:</td><td> <comment>'cut contents of A1:B20 from Sheet1, and paste to the area starting at cell C1 of Sheet2</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Worksheets("Sheet1").Range("a1:b20").Cut Worksheets("Sheet2").Range("c1")</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>PasteSpecial</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>PasteSpecial</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Pastes the values of a copied range to a specified range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.PasteSpecial <i>(Paste, Operation, SkipBlanks, Transpose)</i></td></tr>
+             <tr><td>Examples:</td><td><code2>Range("a1:b20").Copy</code2> <comment>'copy some data</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("d1").PasteSpecial Paste:=xlPasteValues</code2> <comment>'paste values of copied data only the area starting at cell D1</td></tr>
+             <tr><td>&nbsp;</td><td><code2>Sheets("Sheet1").Range("a1:b20").Copy</code2> <comment>'copy some data</comment></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'apply formats of A1:B20 of Sheet1 to the area starting at cell D1 of Sheet2</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Sheets("Sheet2").Range("d1").PasteSpecial Paste:=xlPasteFormats</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Select</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Select</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Selects a specified range</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Select</td></tr>
+             <tr><td>Examples:</td><td><code2>Range("a1:b20").Select</code2> <comment>'select the range A1:B20</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Selection.Copy</code2> <comment>'copy the values and formats of the selected range</comment></td></tr>
+            </tbody></table>
+
+
+        <h4>Sort</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Sort</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Sorts the specified range by value</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Sort <i>(Key1, Order1, Key2, Type, Order2, Key3, Order3, Header, OrderCustom, MatchCase, Orientation, SortMethod, DataOption1, DataOption2, DataOption3)</i></td></tr>
+             <tr><td>Examples:</td><td><comment>'sort a table raning A1:B7 including headers by column B, descending</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>ActiveWorkbook.Worksheets("Sheet1").Sort.SortFields.Clear</code2></td></tr>
+             <tr><td>&nbsp;</td><td><code2>ActiveWorkbook.Worksheets("Sheet1").Sort.SortFields.Add2 Key:=Range("B2:B7") _</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>, SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:=xlSortNormal</code2></td></tr>
+             <tr><td>&nbsp;</td><td><code2>With ActiveWorkbook.Worksheets("Sheet1").Sort</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>.SetRange Range("A1:B7")</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>.Header = xlYes</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>.MatchCase = False</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>.Orientation = xlTopToBottom</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>.SortMethod = xlPinYin</code2></td></tr>
+             <tr><td>&nbsp;</td><td>&nbsp;&nbsp;    <code2>.Apply</code2></td></tr>
+             <tr><td>&nbsp;</td><td><code2>End With</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>SpecialCells</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>SpecialCells</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>Returns a Range object that represents all the cells that match the specified type and value</td></tr>
+             <tr><td>Syntax & Parameters:</td><td><i>expression</i>.SpecialCells <i>(Type, Value)</i></td></tr>
+             <tr><td>Examples:</td><td><code2>ActiveSheet.Cells.SpecialCells(xlCellTypeConstants).Activate</code2> <comment>'activate cells with values</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>ActiveSheet.Cells.SpecialCells(xlCellTypeFormulas).Activate</code2> <comment>'activate cells with formulas</comment></td></tr>
+            </tbody></table>
+
+
+
+
+    <h3>Common Range Properties</h3>
+    
+        <h4>Column</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Column</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>the number of the first column in the first area in the specified range</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.Column</td></tr>
+             <tr><td>Examples:</td><td><comment>'save 2, the column number of B2, to variable Col</comment></td></tr>
+              <tr><td>&nbsp;</td><td><code2>Col = Range("b2").Column</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'save 2, the column number of the first column in the array referenced, to variable firstCol</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>firstCol = Range("b2:d10").Column</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Columns</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Columns</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>a reference to particular columns in an array (width of the entire sheet if array unspecified)</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.Columns or Columns .<i>expression</i></td></tr>
+             <tr><td>Examples:</td><td><comment>'get last column of array by same operation as ctrl+left from the right side of the sheet</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>LastRow = Cells(1, Columns.Count).End(xlToLeft).Column</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'delete range B2:B10 (column 1) of the array referenced</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("b2:d10").Columns(1).Delete 'delete range B2:B10 (column 1) of the array referenced</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>End</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>End</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>the cell at the end of the region that contains the source range. Equivalent to ctrl+left, ctrl+right, etc.</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.End <i>(Direction)</i></td></tr>
+             <tr><td>Examples:</td><td><code2>LastRow = Range("a1").End(xlDown).Row</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Formula</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Formula</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>the formula a cell is populated by</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.Formula</td></tr>
+             <tr><td>Examples:</td><td><comment>'set D1 equal to the sum of cells A2:A5</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("d1").Formula = "=SUM(A2:A5)"</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>set D1 to a text value based on the text in cell A2</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>IF(A2="""",""cell is blank"",""cell is populated"")</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Row</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Row</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>the number of the first row in the in the specified range</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.Row</td></tr>
+             <tr><td>Examples:</td><td><comment>'save 2, the row number of C2, to variable R</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>R = Range("c2").Row</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'saves 5, the first row of the array, to variable firstRow</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>firstRow = Range("b5:d10").Row</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Rows</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Rows</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>a reference to particular rows in an array (height of entire sheet if array unspecified)</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.Rows or Rows.<i>expression</i></td></tr>
+             <tr><td>Examples:</td><td><comment>'get last row of array by same operation as ctrl+up from the bottom of the sheet</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>LastRow = Range("a" & Rows.Count).End(xlUp).Row</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'delete range C2:D5 (rows 2 through 4) of the array referenced below</comment></td></tr>
+              <tr><td>&nbsp;</td><td><code2>Range("b2:d10").Rows("2:4").Delete</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Value</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Value</th></tr></thead><tbody>
+             <tr><td>Description:</td><td>the value a cell contains</td></tr>
+             <tr><td>Syntax</td><td><i>expression</i>.Value</td></tr>
+             <tr><td>Examples:</td><td><comment>'set D1 equal to A1</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("d1").Value = Range("a1").Value</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'set D1 of Sheet2 equal to A1 of Sheet1</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Sheets("Sheet2").Range("d1").Value = Sheets("Sheet1").Range("a1").Value</code2></td></tr>
+             <tr><td>&nbsp;</td><td><comment>'set A1:B10 to have the value 2</comment></td></tr>
+             <tr><td>&nbsp;</td><td><code2>Range("A1:B10").Value = 2</code2></td></tr>
+            </tbody></table>
+
+
+
+    <h3>Cells Methods and Properties</h3>
+
+        <p>The <code>Cells</code> keyword lets you refer to a range, therefore the usage of the methods and properties are the same as in the examples above, only with the <code>Range</code> reference either replaced or supplemented by a usage of the keyword <code>Cells</code>. For example:</p>
+            <ul>
+                <li><code>Cells(2,3).Activate</code> <comment>'activate cell C2</comment></li>
+                </br>
+                <li><code>Range(Cells(1,1), Cells(3,2)).Select</code> <comment>'select A1:B3</comment></li>
+                </br>
+                <li><code>Cells(1,4).Formula = "=SUM(A2:A5)"</code> <comment>'add a formula to cell D1</comment></li>
+                </br>
+                <li><code>Range(Cells(1,1), Cells(10,5)).Value = 20</code> <comment>'set value of A1:E10 to 20</comment></li>
+            </ul>
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+</body>
+</html>

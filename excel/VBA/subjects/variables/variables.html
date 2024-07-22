@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+
+    <h3>What Are Variables?</h3>
+
+        <p>In computing, we are constantly manipulating values stored in memory. Binding values to variables is how objects are created (or destroyed) and labeled, and the properties and methods made accessible.</p>
+
+        <p>A variable is a piece of info encapsulated in a name-to-value(s) association; it is data stored in memory during code execution. As suggested by the term, the value is dynamic, and can change over time. Variables reduce the need for repetition, or manual input, and can be used to label items with plainer language.</p>
+    
+
+
+    <h3>Declaration</h3>
+
+        <p>Declaring a variable announces its presence in computer memory, though in many cases it is optional. If you go ahead and use a variable without declaring it, by default Excel will attempt to create it for you. But, declaring your variables is recommended, as it ensures more consistent usage, and aside from often being necessary for functionality, is important for things like debugging and validation. The upper and lower case letters of a variable will match the cases used in the declaration, so I declare in 'CamelCase', but type in lower case, and catch typos when I notice that the variable name I just typed remained entirely in lower-case.</p>
+
+        <p>Variables can be declared using the <code>Dim</code> statement, such as <code>Dim MyVar</code>. However, it is also typical to specify the data-type (discussed below) using <code>As</code>, such as <code>Dim MyVar As String</code>.</p>
+
+
+
+    <h3>Data Types</h3>
+
+        <p>Data types tell the machine how to interpret the format of a variable, as well as how much memory is required. Some intuitively understood ones are <code>String</code> (text), <code>Date</code>, and <code>Currency</code>.</p>
+
+        <p>Numerical types are more diverse; <code>Integer</code> and <code>Long</code> are for whole-number storage, but because of the amount of memory allocated, <code>Integer</code> can only be used for values between -32,768 and 32,767, whereas <code>Long</code> can hold much greater values, positive or negative, 
+        for whole numbers.</p>
+
+        <p>To include decimal-figures, there is a type called <code>Decimal</code>, a type called <code>Double</code>, and as mentioned above, <code>Currency</code>. A complete breakdown of common data types, including the differences in bytes used, can be found on the Microsoft Docs site:
+        <a href="https://docs.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/data-type-summary">https://docs.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/data-type-summary</a></p>
+
+
+        <h4>Option Explicit</h4>
+
+            <p>Option explicit is a setting which forces you to declare your variables, meaning undeclared variables will not be recognized, and will instead produce an error, interrupting code execution.</p>
+
+            <p>To enable it in the immediate module, type <code>Option Explicit</code> at the top of the code window (outside of any macros). To set it as your default, in the VB Editor go to <em>Tools > Options</em>, and in the first tab of the window which pops up, put a check mark next to “Require Variable Declaration”, and press OK. Any modules you create from that point forward will have "Option Explicit" at the top, unless you decide to disable it.</p>
+
+            <img src="optexplicit.png" alt="optexplicit.png" style="height:350px;width:auto;" />
+
+
+    <h3>Special Types</h3>
+
+        <p>There are <code>Object</code> variables, as well as names for particular classes of object-variables, like <code>Workbook</code>, <code>Worksheet</code>, and <code>Range</code>. This allows the values in memory to be referred to more efficiently, by the identity of the object rather than the name property it possesses. To set an object variable equal to some object, we use the <code>Set</code> keyword. Once the object variable is set, 'Intellisense' tooltips will appear after typing it followed by a period in the code.</p>
+    
+        <img src="obj_vars.png" alt="obj_vars.png" style="height:350px;width:auto;" />
+
+        <p>Type <code>Variant</code> can be recognized as whatever data type is expected at the time, and so it's type is variable, as well as it's value(s).</p>
+
+        <p>Arrays - lists and tables of data in memory - do not have a data type called array. Rather, their data-type represents the elements within, but with a special form of declaration, such as <code>Dim MyList(1 to 6) As String</code>, or <code>Dim MonthNumArray(1 to 12, 1 to 2) As Variant</code>. Arrays are the subject of a later section.</p>
+
+
+
+    <h3>Variable Scope</h3>
+
+        <p>Variables have a scope in which they are recognized. For example, if declared within a sub-procedure, the recognition of that variable is limited to that sub-procedure. If <code>Option Explicit</code> is in effect, then attempting to use that variable elsewhere will likely produce an error.</p>
+
+        <p>Module-level scope is achieved by placing the declaration at the top of a module, outside of any subs or functions. It can then be read by any macros within that module.</p>
+
+
+        <h4>Public and Private</h4>
+
+            <p>There exists <code>Public</code> and <code>Private</code> scope as well. Using the <code>Dim</code> keyword is the same as using <code>Private</code>. What the keyword <code>Public</code> does is make a variable accessible all throughout the project.</p>
+
+            <p>This also applies to Subs and Functions; the default scope is <code>Private</code>, but <code>Public</code> may be assigned by preceding the sub or function name.</code></p>
+
+            <p>Below, I populate Module1 with a sub of private-level scope and a sub of public-level scope.</p>
+
+            <img src="subs.png" alt="subs.png" style="height:200px;width:auto;" />
+
+            <p>Then, I create a Module2 and populate it with two macros, one each for calling the private and public subs created in Module1.</p>
+
+            <img src="calls.png" alt="calls.png" style="height:220px;width:auto;" />
+
+            <p>There are no issues calling <code>MyPublicSub</code>, but running the sub which calls upon <code>MyPrivateSub</code> results in the following error, because of the Private scope.</p>
+
+            <img src="error.png" alt="calls.png" style="height:180px;width:auto;" />
+
+            <p>Using <code>Public</code> can be handy when referencing a very common variable or function. When not truly necessary, you may find that the containment provided by module and procedure-level
+            scope as a default helps to better stay organized and avoid conflicts. I let variables and procedures graduate to public scope only as needed.</p>
+       
+
+
+    <h3>Constants</h3>
+
+        <p>Sometimes, you do not need a variable's value to be dynamic, as you only intend to use it for one thing. For that, a constant may be used instead.</p>
+
+        <p>Say you have a list of currency amounts, and that some will have a factor applied against them due to late payment. The variable holding the amounts must have a dynamic value, but the factor may be static.</p> 
+
+        <p>Or say you are looping through a list of files in a single folder; the variable holding the file names must be dynamic, but the name of the folder may be entered as a constant.</p>
+
+        <p>Declaring items as a constant rather than variable can help to ensure usage as intended. Like a variable, it also has value in letting you assign a plain-language name.</p>
+
+        <p>Declaring a constant is like declaring a variable, but with the word <code>Const</code> instead of <code>Dim</code>, and with the value-assignment occurring at the same time, such as <code>Const MyNum As Integer = 5</code>.</p>
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+</body>
+</html>

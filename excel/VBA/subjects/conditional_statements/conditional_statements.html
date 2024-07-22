@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+    <h3>What Are Conditional Statements?</h3>
+
+        <p>Common to programming languages, conditional statements are commands which dictate whether following areas of code will be executed. Like variables and loops, they make code more dynamic, and better able to perform complex tasks without interruption.</p>
+
+
+
+    <h3>If... Else... End If</h3>
+
+        <p>Like the worksheet environment, VBA has an <code>If</code> function, which evaluates whether a specific criteria is true, and lets you dictate specific actions to take if so. It can also be told to execute something else if the criteria evaluates to false. The syntax of this function requires the keywords <code>If</code>, <code>Then</code>, and <code>End If</code>, such as:</p>
+
+        <p>
+            <code>If</code><em> Specified Action</em> <code>Then</code><br />
+            &nbsp;&nbsp;&nbsp;<em>Action to Take If True</em><br />
+            <code>End If</code>
+        </p>
+
+        <p>When supplying an action to be executed if the criteria evaluates to be false, the <code>Else</code> statement is required, such as:</p>
+
+        <p>
+            <code>If</code> <i>Specified Action</i> <code>Then</code><br />
+            &nbsp;&nbsp;&nbsp;<em>Action to Take If True</em><br />
+            <code>Else</code><br />
+            &nbsp;&nbsp;&nbsp;<em>Action to Take If False</em><br />
+            <code>End If</code>
+        </p>
+
+        <p>Unless specifying an action to take if false, you can condense the statement to one line, adding a colon after <code>Then</code>, and omitting the <code>End If</code>, such as:</p>
+
+        <p><code>If Specified Criteria Then:</code> <em>Action to take if true</em></p>
+
+
+
+    <h3>Indentation and Embedding</h3>
+
+        <p>It is a best practice to indent the actions contained by a condition, or loop. In VBA it is not mandatory, but it helps to make code more readable. If there are multiple levels of containment, there should be multiple levels of indentation, such as:</p>
+
+        <p>
+            <code>If Range("a1").Value = "Hello" Then</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Cell contains Hello"</code><br />
+            <code>Else</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>If Range("a1").Value = "Goodbye" Then</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Cell Says Goodbye"</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Else</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Cell contains something else"</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>End If</code><br />
+            <code>End If</code>
+        </p>
+
+
+
+    <h3>ElseIf Statements</h3>
+
+        <p>Dealing with multiple levels of indentation can become cumbersome, especially if there are numerous levels of conditions which branch out from the first one. One alternative to enhance organization and readability is the <code>ElseIf</code> statement, which essentially concatenates the <code>Else</code> of an <code>If</code> statement with the <code>If</code> of the next statement; but only requires a single <code>End If</code>, such as:</p>
+
+        <p>
+            <code>If Range("a1").Value = "Hello" Then</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Cell contains Hello"</code><br />
+            <code>ElseIf Range("a1").Value = "Goodbye" Then</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Cell contains Goodbye"</code><br />
+            <code>Else</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Cell contains something else"</code><br />
+            <code>End If</code><br />
+        </p>
+
+
+    <h3>Case Statements</h3>
+
+        <p>The <code>Case</code> statement makes it simple to deal with numerous criteria and potential decisions. For each criteria in a top-down list, if the condition is true, the following action is taken, and the rest of the Case statement ignored. The syntax is illustrated in the below example:</p>
+
+        <p>
+            <code>MyNumber = 2</code><br /><br />
+            <code>Select Case MyNumber</code><br />
+            <code>Case Is = 0</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>MyText = "zero"</code><br />
+            <code>Case Is = 1</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>MyText = "one"</code><br />
+            <code>Case Is = 2</code><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>MyText = "two"</code><br />
+            <code>End Select</code><br /><br />
+            <code>Msgbox MyNumber</code><br /><br />
+        </p>
+
+        <p>Like the <code>If</code> statement, you can condense simple evaluations to one line by using a colon, such as:</p>
+
+        <p><code>Case Is = 2: MyText = "two"</code></p>
+
+
+
+    <h3>Common Integrations</h3>
+
+        <h4>Goto:</h4>
+
+            <p>A common integration with conditional statements is the <code>Goto</code> statement, which forces code execution to skip to a particular line of the same macro, identified below by a text label and a colon.</p>
+
+            <p>Over-use of <code>Goto</code> statements is detrimental toward organization, but it helps to deal with unwanted or unexpected scenarios.</p>
+
+            <p>Say that, for a list of books, you are populating the year published in an adjacent column, but some rows already have a value populated, which you do not want to overwrite. A <code>Goto</code> statement can be used to skip to the end of the loop for those rows, such as:</p>
+
+            <p>
+                <code>For i = 5 to 50</code><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>If Columns(2).Rows(i).Value <> "" Then</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Goto AlreadyPopulated</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Else</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Columns(2).rows(i).Formula = "=VLOOKUP(B" & i & ",datasheet!A:B,2,false)"</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>End If</code><br />
+                <code>AlreadyPopulated:</code><br />
+                <code>Next i</code>
+            </p>
+
+            <p class="exercise">Exercise: The above makes for a simple illustration of the Goto statement, but was not the most efficient way to perform this task. How would you make it more efficient?</p>
+
+
+        <h4>Exit Sub:</h4>
+
+            <p>It is also quite common to want to leave a sub-procedure early; for example, if an error is encountered, or if the desired objective has already been achieved.</p>
+
+            <p>The <code>Exit Sub</code> statement makes code execution skip to the <code>End Sub</code> line. If the macro containing <code>Exit Sub</code> was called upon by an encompassing procedure, the code execution will return to where it left off in the encompassing procedure.</p>
+
+            <p>The below macro ensures a particular sheet is visible, but exits the macro once it is found, rather than continuning to loop through all sheets.</p>
+
+            <img src="exitsub.png" alt="exitsub.png" style="height: 250px; width: auto;" />
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+</body>
+</html>

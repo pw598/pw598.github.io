@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+    
+
+
+    <h3>Object-Oriented Programming</h3>
+
+        <p>Computing involves functions and processes acting upon many underlying layers of functions and processes. Objects group specific functions and processes together, such that there are pre-defined relationships.</p>
+
+        <p><i>Properties</i> are the attributes of an object, such as size, color, or contents. <i>Methods</i> are actions which may be executed against a given object or it's properties, such as copy, paste, or delete.</p>
+
+        <p>Consider the analogy of a car. Properties include attributes like size and color, make and model, how old it is, and how many miles. Methods, on the other hand, would include actions such as start, accelerate, turn, and brake.</p>
+
+        <p>Why am I telling you all this?  Well, objects are important because they provide structure, and that structure enables capabilities which make it easy to identify the command or syntax that you are looking for. For example, by using a tool like the 'Object Browser', which is covered below.</p>
+
+        <p>'Intellisense' lists of available commands that appear while you are typing, only do so because of specific associations. If there were no objects, there would be no associations, and any list to prompt your next command would be overloaded, and almost entirely redundant.</p>
+
+        <p>Furthermore, object-oriented programming means that you can refer to your variables as objects; more directly than by name, which is a property. This has several advantages, including Intellisense dropdowns after you type the name of your variable; and also faster processing. Variables are the topic of an upcoming section.</p>
+
+
+
+    <h3>Object Hierarchy</h3>
+
+        <p>Objects are hierarchical – for example, there is the hierarchy of <em>Application > Workbook > Worksheet > Range >  Cell</em></p>
+
+        <p>The property of one object can be an object in itself, with its own associated methods and properties.
+        To reference a child object through its parent object, the two are separated by a period, such as <code>Workbooks(1).Worksheets(“Sheet1”).Range("a1")</code></p>
+
+
+    <h3>The Object Browser</h3>
+
+        <p>Organizing functions as objects provides a natural way to structure the efficient indexing and lookup of capabilities. The Object Browser is a feature of the VBA editor that lets you search classes (objects) and their members (methods and properties). From within the VBA editor, press F2 or click on the button shown below in order to bring the Object Browser up.</p>
+
+        <img src="obj_br_button.png" alt="obj_br_button.png" style="height:100px;width:auto;" />
+
+        <p>In the left pane of what comes up, the classes are listed. This includes things like <code>Workbook</code>, <code>Worksheet</code>, <code>Range</code>, <code>Autofilter</code>, <code>PivotTable</code>, etc. Select any class object and the methods and properties will be displayed in the right pane. This helps to clarify what you would use and how you would use it in order to accomplish specific objectives, whenever it is not immediately obvious. Above the left pane is a search box for the classes.</p>
+
+        <img src="obj_browser.png" alt="obj_browser.png" style="height:300px;width:auto;" />
+
+        <p>When you are ready to close it, use the small X next to the larger X in the top-right corner.</p>
+        
+
+    <h3>Worksheets, and 'Sheets'</h3>
+
+        <p>Worksheets can be referred to by name, or by number (i.e., the left-to right index of position). They can also be referred to using "Sheets", rather than "Worksheets". To refer to a sheet by name, put it in between brackets and quotation marks, such as <code>Sheets("MySheetName").Select</code></p>
+
+        <p>Referring to it by index-number would look like <code>Sheets(1).Select</code>, perhaps using a different number.</p>
+
+        <p>The <code>ActiveSheet</code> object is something that comes in handy in various situations, such as naming a newly created sheet, as it becomes the active sheet. Using it to create and then rename a sheet would look something like:</p>
+        
+        <p><code>Sheets.Add</code></p>
+        <p><code>ActiveSheet.Name = "MyNewSheet"</code></p>
+
+        <p>You can also refer to a sheet more directly, by it's code-name. The code name will not necessarily be the same as the text name, especially if the sheet has been renamed in the worksheet environment.</p>
+
+        <p>The code name is displayed in the Properties Explorer (which you can access from the VB Editor). In the below example, I have changed the name of the sheet originally named "Sheet1" to "A New Name"; but in the Properties Explorer, it still shows "Sheet1", because the underlying code-name has not been changed. Above that, in the Project Explorer, you can see that each sheet displays its text-name in brackets, next to the code name.</p>
+
+        <img src="shtcodename.png" alt="shtcodename.png" style="height:400px;width:auto;" />
+
+        <p>Code names are editable, but may not contain spaces. To refer to a sheet by it's code name, drop the brackets and quotation marks, such as:</p>
+
+        <p><code>Sheet1.Select</code></p>
+
+        <p>And if it is recognized,  Intellisense suggestions for other commands will appear following your typing of the period.</p>
+
+
+
+    <h3>Scope and Specificity</h3>
+
+        <p>When referring to an object, such as a workbook, worksheet, or range of cells, Excel assumes you are referring to the active workbook and worksheet, unless otherwise specified. Assigning equivalence from a cell on a different sheet than selected could look something like this:</p>
+
+        <p><code>Range("A1").Value = Sheets("MyData").Range("B2").Value</code></p>
+
+    <h4>Why You Often Do Not Need To Select</h4></p>
+
+        <p>Because of the ability to run actions against an inactive or non-selected worksheet, the Select command is typically unnecessary, unless for display purposes. Avoiding Select when unnecessary will help keep code lean, and boost the execution speed.</p>
+
+
+
+    <h3>Workbooks</h3>
+
+        <p>Workbooks, like worksheets, may be referenced either by name or by number, and in the same syntax, such as <code>Workbooks("MyWorkbook").Activate</code>, or <code>Workbooks(3).Activate</code>, with the number referring to the order in which it was opened. For workbooks, you must use the method 'Activate' to set focus.</p>
+
+
+
+    <h3>Common Workbook Methods</h3>
+
+        <h4>Activate</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Activate</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Like Select for worksheets, Activate has the effect of making a particular workbook the object of focus, and has no optional arguments</td></tr>
+                    <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Activate</td></tr>
+                    <tr><td>Examples:</td><td><code2>Workbooks("MyWbName").Activate</code2>  <comment>'activates a workbook called MyWbName</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Workbooks(1).Activate</code2>  <comment>'activates the first-opened workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.Activate</code2>  <comment>'activates the workbook which contains the macro</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>MyWorkbookName.Activate</code2>  <comment>'activates MyWorkbookName if declared as a workbook-variable</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Save</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Save</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Save will save the referenced workbook using the current filename, and has no optional arguments</td></tr>
+                    <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Save</td></tr>
+                    <tr><td>Examples:</td><td><code2>Workbooks("MyWbName").Save</code2>  <comment>'saves a workbook called MyWbName</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Workbooks(1).Save</code2>  <comment>'saves the first-opened workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.Save</code2>  <comment>'saves the workbook containing the macro</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>MyWbName.Save</code2>  <comment>'saves MyWbName if declared as a workbook-variable</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Save As</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>SaveAs</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>SaveAs will save the open workbook which is referenced, using a specified filename</td></tr>
+                    <tr>
+                        <td>Syntax & Parameters:</td>
+                        <td>
+                            <i>expression</i>.SaveAs (FileName, FileFormat, Password, WriteResPassword, ReadOnlyRecommended, </br>
+                            CreateBackup, AccessMode, ConflictResolution, AddToMru, TextCodepage, TextVisualLayout, Local)
+                        </td>
+                    </tr>
+                    <tr><td>Definitions:</td><td>FileName: mandatory, the name the workbook is to be saved with</td></tr>
+                    <tr><td>&nbsp;</td><td>FileFormat: the type of file that the workbook is to be saved as (alternatively, you may</td></tr>
+                    <tr><td>&nbsp;</td><td>specify its extension in the filename)</td></tr>
+                    <tr><td>&nbsp;</td><td>Password: a password that will be required in order to open the file</td></tr>
+                    <tr><td>&nbsp;</td><td>WriteResPassword: a password that will be required in order to edit the file</td></tr>
+                    <tr><td>Examples:</td><td><code2>ThisWorkbook.SaveAs "MyWbName.xlsm"</code2> <comment>'referring to workbook by name</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.SaveAs FileName:="MyWbName", FileFormat:=Excel.xlCSV</code2>  <comment>'more than one argument appiled</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>MyWbName.SaveAs "New Name.xlsx"</code2>  <comment>'referring to a workbook-type variable</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Close</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Close</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Close will close the open workbook which is referenced</td></tr>
+                    <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Close (SaveChanges, FileName, RouteWorkbook)</td></tr>
+                    <tr><td>Definitions:</td><td>SaveChanges: whether to overwrite file of same name if exists</td></tr>
+                    <tr><td>&nbsp;</td><td>FileName: the name the workbook is to be saved with</td></tr>
+                    <tr><td>Examples:</td><td><code2>ThisWorkbook.Close</code2>  <comment>'simple close, will ask user whether to save</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.Close  SaveChanges:=vbTrue</code2>  <comment>'saves changes</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.Close  SaveChanges:=vbYes</code2>  <comment>'also saves changes</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.Close  SaveChanges:=vbFalse</code2>  <comment>'does not save changes</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ThisWorkbook.Close  SaveChanges:=vbNo</code2>  <comment>'also does not save changes</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Protect</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Protect</th></tr></thead><tbody>
+             <tr><td>Purpose:</td><td>Protects a workbook so that it cannot be modified</td></tr>
+             <tr><td>Syntax & Parameters:</td><td>ActiveWorkbook.Protect(Password, Structure, Windows)</td></tr>
+             <tr><td>Definitions:</td><td>Password: password for the workbook</td></tr>
+             <tr><td>&nbsp;</td><td>Structure: True to protect the structure of the workbook</td></tr>
+             <tr><td>&nbsp;</td><td>Windows: True to protect the workbook windows</td></tr>
+             <tr><td>Examples:</td><td><code2>ActiveWorkbook.Protect "MyPassword", True, False</code2></td></tr>
+            </tbody></table>
+
+
+
+    <h3>Common Workbook Properties</h3>
+
+        <h4>Name</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Name</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Refers to the text name that a workbook is given</td></tr>
+                    <tr><td>Syntax</td><td>Workbooks("Name").<i>Method</i></td></tr>
+                    <tr><td>Examples:</td><td>Workbooks("MyWbName.xlsx").SaveAs Filename:="New Name.xlsx"</code2>  <comment>'saves using name reference</comment></td></tr>
+                    <tr><td>&nbsp;</td><td>Workbooks("MyWbName.xlsx").Close  SaveChanges:=vbYes</code2>  <comment>'also saves changes</comment></td></tr>
+                    <tr><td>&nbsp;</td><td>Workbooks("MyWbName.xlsx").Sheets.Count</code2>  <comment>'returns the count of sheets in that workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td><comment>'to loop through workbooks, searching for one by name:</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>For Each Workbook in Workbooks</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>If Workbook.Name = "AnyNameHere.xlsx" Then</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code2>Workbook.Activate</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>End If</code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Next Workbook</code2></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>FullName</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Property:</th><th>FullName and Path</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>FullName refers to the entire file name, including directories</td></tr>
+                    <tr><td>&nbsp;</td><td>Path refers to the entire file name minus the workbook name</td></tr>
+                    <tr><td>Syntax</td><td>Workbooks("FullName").<i>Method</i></td></tr>
+                    <tr><td>Examples:</td><td><comment>'to capture and display the directory pathway, using a string variable:</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Dim wbPath as String</code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>wbPath = ThisWorkbook.Path</code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Msgbox wbPath</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td><comment>'to capture and display this workbook's full name, using a string variable:</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Dim wbFullNm as String</code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>wbFullNm = ThisWorkbook.FullName</code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Msgbox wbFullNm</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td><comment>'to loop through workbooks, searching for one by full-name:</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>For Each Workbook in Workbooks</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>if Workbook.FullName = "C\Users\Desktop\AnyNameHere.xlsx" Then</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code2>Workbook.Activate</code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>End If</code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Next Workbook</code2></td></tr>
+                </tbody>
+            </table>
+
+
+
+    <h3>Common Worksheet Methods</h3>
+
+        <h4>Add</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Add</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Creates a new worksheet </td></tr>
+                    <tr><td>Syntax & Parameters:</td><td>Sheets.Add(Before, After, Count, Type)</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets.Add</code2> 'creates a new sheet at the far left of the workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets.Add after:=Sheets(Sheets.Count)</code2> <comment>'creates a new sheet at the far right of the workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets.Add Count:=3</code2> <comment>'adds 3 new sheets at the far left of the workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets.Add after:=Sheets(Sheets.Count), Count:=3</code2> <comment>'adds 3 new sheets at the far right of the workbook</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets.Add Type:=xlChart</code2> <comment>'creates a new chart sheet, rather than the normal type</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Copy</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Copy</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Copy creates a duplicate of the desired worksheet, and lets you assign it's left-to-right position index</td></tr>
+                    <tr><td>&nbsp;</td><td>Without specifying a 'before' or 'after' position, it will create a new workbook, containing the sheet copied</td></tr>
+                    <tr><td>Syntax & Parameters:</td><td>Worksheets("MyCharts").Copy After:=Worksheets("MyData")</td></tr>
+                    <tr><td>&nbsp;</td><td>Sheets("MyCharts").Copy After:=Sheets("MyData")</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets("MyShtName").Copy</code2>  <comment>'creates a new workbook containing only a copy of "MyShtName"</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(1).Copy Before:=Sheets(1)</code2>  <comment>'Copies the first sheet and places it to the left</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ActiveSheet.Copy After:=Sheets(Sheets.Count)</code2>  <comment>'copies the active sheet and places it on the far-right</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Delete</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Delete</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Purpose:</td>
+                        <td>
+                            Delete will eliminate the referenced sheet. It will also generate an alert, asking the user whether they are sure, however
+                            there ways to suppress this.
+                        </td>
+                    </tr>
+                    <tr><td>Syntax & Parameters:</td><td>Sheets("MyJunkSheet").Delete</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets(1).Delete</code2>  <comment>'delete the sheet on the far-left</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(Sheets.Count).Delete</code2>   <comment>'delete the sheet on the far-right</comment></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td><comment>'to delete by sheet name, and suppress the alert:</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Application.DisplayAlerts = False</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets("OldSheet").Delete</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Application.DisplayAlerts = True</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td><comment>'to delete a sheet of a given name if found, and suppress the alert to the user:</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>For Each Sheet in Sheets</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>If Sheet.Name = "NameSearchingFor" Then</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code2>Application.DisplayAlerts = False</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code2>Sheet.Delete</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code2>Application.DisplayAlerts = True</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>End If</code2> </td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Next Sheet</code2> </td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Move</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Copy</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Moves the position of the desired worksheet</td></tr>
+                    <tr><td>&nbsp;</td><td>Without specifying a 'before' or 'after' position, it will move the sheet to a new workbook</td></tr>
+                    <tr><td>Syntax & Parameters:</td><td>Worksheets("Name").Move Before:=Sheets(1)</td></tr>
+                    <tr><td>&nbsp;</td><td>Sheets("MyCharts").Move After:=Sheets("MyData")</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets("MyShtName").Move</code2>  <comment>'creates a new workbook containing only the moved sheet</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(2).Move Before:=Sheets(1)</code2>  <comment>'moves the second sheet to the far left</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>ActiveSheet.Move After:=Sheets(Sheets.Count)</code2>  <comment>'moves the active sheet to the far right</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Protect</h4>
+
+            <table class="tableizer-table">
+            <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Protect</th></tr></thead><tbody>
+             <tr><td>Purpose:</td><td>Protects a worksheet so that it cannot be modified</td></tr>
+             <tr><td>Syntax & Parameters:</td><td>expression.Protect (Password, DrawingObjects, Contents, Scenarios, UserInterfaceOnly, AllowFormattingCells, AllowFormattingColumns, AllowFormattingRows, AllowInsertingColumns, AllowInsertingRows, AllowInsertingHyperlinks, AllowDeletingColumns, AllowDeletingRows, AllowSorting, AllowFiltering, AllowUsingPivotTables)</td></tr>
+             <tr><td>Definitions:</td><td>Password: password for the worksheet</td></tr>
+             <tr><td>&nbsp;</td><td>Other arguments can be set to True or False</td></tr>
+             <tr><td>Examples:</td><td><code2>ActiveSheet.Protect "MyPassword"</code2></td></tr>
+            </tbody></table>
+
+
+        <h4>Select</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Method:</th><th>Select</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Select has the effect of making a particular Sheet the one of focus, and has no optional arguments</td></tr>
+                    <tr><td>Syntax & Parameters:</td><td><i>expression</i>.Select</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets("MyShtName").Select</code2>  <comment>'Selects a Sheet called MyShtName</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(3).Select</code2>  <comment>'Selects the third sheet, indexing left to right</comment>td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(Sheets.Count).Select</code2>  <comment>'Selects the last sheet, indexing left to right</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>MySheetName.Select</code2>  <comment>'Selects MySheetName if declared as a worksheet-variable</comment></td></tr>
+                </tbody>
+            </table>
+
+
+
+    <h3>Common Worksheet Properties</h3>
+
+        <h4>Index</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Index</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Refers to the position of a worksheet, from left to right</td></tr>
+                    <tr><td>Syntax</td><td>Sheets(Index).Method</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets(3).Select</code2> <comment>'selects the third sheet from the left</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(2).Move after:=Sheets(Sheets.Count)</code2> <comment>'moves the second sheet to the far right</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets(1).Delete</code2> <comment>'deletes the sheet on the far left</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Name</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Name</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Refers to the text name that a worksheet is given</td></tr>
+                    <tr><td>&nbsp;</td><td>Not to be confused with the code name, asccessible in the Properties Explorer</td></tr>
+                    <tr><td>Syntax</td><td>Sheets("Name").Method</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets("MyShtName").Select</code2><comment> 'selects a sheet called MyShtName</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets("MyShtName").Move after:=Sheets(Sheets.Count)</code2><comment> 'moves MyShtName to the far right</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets("MyShtName").Delete</code2><comment> 'uses the Delete method on MyShtName</comment></td></tr>
+                </tbody>
+            </table>
+
+
+        <h4>Visible</h4>
+
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Property:</th><th>Visible</th></tr></thead>
+                <tbody>
+                    <tr><td>Purpose:</td><td>Refers to whether a sheet is visible rather than hidden</td></tr>
+                    <tr><td>&nbsp;</td><td>Accepts <code2>True</code2>, <code2>False</code2>, and <code2>xlVeryHidden</code2>, which will  prevent it from showing in the list of hidden tabs</td></tr>
+                    <tr><td>Syntax</td><td>Sheets("Name").Visible = True</td></tr>
+                    <tr><td>Examples:</td><td><code2>Sheets("Data").Visible = True</code2> <comment>'ensures the sheet called "Data" is not hidden</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets("HiddenData").Visible = False</code2> <comment>'ensures the sheet called "HiddenData" is hidden</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Sheets("HiddenData").Visible = xlVeryHidden</code2> <comment>'hides the sheet in a way that only VBA can unhide</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><comment>'loop through sheets and unhide all</comment></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>For Each Sheet in Sheets<code2></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<code2>Sheet.Visible = True<code2></td></tr>
+                    <tr><td>&nbsp;</td><td><code2>Next Sheet</code2></td></tr>
+                </tbody>
+            </table>
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+</body>
+</html>

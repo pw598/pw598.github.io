@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+
+    <h3>Macro Security Settings</h3>
+
+        <p>By default, when opening a workbook with macros, Excel will disable them. There is good reason for this,
+        because macros can be executed upon events, such as the opening of a workbook. An unfamiliar workbook may
+        intend to run malicious code upon your system, and has potential to connect to databases and applications.</p>
+
+        <p>To be specific, Excel will by default disable macros 'with notification'. This is in the form of a
+        horizontal bar with an 'Enable Content' button, just below the Excel ribbon, and if you trust the content,
+        you can use this to fully enable it.</p>
+
+        <img src="enablemacros.png" alt="enablemacros.png" style="height:150px;width:auto;" />
+
+        <p>If you do not see that bar, or wish to customize your settings, you can change the default by doing the following:</p>
+
+        <ol>
+            <li>Click on File, above the ribbon</li>
+            <li>Click on Options (bottom-left, you may need to scroll down)</li>
+            <li>In the left pane of the window that opens, click “Trust Center”</li>
+            <li>On the right side the window, click “Trust Center Settings"</li>
+            <br />
+            <img src="trustsettings.png" alt="trustsettings.png" style="height: 275px; width: auto;" />
+            <br /><br />
+            <li>In the left pane of the next window, click “Macro Settings”</li>
+            <li>Select the desired macro setting from the upper-right area of the window, then press OK for both open windows</li>
+            <br />
+            <img src="trustsettings2.png" alt="trustsettings2.png" style="height: 275px; width: auto;" />
+        </ol>
+
+
+    <h3>The Developer Tab</h3>
+
+        <p>For efficiency, and functionality, you should add the 'Developer' tab to your ribbon, by doing the following:</p>
+
+        <ol>
+            <li>Right-click on a blank space in the Ribbon, at the top of the screen</li>
+            <li>Click Customize the Ribbon, on the left side of the window that comes up</li>
+            <li>In the right pane of the new window, add a checkmark to "Developer"</li>
+            <li>Press OK</li>
+            <br />
+            <img src="customizeribbon.png" alt="customizeribbon.png" style="height: 400px; width: auto;" />
+        </ol>
+
+
+    <h3>The VB Editor</h3>
+
+        <p>The VB Editor is the VBA coding interface. To open it, press alt+F11, or click on 'Visual Basic', under the Developer tab.</p>
+
+        <p>On the right side is the Code Window, for viewing and editing macros. And at the mid to upper left is the Project Explorer, listing the open workbooks, worksheets, and 'modules' of VBA code. If you record a macro, and then open the VB Editor, you will see a folder called 'modules' in the Project Explorer, containing a module which stores that macro's code.</p>
+
+        <img src="vbe.png" alt="vbe.png" style="height: 300px; width: auto;" />
+
+
+    <h4>Modules</h4>
+
+        <p>Modules are objects that group and store VBA code. They are typically where you will store the code for your macros, and can be added through the VB Editor by clicking on Insert (at the top), and then 'module'. This will add a module to the currently selected workbook.</p>
+
+        <p>To change the name of a module, see the Properties Explorer, at the bottom-right of the VB Editor. The first cell of its table refers to the name property, and may be edited, subject to the normal rules of object naming (such as no spaces, cannot start with a number). To avoid naming modules with the same name of any macros (which can cause problems), I use the letter “m” as a prefix.</p>
+
+        <img src="modulenaming.png" alt="modulenaming.png" style="height: 300px; width: auto;" />
+
+        <p>A later section on error handling and debugging will cover more advanced elements of the VB Editor.</p>
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+</body>
+</html>

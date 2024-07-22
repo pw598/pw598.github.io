@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+
+    <h3>Workbook and Worksheet Events</h3>
+
+        <p>Modules are not the only type of container for macros. You may have noticed that while in the VB Editor, the code screen stays available when you click on worksheets or on 'ThisWorkbook'. Subs and functions can have a worksheet-level scope or a workbook-level scope if desired.</p>
+
+        <p>If a module-level or workbook-level macro tells Excel to print a certain value to a certain range, then if no worksheet is specified in the code, the application will apply the macro to whichever sheet is currently selected. A worksheet-level macro, however, will by default print to the worksheet that the macro is stored on, even if another sheet is currently selected (you can reference specific sheets or <code>ActiveSheet</code> in the code, which will override this behavior).</p>
+
+        <p>Another distinction between worksheet-level macros and module or workbook-level macros is that you cannot call a worksheet-level macro from within another macro that is module or workbook-level (or belonging to another sheet). You will receive a “Sub or Function Not Defined” error. Likewise, if a workbook-level macro is called from another workbook, it will fail to be recognized.</p>
+
+        <p>Despite these constraints, the limited scope is useful when creating events. Events involve 'listening' for certain user actions, such as the changing of values on a worksheet or the saving of a workbook, and executing specified actions in response. Some practical examples of event usage include:</p>
+            <ul>
+                <li>Having formulas next to a pivot-table re-propagate when a filter is changed</li>
+                <li>Applying a 'double-click to sort' feature to column headers in a table of data</li>
+                <li>Applying a 'double-click to filter' feature to table indexed by a list of items</li>
+                <li>Validating user-inputs as soon as they occur</li>
+                <li>Refreshing all pivot tables upon opening of a workbook</li>
+            </ul>
+
+        <p>The last one, automatically refreshing all pivot tables upon opening, lets you avoid saving the underlying data of the pivot tables, which can greatly reduce file size. It is particularly easy to demonstrate because only one line of code is necessary to perform the action. From within the VB Editor, select 'ThisWorkbook' in the Project Explorer, and then notice the two dropdown lists just above the code window. From the list on the left, select 'Workbook'.</p>      
+
+        <img src="img1.gif" style="height:175px;width:auto;" />
+
+        <p>The following code automatically populates:</p>
+
+        <p>
+        <code>Private Sub Workbook_Open()</code></br>
+        <code>End Sub</code>
+        </p>
+
+        <p>This happens to be the trigger that we are looking for, opening of the workbook. In order to have all pivot tables refresh upon opening of the workbook, I simply insert the line <code>ActiveWorkbook.RefreshAll</code> between the two lines of code above.</p>
+
+        <img src="img2.gif" style="height:150px;width:auto;" />
+
+        <p>This won't always be the particular action you are looking for, however. Notice that, with the left dropdown list above the code window now set to 'Workbook', a list of potential triggers to listen for are now available from the dropdown on the right. These include workbook activation, opening, saving, closing, etc. If I select a new action like 'BeforeSave', then the first and last line of a new macro will be populated, including any necessary parameters as arguments (which you can ignore).</p>
+
+        <img src="img3.gif" style="height:225px;width:auto;" />
+
+        <p>'BeforeSave' means that when the user clicks Save, any actions in this macro will be executed before the saving of the file begins.</p>
+
+        <p>After selecting a worksheet in the Project Explorer, we can select 'Worksheet' from the dropdown list above the code window on the left, and the dropdown on the right will display a list of actions that we may listen for. </p>
+
+        <img src="img4.gif" style="height:250px;width:auto;" />
+
+        <p>The default action is 'SelectionChange', which means that any time the user clicks on a cell other the currently selected cell, the macro will be triggered. Other commonly used ones include 'BeforeDoubleClick', which essentially means 'upon double-click', 'Change', which refers to a change in values on the worksheet, and 'PivotTableUpdate', which lets your macro respond to changes in pivot table filters (handy for re-propagating formulas).</p>
+
+
+
+    <h3>Disabling Events</h3>
+
+        <p>Two reasons why you may want to disable events are 1) you are making changes as a creator rather than user, and 2) you don't want the events to be triggered during the execution of other macros (which can be cause inefficiency or infinite loops).</p>
+
+        <p>To disable events while making changes in the graphical interface, turn on 'Design Mode' by selecting it under the Developer tab, and turn it off once you are done editing. To prevent other macros from triggering events, use the line <code>Application.EnableEvents = False</code> within those macros, before the lines of code you want to prevent from triggering events. It is important to later use the line <code>Application.EnableEvents = True</code>, or else the disabling effect will continue beyond the running of the macro.</p>
+
+
+
+    <h3>Localizing Events</h3>
+
+        <p>You may want a worksheet-level event to execute only for certain ranges (or a workbook-level event to execute only for certain sheets), and this can be accomplished by telling the macro to exit execution unless the changes or selections from the user are upon the relevant areas. This involves using the <code>Target</code> object applicable to events, and commonly involves accessing its <code>Address</code>, <code>Row</code>, and <code>Column</code> properties. I will illustrate all three at once by having a <code>Worksheet_Change</code> event provide a message box with the address, row, and column when a change occurs.</p>
+
+        <img src="img5.gif" style="height:175px;width:auto;" />
+
+        <p>I then make an arbitrary change, entering the value 1 into cell F7, and the result is the following:</p>
+
+        <img src="img6.gif" style="height:250px;width:auto;" />
+
+        <p>Note that the address property will return a range if multiple cells are affected, but the row and column properties will refer to the first row and first column affected. For example, if I select all cells on the worksheet, and press delete, the result is the following:</p>
+
+        <img src="img7.gif" style="height:250px;width:auto;" />
+
+        <p>So, let's say we have a table of data ranging from B4:F11, and we want to insert a double-click to sort macro. The only area we want a response to user action from is the column headers, which are limited to row 4, and columns 2 through 6. We can then write the following code to ensure that double-clicking elsewhere on the sheet will have no result (note that I changed the trigger to 'BeforeDoubleClick').</p>
+
+        <img src="img8.gif" style="height:250px;width:auto;" />
+
+        <p>As for the sorting piece – let's say we have the following sales data for a series of stores.</p>
+
+        <img src="img9.gif" style="height:300px;width:auto;" />
+
+        <p>The range of this data is the same as the example used above, so the first part of our code is done. Now, we need to add the action to take, which will be a sort. I don't have the syntax and arguments memorized, so I will use the macro recorder to get a code template, and then change some of the hard-coded values to variables. I press record, sort one of the columns (arbitrarily choosing F), and then end the recording and inspect the code that was captured.</p>
+
+        <img src="img10.gif" style="height:300px;width:auto;" />
+
+        <p>The first line is an unnecessary <code>Select</code> statement that can be removed. The third line contains <code>Key:=Range(“F5:F11”)</code>, because I sorted by F when recording, and we will want to make this dynamic so that it refers to whichever column the user clicks on.</p>
+
+        <p>One way to grab the column letter is using the <code>Target.Address</code> property, combined with the <code>Mid</code> text function. The <code>Target.Address</code> has absolute references, so the first character of the address is a dollar sign. We'll use <code>ColLtr = Mid(Target.Address, 2, 1)</code> to extract the second character, which is the column letter. We could add some logic to deal with two-character columns if our data extends past column Z, but a) in this case we know it's unnecessary, and b) there is an alternative involving the <code>Cells</code> object, which we will discuss next.</p>
+
+        <img src="img11.gif" style="height:400px;width:auto;" />
+
+        <p>Notice that in addition to our line of code extracting the column letter, the sorting key (end of the second line starting with <code>ActiveWorkbook</code>, has changed to <code>Range(ColLtr & “5:” & ColLtr & “11”)</code>. The table will now sort by whichever column the user double-clicks on.</p>
+
+        <p>As mentioned above, an alternative to extracting column letter is using the column number, along with the <code>Cells</code> object. Below I use <code>Col = Target.Column</code> to extract the column number of the targeted header, and set the sort key as:</p>
+
+        <p><code>Key:=Range(Cells(5,Col),Cells(11,Col)</code></p>
+
+        <img src="img12.gif" style="height:400px;width:auto;" />
+
+        <p>An alternative is to assign <code>Range(Cells(5,Col),Cells(11,Col)</code> to a <code>Range</code> object variable using <code>Set Rng = Range(Cells(5,Col),Cells(11,Col)</code> (where <code>Rng</code> is the arbitrary name of the variable), and then let the sort key be equal to that.</p>
+
+        <p>To make the macro dynamic toward the size of the data, you would want to capture some last-row information, through a line such as <code>LastRow = Range(“b” & Rows.Count).End(xlUp).Row</code>, and then substitute <code>LastRow</code> into anywhere we see a hard-coded 11 above.</p>
+
+        <p>Events can be designed to listen to pretty much any trigger, and the recorder can provide a template of code for pretty much any action, so get creative with your application building!</p>
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

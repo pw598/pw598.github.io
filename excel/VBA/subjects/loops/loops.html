@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+    <h3>What Are Loops?</h3>
+
+        <p>Loops are a powerful component of programming, as they automate repetitive tasks (while allowing for dynamic references). A loop can perform an action for each object (like a workbook) within a collection of objects (like a series of workbooks). They can also iterate through a numbered series of items, such as a list of files in a directory, or a list of rows in a table.</p>
+
+
+    <h3>For Loops</h3>
+
+        <h4>For Each... Next:</h4>
+
+            <p>The <code>For Each</code> loop iterates through each object in a collection. A line starting with <code>Next</code> marks the end of the loop, at which point code execution either returns to the top of the loop, or exits it, if completed. For example, the below code loops through all worksheets in a workbook, and ensures they are visible.</p>
+
+            <p>
+            <code>For Each Sheet in Sheets</code><br />
+            &nbsp;&nbsp;&nbsp;<code>Sheet.Visible = True</code><br />
+            <code>Next Sheet</code><br />
+            </p>
+
+            <p>Or each cell in a series of cells (i.e. a range), such as:</p>
+
+            <p>
+            <code>For Each Cell in Range("a1:a10")</code><br />
+            &nbsp;&nbsp;&nbsp;<code>Cell.Interior.Color = vbRed</code><br />
+            <code>Next Cell</code><br />
+            </p>
+
+            <p>With the variables declared, it would look something like this:</p>
+
+            <p>
+            <code>Dim c As Range, r As Range</code><br />
+            <code>r = Range("a1:a10")</code><br />
+            <code>For Each c in r</code><br />
+            &nbsp;&nbsp;&nbsp;<code>c.Interior.Color = vbRed</code><br />
+            <code>Next</code>
+            </p>
+
+            <p>Note: The above serves to demonstrate a simple loop, however a more efficient method to adjust the properties of a continuous range would be to affect it all at once, such as <code>r.Interior.Color = vbRed</code>, or <code>Range("a1:a10").Interior.Color = vbRed</code>.</p>
+
+
+        <h4>For... Next:</h4>
+
+            <p>The <code>For</code> loop iterates through each item in a list of items, based on their numerical order in a series. For example, through a series of rows in a table, or characters in a word. This type of loop must be done with a variable holding the count of the iterations.</p>
+
+            <p>Unhiding all sheets with a <code>For... Next</code> loop would look like this:</p>
+
+            <p>
+            <code>
+                Dim i as Integer <br />
+                For i = 1 to Sheets.Count <br />
+                &nbsp;&nbsp;&nbsp;Sheets(i).Visible = True </br>
+                Next i
+            </code>
+            </p>
+
+            <p>Technically, the word <code>Next</code> does not need to be followed by anything. But it is good practice to indicate this 'control reference' (in this case <code>i</code>, representing the sheet number), as it will force unintended mistakes to produce an error, bringing them to your attention.</p>
+
+
+        <h4>Exit For:</h4>
+
+            <p><code>Exit For</code> is to loops what <code>Exit Sub</code> is to subs. If a loop has served it's purpose in applying the right actions or retrieving the right info, then you no longer need it to execute. <code>Exit For</code> will tell code execution to skip to the line following the end of the loop, and could be used like the following:</p>
+
+            <p>
+                <code>For Each Sheet in Sheets</code><br />
+                &nbsp;&nbsp;&nbsp;<code>If Sheet.Name = "MySheetName" Then</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Msgbox "Sheet Exists"</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Exit For</code><br />
+                &nbsp;&nbsp;&nbsp;<code>End If</code><br />
+                <code>Next Sheet</code>
+            </p>
+
+            <p>If the sheet is found, then there is no need to keep searching, so the <code>Exit For</code> statement eliminates further iterations.</p>
+
+
+    <h3>Do Loops</h3>
+
+        <h4>Do While... Loop:</h4>
+
+            <p>The <code>Do While</code> loop continues to run as long as a specified condition holds true. The keyword Loop specifies the end of the cycle, and either an exiting or a return to the top of the loop. For example, the following adds more sheets, until there are 4 in total.</p>
+
+            <p>
+                <code>Do While x < 5</code><br />
+                &nbsp;&nbsp;&nbsp;<code>Sheets.Add After:=ActiveSheet</code><br />
+                &nbsp;&nbsp;&nbsp;<code>x = Sheets.Count</code><br />
+                <code>Next Sheet</code>
+            </p>
+
+            <p>Note that the value of <code>x</code> is incremented upward with each iteration, by setting it to the count of sheets, following the addition of a new sheet.</p>
+
+
+        <h4>Do Until... Loop:</h4>
+
+            <p>The <code>Do Until</code> loop is similar to the <code>Do While</code> loop, but it continues to run <i>until</i> a specified condition is true. To achieve the same result as the example above, using the <code>Do Until</code> loop, it would look like the following:</p>
+
+            <p>
+                <code>Do Until x = 4</code><br />
+                &nbsp;&nbsp;&nbsp;<code>Sheets.Add After:=ActiveSheet</code><br />
+                &nbsp;&nbsp;&nbsp;<code>x = Sheets.Count</code><br />
+                <code>Loop</code>
+            </p>
+
+
+
+    <h3>Common Integrations</h3>
+
+        <h4>Embedding:</h4>
+
+            <p>It's common for loops to exist within other loops, like looping through each row in a column, while also looping through each column in a table, such as:</p>
+
+            <p>
+                <code>For x = 1 To 2</code><br />
+                &nbsp;&nbsp;&nbsp;<code>For y = 2 to 4</code><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Columns(x).Rows(y).Value = "This is Column " & x & ", Row " & y</code><br />
+                &nbsp;&nbsp;&nbsp;<code>Next y</code><br />
+                <code>Next x</code>
+            </p>
+
+
+        <h4>Find:</h4>
+
+            <p>If looping through a range of cells to read them - for example, finding a particular header in the top row of a table - then an alternative to interating through each cell individually is to use the worksheet function <code>Find</code>, which is like using ctrl+F in the worksheet environment.</p>
+
+            <p>The below example finds the location of a header containing the string "Annual Sales", then uses an object-variable (a range) to capture the location. Then, it sets an integer-variable to be equal to the column of that range, so that decisions can be made from that info.</p>
+
+            <p>
+                <code>Dim SearchText as String, Rng as Range, ColNum as Integer</code><br /><br />
+                <code>SearchText = "Annual Sales"</code><br />
+                <code>Set Rng = Rows(1).Find(What:=SearchText, LookAt:=xlWhole, LookIn:=xlValues)</code><br />
+                <code>ColNum = Rng.Column</code>
+            </p>
+
+            <p>Set was used to assign the cell-location to the variable <code>Rng</code>, because object variables require this 'initiation'.</p>
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+
+/*Headers*/
+h1, a.l1 {
+    font-family: 'Century Gothic';
+    font-size: 36px;
+}
+h2, a.l2{
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    color: black;
+}
+
+h3, a.l3 {
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    color: black;
+}
+
+h4, a.l4 {
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 20px;
+    font-weight:600;
+    margin-bottom: 5px;
+    text-decoration: underline;
+    color: black;
+}
+
+img {
+    border: 1px solid;
+    border-color: grey;
+}
+/*Paragraphs and Lists*/
+p {
+    font-family: Calibri, Consolas;
+    font-size: 18px;
+}
+
+ol, ul {
+    font-family: Calibri, Consolas;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+code {
+    background-color:wheat;
+    color:darkred;
+    font-size:17.5px;
+}
+
+code2 {
+    background-color: wheat;
+    color: darkred;
+    font-size: 16px;
+}
+
+comment {
+    color: darkgreen
+}
+
+p.exercise {
+    font-style: italic;
+    text-decoration: underline;
+    color: #198332;
+    font-size: 17.5px;
+    font-weight: 600;
+}
+
+table.tableizer-table {
+    font-size: 16px;
+    border: 1px solid #CCC;
+    font-family: Calibri;
+    border-collapse: collapse;
+}
+
+.tableizer-table td {
+    padding: 4px;
+    margin: 3px;
+    border: 1px solid #CCC;
+}
+
+.tableizer-table th {
+    background-color: #198332;
+    color: #FFF;
+}
+body {
+    font-family: 'Century Gothic', Helvetica, sans-serif;
+    padding-left: 275px;
+    padding-right: 275px;
+}
+
+/* This is the horizontal navbar itself*/
+.navbar {
+    overflow: hidden;
+    background-color: darkgreen;
+}
+/*This is the dropdown text*/
+    .navbar a {
+        float: left;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+/* This is the navbar text*/
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+/*Properties of the navbar dropdowns*/
+    .dropdown .dropbtn {
+        font-size: 17px;
+        font-stretch: expanded;
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+    }
+
+    .navbar a:hover, .dropdown:hover .dropbtn {
+        background-color: #db0404;
+    }
+
+/*this defines the boundaries of the navbar?*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: red;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 4.5px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+        font-family: Rockwell, Helvetica, Arial, sans-serif;
+
+        border-bottom-width: 1px;
+        border-bottom-color: #808080;
+        border-bottom-style: solid;
+        background-color: #ffffff
+    }
+
+    /* This refers to when hovering over the vertical-list items*/
+        .dropdown-content a:hover {
+            background-color: #becbd5;
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

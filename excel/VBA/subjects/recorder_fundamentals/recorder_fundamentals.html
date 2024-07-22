@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Excel VBA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <h1>Excel VBA For The Data Analyst</h1>
+
+    <div class="navbar">
+
+        <div class="dropdown">
+            <a href="../../index.html" class="dropbtn">Home</a>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Subjects
+            </button>
+            <div class="dropdown-content">
+                <a href="../../subjects/config_vbeditor/config_vbeditor.html">Config & VB Editor</a> <!-- Config & VB Editor-->
+                <a href="../../subjects/recorder_fundamentals/recorder_fundamentals.html">Code Fundamentals</a> <!-- Code Fundamentals-->
+                <a href="../../subjects/wbk_wsht_oop/wbk_wsht_oop.html">Workbooks, Sheets, &amp; OOP</a> <!-- Workbooks, Sheets, &amp; OOP -->
+                <a href="../../subjects/ranges/ranges.html">Range Manipulation</a> <!--Range Manipulation-->
+                <a href="../../subjects/variables/variables.html">Variables</a> <!--Variables-->
+                <a href="../../subjects/conditional_statements/conditional_statements.html">Conditional Statements</a> <!--Conditional Statements-->
+                <a href="../../subjects/loops/loops.html">Loops</a> <!--Loops-->
+                <a href="../../subjects/arrays/arrays.html">Arrays</a> <!--Arrays-->
+                <a href="../../subjects/built_in_functions/built_in_functions.html">Built-In Functions</a> <!--Built-In Functions-->
+                <a href="../../subjects/events/events.html">Events</a> <!--Events-->
+                <a href="../../subjects/files_folders/files_folders.html">Files and Folders</a> <!--Files and Folders-->
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="../../workbooks/workbooks.html" class="dropbtn">Resource Workbooks</a>
+        </div>
+
+    </div>
+
+    <!-- <script src="../../js/subj_list_sub.js"></script> -->
+
+    
+
+    <h3>The Macro Recorder</h3>
+
+        <p>The Macro Recorder records user actions in VBA code, and is a valuable tool for identifying commands and syntax. Its button is found under the Developer tab (or under View > Macros), and is pressed once to start recording, and then again when ready to stop.</p>
+
+        <p>A constraint of the macro recorder is that, although it does a good job of assuming your intentions, it does not exactly know what you are thinking; and for complex tasks it will often be insufficient on it's own.</p>
+
+        <img src="macrorecorder.png" alt="macrorecorder.png" style="height:250px;width:auto;" />
+        
+        <p class="exercise">Exercise: Record a macro performing any action upon a cell or group of cells.  Then stop recording, and press alt + F11 to view the code.</p>
+
+
+    <h3>Sub and End Sub</h3>
+
+        <p>The first line of a recorded macro will always be "Sub", followed by a name for the macro. The last line will always be "End Sub". These two commands declare the start and end of your macro, which in this instance is called a subroutine.</p>
+
+        <img src="recordercapture.png" alt="recordercapture.png" style="height:300px;width:auto;" />
+
+        <p>Subroutines are simply automated processes, but ones which can also be called upon by higher-level procedures.</p>
+
+
+    <h3>Functions</h3>
+
+        <p>Functions are also automated processes; both subs and functions can automate a process, but the special property of functions is that they can also return a value, such as a calculation.  Worksheet formulas are examples of functions.</p>
+
+        <p>Both functions and subs can be provided input-arguments when called upon, such as the below "InputNum" of 4.</p>
+
+        <img src="function.png" alt="function.png" style="height:300px;width:auto;" /> 
+
+        <p>Above, the 'CallFunction' macro runs the 'DoubleInput' function, and uses it to display the number 8 (4 x 2) in a message box.</p>
+
+
+
+    <h3>Naming Conventions</h3>
+
+        <p>Subs, functions, and variables (which are discussed in a later chapter) have the following naming restrictions:</p>
+
+        <ul>
+            <li>Must begin with a letter</li>
+            <li>Must not have any spaces</li>
+            <li>Must not be a reserved keyword</li>
+            <li>Must not contain certain special characters</li>
+            <li>Should not use the name of an already existing procedure or module</li>
+        </ul>
+
+        <p>Due to the inability to include spaces, using underscores instead of spaces is a common practice for stringing together words.  Also commonly used is CamelText, where the first letter of each word in the string is capitalized, such as mCopyPaste.</p>
+
+
+
+    <h3>Operators</h3>
+
+        <p>Operators are the symbols indicating mathematical relationships between values; in VBA, they are essentially identical to the ones in the regular worksheet interface.</p>
+
+        <table class="tableizer-table">
+            <table class="tableizer-table">
+                <thead><tr class="tableizer-firstrow"><th>Symbol</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td>+</td><td>Addition</td></tr>
+                    <tr><td>-</td><td>Subtraction</td></tr>
+                    <tr><td>*</td><td>Multiplication</td></tr>
+                    <tr><td>/</td><td>Division</td></tr>
+                    <tr><td>mod</td><td>Modulus (Remainder)</td></tr>
+                    <tr><td>=</td><td>Equal To</td></tr>
+                    <tr><td><></td><td>Unequal To</td></tr>
+                    <tr><td><</td><td>Less Than</td></tr>
+                    <tr><td>></td><td>Greater Than</td></tr>
+                    <tr><td>=<</td><td>Less or Equal To</td></tr>
+                    <tr><td>=></td><td>Greater or Equal To</td></tr>
+                </tbody>
+            </table>
+        </table>
+
+
+    <h3>Validation Features</h3>
+
+        <p>One of the reasons VBA is so popular, and powerful, is ease of use.  For example, in identifying errors while typing, providing dropdown-lists of relevant commands relevant to the object in question (objects are the subject of a later chapter).</p>
+
+        <p>It uses text color-coding - blue for reserved keywords, black for normal text, red for recognized errors, and green for comments.</p>
+
+        <img src="colorcoding.png" alt="colorcoding.png" style="height:200px;width:auto;" />
+
+
+    <h3>Comments</h3>
+
+        <p>Programming languages provide ways to leave notes within the code, by ignoring text which follows a certain character. It is a best practice for readability, communication with other developers, and for removing lines of code from a procedure while retaining the text.</p>
+
+        <p>In Excel, the apostrophe tells code execution to ignore a particular line. To comment multiple lines, an apostrophe must be present at the beginning of each; however, the 'Edit' toolbar, contains buttons for commenting or un-commenting multiple lines at a time, and is toggled by View > Toolbars > Edit.</p>
+
+        <img src="edittoolbar.png" alt="edittoolbar.png" style="height:50px;width:auto;" />
+
+
+    <h3>Quotation Marks</h3>
+
+        <p>Excel reads values within quotation marks as text, rather than code.  But what if the text is intended to display quotation marks? This is very common when entering formulas, for example.</p> 
+
+        <p>To insert quotation marks into a string of text, in the VBA environment, use two quotation marks in a row, and this will tell the application to display one instance in the text.</p>
+
+        <code>Msgbox "The bird says ""Tweet"""</code>
+
+        </br></br>
+        <img src="quotmarks.png" alt="quotmarks.png" style="height:200px;width:auto;" />
+
+
+
+    <h3>Ways To Run Macros</h3>
+
+        <h4>1. The Macro Viewer:</h4>
+
+            <p>When you record or create a macro, it will be available in the window opened by clicking 'Macros' under the Developer tab, or View tab. At the bottom of this window is a dropdown-list to select workbook, if there are multiple workbooks open.  With a macro selected, the actions available include run, edit, delete.</p>
+
+            <img src="viewer.png" alt="viewer.png" style="height:350px;width:auto;" />
+
+        <h4>2. Hotkeys:</h4>
+
+            <p>With a macro selected, you may click on 'Options', and assign a hotkey, and/or description.  Hotkeys are in the format ctrl + __. Avoid overriding any Windows hotkeys for functions you depend on, such as ctrl+c to copy.</p>
+
+        <h4>3. Shapes, Icons, Buttons:</h4>
+
+            <p>Insert a shape, or icon, and you can assign a macro to it as a button, by right-clicking on the object, selecting 'Assign Macro', and then selecting the macro of your choice.</p>
+
+            <p>You may also insert a 'command button', the first object under the Form Controls menu, brought up by clicking 'Insert', under the Developer tab.  By default, command buttons will prompt you to assign a macro.</p>
+
+        <h4>4. From the Ribbon, or Quick-Access Toolbar:</h4>
+
+            <p>The same window from which the Developer tab was created can be used to assign macros to the ribbon, or quick-access toolbar.</p>
+
+            <ol>
+                <li>Right-click on a blank space in the ribbon, and then select 'Customize the Ribbon'</li>
+                <li>In the left-side pane, select either 'Customize Ribbon' or 'Quick Access Toolbar'</li>
+                <li>In the left-side dropdown, select 'Macros'</li>
+                <li>Select the macro of your choice from the list below the dropdown, and use the 'Add' button to move into the list of active items</li>
+            </ol>
+
+            <p>After adding to the quick-access toolbar, you may click 'Modify' to customize the icon. To add to the ribbon, you must click 'New Group', and then create a new custom group.</p>
+
+
+        <h4>5. From Within Other Macros:</h4>
+
+            <p>Within the VBA code of one sub or function, another sub or function may be called upon, using the 'Call' command, followed by a macro name. Code execution will return to the line following that statement, once the called-upon procedure has been completed.</p>
+
+            <p>The "Call" command is actually optional, typing only the name of the called-upon macro will have the same effect. Another alternative is <code>Application.Run</code>, followed by a space and the name of a macro. This is particularly helpful when calling macros in other workbooks.</p>
+
+        <h4>6. From the Personal Macro Workbook:</h4>
+
+            <p>Finally, though not technically a different way of running macros, there is a 'Personal Macro Workbook' which allows you to store them in the Excel application, via a hidden workbook only available in the VB Editor. The value in this is that the contents may be called upon at any time, regardless of which workbooks are open.</p>
+
+            <p>A Google search of how to set it up will produce reliable results, such as
+            <a href="https://www.launchexcel.com/excel-personal-macro-workbook/">www.launchexcel.com/excel-personal-macro-workbook/</a></p>
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+</body>
+</html>
