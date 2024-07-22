@@ -53,13 +53,13 @@
 
 		<p>We'll start with the folder picker. The functionality pertaining to the dialog window will reside within a <code>With</code> statement, such as follows:</p>
 
-        <img src="img1.gif" style="height:400px;width:auto;" />
+        <img src="img1.GIF" style="height:400px;width:auto;" />
 
 		<p>It's a function because we'll be calling on it from within other macros, but it could just as easily be used in a subprocedure. We set the properties of <code>.Title</code> and <code>.ButtonName</code>, and then check the property <code>.Show</code>, which is a 0 if the user pressed Cancel. If that's the case, we provide a message box indicating the issue, and then exit execution with an <code>Exit Sub</code> statement. We'll add similar error-handling to the macros which call upon this function, such that we also exit those subs if no folder is chosen. The selected folder is then accessed via <code>.SelectedItems(1)</code> (there can be multiple selections, so we take the one with index 1), and then set a variable with the same name as the function equal to our result, so that the value will be passed to the variable set equal to the function, in the macros which call upon it.</p>
 
 		<p>As you can see below, our code for the file picker is very similar. The differences are our variable name (File), and the lack of a slash following <code>.SelectedItems(1)</code>.</p>
 
-        <img src="img2.gif" style="height:400px;width:auto;" />
+        <img src="img2.GIF" style="height:400px;width:auto;" />
 
 
 
@@ -67,11 +67,11 @@
 
 		<p>One method of iterating through files in a folder is with the <code>Dir()</code> function of the <code>FileSystem</code> class, and we will use it to list the files in a specified folder. I'm using <code>Option Explicit</code>, which is a good practice when dealing with <code>Object</code> variables, as will be required in this case. Next we have the user pick a folder, by calling upon our <code>FolderPicker</code> helper function from above. We set the value of the variable <code>FileName</code> to <code>Dir(Directory & "*")</code>, where <code>Directory</code> is the folder that the user chose, and the asterisk is a wildcard. In our loop, after printing the path and name of the file currently referenced, the line <code>Filename = Dir()</code> tells Excel to make an iteration, selecting the next file in the list.</p>
 
-        <img src="img3.gif" style="height:600px;width:auto;" />
+        <img src="img3.GIF" style="height:600px;width:auto;" />
 
 		<p>I run the macro, select my desktop as the folder, and the top of the results look like this:</p>
 
-        <img src="img4.gif" style="height:200px;width:auto;" />
+        <img src="img4.GIF" style="height:200px;width:auto;" />
 
 		<p>If we only wanted to see Excel files, we would augment the <code>FileName = Dir(Directory & "*")</code> line to say <code>FileName = Dir(Directory & ".xl*")</code>. If we only wanted .xls files, we would replace the asterisk with a question mark, as the asterisk is a wildcard for multiple characters, and the question mark is a wildcard for a single character. If we only wanted to see CSVs, we would use <code>FileName = Dir(Directory & "*.csv")</code>, etc.</p>
 
@@ -83,11 +83,11 @@
 
 		<p>The following macro will list all the files in a chosen directory, as well as their type, size, and date created. We start by declaring variables, then having the user pick a folder, and then instantiating a variable of type <code>FileSystemObject</code> called <code>FileSystem</code>. We can then use the <code>GetFolder</code> method of our <code>FileSystem</code> variable to set the variable <code>Folder</code>, which points to the folder we wish to loop through. We use the <code>Files</code> property of this folder object to iterate through files, associate each file to an <code>Object</code> variable called <code>File</code>, and then access the properties such as name, size, and type from this variable.</p>
 
-        <img src="img5.gif" style="height:600px;width:auto;" />
+        <img src="img5.GIF" style="height:600px;width:auto;" />
 
 		<p>I run it with my desktop selected, and the results look like this:</p>
 
-        <img src="img6.gif" style="height:150px;width:auto;" />
+        <img src="img6.GIF" style="height:150px;width:auto;" />
 
 
 		<p>To loop through subfolders in a recursive manner, we can utilize recursive programming. Though it may be somewhat confusing to read, subs and functions are capable of calling themselves, and as long as the compiled code makes sense to Excel, they will execute without issue. In this case, it provides a lean and elegant method of iterating through the subfolders, and the subfolders of each subfolder. This code will also include the list of files in the parent folder selected by the user.</p>
@@ -96,23 +96,23 @@
 
 		<p>The Parent Subprocedure:</p>
 
-        <img src="img7.gif" style="height:500px;width:auto;" />
+        <img src="img7.GIF" style="height:500px;width:auto;" />
 
 
 		<p>The Helper Function:</p>
 
-        <img src="img8.gif" style="height:400px;width:auto;" />
+        <img src="img8.GIF" style="height:400px;width:auto;" />
 
 
     <h3>Checking Whether a File or Folder Exists</h3>
 
         <p>Sometimes you may want to determine whether a particular file or folder exists. To do this, we can reference the file or folder within the <code>Dir()</code> function, and check whether that is equal to <code>vbNullString</code>. For example, to check whether an Excel file called 'test' exists on my desktop, I would use something like this:</p>
 
-        <img src="img9.gif" style="height:300px;width:auto;" />
+        <img src="img9.GIF" style="height:300px;width:auto;" />
 
         <p>Similarly, I could use the below to determine whether 'FolderX' exists on my desktop, and send a prompt asking whether I want to create it if not.</p>
 
-        <img src="img10.gif" style="height:500px;width:auto;" />
+        <img src="img10.GIF" style="height:500px;width:auto;" />
 
 
     <h3>Moving Files</h3>
@@ -121,19 +121,19 @@
 
         <p>To move a single file, we only need the following three lines of code. Replace the file name and folder with paths that are relevant to you.</p>
 
-        <img src="img11.gif" style="height:150px;width:auto;" />
+        <img src="img11.GIF" style="height:150px;width:auto;" />
 
         <p>As an exercise, you could integrate the file and folder picker, and make the folder and file name variables.</p>
 
         <p>To move multiple files at once, we use wildcard operators, such as below. For this example, I have files named 'FileNum1.txt', 'FileNum2.txt', etc., on my desktop, which all get moved to the 'Excel' folder upon execution of this macro, due to the refrence to 'FileNum*.txt'.</p>
 
-        <img src="img12.gif" style="height:150px;width:auto;" />
+        <img src="img12.GIF" style="height:150px;width:auto;" />
 
         <p>If we have files of varying types, we can use an asterisk instead of .txt, or to move only Excel files, '.xl*'.</p>
 
         <p>This next macro refers to moving an open file by first saving it elsewhere, and then deleting the file from the location it originally resided in. It uses the folder picker to determine the new folder, and has some error handling to manage the case where the user picks the folder that the file currently resides in. The original file name is captured, the file is saved to the new folder using <code>ThisWorkbook.SaveAs</code>, and then the original file is deleted using <code>FSO.DeleteFile</code>.</p>
 
-        <img src="img13.gif" style="height:600px;width:auto;" />
+        <img src="img13.GIF" style="height:600px;width:auto;" />
 
 
 
@@ -143,17 +143,17 @@
 
         <p>Below, we start by declaring variables, and then call upon our <code>FilePicker</code> helper function (in the mDialogPicker module of the resource workbook), and have the user select a file. What follows next is some error handling, to manage any cases where the file picked is not a .txt or .csv (and if that's the case, we exit the sub). Next, we call upon <code>FSO.OpenTextFile</code>, providing the arguments of which file to read, and <code>ForReading</code> to indicate that the read/write mode is read-only. The next line uses <code>FileToRead.ReadAll</code> in order to read the text file, and the next line uses <code>FileToRead.Close</code> to close the text value. Finally, the contents read are printed to cell A1.</p>
 
-        <img src="img14.gif" style="height:600px;width:auto;" /></br>
+        <img src="img14.GIF" style="height:600px;width:auto;" /></br>
 
-        <img src="img15.gif" style="height:200px;width:auto;" />
+        <img src="img15.GIF" style="height:200px;width:auto;" />
 
         <p>Notice that multiple lines of text have been printed to the one cell. This might be what you are looking for, but in general, you would probably want each line of data from the text file printed to a separate row in the Excel workbook. This is what the following macro does. It is identical to the above, except that instead of using <code>FileToRead.ReadAll</code>, we use <code>FileToRead.ReadLine</code>, where <code>FileToRead</code> is the name we've given the variable set to the <code>FSO.OpenTextFile</code> object, and <code>FSO</code> refers to a <code>FileSystemObject</code> we've created.</p>
 
-        <img src="img16.gif" style="height:700px;width:auto;" />
+        <img src="img16.GIF" style="height:700px;width:auto;" />
 
         <p>The results:</p>
 
-        <img src="img17.gif" style="height:150px;width:auto;" />
+        <img src="img17.GIF" style="height:150px;width:auto;" />
 
 
 
