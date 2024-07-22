@@ -85,7 +85,7 @@
 
         <p>There are <code>Object</code> variables, as well as names for particular classes of object-variables, like <code>Workbook</code>, <code>Worksheet</code>, and <code>Range</code>. This allows the values in memory to be referred to more efficiently, by the identity of the object rather than the name property it possesses. To set an object variable equal to some object, we use the <code>Set</code> keyword. Once the object variable is set, 'Intellisense' tooltips will appear after typing it followed by a period in the code.</p>
     
-        <img src="obj_vars.png" alt="obj_vars.png" style="height:350px;width:auto;" />
+        <img src="obj_vars.PNG" alt="obj_vars.PNG" style="height:350px;width:auto;" />
 
         <p>Type <code>Variant</code> can be recognized as whatever data type is expected at the time, and so it's type is variable, as well as it's value(s).</p>
 
@@ -108,15 +108,15 @@
 
             <p>Below, I populate Module1 with a sub of private-level scope and a sub of public-level scope.</p>
 
-            <img src="subs.png" alt="subs.png" style="height:200px;width:auto;" />
+            <img src="subs.PNG" alt="subs.PNG" style="height:200px;width:auto;" />
 
             <p>Then, I create a Module2 and populate it with two macros, one each for calling the private and public subs created in Module1.</p>
 
-            <img src="calls.png" alt="calls.png" style="height:220px;width:auto;" />
+            <img src="calls.PNG" alt="calls.PNG" style="height:220px;width:auto;" />
 
             <p>There are no issues calling <code>MyPublicSub</code>, but running the sub which calls upon <code>MyPrivateSub</code> results in the following error, because of the Private scope.</p>
 
-            <img src="error.png" alt="calls.png" style="height:180px;width:auto;" />
+            <img src="error.PNG" alt="calls.PNG" style="height:180px;width:auto;" />
 
             <p>Using <code>Public</code> can be handy when referencing a very common variable or function. When not truly necessary, you may find that the containment provided by module and procedure-level
             scope as a default helps to better stay organized and avoid conflicts. I let variables and procedures graduate to public scope only as needed.</p>
