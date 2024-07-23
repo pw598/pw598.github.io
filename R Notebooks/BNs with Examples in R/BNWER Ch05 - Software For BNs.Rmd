@@ -1,0 +1,68 @@
+---
+title: "BNWER Ch05 - Software For BNs"
+output: html_notebook
+---
+
+```{r}
+library(bnlearn)
+data(marks)
+latent <- factor(c(rep("A", 44), "B",
+                  rep("A", 7), rep("B", 36)))
+marks$LAT <- latent
+library(deal)
+net <- network(marks)
+net
+```
+
+```{r}
+prior <- jointprior(net, N = 5)
+net <- learn(net, marks, prior)$nw
+.z <- capture.output({best <- autosearch(net, marks, prior)})
+```
+
+
+```{r}
+mstring <- deal::modelstring(best$nw)
+dag.bnlearn <- model2network(
+    "[ANL][MECH][LAT|ANL:MECH][VECT|LAT][ALG|LAT][STAT|LAT]")
+dag.deal <- model2network(mstring)
+unlist(bnlearn::compare(cpdag(dag.deal), cpdag(dag.bnlearn)))
+```
+
+
+```{r}
+# library(catnet)
+dmarks <- discretize(marks, breaks = 2, method = "interval")
+ord <- cnSearchSA(dmarks, maxParentSet = 2)
+ord
+```
+
+
+```{r}
+nets <- ord@nets
+nets[[1]]
+```
+
+
+```{r}
+best <- cnFindBIC(ord, nrow(dmarks))
+best
+```
+
+
+```{r}
+cnSamples(best, numsamples = 4)
+```
+
+
+```{r}
+em <- empty.graph(names(dmarks))
+# arcs(em) <- cnMatEdges(best)
+
+# library(pcalg)
+marks <- marks[, colnames(marks) != "LAT"]
+suffStat <- list(C = cor(marks), n = nrow(marks))
+pc.fit <- pc(suffStat, indepTest = gaussCItest,
+            p = ncol(marks), alpha = 0.05)
+pc.fit@graph
+```

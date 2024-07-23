@@ -1,0 +1,353 @@
+---
+title: "BNWER Ch02 - The Continuous Case: Gaussian Bayesian Networks"
+output: html_notebook
+---
+
+
+```{r}
+library(bnlearn)
+dag.bnlearn <- model2network("[G][E][V|G:E][N|V][W|V][C|N:W]")
+dag.bnlearn
+```
+
+```{r}
+graphviz.plot(dag.bnlearn)
+```
+
+
+```{r}
+library(bnlearn)
+dag.bnlearn <- model2network("[G][E][V|G:E][N|V][W|V][C|N:W]")
+dag.bnlearn
+```
+
+
+```{r}
+nano <- nodes(dag.bnlearn)
+for (n1 in nano) {
+  for (n2 in nano) {
+    if (dsep(dag.bnlearn, n1, n2))
+      cat(n1, "and", n2, "are independent.\n")
+  }#FOR
+}#FOR
+```
+
+
+```{r}
+dsep(dag.bnlearn, "V", "V")
+```
+
+
+```{r}
+for (n1 in nano[nano != "V"]) { 
+  for (n2 in nano[nano != "V"]) {
+    if (n1 < n2) {
+      if (dsep(dag.bnlearn, n1, n2, "V")) 
+        cat(n1, "and", n2, "are independent given V.\n")
+    }#THEN
+  }#FOR
+}#FOR
+```
+
+
+```{r}
+dsep(dag.bnlearn, "E", "V", "V")
+```
+
+
+```{r}
+bnlearn::path(dag.bnlearn, from = "E", to = "C")
+```
+
+
+```{r}
+disE <- list(coef = c("(Intercept)" = 50), sd = 10)
+disG <- list(coef = c("(Intercept)" = 50), sd = 10)
+disV <- list(coef = c("(Intercept)" = -10.35534, 
+               E = 0.70711, G = 0.5), sd = 5)
+disN <- list(coef = c("(Intercept)" = 45, V = 0.1),
+               sd = 9.949874)
+
+disW <- list(coef = c("(Intercept)" = 15, V = 0.7),
+               sd = 7.141428)
+disC <- list(coef = c("(Intercept)" = 0, N = 0.3, W = 0.7), 
+             sd = 6.25)
+dis.list = list(E = disE, G = disG, V = disV, N = disN, 
+                 W = disW, C = disC)
+
+gbn.bnlearn <- custom.fit(dag.bnlearn, dist = dis.list)
+gbn.bnlearn$G
+```
+
+
+```{r}
+gbn.bnlearn$C
+```
+
+
+```{r}
+library(rbmn)
+gbn.rbmn <- bnfit2nbn(gbn.bnlearn)
+```
+
+
+```{r}
+gema.rbmn <- nbn2gema(gbn.rbmn)
+mn.rbmn <- gema2mn(gema.rbmn)
+print8mn(mn.rbmn)
+```
+
+
+```{r}
+str(mn.rbmn);
+```
+
+
+```{r}
+set.seed(4567)
+cropdata1 <- rbn(gbn.bnlearn, n = 200)
+set.seed(1234)
+cropdata2 <- rbn(gbn.bnlearn, n = 20000)
+
+dim(cropdata1)
+```
+
+
+```{r}
+round(head(cropdata1), 2)
+```
+
+```{r}
+est.para <- bn.fit(dag.bnlearn, data = cropdata1)
+options(digits=3)
+est.para$E
+```
+
+
+```{r}
+est.para$C
+```
+
+
+```{r}
+est.para$C <- lm(C ~ N + W - 1, data = cropdata1)
+est.para$C
+```
+
+
+```{r}
+lmC <- lm(C ~ N + W, data = cropdata1[, c("N", "W", "C")])
+coef(lmC)
+```
+
+
+```{r}
+confint(lmC)
+```
+
+
+```{r}
+cormat <- cor(cropdata1[, c("C", "W", "N")])
+library(corpcor)
+invcor <- cor2pcor(cormat)
+dimnames(invcor) <- dimnames(cormat)
+invcor
+```
+
+
+```{r}
+ci.test("C", "W", "N", test = "cor", data = cropdata1)
+```
+
+
+```{r}
+stru1 <- iamb(cropdata1, test = "cor")
+wl <- matrix(c("V", "N"), ncol = 2)
+wl
+```
+
+
+```{r}
+stru2 <- iamb(cropdata1, test = "cor", whitelist = wl)
+all.equal(dag.bnlearn, stru2)
+```
+
+
+```{r}
+dim(cropdata2)
+```
+
+
+```{r}
+stru3 <- iamb(cropdata2, test = "cor")
+all.equal(dag.bnlearn, stru3)
+```
+
+
+```{r}
+options(digits=8)
+score(dag.bnlearn, data = cropdata2, type = "bic-g")
+score(dag.bnlearn, data = cropdata2, type = "bge")
+```
+
+
+```{r}
+options(digits = 3)
+print8nbn(gbn.rbmn)
+```
+
+
+```{r}
+print8gema(gema.rbmn)
+```
+
+
+```{r}
+print8mn(condi4joint(mn.rbmn, par = "C", pour = "V", x2 = 80))
+print8mn(condi4joint(mn.rbmn, par = "V", pour = "C", x2 = 80))
+```
+
+
+```{r}
+unlist(condi4joint(mn.rbmn, par = "C", pour = "V", x2 = NULL))
+```
+
+
+```{r}
+set.seed(1234)
+nbs <- 4
+VG <- rnorm(nbs, mean = 50, sd = 10)
+VE <- rnorm(nbs, mean = 50, sd = 10)
+VV <- rnorm(nbs, mean = -10.355 + 0.5 * VG + 0.707 * VE, 
+        sd = 5)
+VN <- rnorm(nbs, mean = 45 + 0.1 * VV, sd = 9.95)
+cbind(VV, VN)
+```
+
+
+```{r}
+set.seed(1234)
+sim <- rbn(gbn.bnlearn, n = 4)
+sim[, c("V", "N")]
+```
+
+
+```{r}
+set.seed(4567)
+cropdata1 <- rbn(gbn.bnlearn, n = 200)
+set.seed(1234)
+cropdata2 <- rbn(gbn.bnlearn, n = 20000)
+
+head(cpdist(gbn.bnlearn, nodes = c("C", "N", "W"),
+       evidence = (C > 80)))
+```
+
+
+```{r}
+head(cpdist(gbn.bnlearn, nodes = c("V"), 
+       evidence = list(G = 10, E = 90), method = "lw"))
+```
+
+
+```{r}
+cpquery(gbn.bnlearn, event = (V > 70),
+  evidence = list(G = 10, E = 90), method = "lw")
+```
+
+
+```{r}
+library(igraph)
+igraph.options(print.full = TRUE)
+dag0.igraph <- graph.formula(G-+V, E-+V, V-+N, V-+W, 
+                               N-+C, W-+C)
+dag0.igraph
+```
+
+
+```{r}
+dag.igraph <- igraph.from.graphNEL(as.graphNEL(dag.bnlearn))
+V(dag.igraph)
+E(dag.igraph)
+```
+
+
+```{r}
+par(mfrow = c(2, 2), mar = rep(3, 4), cex.main = 2)
+plot(dag.igraph, main = "\n1: defaults")
+dag2 <- dag.igraph
+V(dag2)$label <- V(dag2)$name
+```
+
+```{r}
+plot(dag2, main = "\n2: with labels")
+```
+
+
+```{r}
+ly <- matrix(c(2, 3, 1, 1, 2, 3,
+               1, 4, 4, 2, 3, 2), 6)
+plot(dag2, layout = ly, main = "\n3: positioning")
+```
+
+
+```{r}
+colo <- c("black", "darkgrey", "darkgrey", rep(NA, 3))
+lcolo <- c(rep("white", 3), rep(NA, 3))
+par(mar = rep(0, 4), lwd = 1.5)
+plot(dag2, layout = ly, frame = TRUE,
+     main = "\n4: final",
+     vertex.color = colo, vertex.label.color = lcolo,
+     vertex.label.cex = 3, vertex.size = 50,
+     edge.arrow.size = 0.8, edge.color = "black")
+```
+
+
+```{r}
+gbn.fit <- bn.fit(dag.bnlearn, cropdata2)
+bn.fit.qqplot(gbn.fit)
+```
+
+
+```{r}
+bn.fit.qqplot(gbn.fit$V)
+```
+
+
+```{r}
+condi4joint <- function(...) {
+  res <- rbmn::condi4joint(...)
+  res$rho = zapsmall(res$rho)
+  return(res)
+}
+```
+
+
+```{r}
+C.EV <- condi4joint(mn.rbmn, par = "C", pour = c("E", "V"),
+          x2 = NULL)
+C.EV$rho
+```
+
+
+```{r}
+dsep(gbn.bnlearn, "E", "C", "V")
+```
+
+
+```{r}
+set.seed(5678)
+cropdata3 <- cpdist(gbn.bnlearn, nodes = c("E", "V", "C"),
+                    evidence = TRUE, n = 1000)
+plot(cropdata3$V, cropdata3$C, type = "n",
+     main = "C | V, E; E is the point size")
+```
+
+
+```{r}
+cexlim <- c(0.1, 2.4)
+cexE <- cexlim[1] + diff(cexlim) / diff(range(cropdata3$E)) *
+                    (cropdata3$E - min(cropdata3$E))
+points(cropdata3$V, cropdata3$C, cex = cexE)
+cqa <- quantile(cropdata3$C, seq(0, 1, 0.1))
+abline(h = cqa, lty = 3)
+```

@@ -1,0 +1,389 @@
+---
+title: "BNWER Ch01 The Discrete Case: Multinomial Bayesian Networks"
+output: html_notebook
+---
+
+```{r}
+library(bnlearn)
+dag <- empty.graph(nodes = c("A", "S", "E", "O", "R", "T"))
+dag
+```
+
+```{r}
+dag <- set.arc(dag, from = "A", to = "E")
+dag <- set.arc(dag, from = "S", to = "E")
+dag <- set.arc(dag, from = "E", to = "O")
+dag <- set.arc(dag, from = "E", to = "R")
+dag <- set.arc(dag, from = "O", to = "T")
+dag <- set.arc(dag, from = "R", to = "T")
+dag
+```
+
+
+```{r}
+modelstring(dag)
+```
+
+
+```{r}
+nodes(dag)
+```
+
+
+```{r}
+arcs(dag)
+```
+
+
+```{r}
+dag2 <- empty.graph(nodes = c("A", "S", "E", "O", "R", "T"))
+arc.set <- matrix(c("A", "E",
+                    "S", "E",
+                    "E", "O",
+                    "E", "R",
+                    "O", "T",
+                    "R", "T"),
+             byrow = TRUE, ncol = 2,
+             dimnames = list(NULL, c("from", "to")))
+arcs(dag2) <- arc.set
+```
+
+
+```{r}
+all.equal(dag, dag2)
+```
+
+
+```{r}
+A.lv <- c("young", "adult", "old")
+S.lv <- c("M", "F")
+E.lv <- c("high", "uni")
+O.lv <- c("emp", "self")
+R.lv <- c("small", "big")
+T.lv <- c("car", "train", "other")
+```
+
+
+```{r}
+A.prob <- array(c(0.30, 0.50, 0.20), dim = 3,
+            dimnames = list(A = A.lv))
+A.prob
+S.prob <- array(c(0.60, 0.40), dim = 2,
+            dimnames = list(S = S.lv))
+S.prob
+```
+
+
+```{r}
+O.prob <- array(c(0.96, 0.04, 0.92, 0.08), dim = c(2, 2),
+            dimnames = list(O = O.lv, E = E.lv))
+O.prob
+R.prob <- array(c(0.25, 0.75, 0.20, 0.80), dim = c(2, 2),
+            dimnames = list(R = R.lv, E = E.lv))
+R.prob
+```
+
+
+```{r}
+R.prob <- matrix(c(0.25, 0.75, 0.20, 0.80), ncol = 2,
+            dimnames = list(R = R.lv, E = E.lv))
+R.prob
+```
+
+
+```{r}
+E.prob <- array(c(0.75, 0.25, 0.72, 0.28, 0.88, 0.12, 0.64,
+            0.36, 0.70, 0.30, 0.90, 0.10), dim = c(2, 3, 2),
+            dimnames = list(E = E.lv, A = A.lv, S = S.lv))
+
+T.prob <- array(c(0.48, 0.42, 0.10, 0.56, 0.36, 0.08, 0.58,
+            0.24, 0.18, 0.70, 0.21, 0.09), dim = c(3, 2, 2),
+            dimnames = list(T = T.lv, O = O.lv, R = R.lv))
+
+dag3 <- model2network("[A][S][E|A:S][O|E][R|E][T|O:R]")
+all.equal(dag, dag3)
+```
+
+```{r}
+cpt <- list(A = A.prob, S = S.prob, E = E.prob, O = O.prob, 
+        R = R.prob, T = T.prob)
+bn <- custom.fit(dag, cpt)
+nparams(bn)
+```
+
+```{r}
+arcs(bn)
+```
+
+```{r}
+bn$R
+```
+
+
+```{r}
+R.cpt <- coef(bn$R)
+survey <- read.table("https://raw.githubusercontent.com/pw598/Legacy-Notebooks/main/data/survey.txt", header = TRUE)
+head(survey)
+```
+
+
+```{r}
+survey$A = as.factor(survey$A)
+survey$R = as.factor(survey$R)
+survey$E = as.factor(survey$E)
+survey$O = as.factor(survey$O)
+survey$S = as.factor(survey$S)
+survey$T = as.factor(survey$T)
+survey
+```
+
+
+```{r}
+options(digits = 3)
+bn.mle <- bn.fit(dag, data = survey, method = "mle")
+prop.table(table(survey[, c("O", "E")]), margin = 2)
+```
+
+
+```{r}
+bn.mle$O
+```
+
+
+```{r}
+bn.bayes <- bn.fit(dag, data = survey, method = "bayes", 
+              iss = 10)
+bn.bayes$O
+```
+
+
+```{r}
+bn.bayes <- bn.fit(dag, data = survey, method = "bayes", 
+              iss = 20)
+bn.bayes$O
+```
+
+
+```{r}
+(nlevels(survey[, "T"]) - 1) * (nlevels(survey[, "E"]) - 1) * 
+  (nlevels(survey[, "O"]) * nlevels(survey[, "R"]))
+```
+
+
+```{r}
+ci.test("T", "E", c("O", "R"), test = "mi", data = survey)
+```
+
+
+```{r}
+ci.test("T", "E", c("O", "R"), test = "x2", data = survey)
+```
+
+
+```{r}
+ci.test("T", "O", "R", test = "x2", data = survey)
+```
+
+
+```{r}
+options(digits = 2)
+arc.strength(dag, data = survey, criterion = "x2")
+```
+
+
+```{r}
+set.seed(456)
+options(digits = 6)
+score(dag, data = survey, type = "bic")
+score(dag, data = survey, type = "bde", iss = 10)
+score(dag, data = survey, type = "bde", iss = 1)
+```
+
+```{r}
+dag4 <- set.arc(dag, from = "E", to = "T")
+nparams(dag4, survey)
+score(dag4, data = survey, type = "bic")
+
+```
+
+
+```{r}
+rnd <- random.graph(nodes = c("A", "S", "E", "O", "R", "T"))
+modelstring(rnd)
+score(rnd, data = survey, type = "bic")
+```
+
+
+```{r}
+learned <- hc(survey)
+modelstring(learned)
+score(learned, data = survey, type = "bic")
+```
+
+
+```{r}
+learned2 <- hc(survey, score = "bde")
+options(digits=3)
+arc.strength(learned, data = survey, criterion = "bic")
+```
+
+
+```{r}
+arc.strength(dag, data = survey, criterion = "bic")
+```
+
+
+```{r}
+options(digits = 3)
+dsep(dag, x = "S", y = "R")
+```
+
+
+```{r}
+dsep(dag, x = "O", y = "R")
+```
+
+
+```{r}
+path(dag, from = "S", to = "R")
+```
+
+
+```{r}
+dsep(dag, x = "S", y = "R", z = "E")
+```
+
+
+```{r}
+dsep(dag, x = "O", y = "R", z = "E")
+```
+
+
+```{r}
+dsep(dag, x = "A", y = "S")
+dsep(dag, x = "A", y = "S", z = "E")
+```
+
+
+```{r}
+library(gRain)
+junction <- compile(as.grain(bn))
+options(digits = 4)
+querygrain(junction, nodes = "T")$T
+```
+
+
+```{r}
+jsex <- setEvidence(junction, nodes = "S", states = "F")
+querygrain(jsex, nodes = "T")$T
+```
+
+
+```{r}
+jres <- setEvidence(junction, nodes = "R", states = "small")
+querygrain(jres, nodes = "T")$T
+```
+
+
+```{r}
+jedu <- setEvidence(junction, nodes = "E", states = "high")
+SxT.cpt <- querygrain(jedu, nodes = c("S", "T"),
+             type = "joint")
+SxT.cpt
+```
+
+
+```{r}
+querygrain(jedu, nodes = c("S", "T"), type = "marginal")
+```
+
+
+```{r}
+querygrain(jedu, nodes = c("S", "T"), type = "conditional")
+```
+
+
+```{r}
+dsep(bn, x = "S", y = "T", z = "E")
+```
+
+
+```{r}
+SxT.ct = SxT.cpt * nrow(survey)
+chisq.test(SxT.ct)
+```
+
+
+```{r}
+set.seed(123)
+cpquery(bn, event = (S == "M") & (T == "car"), 
+          evidence = (E == "high"))
+```
+
+
+```{r}
+cpquery(bn, event = (S == "M") & (T == "car"), 
+            evidence = (E == "high"), n = 10^6)
+```
+
+
+```{r}
+set.seed(567)
+cpquery(bn, event = (S == "M") & (T == "car"),
+            evidence = list(E = "high"), method = "lw")
+
+
+```
+
+
+```{r}
+set.seed(123)
+cpquery(bn, event = (S == "M") & (T == "car"),
+  evidence = ((A == "young") & (E == "uni")) | (A == "adult"))
+```
+
+
+```{r}
+SxT <- cpdist(bn, nodes = c("S", "T"),
+         evidence = (E == "high"))
+head(SxT)
+```
+
+
+```{r}
+options(digits = 3)
+prop.table(table(SxT))
+```
+
+
+```{r}
+install.packages("BiocManager")
+BiocManager::install("Rgraphviz")
+```
+
+
+```{r}
+graphviz.plot(dag)
+```
+
+
+```{r}
+hlight <- list(nodes = nodes(dag), arcs = arcs(dag), 
+                  col = "grey", textCol = "grey")
+
+pp <- graphviz.plot(dag, highlight = hlight)
+edgeRenderInfo(pp) <- 
+  list(col = c("S~E" = "black", "E~R" = "black"),
+       lwd = c("S~E" = 3, "E~R" = 3))
+nodeRenderInfo(pp) <- 
+  list(col = c("S" = "black", "E" = "black", "R" = "black"),
+    textCol = c("S" = "black", "E" = "black", "R" = "black"),
+    fill = c("E" = "grey"))
+renderGraph(pp)
+```
+
+
+```{r}
+bn.fit.barchart(bn.mle$T, main = "Travel", 
+  xlab = "Pr(T | R,O)", ylab = "")
+```
