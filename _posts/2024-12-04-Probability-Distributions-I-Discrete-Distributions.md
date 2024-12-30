@@ -7,7 +7,7 @@ categories: Probability
 
 <p></p>
 
-<img src="images/pd1.png" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd1.png?raw=true" style="height: 450px; width:auto;">
 
 <h1>Outline</h1>    
 
