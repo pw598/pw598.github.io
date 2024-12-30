@@ -5,7 +5,8 @@ date:   2024-12-04 00:00:00 +0000
 categories: Probability
 ---
 
-<h1>Outline</h1>
+<p></p>
+<h1>Outline</h1>    
 
 - Random Variables
 - Bernoulli
