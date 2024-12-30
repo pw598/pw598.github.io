@@ -44,7 +44,7 @@ The code to generate the visuals I’ve linked to below are available in the use
 
 The Bernoulli distribution is, I would imagine, the most intuitive, as it describes the simplest type of experiment. A Bernoulli random variable represents a single trial with a binary outcome of success (represented by $1$) equal to probability $p$, and a probability of failure (represented by $0$) intuitively equal to $1-p$, represented symbolically as $q$.
 
-$f(y;p) = \left\{ \begin{array}{} q=1-p & & y = 0 \\ p & & y = 1. \end{array} \right.$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bern_pdf.png?raw=true" style="height: 100px; width:auto;">
 
 <img src="https://www.pymc.io/projects/docs/en/stable/_images/pymc-Bernoulli-1.png" style="height: 300px; width:auto;">
 
