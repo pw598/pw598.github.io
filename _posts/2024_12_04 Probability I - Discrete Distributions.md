@@ -44,3 +44,24 @@ Latex Test:
 
 $\frac{dx}{dt}$
 
+
+
+
+```r
+import cv2 as cv
+import glob
+import numpy as np
+ 
+images_folder = 'D2/*'
+images_names = sorted(glob.glob(images_folder))
+images = []
+for imname in images_names:
+    im = cv.imread(imname, 1)
+    images.append(im)    
+
+```
+
+
+
+
+
