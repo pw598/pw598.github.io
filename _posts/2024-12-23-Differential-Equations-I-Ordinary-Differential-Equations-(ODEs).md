@@ -7,7 +7,7 @@ categories: DifferentialEquations Python R
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 450px; width:auto;">
 
 
 # Outline
@@ -67,7 +67,7 @@ We can solve this symbolically, simply by separating the variables and integrati
 
 - $\frac{1}{y(t)} \frac{dy}{dt} = -k$
 
-- $ln|y(t)| = kt + C$
+- <p>$ln|y(t)| = kt + C$</p>
 
 - $y(t) = y_0 ~e^{-kt}$
 
@@ -156,7 +156,7 @@ plt.grid(True)
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1-1.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1-1.png?raw=true" style="height: 450px; width:auto;">
 
 
 Next, we'll deterministically generate data using the same parameters, and see if the solver can then recover the true parameters. We use the <code>minimize</code> function from <code>scipy.optimize</code>, and with each iteration, call upon a loss function which integrates the equation using the current guess at parameter values, and measures the fit against the data.
@@ -238,7 +238,7 @@ plot(out_df$time, out_df$P, type = "l", col = "blue", lwd = 2,
 grid()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1-2.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1-2.png?raw=true" style="height: 450px; width:auto;">
 
 
 And then simulating data with those parameter values, and recovering them as estimates from the solver.
