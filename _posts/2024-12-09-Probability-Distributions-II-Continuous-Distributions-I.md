@@ -108,7 +108,7 @@ As mentioned above, the Uniform is a special case of the Beta where $\alpha=1$ a
 
 #### PDF:
 
-$f(y;\alpha, \beta) = \left\{\begin{array}{ccl}\displaystyle{\frac{1}{\beta-\alpha}}&&\alpha\le y\le\beta\\[0.5em] 0 && \text{otherwise}\end{array}\right.$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/unif_pdf.png?raw=true" style="height: 100px; width:auto;">
 
 The expected value is 
 
@@ -172,7 +172,7 @@ $\tau=\frac{1}{\sigma^2}$
 
 #### PDF:
 
-$f(y;\mu, \sigma) = \sqrt{\frac{2}{\pi\sigma^2}}\,\mathrm{e}^{-(y-\mu)^2/2\sigma^2}$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn_pdf.png?raw=true" style="height: 100px; width:auto;">
 
 The expected value is $\mu$ and the variance is $\sigma^2$.
 
