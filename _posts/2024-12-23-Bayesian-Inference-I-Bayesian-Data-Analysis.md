@@ -7,7 +7,7 @@ categories: Probability Bayes
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi1.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi1.png?raw=true" style="height: 400px; width:auto;">
 
 
 # Outline 
