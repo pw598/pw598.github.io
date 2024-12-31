@@ -197,7 +197,7 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/f_dist.png?raw=true" style="height: 200px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/f_dist.png?raw=true" style="height: 400px; width:auto;">
 
 
 
