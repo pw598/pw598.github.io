@@ -86,7 +86,7 @@ head(influenza_england_1978_school)
 # 14
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-1.png?raw=true" style="height: 350px; width:auto;">
 
 And plotting it as a time series.
 
