@@ -7,7 +7,7 @@ categories: DifferentialEquations R Stan
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3.png?raw=true" style="height: 400px; width:auto;">
 
 
 # Outline
