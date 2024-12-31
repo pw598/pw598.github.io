@@ -7,7 +7,7 @@ categories: SurvivalAnalysis Python
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1.png?raw=true" style="height: 450px; width:auto;">
 
 
 # Outline
@@ -197,7 +197,7 @@ plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-2.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-2.png?raw=true" style="height: 700px; width:auto;">
 
 
 
@@ -399,7 +399,7 @@ plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-6.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-6.png?raw=true" style="height: 900px; width:auto;">
 
 
 
@@ -414,7 +414,7 @@ As with regular probability analysis, parametric distributions have the pleasant
 
 The Exponential model reflects inter-arrival times in a Poisson process, and its univariate distribution has the form:
 
-$S(t) = \exp\left(\frac{-t}{\lambda}\right),   \lambda gt 0$
+$S(t) = \exp\left(\frac{-t}{\lambda}\right),   \lambda \gt 0$
 
 with cumulative hazard
 
@@ -512,7 +512,7 @@ ggf.plot_survival_function(ax=axes[2][0])
 spf.plot_survival_function(ax=axes[2][1])
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-7.png?raw=true" style="height: 900px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-7.png?raw=true" style="height: 700px; width:auto;">
 
 
 And with that, we’ll wrap it up. Next article will deal with survival regression methods, and the following one with ensemble-based methods such as random survival forests and gradient-boosting.
