@@ -204,9 +204,9 @@ plt.show()
 
 # References
 
-- (n.d.). Distribution Explorer. https://distribution-explorer.github.io/index.html
+- (n.d.). Distribution Explorer. [https://distribution-explorer.github.io/index.html](https://distribution-explorer.github.io/index.html)
 
-- (n.d.). PyMC API. Distributions. https://www.pymc.io/projects/docs/en/stable/api/distributions.html
+- (n.d.). PyMC API. Distributions. [https://www.pymc.io/projects/docs/en/stable/api/distributions.html](https://www.pymc.io/projects/docs/en/stable/api/distributions.html)
 
-- Blitzstein, J. (2019). Introduction to Probability (2nd ed.). Harvard University and Stanford University. https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view
+- Blitzstein, J. (2019). Introduction to Probability (2nd ed.). Harvard University and Stanford University. [https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view](https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view)
 

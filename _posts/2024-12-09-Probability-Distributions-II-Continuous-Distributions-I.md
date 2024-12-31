@@ -108,7 +108,7 @@ As mentioned above, the Uniform is a special case of the Beta where $\alpha=1$ a
 
 #### PDF:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/unif_pdf.png?raw=true" style="height: 100px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/unif_pdf.png?raw=true" style="height: 50px; width:auto;">
 
 The expected value is 
 
@@ -172,7 +172,7 @@ $\tau=\frac{1}{\sigma^2}$
 
 #### PDF:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn_pdf.png?raw=true" style="height: 100px; width:auto;">
+$f(y;\mu, \sigma) = \sqrt{\frac{2}{\pi\sigma^2}}\,\mathrm{e}^{-(y-\mu)^2/2\sigma^2}$
 
 The expected value is $\mu$ and the variance is $\sigma^2$.
 
@@ -218,7 +218,7 @@ The Multivariate Normal (MVN) distribution is a generalization of the Normal to 
 
 #### PDF:
 
-$f(\mathbf{y};\boldsymbol{\mu}, \mathsf{\Sigma}) = \frac{1}{\sqrt{(2\pi)^K |\mathsf{\Sigma}|}}\,\exp\left[-\frac{1}{2}(\mathbf{y} - \boldsymbol{\mu})^\mathsf{T} \cdot \mathsf{\Sigma}^{-1} \cdot (\mathbf{y} - \boldsymbol{\mu})\right].$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn_pdf.png?raw=true" style="height: 50px; width:auto;">
 
 The expected value is 
 
@@ -346,8 +346,8 @@ You may have noticed the absence of familiar names like the Gamma and Exponentia
 
 # References
 
-- (n.d.). Distribution Explorer. https://distribution-explorer.github.io/index.html
+- (n.d.). Distribution Explorer. [https://distribution-explorer.github.io/index.html](https://distribution-explorer.github.io/index.html)
 
-- (n.d.). PyMC API. Distributions. https://www.pymc.io/projects/docs/en/stable/api/distributions.html
+- (n.d.). PyMC API. Distributions. [https://www.pymc.io/projects/docs/en/stable/api/distributions.html](https://www.pymc.io/projects/docs/en/stable/api/distributions.html)
 
-- Blitzstein, J. (2019). Introduction to Probability (2nd ed.). Harvard University and Stanford University. https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view
+- Blitzstein, J. (2019). Introduction to Probability (2nd ed.). Harvard University and Stanford University. [https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view](https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view)

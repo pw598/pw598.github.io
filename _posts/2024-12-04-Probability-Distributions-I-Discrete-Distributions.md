@@ -44,7 +44,7 @@ The code to generate the visuals I’ve linked to below are available in the use
 
 The Bernoulli distribution is, I would imagine, the most intuitive, as it describes the simplest type of experiment. A Bernoulli random variable represents a single trial with a binary outcome of success (represented by $1$) equal to probability $p$, and a probability of failure (represented by $0$) intuitively equal to $1-p$, represented symbolically as $q$.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bern_pmf.png?raw=true" style="height: 100px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bern_pmf.png?raw=true" style="height: 50px; width:auto;">
 
 <img src="https://www.pymc.io/projects/docs/en/stable/_images/pymc-Bernoulli-1.png" style="height: 300px; width:auto;">
 
@@ -245,8 +245,8 @@ That concludes this summary of discrete probability distributions. The next two 
 
 # References
 
-- (n.d.). Distribution Explorer. https://distribution-explorer.github.io/index.html
+- (n.d.). Distribution Explorer. [https://distribution-explorer.github.io/index.html](https://distribution-explorer.github.io/index.html)
 
-- (n.d.). PyMC API. Distributions. https://www.pymc.io/projects/docs/en/stable/api/distributions.html
+- (n.d.). PyMC API. Distributions. [https://www.pymc.io/projects/docs/en/stable/api/distributions.html](https://www.pymc.io/projects/docs/en/stable/api/distributions.html)
 
-- Blitzstein, J. (2019). Introduction to Probability (2nd ed.). Harvard University and Stanford University. https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view
+- Blitzstein, J. (2019). Introduction to Probability (2nd ed.). Harvard University and Stanford University. [https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view](https://drive.google.com/file/d/1VmkAAGOYCTORq1wxSQqy255qLJjTNvBI/view)
