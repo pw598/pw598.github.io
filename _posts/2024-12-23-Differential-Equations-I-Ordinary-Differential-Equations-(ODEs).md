@@ -7,7 +7,7 @@ categories: DifferentialEquations Python R
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 400px; width:auto;">
 
 
 # Outline
@@ -191,6 +191,8 @@ optimal_r, optimal_K = result.x
 print("Estimated parameters:", optimal_r, optimal_K)
 ```
 
+<p></p>
+
 ```python
 # Estimated parameters: 0.09999998711424758 1000.0000184181482
 ```
@@ -298,6 +300,8 @@ cat("k:", optimal_k, "\n")
 # Plot the observed data and fitted model for comparison
 fitted_data <- generate_data(optimal_r, optimal_k, initial_state, times)
 ```
+
+<p></p>
 
 ```r
 # Estimated parameters:
