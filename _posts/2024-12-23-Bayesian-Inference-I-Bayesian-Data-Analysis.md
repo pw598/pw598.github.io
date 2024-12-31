@@ -2,7 +2,7 @@
 layout: post
 title:  "Bayesian Inference I: Bayesian Data Analysis"
 date:   2024-12-23 00:00:00 +0000
-categories: Probability, Bayes
+categories: Probability Bayes
 ---
 
 <p></p>
