@@ -24,6 +24,7 @@ categories: Probability Bayes
     <li>Informative Priors</li>
     </ul>
 <li>What Next?</li>
+</ul>
 	
 
 
