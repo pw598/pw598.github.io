@@ -108,7 +108,7 @@ As mentioned above, the Uniform is a special case of the Beta where $\alpha=1$ a
 
 #### PDF:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/unif_pdf.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/unif_pdf.png?raw=true" style="height: 100px; width:auto;">
 
 The expected value is 
 
@@ -218,7 +218,7 @@ The Multivariate Normal (MVN) distribution is a generalization of the Normal to 
 
 #### PDF:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn_pdf.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn_pdf.png?raw=true" style="height: 65px; width:auto;">
 
 The expected value is 
 
