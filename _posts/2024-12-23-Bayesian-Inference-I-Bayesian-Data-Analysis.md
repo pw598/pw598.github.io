@@ -36,21 +36,21 @@ Let’s consider the Bayesian ‘credible interval’ as compared to its frequen
 
 Bayesian inference utilizes Bayes’ theorem to update the probability of a hypothesis, dependent upon related conditions. In addition to the law of total probability, it is derived from Bayes’ rule, which is defined as:
 
-$P(A|B) = \frac{ P(B|A)P(A) }{ P(B) }$
+<p>$P(A|B) = \frac{ P(B|A)P(A) }{ P(B) }$</p>
 
 Nothing is controversial about this general formulation, as it follows directly from the law of conditional probability.
 
-$P(A \text{ and } B) = P(A|B)P(B) = P(B|A)P(A)$
+<p>$P(A \text{ and } B) = P(A|B)P(B) = P(B|A)P(A)$</p>
 
 Incorporating the law of total probability,
 
-$P(B) = \sum_{i=1}^n P(B|A_i) P(A_i)$
+<p>$P(B) = \sum_{i=1}^n P(B|A_i) P(A_i)$</p>
 
 we can write:
 
-$P(A|B) = \frac{ P(B|A)P(A) }{ \sum_{i=1}^n P(B|A_i)P(A_i) }$
+<p>$P(A|B) = \frac{ P(B|A)P(A) }{ \sum_{i=1}^n P(B|A_i)P(A_i) }$</p>
 
-$P(A|B)$ we call the posterior. If we were describing the parameters of a model (distribution) given data, we would analogously write $f(\theta|y)$ for a posterior distribution, where $f(\cdot)$ is the model, $\theta$ is shorthand for the parameters, and $y$ is a vector of data. We generalize the sum to an integral to accommodate for continuous distributions.
+<p>$P(A|B)$ we call the posterior. If we were describing the parameters of a model (distribution) given data, we would analogously write $f(\theta|y)$ for a posterior distribution, where $f(\cdot)$ is the model, $\theta$ is shorthand for the parameters, and $y$ is a vector of data. We generalize the sum to an integral to accommodate for continuous distributions.</p>
 
 
 
