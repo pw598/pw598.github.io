@@ -272,9 +272,7 @@ ax.set(title='Samples of Prior Distribution');
 
 where
 
-- $\bar{f}_* = K(X_*, X)(K(X, X) + \sigma^2_n I)^{-1} y$
-
-- $\text{cov}(f_*) = K(X_*, X_*) - K(X_*, X)(K(X, X) + \sigma^2_n I)^{-1} K(X, X_*)$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-8.png?raw=true" style="height: 150px; width:auto;">
 
 Below, we compute these parameters and then visualize the covariance matrix resulting from the calculation.
 
