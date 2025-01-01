@@ -2,12 +2,12 @@
 layout: post
 title:  "Probability IV: Gaussian Processes"
 date:   2024-12-31 00:00:00 +0000
-categories: Probability
+categories: Probability Bayes
 ---
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1.png?raw=true" style="height: 450px; width:auto;">
 
 
 # Outline 
@@ -95,7 +95,7 @@ Through marginalization, we can extract partial information from multivariate di
 
 Each partition $X$ and $Y$ only depends on its corresponding entries in $\mu$ and $\mathbf{\Sigma}$. To marginalize out a random variable from a Gaussian distribution, we can simply drop the variables from $\mu$ and $\mathbf{\Sigma}$.
 
-$p_X(x) = \int_y p_{X,Y}(x,y) ~dy = \int_y p_{X,Y}(x|y) ~p_Y(y) ~dy$
+<p>$p_X(x) = \int_y p_{X,Y}(x,y) ~dy = \int_y p_{X,Y}(x|y) ~p_Y(y) ~dy$</p>
 
 The interpretation is that if we are interested in the probability density of $X = x$, we need to consider all possible outcomes of $Y$ that can jointly lead to the result.
 
@@ -105,9 +105,9 @@ The interpretation is that if we are interested in the probability density of $X
 
 Conditioning is used to determine the probability of one variable depending on another variable. Similar to marginalization, this operation is closed and yields a modified Gaussian distribution. 
 
-- $X|Y \sim \mathcal{N} (\mathbf{\mu}_X + \mathbf{\Sigma}_{XY} \mathbf{\Sigma}_{YY}^{-1} (Y - \mathbf{\mu}_Y), \mathbf{\Sigma}_{XX} - \mathbf{\Sigma_{XY} \mathbf{\Sigma}_{YY}^{-1} \mathbf{\Sigma}_{YX}})$
+- <p>$X|Y \sim \mathcal{N} (\mathbf{\mu}_X + \mathbf{\Sigma}_{XY} \mathbf{\Sigma}_{YY}^{-1} (Y - \mathbf{\mu}_Y), \mathbf{\Sigma}_{XX} - \mathbf{\Sigma_{XY} \mathbf{\Sigma}_{YY}^{-1} \mathbf{\Sigma}_{YX}})$</p>
 
-- $Y|X \sim \mathcal{N} (\mathbf{\mu}_Y + \mathbf{\Sigma}_{YX} \mathbf{\Sigma}_{XX}^{-1} (X - \mathbf{\mu}_X), \mathbf{\Sigma}_{YY} - \mathbf{\Sigma}_{YX} \mathbf{\Sigma}_{XX}^{-1} \mathbf{\Sigma}_{XY})$
+- <p>$Y|X \sim \mathcal{N} (\mathbf{\mu}_Y + \mathbf{\Sigma}_{YX} \mathbf{\Sigma}_{XX}^{-1} (X - \mathbf{\mu}_X), \mathbf{\Sigma}_{YY} - \mathbf{\Sigma}_{YX} \mathbf{\Sigma}_{XX}^{-1} \mathbf{\Sigma}_{XY})$</p>
 
 We form the joint distribution $P_{X,Y}$ between the test points $X$ and the training points $Y$, resulting in a multivariate Gaussian with dimensions $|Y|+|X|$. We concatenate the training and test points to compute the corresponding covariance matrix. Under conditioning, we can find $P_{X|Y}$ from $P_{X,Y}$.
 
@@ -147,12 +147,12 @@ ax.set(title='Sample Data')
 ax.legend(loc='upper right');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-2.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-2.png?raw=true" style="height: 450px; width:auto;">
 
 
 Then, define a kernel function. There are many options, but we'll simply go with the radial basis function (RBF), which bears similarity to the univariate Gaussian, and is parameterized by $\sigma_f$ and $\ell$.
 
-- $\text{Cov}(f(x_p), f(x_q)) = k_{\sigma_f, \ell}(x_p, x_q) = \sigma_f \exp\left(-\frac{1}{2\ell^2} ||x_p - x_q||^2\right)$
+- <p>$\text{Cov}(f(x_p), f(x_q)) = k_{\sigma_f, \ell}(x_p, x_q) = \sigma_f \exp\left(-\frac{1}{2\ell^2} ||x_p - x_q||^2\right)$</p>
 
 
 ```python
@@ -163,7 +163,7 @@ def kernel_function(x, y, sigma_f=1, l=1):
 
 ### Prediction
 
-We form the joint distribution $P_{X_*,X}$ between the test points $X_*$ and the training points $X$, resulting in a multivariate Gaussian with dimensions $|X|+|X_*|$. We concatenate the training and test points to compute the corresponding covariance matrix. Under conditioning, we can find $P_{X_*|X}$ from $P_{X_*,X}$.
+<p>We form the joint distribution $P_{X_*,X}$ between the test points $X_*$ and the training points $X$, resulting in a multivariate Gaussian with dimensions $|X|+|X_*|$. We concatenate the training and test points to compute the corresponding covariance matrix. Under conditioning, we can find $P_{X_*|X}$ from $P_{X_*,X}$.</p>
 
 The joint distribution of $y$ and $f_*$ is given by:
 
@@ -177,7 +177,7 @@ $
 
 where
 
-- $C = \begin{bmatrix} K(X, X) + \sigma^2_n I & K(X, X_*) \\ K(X_*, X) & K(X_*, X_*) \\ \end{bmatrix}$
+- <p>$C = \begin{bmatrix} K(X, X) + \sigma^2_n I & K(X, X_*) \\ K(X_*, X) & K(X_*, X_*) \\ \end{bmatrix}$</p>
 
 - $\sigma_n^2 I$ is a term to account for noise.
 
@@ -241,7 +241,7 @@ ax.set(title='Components of the Covariance Matrix C');
 # (100, 100)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-3.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-3.png?raw=true" style="height: 600px; width:auto;">
 
 
 We can draw samples from the prior if we'd like, to see what kind of functions we are likely to observe.
@@ -259,7 +259,7 @@ for i in range(0, 100):
 ax.set(title='Samples of Prior Distribution');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-4.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-4.png?raw=true" style="height: 500px; width:auto;">
 
 
 
@@ -295,7 +295,7 @@ sns.heatmap(data=cov_f_star, cmap='Blues', ax=ax)
 ax.set_title('Components of the Covariance Matrix cov_f_star');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-5.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-5.png?raw=true" style="height: 600px; width:auto;">
 
 
 ```python
@@ -313,7 +313,7 @@ ax.set(title=f'Samples of Posterior Distribution, sigma_f = {sigma_f} and l = {l
 ax.legend(loc='upper right');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-6.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-6.png?raw=true" style="height: 500px; width:auto;">
 
 
 
@@ -412,7 +412,7 @@ ax.set(title='Prediction & Credible Interval')
 ax.legend(loc='lower left');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-7.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-7.png?raw=true" style="height: 500px; width:auto;">
 
 
 
