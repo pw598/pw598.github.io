@@ -272,7 +272,7 @@ ax.set(title='Samples of Prior Distribution');
 
 where
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-8.png?raw=true" style="height: 150px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-8.png?raw=true" style="height: 75px; width:auto;">
 
 Below, we compute these parameters and then visualize the covariance matrix resulting from the calculation.
 
