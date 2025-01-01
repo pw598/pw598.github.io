@@ -161,7 +161,8 @@ def kernel_function(x, y, sigma_f=1, l=1):
     return kernel
 ```
 
-### Prediction
+
+# Prediction
 
 <p>We form the joint distribution $P_{X_*,X}$ between the test points $X_*$ and the training points $X$, resulting in a multivariate Gaussian with dimensions $|X|+|X_*|$. We concatenate the training and test points to compute the corresponding covariance matrix. Under conditioning, we can find $P_{X_*|X}$ from $P_{X_*,X}$.</p>
 
@@ -265,9 +266,9 @@ ax.set(title='Samples of Prior Distribution');
 
 # Posterior
 
-To get the posterior distribution over functions, we need to restrict this joint prior distribution to contain only those functions which agree with the observed data points. We are interested in computing $f_*|X, y, X_*$. These can be found as:
+<p>To get the posterior distribution over functions, we need to restrict this joint prior distribution to contain only those functions which agree with the observed data points. We are interested in computing $f_*|X, y, X_*$. These can be found as:</p>
 
-$f_*|X, y, X_* \sim \mathcal{N}(\bar{f}_*, \text{cov}(f_*))$
+<p>$f_*|X, y, X_* \sim \mathcal{N}(\bar{f}_*, \text{cov}(f_*))$</p>
 
 where
 
