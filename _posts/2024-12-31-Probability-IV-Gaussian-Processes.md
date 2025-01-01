@@ -109,7 +109,7 @@ Conditioning is used to determine the probability of one variable depending on a
 
 - <p>$Y|X \sim \mathcal{N} (\mathbf{\mu}_Y + \mathbf{\Sigma}_{YX} \mathbf{\Sigma}_{XX}^{-1} (X - \mathbf{\mu}_X), \mathbf{\Sigma}_{YY} - \mathbf{\Sigma}_{YX} \mathbf{\Sigma}_{XX}^{-1} \mathbf{\Sigma}_{XY})$</p>
 
-We form the joint distribution $P_{X,Y}$ between the test points $X$ and the training points $Y$, resulting in a multivariate Gaussian with dimensions $|Y|+|X|$. We concatenate the training and test points to compute the corresponding covariance matrix. Under conditioning, we can find $P_{X|Y}$ from $P_{X,Y}$.
+<p>We form the joint distribution $P_{X,Y}$ between the test points $X$ and the training points $Y$, resulting in a multivariate Gaussian with dimensions $|Y|+|X|$. We concatenate the training and test points to compute the corresponding covariance matrix. Under conditioning, we can find $P_{X|Y}$ from $P_{X,Y}$.</p>
 
 
 
