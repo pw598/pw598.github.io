@@ -7,7 +7,7 @@ categories: NeuralNetworks
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1.png?raw=true" style="height: 500px; width:auto;">
 
 
 # Outline 
@@ -251,7 +251,7 @@ plt.figure(figsize = (3,3))
 plt.imshow(X_test[0]);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-5.png?raw=true" style="height: 225px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-6.png?raw=true" style="height: 225px; width:auto;">
 
 
 # The Strictly Necessary Lines of Code
