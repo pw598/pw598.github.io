@@ -2,7 +2,7 @@
 layout: post
 title:  "Neural Networks I: MNIST in 17 Lines"
 date:   2025-01-04 00:00:00 +0000
-categories: Neural Networks
+categories: NeuralNetworks
 ---
 
 <p></p>
@@ -51,7 +51,7 @@ for i in range(20):
 plt.tight_layout()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-1.png?raw=true" style="height: 200px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-1.png?raw=true" style="height: 250px; width:auto;">
 
 
 
@@ -128,7 +128,7 @@ We can use <code>model.summary()</code> to have Keras print a summary of the arc
 model.summary()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-2.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-2.png?raw=true" style="height: 300px; width:auto;">
 
 
 
@@ -184,7 +184,7 @@ plt.legend(['loss', 'val_loss'])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-3.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-3.png?raw=true" style="height: 450px; width:auto;">
 
 
 ### Accuracy
@@ -198,7 +198,7 @@ plt.legend(['accuracy', 'val_accuracy'])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-4.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-4.png?raw=true" style="height: 450px; width:auto;">
 
 
 Making Predictions
@@ -224,7 +224,7 @@ It outputs an array of 10 probability-like values, one for each class label, whi
 ```python
 plt.bar(range(0,10),test_pred[0]);
 ```
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-5.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-5.png?raw=true" style="height: 450px; width:auto;">
 
 The plot makes it clear that class label ‘7’ is favored as the prediction. We can also use the <code>argmax()</code> function to extract the index associated with this value.
 
@@ -251,7 +251,7 @@ plt.figure(figsize = (3,3))
 plt.imshow(X_test[0]);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-5.png?raw=true" style="height: 300px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-5.png?raw=true" style="height: 225px; width:auto;">
 
 
 # The Strictly Necessary Lines of Code
