@@ -187,7 +187,7 @@ class Network:
 
 <p>We use matrix multiplication to compute the activations of all the neurons in the next layer simultaneously. Organize all activations from the first layer into a column vector. Organize all the weights as a matrix, where each row corresponds to all connections between neurons in the first layer and a particular neuron in the next layer. The superscripts in the below correspond to layer number and the subscripts correspond to a unit in the layer. It's accurate to think of each neuron as a function; it takes in the activations of all neurons in the previous layer, and outputs a number.</p>
 
-<p>$a^{(1)} = \sigma \left( \begin{bmatrix} w_{0,0} & w_{0,1} & \ldots & w_{0,n} \\ w_{1,0} & w_{1,1} & \ldots & w_{1,n} \\ \vdots & \dots & \ddots & \vdots \\ w_{k,0} & w_{k,1} & \ldots & w_{k,n} \\ \end{bmatrix} \begin{bmatrix} a_0^{(0)} \\ a_1^{(0)} \\ \vdots \\ a_n^{(0)} \end{bmatrix} + \begin{bmatrix} b_0 \\ b_1 \\ \ldots \\ b_n \\ \end{bmatrix} \right)$</p>
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-8.png?raw=true" style="height: 200px; width:auto;">
 
 
 ```python
@@ -211,7 +211,7 @@ class DenseLayer
 
 <p>We would like to know how well the network predicts the target variable $y$ from the inputs $x$, so that we can determine how much to adjust the weights and biases in the network. For this we will need a cost function, a.k.a. loss function.</p>
 
-<img src="img/nn2-4.png" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-4.png" style="height: 400px; width:auto;">
 
 <p>source: <a href="https://www.3blue1brown.com/lessons/backpropagation-calculus">Backpropagation Calculus, 3Blue1Brown</a></p>
 
