@@ -2,7 +2,7 @@
 layout: post
 title:  "Neural Networks I: MNIST in 17 Lines"
 date:   2025-01-04 00:00:00 +0000
-categories: NeuralNetworks
+categories: NeuralNetworks Python
 ---
 
 <p></p>
