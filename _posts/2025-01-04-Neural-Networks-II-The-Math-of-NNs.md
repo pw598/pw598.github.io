@@ -187,7 +187,7 @@ class Network:
 
 <p>We use matrix multiplication to compute the activations of all the neurons in the next layer simultaneously. Organize all activations from the first layer into a column vector. Organize all the weights as a matrix, where each row corresponds to all connections between neurons in the first layer and a particular neuron in the next layer. The superscripts in the below correspond to layer number and the subscripts correspond to a unit in the layer. It's accurate to think of each neuron as a function; it takes in the activations of all neurons in the previous layer, and outputs a number.</p>
 
-$a^{(1)} = \sigma \left( \begin{bmatrix} w_{0,0} & w_{0,1} & \ldots & w_{0,n} \\ w_{1,0} & w_{1,1} & \ldots & w_{1,n} \\ \vdots & \dots & \ddots & \vdots \\ w_{k,0} & w_{k,1} & \ldots & w_{k,n} \\ \end{bmatrix} \begin{bmatrix} a_0^{(0)} \\ a_1^{(0)} \\ \vdots \\ a_n^{(0)} \end{bmatrix} + \begin{bmatrix} b_0 \\ b_1 \\ \ldots \\ b_n \\ \end{bmatrix} \right)$
+<p>$a^{(1)} = \sigma \left( \begin{bmatrix} w_{0,0} & w_{0,1} & \ldots & w_{0,n} \\ w_{1,0} & w_{1,1} & \ldots & w_{1,n} \\ \vdots & \dots & \ddots & \vdots \\ w_{k,0} & w_{k,1} & \ldots & w_{k,n} \\ \end{bmatrix} \begin{bmatrix} a_0^{(0)} \\ a_1^{(0)} \\ \vdots \\ a_n^{(0)} \end{bmatrix} + \begin{bmatrix} b_0 \\ b_1 \\ \ldots \\ b_n \\ \end{bmatrix} \right)$</p>
 
 
 ```python
@@ -257,10 +257,10 @@ The training process employs the gradient descent and backpropagation algorithms
 
 <p>The backpropagation equations for multiple neurons at a time can be written in matrix form. We start by computing the gradient of our scores, a special case of $\partial \mathbf{Z}$.</p>
 
-<h4>$\frac{\partial \mathbf{L}_i}{\partial \mathbf{Z_k}} = p_k - 1(y_i=k)$</h4>
-    <ul>
-        <li>$(y_i=k)$ is an indicator function, $1$ if true and $0$ if false.</li>
-    </ul>
+$\frac{\partial \mathbf{L}_i}{\partial \mathbf{Z_k}} = p_k - 1(y_i=k)$
+
+- $(y_i=k)$ is an indicator function, $1$ if true and $0$ if false.
+
 
 
 ```python
