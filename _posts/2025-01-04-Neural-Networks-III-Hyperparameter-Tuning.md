@@ -7,7 +7,7 @@ categories: NeuralNetworks Python
 
 <p></p>
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn3.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn3.png?raw=true" style="height: 550px; width:auto;">
 
 
 # Outline 
@@ -229,7 +229,7 @@ for i in tqdm(range(len(n_layers_lst))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/layers_nodes.png?raw=true" style="height: 1200px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/layers_nodes.png?raw=true" style="height: 1000px; width:auto;">
 
 
 This shows that there is a such thing as having too many layers or nodes. At some point the model becomes overparameterized. Larger networks may perform better in the presence of proper regularization.
@@ -260,7 +260,7 @@ for i in tqdm(range(len(optimizers))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/optimizer.png?raw=true" style="height: 800px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/optimizer.png?raw=true" style="height: 600px; width:auto;">
 
 
 We see that the Adam optimizer scores the highest, and has the smoothest trend over epochs.
@@ -288,7 +288,7 @@ for i in tqdm(range(len(batch_sizes))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/batch_size.png?raw=true" style="height: 800px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/batch_size.png?raw=true" style="height: 600px; width:auto;">
 
 
 
@@ -317,7 +317,7 @@ for i in tqdm(range(len(learning_rates))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/learning_rate.png?raw=true" style="height: 800px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/learning_rate.png?raw=true" style="height: 600px; width:auto;">
 
 An alternative to using a fixed learning rate is to vary the learning rate over the training process. The way in which it changes over time is called decay. Optimizers that inherently vary the learning rate during training are RMSProp, Adagrad, and Adam.
 
@@ -347,7 +347,7 @@ for i in tqdm(range(len(momentums))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/momentum.png?raw=true" style="height: 800px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/momentum.png?raw=true" style="height: 600px; width:auto;">
 
 
 
@@ -378,7 +378,7 @@ for i in tqdm(range(len(reg_types))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/weight_regularization.png?raw=true" style="height: 1200px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/weight_regularization.png?raw=true" style="height: 1000px; width:auto;">
 
 
 
@@ -407,7 +407,7 @@ for i in tqdm(range(len(dropouts))):
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dropout.png?raw=true" style="height: 800px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dropout.png?raw=true" style="height: 600px; width:auto;">
 
 
 
