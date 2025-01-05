@@ -273,7 +273,7 @@ $\mathbf{AV} = \mathbf{V \Lambda}$
 The reason it is $\mathbf{V \Lambda}$ and not $\mathbf{\Lambda V}$ is so the eigenvalues scale each column of the $\mathbf{V}$ matrix, rather than each row.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-11.png?raw=true" style="height: 150px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-11.png?raw=true" style="height: 110px; width:auto;">
 
 Normalizing the vectors of an eigenvectors matrix means that the product of that matrix and the same matrix transposed equal the identity matrix, $\mathbf{V}^T \mathbf{V} = \mathbf{I}$, assuming the eigenvectors are of a symmetric matrix). And if $\mathbf{V}^T \mathbf{V} = \mathbf{I}$, then $\mathbf{V}^T = \mathbf{V}^{-1}$. This gives us:
 
