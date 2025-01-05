@@ -18,7 +18,7 @@ categories: NeuralNetworks Python
 - Initial Settings
 - Fit Function
 - Number of layers and nodes
-- Optimizer (SGD, Adam, etc.)
+- Optimizer
 - Batch Size
 - Learning Rate
 - Momentum
