@@ -73,7 +73,7 @@ We'll ignore the trivial case where $\mathbf{v} = \mathbf{O}$.
 
 Let's consider the following matrix:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 75px; width:auto;">
 
 
 We'll shift matrix by $\lambda \cdot \mathbf{I}$, which will consist of $\lambda$ on the diagonal elements and zeros elsewhere. Thus, we'll shift the diagonal elements of the above matrix by $\lambda$, and set the determinant equal to zero.
@@ -100,7 +100,7 @@ So $\lambda_1 = 3$ and $\lambda_2 = -1$.
 
 Staying consistent with the above, we have the matrix
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 75px; width:auto;">
 
 and eigenvalues $\lambda_1 = 3$ and $\lambda_2 = −1$. We'll shift the matrix by each $\lambda$, and find a vector in the null space.
 
@@ -163,10 +163,11 @@ eigenvalues:  [0.68337521 7.31662479]
 
 What about the eigenvectors? What we arrived at mathematically were
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-5.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-5.png?raw=true" style="height: 75px; width:auto;">
+
 but the Numpy function gave us 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-6.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-6.png?raw=true" style="height: 75px; width:auto;">
 
 This is because Numpy normalizes the vectors to be unit length, since the eigenvalues provide the scaling information, and the eigenvectors are only meaningful in terms of direction. We can confirm this by dividing the results of the calculation by hand by the <code>numpy.linalg.norm()</code>.
 
