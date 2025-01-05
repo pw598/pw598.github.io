@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Dimension Reduction I: Eigendecomposition"
-date:   2025-01-06 00:00:00 +0000
+date:   2025-01-03 00:00:00 +0000
 categories: DimensionReduction Python
 ---
 
