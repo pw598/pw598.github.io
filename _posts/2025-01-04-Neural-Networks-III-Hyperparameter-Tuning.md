@@ -392,6 +392,7 @@ Another form of regularization is to randomly drop some portion of nodes from sp
 ---
 <i>By dropping a unit out, we mean temporarily removing it from the network, along with all its incoming and outgoing connections</i>
 - Dropout: A Simple Way to Prevent Neural Networks from Overfitting (2014)
+
 ---
 
 
@@ -451,11 +452,13 @@ I’m sure you get the idea. We can continue searching for optimal values of fur
 ---
 <i>"Training deep neural networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layer change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to the change in the distributions off internal nodes of a deep network, in the course of training, as internal covariate shift."</i>
 - Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift (2015)
+
 ---
 
 ---
 <i>"BatchNorm makes the landscape of the corresponding optimization problem significantly more smooth. This ensures the gradients are more predictive and thus allows for use of a larger range of learning rates and faster network convergence."</i>
 - How Does Batch Normalization Help Optimization? (2018)
+
 ---
 
 [https://keras.io/api/layers/normalization_layers/batch_normalization/](https://keras.io/api/layers/normalization_layers/batch_normalization/)
@@ -488,6 +491,7 @@ Adding small amounts of noise (jitter) to the training data can aid in generaliz
 ---
 <i>"It is well known that the addition of noise to the input data of a neural network during training can, in some circumstances, lead to significant improvements in generalization performance. Previous work has shown that such training with noise is equivalent to a form of regularization in which an extra term is added to the error function".</i>
 - Training with Noise is Equivalent to Tikhonov Regularization (2008)
+
 ---
 
 [https://keras.io/api/layers/regularization_layers/gaussian_noise/](https://keras.io/api/layers/regularization_layers/gaussian_noise/)
@@ -513,8 +517,6 @@ Adding small amounts of noise (jitter) to the training data can aid in generaliz
 
 - Santurkar, S., Tsipiras, D., Ilyas, A., & Madry, A. (2018). How Does Batch Normalization Help Optimization? Arxiv. [https://doi.org/arXiv:1805.11604v5](https://doi.org/arXiv:1805.11604v5)
 
-- Bishop, C. M. (1995). Training with Noise is Equivalent to Tikhonov Regularization. Neural Computation. [https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bishop-tikhonov-nc-95.pdf](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bishop-tikhonov-nc-95.pdf)
-
 - Brownlee, J. (2021). Optimization for Machine Learning (A. Tam, Ed.) (1st ed.). MachineLearningMastery. [https://machinelearningmastery.com/optimization-for-machine-learning/](https://machinelearningmastery.com/optimization-for-machine-learning/)
 
 - Duchi, J., Hazan, E., & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. Journal of Machine Learning Research.
@@ -526,3 +528,5 @@ Adding small amounts of noise (jitter) to the training data can aid in generaliz
 
 - Duchi, J., Hazan, E., & Singer, Y. (2011). Adaptive Subgradient Methods for Online Learning and Stochastic Optimization. Journal of Machine Learning Research.
 [https://arxiv.org/abs/1212.5701](https://arxiv.org/abs/1212.5701)
+
+- Bishop, C. M. (1995). Training with Noise is Equivalent to Tikhonov Regularization. Neural Computation. [https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bishop-tikhonov-nc-95.pdf](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bishop-tikhonov-nc-95.pdf)
