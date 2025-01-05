@@ -330,6 +330,7 @@ Selecting the top performing learning rate, I will proceed to search momentum va
 ---
 <i>Momentum is designed to accelerate learning, especially in the face of high curvature, small but consistent gradients, or noisy gradients... common values used in practice include 0.5, 0.9, and 0.99"</i>
 - Deep Learning (2016)
+
 ---
 
 
