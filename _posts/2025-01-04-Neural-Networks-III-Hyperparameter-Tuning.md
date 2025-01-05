@@ -455,7 +455,6 @@ I’m sure you get the idea. We can continue searching for optimal values of fur
 
 ---
 
----
 <i>"BatchNorm makes the landscape of the corresponding optimization problem significantly more smooth. This ensures the gradients are more predictive and thus allows for use of a larger range of learning rates and faster network convergence."</i>
 - How Does Batch Normalization Help Optimization? (2018)
 
