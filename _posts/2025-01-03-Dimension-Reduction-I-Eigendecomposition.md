@@ -63,23 +63,18 @@ The way to discover the eigenvalues of a matrix is to rewrite the fundamental ei
 
 $\mathbf{Av} = \lambda \mathbf{v} = \mathbf{O}$
 
-To make this a valid operation, we'll insert an identity matrix before the vector $\mathbf{v}$. We'll also factor the vector 𝐯 out of both terms on the left.
+To make this a valid operation, we'll insert an identity matrix before the vector $\mathbf{v}$. We'll also factor the vector \mathbf{v} out of both terms on the left.
 
-$\begin{bmatrix}
- 1 & 2 \\
- 2 & 1 \\
-\end{bmatrix}$
+$(\mathbf{A} - \lambda \mathbf{I}) \mathbf{v} = \mathbf{O}$
 
 We'll ignore the trivial case where $\mathbf{v} = \mathbf{O}$.
 
-Any square matrix with a non-trivial null space is reduced rank, and a reduced-rank matrix has a determinant of 0, so the mechanism for finding eigenvalues is $|\mathbf{A} - \lambda \mathbf{I}| = 0$.
+<p>Any square matrix with a non-trivial null space is reduced rank, and a reduced-rank matrix has a determinant of 0, so the mechanism for finding eigenvalues is $|\mathbf{A} - \lambda \mathbf{I}| = 0$.</p>
 
 Let's consider the following matrix:
 
-$\begin{bmatrix}
- 1 & 2 \\
- 2 & 1 \\
-\end{bmatrix}$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 50px; width:auto;">
+
 
 We'll shift matrix by $\lambda \cdot \mathbf{I}$, which will consist of $\lambda$ on the diagonal elements and zeros elsewhere. Thus, we'll shift the diagonal elements of the above matrix by $\lambda$, and set the determinant equal to zero.
 
@@ -105,7 +100,7 @@ So $\lambda_1 = 3$ and $\lambda_2 = -1$.
 
 Staying consistent with the above, we have the matrix
 
-$\begin{bmatrix} 1 & 2 \\ 2 & 1 \\ \end{bmatrix}$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 50px; width:auto;">
 
 and eigenvalues $\lambda_1 = 3$ and $\lambda_2 = −1$. We'll shift the matrix by each $\lambda$, and find a vector in the null space.
 
@@ -168,11 +163,10 @@ eigenvalues:  [0.68337521 7.31662479]
 
 What about the eigenvectors? What we arrived at mathematically were
 
-$\begin{bmatrix} 1 \\ 1 \\ \end{bmatrix}$ and $\begin{bmatrix} -1 \\ 1 \\ \end{bmatrix}$
-
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-5.png?raw=true" style="height: 50px; width:auto;">
 but the Numpy function gave us 
 
-$\begin{bmatrix} 0.707.. \\ 0.707.. \\ \end{bmatrix}$ and $\begin{bmatrix} -0.707.. \\ 0.707.. \\ \end{bmatrix}$.
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-6.png?raw=true" style="height: 50px; width:auto;">
 
 This is because Numpy normalizes the vectors to be unit length, since the eigenvalues provide the scaling information, and the eigenvectors are only meaningful in terms of direction. We can confirm this by dividing the results of the calculation by hand by the <code>numpy.linalg.norm()</code>.
 
