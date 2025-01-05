@@ -100,23 +100,19 @@ So $\lambda_1 = 3$ and $\lambda_2 = -1$.
 
 Staying consistent with the above, we have the matrix
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 75px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 125px; width:auto;">
 
 and eigenvalues $\lambda_1 = 3$ and $\lambda_2 = −1$. We'll shift the matrix by each $\lambda$, and find a vector in the null space.
 
-- $\begin{bmatrix} 1-3 & 2 \\ 2 & 1-3 \\ \end{bmatrix} = \begin{bmatrix} -2 & 2 \\ 2 & -2 \\ \end{bmatrix}$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-7.png?raw=true" style="height: 75px; width:auto;">.
 
-- $\begin{bmatrix} -2 & 2 \\ 2 & -2 \\ \end{bmatrix} \begin{bmatrix} 1 \\ 1 \\ \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ \end{bmatrix}$
-
-The first eigenvector, associated with $\lambda_1 = 3$, is found to be $\begin{bmatrix} 1 \\ 1 \\ \end{bmatrix}$.
+The first eigenvector, associated with $\lambda_1 = 3$, is found to be <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-8.png?raw=true" style="height: 75px; width:auto;">.
 
 We'll continue with finding the second eigenvector.
 
-- $\begin{bmatrix} 1-(-1) & 2 \\ 2 & 1-(-1) \\ \end{bmatrix} = \begin{bmatrix} 2 & 2 \\ 2 & 2 \\ \end{bmatrix}$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-9.png?raw=true" style="height: 125px; width:auto;">.
 
-- $\begin{bmatrix} 2 & 2 \\ 2 & 2 \\ \end{bmatrix} \begin{bmatrix} -1 \\ 1 \\ \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ \end{bmatrix}$
-
-The second eigenvector, associated with $\lambda_2 = -1$, is found to be $\begin{bmatrix} -1 \\ 1 \\ \end{bmatrix}$.
+The second eigenvector, associated with $\lambda_2 = -1$, is found to be <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-10.png?raw=true" style="height: 75px; width:auto;">..
 
 
 
