@@ -100,19 +100,19 @@ So $\lambda_1 = 3$ and $\lambda_2 = -1$.
 
 Staying consistent with the above, we have the matrix
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 125px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 75px; width:auto;">
 
 and eigenvalues $\lambda_1 = 3$ and $\lambda_2 = −1$. We'll shift the matrix by each $\lambda$, and find a vector in the null space.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-7.png?raw=true" style="height: 75px; width:auto;">.
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-7.png?raw=true" style="height: 125px; width:auto;">.
 
 The first eigenvector, associated with $\lambda_1 = 3$, is found to be <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-8.png?raw=true" style="height: 75px; width:auto;">.
 
 We'll continue with finding the second eigenvector.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-9.png?raw=true" style="height: 125px; width:auto;">.
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-9.png?raw=true" style="height: 75px; width:auto;">.
 
-The second eigenvector, associated with $\lambda_2 = -1$, is found to be <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-10.png?raw=true" style="height: 75px; width:auto;">..
+The second eigenvector, associated with $\lambda_2 = -1$, is found to be <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-10.png?raw=true" style="height: 125px; width:auto;">..
 
 
 
