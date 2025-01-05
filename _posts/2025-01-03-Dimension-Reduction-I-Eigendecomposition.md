@@ -378,7 +378,7 @@ plt.show()
 
 # What's Next?
 
-The next article in the series, on principal components analysis (PCA).
+The next article in the series is on principal components analysis (PCA), which involves eigendecomposition upon a covariance matrix, and has some special properties, such as orthogonalizing components, and maximizing variance for each component under this constraint.
 
 
 
