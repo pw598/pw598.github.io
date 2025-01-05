@@ -272,8 +272,10 @@ $\mathbf{AV} = \mathbf{V \Lambda}$
 
 The reason it is $\mathbf{V \Lambda}$ and not $\mathbf{\Lambda V}$ is so the eigenvalues scale each column of the $\mathbf{V}$ matrix, rather than each row.
 
-
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-11.png?raw=true" style="height: 150px; width:auto;">
+$
+\begin{bmatrix} v_{11} & v_{21} & v_{31} \\ v_{12} & v_{22} & v_{32} \\ v_{13} & v_{23} & v_{33} \\ \end{bmatrix} \begin{bmatrix} \lambda_1 & 0 & 0 \\ 0 & \lambda_2 & 0 \\ 0 & 0 & \lambda_3 \\
+\end{bmatrix} = \begin{bmatrix} \lambda_1 v_{11} & \lambda_2 v_{21} & \lambda_3 v_{31} \\ \lambda_1 v_{12} & \lambda_2 v_{22} & \lambda_3 v_{32} \\ \lambda_1 v_{13} & \lambda_2 v_{23} & \lambda_3 v_{33} \\ \end{bmatrix}
+$
 
 Normalizing the vectors of an eigenvectors matrix means that the product of that matrix and the same matrix transposed equal the identity matrix, $\mathbf{V}^T \mathbf{V} = \mathbf{I}$, assuming the eigenvectors are of a symmetric matrix). And if $\mathbf{V}^T \mathbf{V} = \mathbf{I}$, then $\mathbf{V}^T = \mathbf{V}^{-1}$. This gives us:
 
