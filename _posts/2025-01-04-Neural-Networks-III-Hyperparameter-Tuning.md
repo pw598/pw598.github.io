@@ -327,8 +327,10 @@ An alternative to using a fixed learning rate is to vary the learning rate over 
 
 Selecting the top performing learning rate, I will proceed to search momentum values. Momentum, like learning rate, is a parameter of the optimization algorithm, and modulates the step sizes taken during gradient descent to have inertia (continued motion) from the previous step.
 
-<i>""Momentum is designed to accelerate learning, especially in the face of high curvature, small but consistent gradients, or noisy gradients... common values used in practice include 0.5, 0.9, and 0.99"</i>
+---
+<i>Momentum is designed to accelerate learning, especially in the face of high curvature, small but consistent gradients, or noisy gradients... common values used in practice include 0.5, 0.9, and 0.99"</i>
 - Deep Learning (2016)
+---
 
 
 ```python
@@ -386,8 +388,10 @@ plt.show()
 
 Another form of regularization is to randomly drop some portion of nodes from specified layers during training. We will try 10%, 25%, 50%, and 75%.
 
+---
 <i>By dropping a unit out, we mean temporarily removing it from the network, along with all its incoming and outgoing connections</i>
 - Dropout: A Simple Way to Prevent Neural Networks from Overfitting (2014)
+---
 
 
 ```python
@@ -443,11 +447,15 @@ I’m sure you get the idea. We can continue searching for optimal values of fur
 
 - Batch normalization, implemented as a type of layer in Keras, normalizes the inputs to a layer (i.e., the output of the previous layer's activation functions). The backpropagation algorithm operates upon the transformed inputs, and error is used to update the new scale and shift parameters learned by the model.
 
+---
 <i>"Training deep neural networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layer change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to the change in the distributions off internal nodes of a deep network, in the course of training, as internal covariate shift."</i>
 - Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift (2015)
+---
 
+---
 <i>"BatchNorm makes the landscape of the corresponding optimization problem significantly more smooth. This ensures the gradients are more predictive and thus allows for use of a larger range of learning rates and faster network convergence."</i>
 - How Does Batch Normalization Help Optimization? (2018)
+---
 
 [https://keras.io/api/layers/normalization_layers/batch_normalization/](https://keras.io/api/layers/normalization_layers/batch_normalization/)
 
@@ -476,8 +484,10 @@ This is similar to weight regularization, however we place a penalty on the acti
 
 Adding small amounts of noise (jitter) to the training data can aid in generalization.
 
+---
 <i>"It is well known that the addition of noise to the input data of a neural network during training can, in some circumstances, lead to significant improvements in generalization performance. Previous work has shown that such training with noise is equivalent to a form of regularization in which an extra term is added to the error function".</i>
 - Training with Noise is Equivalent to Tikhonov Regularization (2008)
+---
 
 [https://keras.io/api/layers/regularization_layers/gaussian_noise/](https://keras.io/api/layers/regularization_layers/gaussian_noise/)
 
