@@ -89,9 +89,9 @@ GPs define a probability distribution over possible functions in such as way tha
 
 Through marginalization, we can extract partial information from multivariate distributions. Given a Gaussian probability distribution $P_{X,Y}$ over vectors of random variables $X$ and $Y$,
 
-- $X \sim \mathcal{N}(\mathbf{\mu}_X, \mathbf{\Sigma}_{XX})$
+- <p>$X \sim \mathcal{N}(\mathbf{\mu}_X, \mathbf{\Sigma}_{XX})$</p>
 
-- $Y \sim \mathcal{N}(\mathbf{u}_Y, \mathbf{\Sigma}_{YY})$
+- <p>$Y \sim \mathcal{N}(\mathbf{u}_Y, \mathbf{\Sigma}_{YY})$</p>
 
 Each partition $X$ and $Y$ only depends on its corresponding entries in $\mu$ and $\mathbf{\Sigma}$. To marginalize out a random variable from a Gaussian distribution, we can simply drop the variables from $\mu$ and $\mathbf{\Sigma}$.
 
