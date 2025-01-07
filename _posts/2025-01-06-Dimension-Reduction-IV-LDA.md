@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Dimension Reduction III: Singular Value Decomposition (SVD)"
+title:  "Dimension Reduction IV: Linear Discriminant Analysis (LDA)"
 date:   2025-01-06 00:00:00 +0000
 categories: DimensionReduction Python
 ---
