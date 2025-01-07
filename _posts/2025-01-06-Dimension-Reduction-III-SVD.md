@@ -263,9 +263,7 @@ $\mathbf{A^+} = \mathbf{V D^+ U}^T$
 
 The $\mathbf{D}^+$ can be calculated by creating a diagonal matrix from $\mathbf{\Sigma}$, calculating the reciprocal of each non-zero element in $\mathbf{\Sigma}$, and taking the transpose if the original matrix was rectangular.
 
-$\Sigma = \begin{bmatrix} s_{1,1} & 0 & 0 \\ 0 & s_{2,2} & 0 \\ 0 & 0 & s_{3,3} \\ \end{bmatrix}$
-
-$D^+ = \begin{bmatrix} \frac{1}{s_{1,1}} & 0 & 0 \\ 0 & \frac{1}{s_{2,2}} & 0 \\ 0 & 0 & \frac{1}{s_{3,3}} \\ \end{bmatrix}$
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-4.png?raw=true" style="height: 400px; width:auto;">
 
 Below, I demonstrate that the numpy.linalg.pinv operation can be equivalently performed using SVD.
 
@@ -384,7 +382,7 @@ fig.suptitle('SVD Faces', fontsize=30)
 plt.tight_layout()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-3.png?raw=true" style="height: 1000px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-3.png?raw=true" style="height: 900px; width:auto;">
 
 
 
