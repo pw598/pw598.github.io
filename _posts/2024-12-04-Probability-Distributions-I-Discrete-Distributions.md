@@ -5,7 +5,8 @@ date:   2024-12-04 00:00:00 +0000
 categories: Probability
 ---
 
-<p></p>
+We build up the theory of probability distributions in general, and go through the discrete distributions, as well as how they relate.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd1.png?raw=true" style="height: 450px; width:auto;">
 

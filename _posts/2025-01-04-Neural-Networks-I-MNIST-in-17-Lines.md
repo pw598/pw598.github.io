@@ -5,7 +5,9 @@ date:   2025-01-04 00:00:00 +0000
 categories: NeuralNetworks Python
 ---
 
-<p></p>
+
+It only takes 17 lines of Python to train a neural network to recognize handwritten digits, including the import of libraries and data.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1.png?raw=true" style="height: 500px; width:auto;">
 

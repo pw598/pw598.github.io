@@ -5,7 +5,9 @@ date:   2024-12-23 00:00:00 +0000
 categories: DifferentialEquations R Stan
 ---
 
-<p></p>
+
+The Susceptible, Infected, Recovered (SIR) model is a simple but extensible system of ODEs describing the dynamics of an outbreak of illness over time.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3.png?raw=true" style="height: 400px; width:auto;">
 

@@ -5,7 +5,8 @@ date:   2024-12-23 00:00:00 +0000
 categories: DifferentialEquations R Stan
 ---
 
-<p></p>
+The Lotka-Volterra equations are a system of ordinary differential equations (ODEs) allowing us to model the dynamics of a predator and prey relationships over time.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2.png?raw=true" style="height: 450px; width:auto;">
 

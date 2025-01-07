@@ -5,7 +5,9 @@ date:   2025-01-06 00:00:00 +0000
 categories: DimensionReduction Python
 ---
 
-<p></p>
+
+The first of 7 articles about dimension reduction, a strategy for dealing with numerous or correlated features. This first article explains eigendecomposition, a linear algebra operation which is fundamental toward principal component analysis (PCA), singular value decomposition (SVD), linear discriminant analysis (LDA), and independent component analysis (ICA).
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1.png?raw=true" style="height: 500px; width:auto;">
 

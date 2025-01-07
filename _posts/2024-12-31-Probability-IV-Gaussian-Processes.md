@@ -5,7 +5,9 @@ date:   2024-12-31 00:00:00 +0000
 categories: Probability Bayes
 ---
 
-<p></p>
+
+Gaussian processes (GPs) can be thought of an a non-parametric Bayesian extension of linear regression, in which a prior distribution over functions is considered. They have many special properties, and this article covers GP regression.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1.png?raw=true" style="height: 450px; width:auto;">
 

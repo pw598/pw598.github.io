@@ -5,7 +5,8 @@ date:   2024-12-22 00:00:00 +0000
 categories: Probability
 ---
 
-<p></p>
+The second of two articles listing continuous distributions, their properties, and their relationships. This second article focuses on a family of distributions closely related to the Gamma.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd3.png?raw=true" style="height: 350px; width:auto;">
 

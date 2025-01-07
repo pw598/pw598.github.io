@@ -5,7 +5,8 @@ date:   2024-12-23 00:00:00 +0000
 categories: DifferentialEquations Python R
 ---
 
-<p></p>
+Differential equations model change by associating a function with its derivatives, and arise when it is easier to describe change than absolute amounts.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 400px; width:auto;">
 

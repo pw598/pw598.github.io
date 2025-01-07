@@ -5,7 +5,8 @@ date:   2024-12-09 00:00:00 +0000
 categories: Probability
 ---
 
-<p></p>
+The second of two articles listing continuous distributions, their properties, and their relationships. This second article focuses on a family of continuous distributions closely related to either the Normal or Beta.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd2.png?raw=true" style="height: 450px; width:auto;">
 

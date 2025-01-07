@@ -5,7 +5,9 @@ date:   2024-12-24 00:00:00 +0000
 categories: SurvivalAnalysis Python
 ---
 
-<p></p>
+
+Survival analysis is the study of times-to-event, and the factors that influence them. This first article focuses on univariate parametric and non-parametric survival models.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1.png?raw=true" style="height: 450px; width:auto;">
 

@@ -5,7 +5,9 @@ date:   2025-01-06 00:00:00 +0000
 categories: DimensionReduction Python
 ---
 
-<p></p>
+
+Principal component analysis (PCA) involves eigendecomposition of a covariance matrix, producing a number of uncorrelated (orthogonal) components less than or equal to the number of data features, which maximize the variance within each component.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2.png?raw=true" style="height: 500px; width:auto;">
 

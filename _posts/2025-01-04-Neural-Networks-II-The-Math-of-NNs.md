@@ -5,7 +5,9 @@ date:   2025-01-04 00:00:00 +0000
 categories: NeuralNetworks Python
 ---
 
-<p></p>
+
+We cover what the previous article did not - the inner workings of neural networks, and creating one from scratch.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2.png?raw=true" style="height: 500px; width:auto;">
 

@@ -5,7 +5,9 @@ date:   2025-01-06 00:00:00 +0000
 categories: DimensionReduction Python
 ---
 
-<p></p>
+
+Singular value decomposition (SVD) is very similar to PCA, but is performed upon the data matrix rather than covariance matrix. It can also handle non-square matrices.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3.png?raw=true" style="height: 500px; width:auto;">
 

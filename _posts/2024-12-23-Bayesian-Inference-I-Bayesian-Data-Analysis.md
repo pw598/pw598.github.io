@@ -5,7 +5,9 @@ date:   2024-12-23 00:00:00 +0000
 categories: Probability Bayes
 ---
 
-<p></p>
+
+A short introduction to Bayesian data analysis, including prior distributions and their practical application.
+
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi1.png?raw=true" style="height: 400px; width:auto;">
 
