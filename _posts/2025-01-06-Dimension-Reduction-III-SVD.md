@@ -32,6 +32,7 @@ categories: DimensionReduction Python
 ---
 <i>Perhaps the most known and widely used matrix decomposition is SVD. All matrices have an SVD, which makes it more table than other methods, such as eigendecomposition"... SVD allows us to discover some of the same kind of information as the eigendecomposition. However, the SVD is more generally applicable."</i>
 - Deep Learning (2016)
+
 ---
 
 SVD is closely related to eigendecomposition, as eigendecomposition is a special case of SVD in which the matrix to be decomposed is square-symmetric. SVD can be thought of as an extension of eigendecomposition to non-square matrices, and thus, SVD and eigendecomposition are both valid methods for PCA, with the same result.
@@ -80,13 +81,13 @@ It is not actually necessary to compute both steps to obtain the SVD. After appl
     
 - $\mathbf{\Sigma}^{-1} \mathbf{U}^T \mathbf{A} = \mathbf{V}^T$
 
-The goal of SVD is to have an exact decomposition of the matrix, and if the singular vectors are not properly normalized, then $\mathbf{A} \neq \mathbf{U \Sigma V}^T$
+<p>The goal of SVD is to have an exact decomposition of the matrix, and if the singular vectors are not properly normalized, then $\mathbf{A} \neq \mathbf{U \Sigma V}^T$</p>
 
 
 
 # Relationship to Eigendecomposition
 
-There is a relationship between eigendecomposition/PCA and SVD with regard to symmetric square matrices. The eigenvalues of $A^TA$ equal the squared singular values of SVD($A$). For example:
+<p>There is a relationship between eigendecomposition/PCA and SVD with regard to symmetric square matrices. The eigenvalues of $A^TA$ equal the squared singular values of SVD($A$). For example:</p>
 
 ```python
 import numpy as np
