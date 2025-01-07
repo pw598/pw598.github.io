@@ -67,7 +67,7 @@ Eigendecomposition is not defined for a non-square matrix $\mathbf{A}$, however 
 
 $\mathbf{V}$ are the eigenvectors of $\mathbf{A}^T \mathbf{A}$ and $\mathbf{\Sigma}$ are the squared eigenvalues of $\mathbf{A}^T \mathbf{A}$. Because $\mathbf{\Sigma}$ is a diagonal matrix, $\Sigma^2$ simplifies to the diagonal elements (eigenvalues) squared of $\mathbf{\Sigma}$.
 
-<p>Whereas we took the eigendecomposition of $\mathbf{A}^T \mathbf{A}$ to get $\mathbf{\Sigma}$ and $\mathbf{V}$, we compute the eigendecomposition of $\mathbf{AA}^T$ to obtain $\mathbf{U}$.
+<p>Whereas we took the eigendecomposition of $\mathbf{A}^T \mathbf{A}$ to get $\mathbf{\Sigma}$ and $\mathbf{V}$, we compute the eigendecomposition of $\mathbf{AA}^T$ to obtain $\mathbf{U}$.</p>
 
 - $\mathbf{AA}^T = (\mathbf{U \Sigma V}^T) (\mathbf{U \Sigma V}^T)^T$
     
@@ -81,13 +81,13 @@ It is not actually necessary to compute both steps to obtain the SVD. After appl
     
 - $\mathbf{\Sigma}^{-1} \mathbf{U}^T \mathbf{A} = \mathbf{V}^T$
 
-<p>The goal of SVD is to have an exact decomposition of the matrix, and if the singular vectors are not properly normalized, then $\mathbf{A} \neq \mathbf{U \Sigma V}^T$</p>
+The goal of SVD is to have an exact decomposition of the matrix, and if the singular vectors are not properly normalized, then $\mathbf{A} \neq \mathbf{U \Sigma V}^T$
 
 
 
 # Relationship to Eigendecomposition
 
-<p>There is a relationship between eigendecomposition/PCA and SVD with regard to symmetric square matrices. The eigenvalues of $A^TA$ equal the squared singular values of SVD($A$). For example:</p>
+There is a relationship between eigendecomposition/PCA and SVD with regard to symmetric square matrices. The eigenvalues of $A^TA$ equal the squared singular values of SVD($A$). For example:
 
 ```python
 import numpy as np
