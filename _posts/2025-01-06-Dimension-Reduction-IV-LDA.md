@@ -41,9 +41,9 @@ $\mathbf{S} = \sum_{i=1}^n (x_i - \mu)(x_i - \mu)^T$
 
 There is an assumption that we model the data from each class with a Gaussian.
 
-$p(\mathbf{x}_1) = \mathcal{N}(\mathbf{x}_1 | \mathbf{m}_1, \mathbf{S}_1)$
+<p>$p(\mathbf{x}_1) = \mathcal{N}(\mathbf{x}_1 | \mathbf{m}_1, \mathbf{S}_1)$</p>
 
-$p(\mathbf{x}_2) = \mathcal{N}(\mathbf{x}_2 | \mathbf{m}_2, \mathbf{S}_2)$
+<p>$p(\mathbf{x}_2) = \mathcal{N}(\mathbf{x}_2 | \mathbf{m}_2, \mathbf{S}_2)$</p>
 
 where $\mathbf{m}_i$ is the sample mean of class $i$, and $\mathbf{S}_i$ is the sample covariance.
 
@@ -55,9 +55,9 @@ $y_2^n = \mathbf{w}^T \mathbf{x}_2^n$
 
 Because the projections are linear, the projected distributions are also Gaussian.
 
-$p(y_1) = \mathcal{N}(y_1 | \mu_1, \sigma_1^2)$
+<p>$p(y_1) = \mathcal{N}(y_1 | \mu_1, \sigma_1^2)$</p>
 
-$p(y_2) = \mathcal{N}(y_2 | \mu_2, \sigma_2^2)$
+<p>$p(y_2) = \mathcal{N}(y_2 | \mu_2, \sigma_2^2)$</p>
 
 where: 
 - $\mu_i = \mathbf{w}^T \mathbf{m}_i$
@@ -199,7 +199,7 @@ plt.ylabel("Linear Discriminant 2")
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr4-.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr4-1.png?raw=true" style="height: 400px; width:auto;">
 
 
 
