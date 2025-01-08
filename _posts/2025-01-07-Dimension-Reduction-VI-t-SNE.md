@@ -142,7 +142,7 @@ for i in range(3):
         ax[i][j].set_title(f"Perplexity = {perps[i][j]}")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr6-3.png?raw=true" style="height: 1100px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr6-3.png?raw=true" style="height: 950px; width:auto;">
 
 
 
