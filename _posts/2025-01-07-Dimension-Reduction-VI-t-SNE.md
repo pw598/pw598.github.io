@@ -31,15 +31,15 @@ t-SNE is a dimension reduction technique for clustering high-dimensional data in
 
 t-SNE, an alternative to regular (Gaussian) SNE, is used to project data from a high-dimensional space to a lower-dimensional space, primarily for the purpose of visualizing high-dimensional data in a 2D or 3D map. Utilizing the t-distribution instead of the Gaussian reduces the tendency for points to be crowded together in the center of the map. For high-dimensional data that lies on or near a nonlinear manifold, t-SNE will tend to be more effective than linear methods.
 
-SNE and t-SNE start by converting the high-dimensional Euclidean distances between points into conditional probabilities that represent similarities. The similarity of data point $x_j$ to $x_i$ is the conditional probability $p_{j|i}$ that point $x_i$ would pick $x_j$ as its neighbor if neighbors are picked in proportion to their probability density under a Gaussian (SNE) or t-distribution (t-SNE) centered at $x_i$. We set $p_{i|i}$ to zero, because we're only interested in pairwise similarities.
+<p>SNE and t-SNE start by converting the high-dimensional Euclidean distances between points into conditional probabilities that represent similarities. The similarity of data point $x_j$ to $x_i$ is the conditional probability $p_{j|i}$ that point $x_i$ would pick $x_j$ as its neighbor if neighbors are picked in proportion to their probability density under a Gaussian (SNE) or t-distribution (t-SNE) centered at $x_i$. We set $p_{i|i}$ to zero, because we're only interested in pairwise similarities.</p>
 
 SNE and t-SNE aim to find a low-dimensional representation that minimizes KL divergence over all points, using gradient descent. 
 
 <p>$C = \sum_i KL(P_i || Q_i) = \sum_i \sum_j p_{j|i} ~log \frac{p_{j|i}}{q_{j|i}}$</p>
 
-An alternative to minimizing divergences between conditional probabilities $p_{j|i}$ and $q_{j|i}$ is to minimize a single KL divergence.
+<p>An alternative to minimizing divergences between conditional probabilities $p_{j|i}$ and $q_{j|i}$ is to minimize a single KL divergence.</p>
 
-$C = KL(P||Q) = \sum_i \sum_j p_{ij} ~log \frac{p_{ij}}{q_{ij}}$
+<p>$C = KL(P||Q) = \sum_i \sum_j p_{ij} ~log \frac{p_{ij}}{q_{ij}}$</p>
 
 This is called symmetric because $p_{ij} = p_{ji}$ and $q_{ij} = q_{ji}$. For Gaussian SNE, the pairwise similarities in the low-dimensional space are given by:
 
