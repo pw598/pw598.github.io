@@ -5,7 +5,7 @@ date:   2024-12-09 00:00:00 +0000
 categories: Probability
 ---
 
-The second of two articles listing continuous distributions, their properties, and their relationships. This second article focuses on a family of continuous distributions closely related to either the Normal or Beta.
+The first of two articles listing continuous distributions, their properties, and their relationships. This article focuses on a family of continuous distributions closely related to either the Normal or Beta.
 
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd2.png?raw=true" style="height: 450px; width:auto;">
@@ -29,13 +29,13 @@ The second of two articles listing continuous distributions, their properties, a
 
 The previous article introduced random variables as quantities that can take on a range of values, with probabilities assigned to the potential outcomes. It introduced discrete distributions as having positive, integer-valued outcomes that can be represented by a probability mass function (PMF), for which the sum of bars constitutes the cumulative distribution function (CDF). This article is the first of two about continuous distributions, represented by an infinite number of points along an unbroken line, and therefore a probability density function (PDF), for which the integral is the CDF.
 
-For the sake of consistency, and to avoid contributing to the proliferation of alternative symbols and notations, I have aligned with https://distribution-explorer.github.io/ for mathematical conventions, unless alternatives were found to be most common overall. The visuals are sourced from the PyMC user documentation, which provides the code to generate them as well.
+For the sake of consistency, and to avoid contributing to the proliferation of alternative symbols and notations, I have aligned with [https://distribution-explorer.github.io/](https://distribution-explorer.github.io/) for mathematical conventions, unless alternatives were found to be most common overall. The visuals are sourced from the PyMC user documentation, which provides the code to generate them as well.
 
 
 
 # Beta
 
-The Beta distribution is a continuous distribution on the interval $[0,1]$. As such, it is dubbed the probability distribution for probabilities, such as the p parameter in a Bernoulli or Binomial. Within the $[0,1]$ range, it’s shape is quite flexible, for example:
+The Beta distribution is a continuous distribution on the interval $[0,1]$. As such, it is dubbed the probability distribution for probabilities, such as represented by the $p$ parameter in a Bernoulli or Binomial. Within the $[0,1]$ range, it’s shape is quite flexible, for example:
 
 - Flat (Uniform) if $\alpha=1$ and $\beta=1$
 
@@ -215,7 +215,7 @@ $\displaystyle{\left(1 - \frac{2}{\pi}\right)\sigma^2}$
 
 # Multivariate Normal
 
-The Multivariate Normal (MVN) distribution is a generalization of the Normal to higher dimensions. The marginals of an MVN are themselves normally distributed. It is parameterized by a mean vector $\mu$ and covariance matrix $\mathbf{\Sigma}$. If $\mathbf{\Sigma} = \sigma 2 \mathbf{I}$ (where $\mathbf{I}$ is the identity matrix) then the distribution is spherically symmetric.
+The Multivariate Normal (MVN) distribution is a generalization of the Normal to higher dimensions. The marginals of an MVN are themselves normally distributed. It is parameterized by a mean vector $\mu$ and covariance matrix $\mathbf{\Sigma}$. If $\mathbf{\Sigma} = \sigma^2 \mathbf{I}$ (where $\mathbf{I}$ is the identity matrix) then the distribution is spherically symmetric.
 
 #### PDF:
 

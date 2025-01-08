@@ -8,7 +8,7 @@ categories: Probability
 We build up the theory of probability distributions in general, and go through the discrete distributions, as well as how they relate.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd1.png?raw=true" style="height: 500px; width:auto;">
 
 
 # Outline 
@@ -35,7 +35,7 @@ Continuous probability distributions (the subject of the next two articles) have
 
 You will encounter PMFs and PDFs expressed in ways that give alternative symbols to various parameters. You will also find alternative parameterizations, where for example, a term may be represented in reciprocal fashion, or as a relation to the expected value, rather than something more abstract.
 
-I’ve aligned pretty consistently with https://distribution-explorer.github.io/ for the parameterizations below, though in some cases, have opted for symbols more commonly used in literature. This site does a good job of specifying the parameterizations used in various software (Scipy, Numpy, Stan, Julia) and provides some interactive exploration tools.
+I’ve aligned pretty consistently with [https://distribution-explorer.github.io/](https://distribution-explorer.github.io/) for the parameterizations below, though in some cases, have opted for symbols more commonly used in literature. This site does a good job of specifying the parameterizations used in various software (Scipy, Numpy, Stan, Julia) and provides some interactive exploration tools.
 
 The code to generate the visuals I’ve linked to below are available in the user documentation for the Python library PyMC.
 

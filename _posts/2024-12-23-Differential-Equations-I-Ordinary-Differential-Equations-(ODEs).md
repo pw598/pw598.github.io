@@ -8,7 +8,7 @@ categories: DifferentialEquations Python R
 Differential equations model change by associating a function with its derivatives, and arise when it is easier to describe change than absolute amounts.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 450px; width:auto;">
 
 
 # Outline
