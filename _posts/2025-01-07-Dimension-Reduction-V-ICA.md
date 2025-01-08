@@ -225,7 +225,7 @@ ICA excels at the ‘cocktail party’ problem (i.e., blind source separation) o
 
 # What’s Next?
 
-We’ve concluded the dimension reduction techniques that rely heavily on linear algebra, and techniques like eigendecomposition. The next article covers t-Stochastic Neighbor Embedding (t-SNE), a probabilistically driven method for clustering, and the following article will cover a similar technique called uniform manifold approximation projection (UMAP).
+We’ve concluded the dimension reduction techniques that rely heavily on linear algebra, and techniques like eigendecomposition. The next article covers t-Stochastic Neighbors Embedding (t-SNE), a probabilistically driven method for clustering, and the following article will cover a similar technique called uniform manifold approximation projection (UMAP).
 
 
 
