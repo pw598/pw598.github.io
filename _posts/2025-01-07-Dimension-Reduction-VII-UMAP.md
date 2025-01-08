@@ -6,7 +6,7 @@ categories: DimensionReduction Python
 ---
 
 
-Similar to t-SNE, UMAP is a dimension reduction technique commonly used to visually cluster high-dimensional data in a low-dimensional space. It too is sensitive enough to parameters to provide a high degree of control over the outcome. However, it is much faster than t-SNE; in this article, over 12x faster.
+Similar to t-SNE, UMAP is a dimension reduction technique commonly used to visualize clusters of high-dimensional data in a low-dimensional space. It too is sensitive enough to parameters to provide a high degree of control over the outcome. However, it is much faster than t-SNE; in the comparison in this article, over 12x faster.
 
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7.png?raw=true" style="height: 500px; width:auto;">
@@ -30,9 +30,9 @@ UMAP is a manifold learning technique for dimension reduction, and is similar to
 
 In order to construct the high-dimensional graph, UMAP builds a 'fuzzy simplicial complex': a representation of a weighted graph, with edge weights representing the likelihood that two points are connected. UMAP extends a radius outward from each point, connecting points when the radii overlap. The radius is chosen locally based on the distance to each point's $n^{th}$-nearest neighbor. The graph is made 'fuzzy' by decreasing the likelihood of connection as the radius grows.
 
-One can interpret the n_neighbors parameter as the local scale at which to approximate the manifold as roughly flat. Manifold features that occur at a smaller scale than within the n-nearest neighbors of points will be lost, while large scale features may not be well-detected. Thus, the number of neighbors represents a degree of trade-off between fine-grained and large-scale manifold features.
+One can interpret the <code>n_neighbors</code> parameter as the local scale at which to approximate the manifold as roughly flat. Manifold features that occur at a smaller scale than within the n-nearest neighbors of points will be lost, while large scale features may not be well-detected. Thus, the number of neighbors represents a degree of trade-off between fine-grained and large-scale manifold features.
 
-min_dist directly affects the output, determining how closely points can be packed together in the low-dimensional representation. Low values will result in potentially densely packed regions, but will likely more faithfully represent the manifold structure, whereas increasing min_dist will spread points out more, helping to avoid overplotting issues.
+<code>min_dist</code> directly affects the output, determining how closely points can be packed together in the low-dimensional representation. Low values will result in potentially densely packed regions, but will likely more faithfully represent the manifold structure, whereas increasing <code>min_dist</code> will spread points out more, helping to avoid overplotting issues.
 
 
 
@@ -145,12 +145,12 @@ for i in range(2):
 fig.savefig('umap_subplots.png', dpi=300)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-3.png?raw=true" style="height: 700px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-3.png?raw=true" style="height: 600px; width:auto;">
 
 
 One can also play around with the <code>n_neighbors</code> parameter to similar effect. An interesting weakness of UMAP compared to t-SNE is that it has trouble separating a dense nested circle, whereas t-SNE does not.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-4.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-4.png?raw=true" style="height: 300px; width:auto;">
 
 ----
 <i>"It's worth noting that t-SNE and UMAP wind up performing very similarly on the toy examples from earlier figures, with the notable exception of the following example: A dense, tight cluster inside of a wide, sparse cluster. Interestingly, UMAP is unable to separate two nested clusters, especially when dimensionality is high."</i>
@@ -168,7 +168,7 @@ Another interesting effect of UMAP is noted in Leland McInnes' seminal paper on 
 
 McInnes created the following visual based on a UMAP of of 30M integers represented by binary vectors of prime divisibility, and observed that the algorithm read into noise around the edges, creating spirals and starbursts.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-5.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-5.png?raw=true" style="height: 600px; width:auto;">
 
 
 
