@@ -53,6 +53,7 @@ We can proceed to solve for the unmixing matrix $\mathbf{W}$ by examining the co
 ---- 
 <i>"The success of ICA must be tempered with several computational issues and inherent amiguities in the solution. In the computation of the unmixing matrix $\mathbf{W} = \mathbf{V \Sigma}^{-1} \mathbf{U}^T$. The matrices $\mathbf{\Sigma}^{-1}$ and $\mathbf{U}$ are analytically calculated from the data. The matrix $\mathbf{V}$ has no analytical form and must be approximated numerically through an optimization procedure."</i>
 - A Tutorial on Independent Component Analysis (2014)
+
 ---- 
 
 Any symmetric matrix, including a covariance matrix, is orthogonally diagonalized by its eigenvectors. Consider a matrix $\mathbf{E}$, whose columns are the eigenvectors of the covariance of $\mathbf{x}$.
