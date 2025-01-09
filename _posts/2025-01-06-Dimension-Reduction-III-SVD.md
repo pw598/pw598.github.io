@@ -285,6 +285,7 @@ print(np.round(B,4))
 plt.figure(figsize=(3,3))
 plt.imshow(B);
 ```
+<p></p>
 
 ```python
 # [[-10.   -5.    0.    5. ]

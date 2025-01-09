@@ -6,7 +6,7 @@ categories: NeuralNetworks Python
 ---
 
 
-Tuning a neural network can be somewhat of an artform, as there are an impractically large number of hyperparameters to grid search simultaneously. While this leaves the order of operations up to interpretation, it explores the wonderful world of training hyperparameters.
+Tuning a neural network can be somewhat of an artform, as there are an impractically large number of hyperparameters to grid search simultaneously. This article provides the start of a potential workflow, but generally leaves the order of operations up to interpretation, as it explores world of training hyperparameters.
 
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn3.png?raw=true" style="height: 550px; width:auto;">

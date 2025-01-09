@@ -6,7 +6,7 @@ categories: DimensionReduction Python
 ---
 
 
-t-SNE is a dimension reduction technique for clustering high-dimensional data in low-dimensional spaces, and is commonly used for visualization purposes. It can provide a very high degree of control over visual class-separation.
+t-SNE is a dimension reduction technique for clustering high-dimensional data in low-dimensional spaces, and is commonly used for visualization purposes. It can provide a very high degree of control over intra-cluster separation.
 
 
 
