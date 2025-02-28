@@ -91,7 +91,7 @@ data.head()
 
 Next, import the <code>CoxPHFitter</code>, fit to the data, and inspect the results via the built-in <code>print_summary</code> method.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-2.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-2.png?raw=true" style="height: 700px; width:auto;">
 
 
 We can plot the coefficient values and their confidence intervals using the plot function.
@@ -127,7 +127,7 @@ results = proportional_hazard_test(cph, data, time_transform='rank')
 results.print_summary(decimals=3, model="untransformed variables")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-4.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-4.png?raw=true" style="height: 500px; width:auto;">
 
 
 
@@ -148,7 +148,7 @@ cph.fit(data, duration_col="time", event_col="cens", strata="tgrade")
 cph.print_summary()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-5.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-5.png?raw=true" style="height: 700px; width:auto;">
 
 
 
@@ -161,10 +161,10 @@ $\text{AIC} = - 2 \cdot \text{log-likelihood} + 2k$
 
 $\text{Partial AIC} = -2 \cdot \ell_{events} + 2k$
 
-$\ell_{events} = \sum_{i=1}^n \delta_i ~log(h(t_i|\mathbf{x}_i) - \displaystyle \int_0^{t_i} h(u|\mathbf{x}_i) ~du$
+<p>$\ell_{events} = \sum_{i=1}^n \delta_i ~log(h(t_i|\mathbf{x}_i) - \displaystyle \int_0^{t_i} h(u|\mathbf{x}_i) ~du$</p>
 
 - $\delta_i$ is the event indicator
-- $h(t|\mathbf{x})$ is the hazard function at time t given covariates $\mathbf{x}$
+- <p>$h(t|\mathbf{x})$ is the hazard function at time t given covariates $\mathbf{x}$</p>
 - $t_i$ is the time observed for the $i^{th}$ individual. The integral accounts for the cumulative hazard contribution of events. As with the standard AIC, the $2k$ term penalizes overfitting.
 
 
@@ -287,7 +287,7 @@ The Brier score ranges from 0 to 1, with 0 representing perfect predictions, and
 
 For each time point, the time-dependent Brier score measures how close the predicted survival probability is to the actual outcome, considering the likelihood of the event happening by that time.
 
-$BS(t) = \frac{1}{n} \displaystyle \sum_{i=1}^n I(y_i \lt t \cap \delta_i = 1) \frac{ (0 - \hat{\pi}(t|x_i))^2 }{ \hat{G}(y_i) } + I(y_i \gt t) \frac{ (1 - \hat{\pi}(t|\mathbf{x}_i))^2 }{ \hat{G}(t) }$
+<p>$BS(t) = \frac{1}{n} \displaystyle \sum_{i=1}^n I(y_i \lt t \cap \delta_i = 1) \frac{ (0 - \hat{\pi}(t|x_i))^2 }{ \hat{G}(y_i) } + I(y_i \gt t) \frac{ (1 - \hat{\pi}(t|\mathbf{x}_i))^2 }{ \hat{G}(t) }$</p>
 
 - $\hat{\pi}_i(t)$ is the predicted survival probability at time $t$ for individual $i$.
 - $I(T_i \le t)$ is an indicator function equal to $1$ if the event occurred for individual $i$ and time $t$.
