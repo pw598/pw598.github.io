@@ -251,7 +251,7 @@ aaf_preds = aaf.predict_survival_function(test)
 
 The concordance index, also known as Harrell's c-statistic, or the c-index, is a measure of rank correlation between predicted risk scores and observed time points, defined as the ratio of correctly ordered (concordant) pairs to comparable pairs (so a larger value is preferable).
 
-$\text{c-index} = \frac{\text{# concordant pairs}}{\text{# comparable pairs}}$
+$\text{c-index} = \frac{\text{concordant pairs}}{\text{comparable pairs}}$
 
 - concordant pair: the model correctly orders them
 - comparable pair: neither individuals are censored before the event of interest
