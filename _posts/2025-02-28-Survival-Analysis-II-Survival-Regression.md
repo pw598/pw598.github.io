@@ -43,7 +43,7 @@ In the previous article, survival analysis was introduced as the study of time t
 
 # Survival Regression Models
 
-<p>Incorporating continuous covariates into survival models is possible, but involves extending beyond Kaplan-Meier and Nelson-Aalen models. We cannot use traditional regression methods because of censoring, but alternatives such as Cox's proportional hazards model, accelerated failure time (AFT) models, and Aalen's additive model exist. Each of these represent the hazard rate $h(t|\mathbf{X})$ and covariates \mathbf{X}.</p>
+<p>Incorporating continuous covariates into survival models is possible, but involves extending beyond Kaplan-Meier and Nelson-Aalen models. We cannot use traditional regression methods because of censoring, but alternatives such as Cox's proportional hazards model, accelerated failure time (AFT) models, and Aalen's additive model exist. Each of these represent the hazard rate $h(t|\mathbf{X})$ and covariates $\mathbf{X}$.</p>
 
 
 
@@ -86,12 +86,12 @@ data['tgrade'] = data['tgrade'].map({'I': 1, 'II': 2, 'III': 3})
 data.head()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-1.png?raw=true" style="height: 250px; width:auto;">
 
 
 Next, import the <code>CoxPHFitter</code>, fit to the data, and inspect the results via the built-in <code>print_summary</code> method.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-2.png?raw=true" style="height: 600px; width:auto;">
 
 
 We can plot the coefficient values and their confidence intervals using the plot function.
@@ -127,7 +127,7 @@ results = proportional_hazard_test(cph, data, time_transform='rank')
 results.print_summary(decimals=3, model="untransformed variables")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-4.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-4.png?raw=true" style="height: 600px; width:auto;">
 
 
 
@@ -148,7 +148,7 @@ cph.fit(data, duration_col="time", event_col="cens", strata="tgrade")
 cph.print_summary()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-5.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-5.png?raw=true" style="height: 600px; width:auto;">
 
 
 
@@ -178,9 +178,13 @@ partial_aic = -2 * log_likelihood + 2 * num_params
 partial_aic
 ```
 
+<p></p>
+
 ```python
 # 3487.4065359296083
 ```
+
+<p></p>
 
 ```python
 data_subset = data.drop(columns=['age', 'estrec', 'menostat'])
@@ -191,6 +195,8 @@ num_params = cph.params_.shape[0]  # Number of covariates
 partial_aic = -2 * log_likelihood + 2 * num_params
 partial_aic
 ```
+
+<p></p>
 
 ```python
 # 3486.661153283365
@@ -223,9 +229,9 @@ cph_preds = cph.predict_partial_hazard(test)
 
 # Aalen's Additive Model
 
-Aalen's additive model is an additive linear model, with time-varying coefficients. As such, it is not constrained by the proportional hazards assumption. The hazard function $h(t|\mathbf{X}(t))$ at time $t$, given a set of covariates $\mathbf{X} = (X_1(t), X_2(t), \ldots, X_p(t))$ is modeled as:
+<p>Aalen's additive model is an additive linear model, with time-varying coefficients. As such, it is not constrained by the proportional hazards assumption. The hazard function $h(t|\mathbf{X}(t))$ at time $t$, given a set of covariates $\mathbf{X} = (X_1(t), X_2(t), \ldots, X_p(t))$ is modeled as:</p>
 
-$h(t|\mathbf{X}(t)) = h_0(t) + \displaystyle \sum_{i=1}^p \beta_j(t) X_i(t)$
+<p>$h(t|\mathbf{X}(t)) = h_0(t) + \displaystyle \sum_{i=1}^p \beta_j(t) X_i(t)$</p>
 
 - $h_0(t)$ is the time-dependent baseline hazard function
 - $\beta_j(t)$ is the time-varying regression coefficient for covariate $X_j(t)$
@@ -258,6 +264,8 @@ Because Harrell's concordance index is known to be biased upwards if the amount 
 print(cph.concordance_index_)
 print(aaf.concordance_index_)
 ```
+
+<p></p>
 
 ```python
 # 0.692666454134344
@@ -329,6 +337,9 @@ IBS = integrated_brier_score(y_sksurv_train, y_sksurv_test, cph_preds.T, times)
 IBS
 ```
 
+<p></p>
+
+
 ```python
 # 0.17682871155627042
 ```
@@ -343,6 +354,8 @@ aaf_preds = aaf.predict_survival_function(test)
 IBS = integrated_brier_score(y_sksurv_train, y_sksurv_test, aaf_preds.T, aaf_preds.index)
 IBS
 ```
+
+<p></p>
 
 ```python
 # 0.18483149269885354
@@ -397,6 +410,7 @@ $\alpha$ is modeled as a function of covariates, and $\beta$ is the ancillary pa
 
 Below, we train a Weibull, Log-Logistic, and LogNormal AFT model, before predicting upon the test set, and calculating the integrated Brier scores.
 
+<p></p>
 
 ```python
 from lifelines import WeibullAFTFitter
@@ -413,11 +427,15 @@ loglog_aft = LogLogisticAFTFitter()
 loglog_aft.fit(train, duration_col="time", event_col="cens")
 ```
 
+<p></p>
+
 ```python
 weibull_aft_pred = weibull_aft.predict_survival_function(x_test)
 lognormal_aft_pred = lognormal_aft.predict_survival_function(x_test)
 loglog_aft_pred = loglog_aft.predict_survival_function(x_test)
 ```
+
+<p></p>
 
 ```python
 y_test_min = y_test['time'].min()
@@ -432,6 +450,8 @@ print(IBS_weibull_aft)
 print(IBS_lognormal_aft)
 print(IBS_loglog_aft)
 ```
+
+<p></p>
 
 ```python
 # 0.17929128187608415
@@ -464,6 +484,8 @@ print('loglog_aft:    ', np.mean(k_fold_cross_validation(loglog_aft, data, durat
 print('lognormal_aft: ', np.mean(k_fold_cross_validation(lognormal_aft, data, duration_col='time', event_col='cens', scoring_method="concordance_index")))
 ```
 
+<p></p>
+
 ```python
 # cph:            0.6743124317805989
 # aaf_1:          0.6197864212198179
@@ -489,12 +511,16 @@ for penalty in penalties:
     print('Penalty ', penalty, ' Score ', score)
 ```
 
+<p></p>
+
 ```python
 # Penalty  0.01  Score  0.6768856493086496
 # Penalty  0.1  Score  0.6699079308644409
 # Penalty  0.25  Score  0.6784832332738089
 # Penalty  0.5  Score  0.6803996356400498
 ```
+
+<p></p>
 
 ```python
 loglog_aft = LogLogisticAFTFitter()
@@ -505,12 +531,16 @@ for penalty in penalties:
     print('Penalty ', penalty, ' Score ', score)
 ```
 
+<p></p>
+
 ```python
 # Penalty  0.01  Score  0.6781422794901244
 # Penalty  0.1  Score  0.6858303059158903
 # Penalty  0.25  Score  0.6787978934587227
 # Penalty  0.5  Score  0.6772885481769652
 ```
+
+<p></p>
 
 ```python
 loglog_aft = WeibullAFTFitter()
@@ -520,6 +550,8 @@ for penalty in penalties:
     score = np.mean(k_fold_cross_validation(weibull_aft, data, duration_col='time', event_col='cens', scoring_method="concordance_index"))
     print('Penalty ', penalty, ' Score ', score)
 ```
+
+<p></p>
 
 ```python
 # Penalty  0.01  Score  0.6814719535250077
