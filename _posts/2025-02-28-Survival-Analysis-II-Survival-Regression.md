@@ -9,7 +9,7 @@ categories: SurvivalAnalysis Python
 This second article on survival analysis focuses on survival regression models, as well as machine learning techniques such as train/test splits, cross-validation, and grid search.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2.png?raw=true" style="height: 550px; width:auto;">
 
 
 # Outline
