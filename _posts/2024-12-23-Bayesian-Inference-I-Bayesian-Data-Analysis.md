@@ -56,7 +56,7 @@ we can write:
 
 <p>$f(\theta|y) = \frac{ f(y|\theta) ~f(\theta) }{ \int f(y|\theta) ~f(\theta) ~d \theta }$</p>
 
-$f(y|\theta)$ is known as the likelihood, reflecting the likelihood of the data given the parameters. $f(\theta)$ is known as the prior distribution, reflecting our expectations before looking at the data at hand. The integral denominator, a normalizing constant called the marginal likelihood, can be difficult or impossible to calculate, depending on our choice of prior and likelihood functions, so we often resort to approximation methods, or focus on the proportionality of the numerator to the result.
+<p>$f(y|\theta)$ is known as the likelihood, reflecting the likelihood of the data given the parameters. $f(\theta)$ is known as the prior distribution, reflecting our expectations before looking at the data at hand. The integral denominator, a normalizing constant called the marginal likelihood, can be difficult or impossible to calculate, depending on our choice of prior and likelihood functions, so we often resort to approximation methods, or focus on the proportionality of the numerator to the result.</p>
 
 
 
