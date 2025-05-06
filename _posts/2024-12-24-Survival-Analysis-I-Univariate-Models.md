@@ -9,7 +9,7 @@ categories: SurvivalAnalysis Python
 Survival analysis is the study of times-to-event, and the factors that influence them. This first article focuses on univariate parametric and non-parametric survival models.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1.png" style="height: 450px; width:auto;">
 
 
 # Outline
@@ -199,7 +199,7 @@ plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-2.png?raw=true" style="height: 700px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-2.png" style="height: 700px; width:auto;">
 
 
 
@@ -361,7 +361,7 @@ naf.fit(time,event_observed=event)
 naf.plot_cumulative_hazard();
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-5.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-5.png" style="height: 400px; width:auto;">
 
 
 As before, the model is univariate, but we can plot (and otherwise compare) models that are filtered to particular groups.
@@ -401,7 +401,7 @@ plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-6.png?raw=true" style="height: 900px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-6.png" style="height: 900px; width:auto;">
 
 
 

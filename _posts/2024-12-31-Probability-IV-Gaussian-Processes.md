@@ -1,4 +1,4 @@
-f---
+---
 layout: post
 title:  "Probability IV: Gaussian Processes"
 date:   2024-12-31 00:00:00 +0000
@@ -74,7 +74,7 @@ $f(X) = \mathcal{GP}(\mu_X, \mathcal{K}(\mathbf{X}, \mathbf{X'}))$
 
 A variety of kernel functions are available, such as the following:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-1.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-1.png" style="height: 400px; width:auto;">
 
 - Play around with this at [https://distill.pub/2019/visual-exploration-gaussian-processes/](https://distill.pub/2019/visual-exploration-gaussian-processes/)
 
@@ -244,7 +244,7 @@ ax.set(title='Components of the Covariance Matrix C');
 # (100, 100)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-3.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-3.png" style="height: 600px; width:auto;">
 
 
 We can draw samples from the prior if we'd like, to see what kind of functions we are likely to observe.
@@ -274,7 +274,7 @@ ax.set(title='Samples of Prior Distribution');
 
 where
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-8.png?raw=true" style="height: 75px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-8.png" style="height: 75px; width:auto;">
 
 Below, we compute these parameters and then visualize the covariance matrix resulting from the calculation.
 
@@ -296,7 +296,7 @@ sns.heatmap(data=cov_f_star, cmap='Blues', ax=ax)
 ax.set_title('Components of the Covariance Matrix cov_f_star');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-5.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-5.png" style="height: 600px; width:auto;">
 
 
 ```python
@@ -314,7 +314,7 @@ ax.set(title=f'Samples of Posterior Distribution, sigma_f = {sigma_f} and l = {l
 ax.legend(loc='upper right');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-6.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-6.png" style="height: 500px; width:auto;">
 
 
 

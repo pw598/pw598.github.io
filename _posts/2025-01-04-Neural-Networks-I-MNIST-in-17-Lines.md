@@ -53,7 +53,7 @@ for i in range(20):
 plt.tight_layout()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-1.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1-1.png" style="height: 250px; width:auto;">
 
 
 
@@ -130,7 +130,7 @@ We can use <code>model.summary()</code> to have Keras print a summary of the arc
 model.summary()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-2.png?raw=true" style="height: 300px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1-2.png" style="height: 300px; width:auto;">
 
 
 
@@ -253,7 +253,7 @@ plt.figure(figsize = (3,3))
 plt.imshow(X_test[0]);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-6.png?raw=true" style="height: 225px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1-6.png" style="height: 225px; width:auto;">
 
 
 # The Strictly Necessary Lines of Code

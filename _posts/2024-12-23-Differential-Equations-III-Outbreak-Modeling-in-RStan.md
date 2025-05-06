@@ -88,7 +88,7 @@ head(influenza_england_1978_school)
 # 14
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-1.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3-1.png" style="height: 350px; width:auto;">
 
 And plotting it as a time series.
 
@@ -330,7 +330,7 @@ pars=c('beta', 'gamma', "R0", "recovery_time")
 stan_dens(model_fit, pars = pars, separate_chains = TRUE)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-3.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3-3.png" style="height: 450px; width:auto;">
 
 
 ```r
@@ -425,7 +425,7 @@ ggplot(smr_y, mapping = aes(x = t)) +
   labs(x = "Day", y = "Number of infected students")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-6.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3-6.png" style="height: 450px; width:auto;">
 
 
 
