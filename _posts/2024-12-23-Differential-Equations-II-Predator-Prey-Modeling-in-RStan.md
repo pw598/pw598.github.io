@@ -422,7 +422,7 @@ plot <- ggplot(df) +
 plot
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-7.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-7.png" style="height: 450px; width:auto;">
 
 The multiplicative error can lead to somewhat spiky behavior, especially at lower level of granularity (such as by year).
 

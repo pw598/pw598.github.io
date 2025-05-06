@@ -9,7 +9,7 @@ categories: DifferentialEquations R Stan
 The Susceptible, Infected, Recovered (SIR) model is a simple but extensible system of ODEs describing the dynamics of an outbreak of illness over time.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3.png" style="height: 400px; width:auto;">
 
 
 # Outline
@@ -99,7 +99,7 @@ ggplot(data = influenza_england_1978_school) +
   labs(y = "Number of students in bed")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3-2.png" style="height: 450px; width:auto;">
 
 
 
@@ -389,7 +389,7 @@ ggplot(df_long, aes(x = Day, y = Predicted_Cases, group = Row)) +
   scale_x_continuous(breaks = seq(min(df_long$Day), max(df_long$Day), by = 1))
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-4.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3-4.png" style="height: 450px; width:auto;">
 
 
 Below, we shade a 90% highest density interval (HDI) and plot a median line.
@@ -407,7 +407,7 @@ ggplot(smr_pred, mapping = aes(x = t)) +
   labs(x = "Day", y = "Number of students in bed")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de3-5.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de3-5.png" style="height: 450px; width:auto;">
 
 
 And below, we focus on the expected number of new cases rather than total number of cases.
