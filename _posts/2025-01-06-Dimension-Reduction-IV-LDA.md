@@ -9,7 +9,7 @@ categories: DimensionReduction Python
 Linear discriminant analysis (LDA) performs dimension reduction in a manner that is similar to PCA, but is a supervised learning method that targets class separability for a target feature.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr4.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr4.png" style="height: 500px; width:auto;">
 
 
 # Outline
@@ -199,7 +199,7 @@ plt.ylabel("Linear Discriminant 2")
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr4-1.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr4-1.png" style="height: 400px; width:auto;">
 
 
 

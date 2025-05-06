@@ -95,7 +95,7 @@ The computation took about 1 minute and 47 seconds (on Google Colab using the T4
 plt.scatter(embedding[:, 0], embedding[:, 1], c=mnist.target.astype(int), s=0.1, cmap=sns.color_palette('Accent', as_cmap=True));
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr7-1.png" style="height: 450px; width:auto;">
 
 
 
@@ -168,7 +168,7 @@ Another interesting effect of UMAP is noted in Leland McInnes' seminal paper on 
 
 McInnes created the following visual based on a UMAP of of 30M integers represented by binary vectors of prime divisibility, and observed that the algorithm read into noise around the edges, creating spirals and starbursts.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-5.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr7-5.png" style="height: 600px; width:auto;">
 
 
 

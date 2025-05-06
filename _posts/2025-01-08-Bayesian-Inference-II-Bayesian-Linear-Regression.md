@@ -249,7 +249,7 @@ plot2 <- stan_dens(model_fit, separate_chains = TRUE, pars=c("alpha", "beta", "s
 grid.arrange(plot1, plot2, ncol = 1)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-3.png?raw=true" style="height: 550px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-3.png" style="height: 550px; width:auto;">
 
 
 We can summarize parameters found during sampling with something like the following:

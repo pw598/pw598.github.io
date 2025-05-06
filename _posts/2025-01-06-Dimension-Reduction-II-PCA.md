@@ -342,7 +342,7 @@ for i in range(20):
 plt.tight_layout()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2-3.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr2-3.png" style="height: 250px; width:auto;">
 
 Then, check out the eigenspectra.
 
@@ -373,7 +373,7 @@ for i in range(20):
 plt.tight_layout()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2-5.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr2-5.png" style="height: 250px; width:auto;">
 
 A tad ghoulish, but from a modeling perspective, perhaps this is optimally informative, given the reduced feature space.
 

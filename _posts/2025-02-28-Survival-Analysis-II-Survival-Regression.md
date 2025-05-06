@@ -91,7 +91,7 @@ data.head()
 
 Next, import the <code>CoxPHFitter</code>, fit to the data, and inspect the results via the built-in <code>print_summary</code> method.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-2.png?raw=true" style="height: 700px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa2-2.png" style="height: 700px; width:auto;">
 
 
 We can plot the coefficient values and their confidence intervals using the plot function.
@@ -127,7 +127,7 @@ results = proportional_hazard_test(cph, data, time_transform='rank')
 results.print_summary(decimals=3, model="untransformed variables")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-4.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa2-4.png" style="height: 500px; width:auto;">
 
 
 

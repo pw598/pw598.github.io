@@ -9,7 +9,7 @@ categories: DimensionReduction Python
 Independent component analysis (ICA) performs a neat trick that methods like PCA and SVD are generally incapable of: blind source separation. It excels at unmixing statistically independent signals (e.g. audio, electrical) that have been recorded as a mix of individual sources.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr5.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr5.png" style="height: 500px; width:auto;">
 
 
 # Outline
@@ -107,7 +107,7 @@ plt.title('Functions Without Noise')
 plt.plot(S);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr5-1.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr5-1.png" style="height: 350px; width:auto;">
 
 
 To make the data more realistic, we'll add noise. These noise-augmented values will be considered our true sources.
@@ -121,7 +121,7 @@ plt.title('Functions with Noise (True Sources)')
 plt.plot(S);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr5-2.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr5-2.png" style="height: 350px; width:auto;">
 
 
 Next, we'll mix the signals according to a mixing matrix, the values of which I will choose at random (but use a seed for reproducibility).
@@ -141,7 +141,7 @@ plt.title('Mixed Sources')
 plt.plot(X);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr5-3.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr5-3.png" style="height: 350px; width:auto;">
 
 
 Next, I'll run the ICA operation and plot the reconstructed signals.
@@ -157,7 +157,7 @@ plt.title('ICA Reconstructed Sources')
 plt.plot(S_);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr5-4.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr5-4.png" style="height: 350px; width:auto;">
 
 
 Very impressive! Now, for comparison, let's see how well PCA is able to reconstruct the sources.
@@ -172,7 +172,7 @@ plt.title('PCA Reconstructed Sources')
 plt.plot(H);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr5-5.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr5-5.png" style="height: 350px; width:auto;">
 
 
 Not very well! PCA constrains the components to be orthogonal, and seeks to aborb as much variance into the first principal component as possible (which is apparent in the visual). Clearly ICA seems to have the advantage when it comes to blind source separation.
