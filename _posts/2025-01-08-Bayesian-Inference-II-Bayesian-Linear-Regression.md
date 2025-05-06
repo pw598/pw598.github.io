@@ -413,7 +413,7 @@ ggplot(data.frame(x = gravity_std, y = osmo_std, y_pred = y_pred_mean), aes(x = 
 ```
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-6.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-6.png" style="height: 450px; width:auto;">
 
 
 We see that it caters much less to the outliers (scroll up to take a look at the previous one if this is not obvious).

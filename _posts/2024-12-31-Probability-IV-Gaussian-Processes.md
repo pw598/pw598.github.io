@@ -9,7 +9,7 @@ categories: Probability Bayes
 Gaussian processes (GPs) can be thought of an a non-parametric Bayesian extension of linear regression, in which a prior distribution over functions is considered. They have many special properties, and this article covers GP regression.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1.png" style="height: 450px; width:auto;">
 
 
 # Outline 
@@ -149,7 +149,7 @@ ax.set(title='Sample Data')
 ax.legend(loc='upper right');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-2.png" style="height: 450px; width:auto;">
 
 
 Then, define a kernel function. There are many options, but we'll simply go with the radial basis function (RBF), which bears similarity to the univariate Gaussian, and is parameterized by $\sigma_f$ and $\ell$.
@@ -262,7 +262,7 @@ for i in range(0, 100):
 ax.set(title='Samples of Prior Distribution');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-4.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-4.png" style="height: 500px; width:auto;">
 
 
 
@@ -413,7 +413,7 @@ ax.set(title='Prediction & Credible Interval')
 ax.legend(loc='lower left');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/gp1-7.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/gp1-7.png" style="height: 500px; width:auto;">
 
 
 

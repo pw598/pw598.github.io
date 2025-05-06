@@ -75,7 +75,7 @@ We'll ignore the trivial case where $\mathbf{v} = \mathbf{O}$.
 
 Let's consider the following matrix:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 75px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-4.png" style="height: 75px; width:auto;">
 
 
 We'll shift matrix by $\lambda \cdot \mathbf{I}$, which will consist of $\lambda$ on the diagonal elements and zeros elsewhere. Thus, we'll shift the diagonal elements of the above matrix by $\lambda$, and set the determinant equal to zero.
@@ -106,7 +106,7 @@ Staying consistent with the above, we have the matrix
 
 and eigenvalues $\lambda_1 = 3$ and $\lambda_2 = −1$. We'll shift the matrix by each $\lambda$, and find a vector in the null space.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-7.png?raw=true" style="height: 150px; width:auto;">.
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-7.png" style="height: 150px; width:auto;">.
 
 The first eigenvector, associated with $\lambda_1 = 3$, is found to be &nbsp; <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-8.png" style="height: 60px; width:auto;">
 
@@ -161,11 +161,11 @@ eigenvalues:  [0.68337521 7.31662479]
 
 What about the eigenvectors? What we arrived at mathematically were
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-5.png?raw=true" style="height: 75px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-5.png" style="height: 75px; width:auto;">
 
 but the Numpy function gave us 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-6.png?raw=true" style="height: 75px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-6.png" style="height: 75px; width:auto;">
 
 This is because Numpy normalizes the vectors to be unit length, since the eigenvalues provide the scaling information, and the eigenvectors are only meaningful in terms of direction. We can confirm this by dividing the results of the calculation by hand by the <code>numpy.linalg.norm()</code>.
 

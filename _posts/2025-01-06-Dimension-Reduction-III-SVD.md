@@ -263,7 +263,7 @@ $\mathbf{A^+} = \mathbf{V D^+ U}^T$
 
 The $\mathbf{D}^+$ can be calculated by creating a diagonal matrix from $\mathbf{\Sigma}$, calculating the reciprocal of each non-zero element in $\mathbf{\Sigma}$, and taking the transpose if the original matrix was rectangular.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-4.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr3-4.png" style="height: 250px; width:auto;">
 
 Below, I demonstrate that the numpy.linalg.pinv operation can be equivalently performed using SVD.
 
@@ -292,7 +292,7 @@ plt.imshow(B);
 #  [  8.5   4.5   0.5  -3.5]]
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-1.png?raw=true" style="height: 200px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr3-1.png" style="height: 200px; width:auto;">
 
 
 Using SVD:
@@ -324,7 +324,7 @@ plt.imshow(B);
 #  [  8.5   4.5   0.5  -3.5]]
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-2.png?raw=true" style="height: 200px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr3-2.png" style="height: 200px; width:auto;">
 
 
 
@@ -383,7 +383,7 @@ fig.suptitle('SVD Faces', fontsize=30)
 plt.tight_layout()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr3-3.png?raw=true" style="height: 900px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr3-3.png" style="height: 900px; width:auto;">
 
 
 
