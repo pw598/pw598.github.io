@@ -8,7 +8,7 @@ categories: DifferentialEquations Python R
 Differential equations model change by associating a function with its derivatives, and arise when it is easier to describe change than absolute amounts.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de1.png" style="height: 450px; width:auto;">
 
 
 # Outline
@@ -157,7 +157,7 @@ plt.grid(True)
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1-1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de1-1.png" style="height: 450px; width:auto;">
 
 
 Next, we'll deterministically generate data using the same parameters, and see if the solver can then recover the true parameters. We use the <code>minimize</code> function from <code>scipy.optimize</code>, and with each iteration, call upon a loss function which integrates the equation using the current guess at parameter values, and measures the fit against the data.
@@ -241,7 +241,7 @@ plot(out_df$time, out_df$P, type = "l", col = "blue", lwd = 2,
 grid()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de1-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de1-2.png" style="height: 450px; width:auto;">
 
 
 And then simulating data with those parameter values, and recovering them as estimates from the solver.
