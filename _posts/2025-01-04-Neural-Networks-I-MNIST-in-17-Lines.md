@@ -9,7 +9,7 @@ categories: NeuralNetworks Python
 It only takes 17 lines of Python to train a neural network to recognize handwritten digits, including the import of libraries and data.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1.png" style="height: 500px; width:auto;">
 
 
 # Outline 
@@ -186,7 +186,7 @@ plt.legend(['loss', 'val_loss'])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-3.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1-3.png" style="height: 450px; width:auto;">
 
 
 ### Accuracy
@@ -200,7 +200,7 @@ plt.legend(['accuracy', 'val_accuracy'])
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-4.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1-4.png" style="height: 450px; width:auto;">
 
 
 Making Predictions
@@ -226,7 +226,7 @@ It outputs an array of 10 probability-like values, one for each class label, whi
 ```python
 plt.bar(range(0,10),test_pred[0]);
 ```
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn1-5.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn1-5.png" style="height: 450px; width:auto;">
 
 The plot makes it clear that class label ‘7’ is favored as the prediction. We can also use the <code>argmax()</code> function to extract the index associated with this value.
 

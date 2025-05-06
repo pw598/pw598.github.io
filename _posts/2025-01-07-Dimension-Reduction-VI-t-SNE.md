@@ -10,7 +10,7 @@ t-SNE is a dimension reduction technique for clustering high-dimensional data in
 
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr6.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr6.png" style="height: 500px; width:auto;">
 
 
 # Outline
@@ -99,7 +99,7 @@ plt.scatter(transformed[:,0:1], transformed[:,1:2], c=y, cmap=sns.color_palette(
 plt.title('PCA-Reduced Data');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr6-1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr6-1.png" style="height: 450px; width:auto;">
 
 
 Not terrible, there is definitely some clustering evident. But, we would like to be better able to isolate the clusters, if possible.
@@ -119,7 +119,7 @@ transformed = tsne.fit_transform(X)
 plt.scatter(transformed[:,0:1],transformed[:,1:2], c=y, cmap=sns.color_palette('Accent', as_cmap=True));
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr6-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr6-2.png" style="height: 450px; width:auto;">
 
 We see much better class-separability. We can actually control the ratio of inter-cluster distance to intra-cluster distance using the perplexity parameter, although as it gets high enough, the data will start to fan out again (we usually pick values between 5 and 50). Above, we allowed it to use the default setting, which is 30.
 
@@ -142,7 +142,7 @@ for i in range(3):
         ax[i][j].set_title(f"Perplexity = {perps[i][j]}")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr6-3.png?raw=true" style="height: 950px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr6-3.png" style="height: 950px; width:auto;">
 
 
 

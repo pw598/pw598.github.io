@@ -130,7 +130,7 @@ data = load_gbsg2()
 data.head()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-1.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-1.png" style="height: 250px; width:auto;">
 
 Viewing the first 10 rows of the <code>y</code> structured array:
 
@@ -223,7 +223,7 @@ plt.ylim(0, 1)
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-3.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-3.png" style="height: 400px; width:auto;">
 
 The survival function produced is univariate, i.e., we aren’t yet taking any covariates into account. To get around this, we could run multiple KM models, one for each level (or bin) of a covariate. Below, we plot a KM model for each level in our categorical variables.
 
@@ -252,7 +252,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-4.png?raw=true" style="height: 900px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-4.png" style="height: 900px; width:auto;">
 
 
 
@@ -514,7 +514,7 @@ ggf.plot_survival_function(ax=axes[2][0])
 spf.plot_survival_function(ax=axes[2][1])
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa1-7.png?raw=true" style="height: 700px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa1-7.png" style="height: 700px; width:auto;">
 
 
 And with that, we’ll wrap it up. Next article will deal with survival regression methods, and the following one with ensemble-based methods such as random survival forests and gradient-boosting.

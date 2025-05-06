@@ -114,7 +114,7 @@ We'll continue with finding the second eigenvector.
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-9.png" style="height: 150px; width:auto;">.
 
-The second eigenvector, associated with $\lambda_2 = -1$, is found to be &nbsp; <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-10.png?raw=true" style="height: 60px; width:auto;">
+The second eigenvector, associated with $\lambda_2 = -1$, is found to be &nbsp; <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-10.png" style="height: 60px; width:auto;">
 
 
 

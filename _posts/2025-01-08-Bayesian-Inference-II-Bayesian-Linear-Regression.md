@@ -9,7 +9,7 @@ categories: Probability Bayes
 Simple linear regression can be interpreted as distributing a Normal variable with a mean that reflects a regression equation upon another variable. A distribution with wider tails can be used if we want to be accomodating of outliers. In this article, we'll solve for both the Bayesian way, using RStan.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2.png" style="height: 450px; width:auto;">
 
 
 # Outline 
@@ -123,7 +123,7 @@ ggplot(data, aes(x = gravity_std, y = osmo_std)) +
   theme_minimal()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-2.png" style="height: 450px; width:auto;">
 
 
 

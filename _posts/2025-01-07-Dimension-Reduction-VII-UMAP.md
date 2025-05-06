@@ -9,7 +9,7 @@ categories: DimensionReduction Python
 Similar to t-SNE, UMAP is a dimension reduction technique commonly used to visualize clusters of high-dimensional data in a low-dimensional space. It too is sensitive enough to parameters to provide a high degree of control over the outcome. However, it is much faster than t-SNE; in the comparison in this article, over 12x faster.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr7.png" style="height: 500px; width:auto;">
 
 
 # Outline
@@ -126,7 +126,7 @@ We can see that this took much longer - 1296 seconds works out to 21.6 minutes, 
 plt.scatter(embedding[:, 0], embedding[:, 1], c=mnist.target.astype(int), s=0.1, cmap=sns.color_palette('Accent', as_cmap=True));
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr7-2.png" style="height: 450px; width:auto;">
 
 
 Similar to with t-SNE's <code>perplexity</code> parameter, the <code>min_dist</code> parameter of UMAP can be used to tune the inter-cluster vs. intra-cluster distances in the low-dimensional projection.
@@ -145,12 +145,12 @@ for i in range(2):
 fig.savefig('umap_subplots.png', dpi=300)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-3.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr7-3.png" style="height: 600px; width:auto;">
 
 
 One can also play around with the <code>n_neighbors</code> parameter to similar effect. An interesting weakness of UMAP compared to t-SNE is that it has trouble separating a dense nested circle, whereas t-SNE does not.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr7-4.png?raw=true" style="height: 300px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr7-4.png" style="height: 300px; width:auto;">
 
 ----
 <i>"It's worth noting that t-SNE and UMAP wind up performing very similarly on the toy examples from earlier figures, with the notable exception of the following example: A dense, tight cluster inside of a wide, sparse cluster. Interestingly, UMAP is unable to separate two nested clusters, especially when dimensionality is high."</i>

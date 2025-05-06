@@ -9,7 +9,7 @@ categories: SurvivalAnalysis Python
 This second article on survival analysis focuses on survival regression models, as well as machine learning techniques such as train/test splits, cross-validation, and grid search.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2.png?raw=true" style="height: 550px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa2.png" style="height: 550px; width:auto;">
 
 
 # Outline
@@ -86,7 +86,7 @@ data['tgrade'] = data['tgrade'].map({'I': 1, 'II': 2, 'III': 3})
 data.head()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-1.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa2-1.png" style="height: 250px; width:auto;">
 
 
 Next, import the <code>CoxPHFitter</code>, fit to the data, and inspect the results via the built-in <code>print_summary</code> method.

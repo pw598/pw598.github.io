@@ -9,7 +9,7 @@ categories: DimensionReduction Python
 Principal component analysis (PCA) involves eigendecomposition of a covariance matrix, producing a number of uncorrelated (orthogonal) components less than or equal to the number of data features, which maximize the variance within each component.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr2.png" style="height: 500px; width:auto;">
 
 
 # Outline 
@@ -135,7 +135,7 @@ plt.title('Eigenvalues by Principal Component')
 plt.plot(range(3), evals, '-o');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2-1.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr2-1.png" style="height: 400px; width:auto;">
 
 The eigenvalues are in units of variance. We can divide by the sum to normalize them, representing percent of variance explained, if we wish.
 
@@ -147,7 +147,7 @@ plt.title('Pct of Variance Explained')
 plt.plot(range(3), pctvar, '-o');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2-2.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr2-2.png" style="height: 400px; width:auto;">
 
 
 
@@ -354,7 +354,7 @@ plt.title('Explained Variance Ratio')
 plt.plot(pca.explained_variance_ratio_[0:50], '-o');
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr2-4.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr2-4.png" style="height: 400px; width:auto;">
 
 The first 20 components explain the vast majority of the variance. I'll reconstruct the images using only those components and print those dimension-reduced results.
 

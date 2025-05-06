@@ -8,7 +8,7 @@ categories: DifferentialEquations R Stan
 The Lotka-Volterra equations are a system of ordinary differential equations (ODEs) allowing us to model the dynamics of a predator and prey relationships over time.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2.png" style="height: 500px; width:auto;">
 
 
 # Outline
@@ -90,7 +90,7 @@ ggplot(data, aes(x=Index)) +
   annotate("text", x=19, y=50, label="Lynx", color="#4D82FC", hjust=1)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-2.png" style="height: 450px; width:auto;">
 
 We can also show a 'phase-portrait', also known as a state-space trajectory. The x-axis is Lynx pelts and the y-axis is Hare pelts. The line in the graph traces the trajectory of the data from the starting time point to the ending time point, and because of the cyclical (and related) behavior of the two species, we see circles in the state-space trajectory. To distinguish one cycle from another, we color-code the time dimension into the line.
 
@@ -362,7 +362,7 @@ traceplot(model_fit)
 stan_dens(model_fit, separate_chains = TRUE)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-5.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-5.png" style="height: 600px; width:auto;">
 
 
 # Visualizing the Results
@@ -404,7 +404,7 @@ ggplot(df, aes(x = year, y = value, group = interaction(sample, pelt_type), colo
   theme(legend.position = "none")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-6.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-6.png" style="height: 450px; width:auto;">
 
 We can also do a phase portrait for posterior samples:
 
