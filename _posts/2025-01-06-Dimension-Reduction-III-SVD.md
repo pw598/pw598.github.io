@@ -14,18 +14,17 @@ Singular value decomposition (SVD) is very similar to PCA, but is performed upon
 
 # Outline 
 
-- What is Principal Component Analysis (PCA)?
-- Numpy Implementation
-- Scikit-Learn Implementation
-    - Reconstruction of Data
-    - The Iris Dataset
-- The Olivietti Faces Dataset
+- Theoretical Foundation
+- Computing the SVD
+- Relationship to Eigendecomposition
+- Scikit-Learn PCA vs. TruncatedSVD
+- Low-Rank Approximation
 - Advantages and Limitations
 - Scikit-Learn Implementation Details
     - Parameters
-    - Atributes
+    - Attributes
     - Methods
-- What’s Next?
+- What's Next?
 
 
 
