@@ -39,7 +39,7 @@ We will continue to use the MNIST handwritten digits dataset, but import smaller
 
 Inspired by the structure of biological neural networks in the brain, a neural network consists of layers of building blocks called neurons, the ideation of which was in the 1950s and 1960s as a mechanism called the perceptron.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-1.png?raw=true" style="height: 200px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn2-1.png" style="height: 200px; width:auto;">
 
 
 
@@ -138,7 +138,7 @@ ax.plot(xx,tanh(xx)[1], color="red", label="tanh derivative")
 ax.legend(loc="upper left", frameon=False);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-3.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn2-3.png" style="height: 450px; width:auto;">
 
 
 
@@ -365,7 +365,7 @@ import matplotlib.pyplot as plt
 plt.plot(accuracies);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-5.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn2-5.png" style="height: 450px; width:auto;">
 
 
 
@@ -392,7 +392,7 @@ A bar plot makes it easy to read which value represents the argmax.
 plt.bar(range(0,10),yhat[0]);
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-6.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn2-6.png" style="height: 450px; width:auto;">
 
 
 When we compare to the ground truth for that instance, we see the prediction is correct.
@@ -414,7 +414,7 @@ plt.figure(figsize = (1.5,1.5))
 plt.imshow(np.reshape(X_test[0], (8,8)));
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/nn2-7.png?raw=true" style="height: 150px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/nn2-7.png" style="height: 150px; width:auto;">
 
 
 # What's Next?

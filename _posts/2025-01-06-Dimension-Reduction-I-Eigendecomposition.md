@@ -9,7 +9,7 @@ categories: DimensionReduction Python
 The first of 7 articles about dimension reduction, a strategy for dealing with numerous or correlated features. This first article explains eigendecomposition, a linear algebra operation which is fundamental toward principal component analysis (PCA), singular value decomposition (SVD), linear discriminant analysis (LDA), and independent component analysis (ICA).
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1.png" style="height: 500px; width:auto;">
 
 
 # Outline 
@@ -102,17 +102,17 @@ So $\lambda_1 = 3$ and $\lambda_2 = -1$.
 
 Staying consistent with the above, we have the matrix
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-4.png?raw=true" style="height: 75px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-4.png" style="height: 75px; width:auto;">
 
 and eigenvalues $\lambda_1 = 3$ and $\lambda_2 = −1$. We'll shift the matrix by each $\lambda$, and find a vector in the null space.
 
 <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-7.png?raw=true" style="height: 150px; width:auto;">.
 
-The first eigenvector, associated with $\lambda_1 = 3$, is found to be &nbsp; <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-8.png?raw=true" style="height: 60px; width:auto;">
+The first eigenvector, associated with $\lambda_1 = 3$, is found to be &nbsp; <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-8.png" style="height: 60px; width:auto;">
 
 We'll continue with finding the second eigenvector.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-9.png?raw=true" style="height: 150px; width:auto;">.
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-9.png" style="height: 150px; width:auto;">.
 
 The second eigenvector, associated with $\lambda_2 = -1$, is found to be &nbsp; <img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-10.png?raw=true" style="height: 60px; width:auto;">
 
@@ -233,7 +233,7 @@ sp.init_printing(use_unicode=True)
 A.eigenvects()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-1.png?raw=true" style="height: 100px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-1.png" style="height: 100px; width:auto;">
 
 
 
@@ -275,7 +275,7 @@ $\mathbf{AV} = \mathbf{V \Lambda}$
 The reason it is $\mathbf{V \Lambda}$ and not $\mathbf{\Lambda V}$ is so the eigenvalues scale each column of the $\mathbf{V}$ matrix, rather than each row.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-11.png?raw=true" style="height: 110px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-11.png" style="height: 110px; width:auto;">
 
 Normalizing the vectors of an eigenvectors matrix means that the product of that matrix and the same matrix transposed equal the identity matrix, $\mathbf{V}^T \mathbf{V} = \mathbf{I}$, assuming the eigenvectors are of a symmetric matrix). And if $\mathbf{V}^T \mathbf{V} = \mathbf{I}$, then $\mathbf{V}^T = \mathbf{V}^{-1}$. This gives us:
 
@@ -318,7 +318,7 @@ plt.title('Reconstruction')
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-2.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-2.png" style="height: 250px; width:auto;">
 
 
 To prove that the two matrices above are identical, I'll subtract one from the other, resulting in zeros.
@@ -369,7 +369,7 @@ plt.axis('off')
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/dr1-3.png?raw=true" style="height: 250px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-3.png" style="height: 250px; width:auto;">
 
 
 
