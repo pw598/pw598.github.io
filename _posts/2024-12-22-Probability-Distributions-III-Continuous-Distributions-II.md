@@ -8,7 +8,7 @@ categories: Probability
 The second of two articles listing continuous distributions, their properties, and their relationships. This second article focuses on a family of distributions closely related to the Gamma.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd3.png?raw=true" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/pd3.png" style="height: 350px; width:auto;">
 
 
 # Outline 
@@ -198,7 +198,7 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/f_dist.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/f_dist.png" style="height: 400px; width:auto;">
 
 
 

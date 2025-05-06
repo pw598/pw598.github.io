@@ -8,7 +8,7 @@ categories: Probability
 The first of two articles listing continuous distributions, their properties, and their relationships. This article focuses on a family of continuous distributions closely related to either the Normal or Beta.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd2.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/pd2.png" style="height: 450px; width:auto;">
 
 
 # Outline 
@@ -109,7 +109,7 @@ As mentioned above, the Uniform is a special case of the Beta where $\alpha=1$ a
 
 #### PDF:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/unif_pdf.png?raw=true" style="height: 100px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/unif_pdf.png" style="height: 100px; width:auto;">
 
 The expected value is 
 
@@ -219,7 +219,7 @@ The Multivariate Normal (MVN) distribution is a generalization of the Normal to 
 
 #### PDF:
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn_pdf.png?raw=true" style="height: 65px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/mvn_pdf.png" style="height: 65px; width:auto;">
 
 The expected value is 
 
@@ -264,7 +264,7 @@ ax.set_zlabel('Probability Density')
 plt.show()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mvn.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/mvn.png" style="height: 450px; width:auto;">
 
 
 

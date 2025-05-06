@@ -9,7 +9,7 @@ categories: Probability Bayes
 A short introduction to Bayesian data analysis, including prior distributions and their practical application.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi1.png?raw=true" style="height: 400px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi1.png" style="height: 400px; width:auto;">
 
 
 # Outline 

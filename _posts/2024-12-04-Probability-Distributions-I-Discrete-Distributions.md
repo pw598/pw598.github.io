@@ -8,7 +8,7 @@ categories: Probability
 We build up the theory of probability distributions in general, and go through the discrete distributions, as well as how they relate.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/pd1.png?raw=true" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/pd1.png" style="height: 500px; width:auto;">
 
 
 # Outline 
@@ -45,7 +45,7 @@ The code to generate the visuals I’ve linked to below are available in the use
 
 The Bernoulli distribution is, I would imagine, the most intuitive, as it describes the simplest type of experiment. A Bernoulli random variable represents a single trial with a binary outcome of success (represented by $1$) equal to probability $p$, and a probability of failure (represented by $0$) intuitively equal to $1-p$, represented symbolically as $q$.
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bern_pmf.png?raw=true" style="height: 50px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bern_pmf.png" style="height: 50px; width:auto;">
 
 <img src="https://www.pymc.io/projects/docs/en/stable/_images/pymc-Bernoulli-1.png" style="height: 300px; width:auto;">
 
