@@ -100,7 +100,7 @@ We can plot the coefficient values and their confidence intervals using the plot
 cph.plot()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-3.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa2-3.png" style="height: 450px; width:auto;">
 
 
 
@@ -148,7 +148,7 @@ cph.fit(data, duration_col="time", event_col="cens", strata="tgrade")
 cph.print_summary()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/sa2-5.png?raw=true" style="height: 700px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/sa2-5.png" style="height: 700px; width:auto;">
 
 
 

@@ -107,7 +107,7 @@ ggplot(data, aes(x = gravity, y = osmo)) +
   theme_minimal()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-1.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-1.png" style="height: 450px; width:auto;">
 
 
 We'll standardize the data, to make the interpretation of intercept and slope units more natural.
@@ -293,7 +293,7 @@ ggplot(data.frame(x = gravity_std, y = osmo_std, y_pred = y_pred_mean), aes(x = 
   theme_minimal()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-4.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-4.png" style="height: 450px; width:auto;">
 
 
 
@@ -366,7 +366,7 @@ plot2 <- stan_dens(model_fit, separate_chains = TRUE, pars=c("alpha", "beta", "s
 grid.arrange(plot1, plot2, ncol = 1)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-5.png?raw=true" style="height: 550px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-5.png" style="height: 550px; width:auto;">
 
 
 and summarize the parameters found:
@@ -441,7 +441,7 @@ ggplot(data.frame(x = gravity_std, y = osmo_std, y_pred = y_pred_mean), aes(x = 
   theme_minimal()
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/bi2-7.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/bi2-7.png" style="height: 450px; width:auto;">
 
 
 

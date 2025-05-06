@@ -72,7 +72,7 @@ read.csv("https://raw.githubusercontent.com/pw598/Articles/refs/heads/main/data/
 head(data)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-1.png?raw=true" style="height: 300px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-1.png" style="height: 300px; width:auto;">
 
 Let’s visualize the data, first as a time series.
 
@@ -103,7 +103,7 @@ xlab("Lynx Pelts (Thousands)") +
 ylab("Hare Pelts (Thousands)")
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-3.png?raw=true" style="height: 450px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-3.png" style="height: 450px; width:auto;">
 
 
 # Implementation
@@ -355,7 +355,7 @@ We then run some sampling diagnostics,
 traceplot(model_fit)
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-4.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-4.png" style="height: 600px; width:auto;">
 
 
 ```r
@@ -489,7 +489,7 @@ population_plot2 <-
 population_plot2
 ```
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/de2-8.png?raw=true" style="height: 600px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/de2-8.png" style="height: 600px; width:auto;">
 
 
 # What’s Next?
