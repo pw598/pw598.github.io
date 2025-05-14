@@ -110,6 +110,7 @@ We can view the details of the service instance by entering the following.
 Creating a <code>.my.cnf</code> file prevents us from having to specify our username and password each time we enter shell commands. The user will be set to "root" and the password to "pw". Again, referencing them explicitly in the code is not secure; it is only done here for simplicity.
 - <code>-f</code> stands for "force", meaning do not prompt for confirmation, and ignore nonexistent files
 - <code>-e</code> stands for "execute".
+- <code>\n</code> means go to the next line
 
 ```bash
 # Create .my.cnf for password-based authentication
@@ -420,7 +421,7 @@ We'll take a break from the shell commands, in favor of Python magic commands.
 
 - This requires that we install <code>mysql-connector-python</code>, run <code>%load_ext sql</code>, and establish a connection to a particular database. 
 
-- We'll then proceed to use <code>%%sql</code> at the top of any cells that contain only single-statement SQL commands. A slight exception is that we can use <code>%%sql << my_variable</code> on the top line to store the SQL output into a Python variable.
+- We'll then proceed to use <code>%%sql</code> at the top of any cells that contain only single-statement SQL commands. A slight exception to this is that we can use <code>%%sql << my_variable</code> on the top line to store the SQL output into a Python variable.
 
 - To mix SQL with Python, or use multiple SQL commands in one cell, we'll precede the SQL statements with <code>%sql</code> (having only one percentage symbol).
 
@@ -456,7 +457,7 @@ LIMIT 5;
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/sq1-1.png" style="height: 200px; width:auto;">
 
-The below shows us the same, but rather than limiting the SQL query to return only the top 5 rows, we save the entire SQL output into a Python variable, and use <code>result.head()</code> to print only the top 5 rows. The start of the SQL command must appear on the same line as the magic command, although it's true that we could continue onto the next line by inserting a backslash, as done below. Note that any spaces after the backslash will cause an error.
+The below shows us the same, but rather than limiting the SQL query to return only the top 5 rows, we save the entire SQL output into a Python variable, and use <code>result.head()</code> to print only the top 5 rows. The start of the SQL command must appear on the same line as the magic command, although it's true that we could continue onto the next line by inserting a backslash, as done below. Note that having any spaces after the backslash will cause an error.
 
 ```python
 result = %sql SELECT TABLE_NAME, COLUMN_NAME, COLUMN_TYPE \
@@ -470,7 +471,7 @@ result.head()
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/sq1-2.png" style="height: 200px; width:auto;">
 
-The alternative syntax which allows us to use <code>%%sql</code>, but also capture the result in a Python variable, is as follows. Note that we must put off the <code>result.head()</code> command until the next cell, as it's expected that all lines below the first are strictly SQL.
+The alternative syntax which allows us to use <code>%%sql</code>, but also capture the result in a Python variable, is as follows. Note that we must delay the <code>result.head()</code> command until the next cell, as it's expected that all lines below the first are strictly SQL.
 
 ```sql
 %%sql result <<
@@ -492,7 +493,7 @@ result.head()
 
 # Creating a Table
 
-Below, we'll create a new table using <code>mysql-connector</code>, and then prove that it shows up regardless of the method of querying.
+Below, we'll create a new table using <code>mysql-connector</code>, and then prove that it shows up with either method of querying.
 
 ```sql
 %%sql
@@ -753,16 +754,14 @@ ORDER BY amount DESC;
 
 Let's get a little fancier. Below, we will join more than two tables together, getting the number of employees, number of customers, and sum of payments per office for 2003.
 
-- The <code>DISTINCT</code> keyword will allow us to not just count the number of rows in the database, as <code>COUNT</code> would, but rather, count the number of unique values for the specified field. In this case, the level of detail will be by office.
+- The <code>DISTINCT</code> keyword will allow us to not just count the number of rows in the database, as <code>COUNT</code> would, but rather, count the number of unique values for the specified field. In this case, the level of detail is per office.
 
 - Instead of an <code>INNER JOIN</code>, we will use a <code>LEFT JOIN</code>, which means we keep all records from the 'left' table (i.e., the first one mentioned, offices), and bring in matches from the other tables, but associate null values for the right table with entries on the left which cannot be matched to.
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/joins.png" style="height: 275px; width:auto;">
-
-- The <code>CONVERT(SUM(payments.amount), SIGNED)</code> statement below is performing the MySQL equivalent of <code>CAST(SUM(payments.amount) AS INT)</code> in SQL Server. It is rounding the result to the nearest integer and also setting the data type.
-
 <p><i>source: https://www.w3schools.com/sql/sql_join.asp</i></p>
 
+- The <code>CONVERT(SUM(payments.amount), SIGNED)</code> statement below is performing the MySQL equivalent of <code>CAST(SUM(payments.amount) AS INT)</code> in SQL Server. It is another way to round the result to the nearest integer, but also sets the data type.
 
 ```sql
 %%sql
@@ -956,7 +955,7 @@ df_pivot.head()
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/sq1-10.png" style="height: 200px; width:auto;">
 
 
-Below, we'll break out the sum of payments at the office, customer, and employee level. Notice that the tables have been aliased, so that they can be referenced with abbreviations to save us some typing. We use <code>INNER JOIN</code>, thereby assuming we are not interested in the data for customers and employees to which no sales are associated.
+Below, we'll break out the sum of payments at the office, customer, and employee level. Notice that the tables have been aliased, so that they can be referenced with abbreviations to save us some typing. We use <code>INNER JOIN</code>, the implication of which is that we are not interested in the data for customers and employees to which no sales are associated.
 
 ```sql
 %%sql
@@ -979,19 +978,15 @@ ORDER BY o.officeCode, e.employeeNumber, c.customerNumber;
 
 The final SQL-only task, below, will elaborate on the above. The challenge is to:
 
-- Include payment totals for office and employee, despite the data having a customer level of detail.
+- Include payment totals for office and employee, despite the data having a detail level of one customer per row.
 - Include the percentage of office and employee totals accounted for by each row.
 - Rank the row-level amounts for office and employee, descending.
 
-The key to this is a window function, combined with the <code>OVER</code> and <code>PARTITION</code> keywords. For example,
+The key to this is a window function, such as <code>SUM()</code> or <code>RANK</code>, combined with the <code>OVER</code> and <code>PARTITION</code> keywords. For example,
 
-<code>ROUND(SUM(amount) OVER (PARTITION BY officeCode), 0) AS 'total payments for office'</code>
+- <code>ROUND(SUM(amount) OVER (PARTITION BY officeCode), 0) AS 'total payments for office'</code> calculates the total amount paid by all customers in the same office (then applies a <code>ROUND</code> operation). 
 
-calculates the total amount paid by all customers in the same office (then applies a <code>ROUND</code> operation). 
-
-<code>RANK() OVER (PARTITION BY officeCode ORDER BY SUM(amount) DESC) AS 'rank in office'</code>
-
-assigns a rank to each customer for the office in question.
+- <code>RANK() OVER (PARTITION BY officeCode ORDER BY SUM(amount) DESC) AS 'rank in office'</code> assigns a rank to each customer for the office in question.
 
 
 ```sql
@@ -1036,17 +1031,19 @@ ORDER BY officeCode, employeeNumber, customerNumber;
 
 A nice aspect of working with SQL in a Python environment is that machine learning libraries can be immediately integrated. We can import high-level functions for advanced data science with only a few lines of code, and wrap SQL extractions in Python loops if the data are too large to work with all at once.
 
-SQL offers the ability to create functions as well. For example, we could create a 'fuzzy lookup' function using Levenshtein distance, or a function to calculate the number of working days between dates. However, SQL by itself does not permit data visualization, and the ability to extend its functionality to machine learning capabilities is minimal. The below will integrate Python with an SQL query in order to cluster product descriptions based on semantic similarity, and visualize the results in an interactive 3D chart.
+SQL offers the ability to create functions as well. For example, we could create a 'fuzzy lookup' function using Levenshtein distance, or a function to calculate the number of working days between dates. However, SQL by itself does not permit data visualization, and the ability to extend its functionality to machine learning capabilities is minimal. 
+
+The below will integrate Python and SQL in order to cluster product descriptions based on semantic similarity, and visualize the results in an interactive 3D chart.
 
 The challenge is to:
 
 1. From the <code>products</code> table, pull <code>productCode</code> and <code>productName</code>, and from the prodlines table, pull <code>textDescription</code>. Concatenate <code>productName</code> with <code>textDescription.</code>
 
-2. Convert the concatenated text to word embeddings - high-dimensional vectors of real numbers in continuous space, generated by a neural network, and saved to an importable library. The more similar the description text, the closer the direction of the vectors (and there are other neat capabilities, like analogy calculations).
+2. Convert the concatenated text to word embeddings - high-dimensional vectors of real numbers in continuous space, generated by a neural network (based on context), and saved to an importable library. The more similar the description text, the closer the direction of the vectors (there are other neat capabilities, like analogy calculations).
 
-3. Use a dimensionality reduction technique called UMAP (Uniform Manifold Approximation Projection) to project the high-dimensional data onto a lower-dimensional space that we can visualize, with as minimal a loss of information as possible.
+3. Use a dimensionality reduction technique called UMAP (Uniform Manifold Approximation Projection) to project the high-dimensional data onto a lower-dimensional space that we can visualize, with as minimal a loss of information as possible. This is possible because of the manifold hypothesis - that the meaningful structure of high-dimensional data often lies on or near a lower-dimensional manifold embedded in that space.
 
-4. Visualize in a 3D interactive plot using Plotly.
+4. Visualize the results in an interactive 3D plot, using Plotly.
 
 
 ```python
@@ -1140,6 +1137,7 @@ fig.show()
 
 To zoom in, rotate, and hover over points for labels, download the chart by <a href="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/plotly_chart.html" download="plotly_chart.html">right-clicking here</a> and selecting "Save Link As". Or, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook</a>.
 
+We see that ships and boats (green), motorcycles (red), and aviation (pink) are tightly clustered and relatively distant from the clusters near the bottom. The gold dots contain streetcars, buses, and trains. The teal dots contain classic cars, and the purple and green dots contain sports cars. In a more perfect analysis, perhaps the purple and green dots would be a part of the same cluster, and the gold dot that is touching them (18th Century Vintage Horse Carriage) would be further away from them. But we're relying on a pre-trained semantic model to make distinctions largely based on vehicle brand names, which is probably not its forte.
 
 
 # What's Next?
