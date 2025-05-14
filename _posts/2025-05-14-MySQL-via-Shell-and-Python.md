@@ -1144,15 +1144,7 @@ To zoom in, rotate, and hover over points for labels, download the chart by <a h
 
 # What's Next?
 
-- Perhaps some content on CRUD (Create, Read, Update, Delete) operations
-
-- Perhaps some content on SQL functions
-
-- Likely an article on JSON-based query language, such as with MongoDB
-
-- Perhaps a Streamlit app with a query sandbox for both languages
-
-
+- Likely next will be an article about JSON (JavaScript Object Notation) based queries with MongoDB. Future RDBMS posts may include SQL functions, and/or a sandbox application using Streamlit.
 
 
 
