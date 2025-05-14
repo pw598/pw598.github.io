@@ -28,20 +28,21 @@ MySQL is one of the most widely used relational database management systems (RDB
 
 The ubiquitous SQL language has been the standard for database-querying since the 70's, though numerous versions exist. This article focuses on MySQL, a variant for which the community version is free. Similar alternatives include SQL Server Express, PostgreSQL, and MariaDB.
 
-Similarly, Python has become one of the most widely adopted programming languages, for tasks which don't require low-level coding such as C++. This popularity has led to the development of many open-source libraries, from which powerful functions may be imported and called upon using few lines of code. IPython notebooks (.ipynb) have become widely used because of:
+Similarly, Python has become one of the most widely adopted programming languages, for tasks which don't require low-level coding such as C++. This popularity has led to the development of many open-source libraries, from which powerful functions may be imported and called upon using few lines of code. The reasons IPython notebooks (.ipynb) have become widely used include: 
 - Shareability, readability, and transparency
 - Ability to render as a webpage
 - Workflow documentation
-- Enhanced troubleshooting through cell-level modularization
-- "Magic commands" which provide extended functionality (such as using other languages)
+- Ability to include markdown 
+- Convenient debugging
+- "Magic commands", which provide functionality such as allowing other languages
 
-Magic commands are not the only way to integrate SQL into a Python environment. Many libraries and functions, some of which we'll explore, are designed to accept plain-text SQL queries. A perk of the magic commands which refer to other languages is that they generally provide keyword-formatting that is catered to that language.
+Magic commands are not the only way to integrate SQL into a Python environment. Many libraries and functions, some of which we'll explore, are designed to accept plain-text SQL queries. A perk of the magic commands which refer to other languages is that they should yield the kind of keyword-formatting you would expect for the language.
 
 Working in a Google Colab Python notebook, which you can download <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">here</a>, we will start with shell commands, and progress to include Python functions which wrap SQL queries. Of course, hosting your business's database in Google Colab (or through a notebook alone) would be highly problematic, unless you somehow mitigate the fact that the data will disappear at the end of your session. However, for our purposes of demonstration and replicability, it will work nicely.
 
 I must also mention that you should not include passwords in your code, even though I have, for simplicity. Instead, keep the sensitive commands stored in a secure .sql or text file to be read upon execution, or store the passwords securely in your operating system environment.
 
-Since Google Colab runs on a Linux environment, the shell commands are in Bash. Don't be intimidated if the commands look unfamiliar, that just means that you are part of the target audience. Do check out the following links if looking for context.
+Since Google Colab runs on a Linux environment, the shell commands are in Bash. Don't be intimidated if the commands look unfamiliar, but do check out the following resources if looking for context.
 
 - <a href="https://www.w3schools.com/bash/index.php">https://www.w3schools.com/bash/index.php</a>
 - <a href="https://www.w3schools.com/sql/">https://www.w3schools.com/sql/</a>
@@ -752,9 +753,12 @@ ORDER BY amount DESC;
 
 Let's get a little fancier. Below, we will join more than two tables together, getting the number of employees, number of customers, and sum of payments per office for 2003.
 
-The <code>DISTINCT</code> keyword will allow us to not just count the number of rows in the database, as <code>COUNT</code> would, but rather, count the number of unique values for the specified field. In this case, the level of detail will be by office.
+- The <code>DISTINCT</code> keyword will allow us to not just count the number of rows in the database, as <code>COUNT</code> would, but rather, count the number of unique values for the specified field. In this case, the level of detail will be by office.
 
-Instead of an <code>INNER JOIN</code>, we will use a <code>LEFT JOIN</code>, which means we keep all records from the 'left' table (i.e., the first one mentioned, offices), and bring in matches from the other tables, but associate null values for the right table with entries on the left which cannot be matched to.
+- Instead of an <code>INNER JOIN</code>, we will use a <code>LEFT JOIN</code>, which means we keep all records from the 'left' table (i.e., the first one mentioned, offices), and bring in matches from the other tables, but associate null values for the right table with entries on the left which cannot be matched to.
+
+
+- The line with <code>CONVERT</code> is performing the MySQL equivalent of <code>CAST(SUM(payments.amount) AS INT) AS total</code> in SQL Server; 
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/joins.png" style="height: 275px; width:auto;">
 
@@ -765,7 +769,7 @@ SELECT
     offices.officeCode,
     COUNT(DISTINCT customers.customerNumber) AS customer_count,
     COUNT(DISTINCT employees.employeeNumber) AS employee_count,
-    COUNT(DISTINCT payments.amount) AS payment_count,
+    COUNT(payments.amount) AS payment_count,
     CONVERT(SUM(payments.amount), SIGNED) AS payment_total
 FROM offices
 LEFT JOIN employees ON offices.officeCode = employees.officeCode
@@ -1037,7 +1041,7 @@ The challenge is to:
 
 1. From the <code>products</code> table, pull <code>productCode</code> and <code>productName</code>, and from the prodlines table, pull <code>textDescription</code>. Concatenate <code>productName</code> with <code>textDescription.</code>
 
-2. Convert the concatenated text to word embeddings - high-dimensional vectors of real numbers in continuous space, generated by a neural network, and saved to an importable library. The more similar the description text, the closer the direction of the vectors (there are other neat capabilities, like analogy calculations).
+2. Convert the concatenated text to word embeddings - high-dimensional vectors of real numbers in continuous space, generated by a neural network, and saved to an importable library. The more similar the description text, the closer the direction of the vectors (and there are other neat capabilities, like analogy calculations).
 
 3. Use a dimensionality reduction technique called UMAP (Uniform Manifold Approximation Projection) to project the high-dimensional data onto a lower-dimensional space that we can visualize, with as minimal a loss of information as possible.
 
