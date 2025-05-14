@@ -2,7 +2,7 @@
 layout: post
 title:  "MySQL via Shell and Python"
 date:   2025-05-14 00:00:00 +0000
-categories: SQL RDBMS NLP DimensionReduction
+categories: SQL Bash Python
 ---
 
 MySQL is one of the most widely used relational database management systems (RDBMS), due in part to its open-source community edition. To ensure a high degree of no-fuss replicability, the following was done in a Google Colab notebook. Commanding MySQL from within a Python environment offers a wide range of cool integrations.
