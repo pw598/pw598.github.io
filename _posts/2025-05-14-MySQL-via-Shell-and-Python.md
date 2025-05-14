@@ -30,19 +30,19 @@ The ubiquitous SQL language has been the standard for database-querying since th
 
 Similarly, Python has become one of the most widely adopted programming languages, for tasks which don't require low-level coding such as C++. This popularity has led to the development of many open-source libraries, from which powerful functions may be imported and called upon using few lines of code. The reasons IPython notebooks (.ipynb) have become widely used include: 
 - Shareability, readability, and transparency
-- Ability to render as a webpage
 - Workflow documentation
 - Ability to include markdown 
+- Ability to render as a webpage
 - Convenient debugging
-- "Magic commands", which provide functionality such as allowing other languages
+- "Magic commands" providing meta-functionality such as allowing other languages
 
 Magic commands are not the only way to express SQL in a Python environment. Many libraries and functions, some of which we'll explore, are designed to accept plain-text SQL queries. A perk of the magic commands is that, for another language, they should express the same kind of keyword formatting you would see from an editor designed for that language.
 
-Working in a Google Colab Python notebook, which you can download <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">here</a>, we will start with shell commands, and progress to include Python functions which wrap SQL queries. Of course, hosting your business's database in Google Colab (or through a notebook alone) would be highly problematic, unless you somehow mitigate the fact that the data will disappear at the end of your session. However, for our purposes of demonstration and replicability, it will work nicely.
+Working in a Google Colab Python notebook, which you can download <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">here</a>, we will start with shell commands, and progress to include Python functions which take SQL queries as arguments. Of course, hosting your business's database in Google Colab (or through a notebook alone) would be highly problematic, unless you somehow mitigate the fact that the database will disappear at the end of your session. However, for our purposes of demonstration and replicability, it will work nicely.
 
 I must also mention that you should not include passwords in your code, even though I have below for simplicity. Instead, keep the sensitive commands stored in a secure .sql or text file to be read upon execution, or store the passwords securely in your operating system environment.
 
-Since Google Colab runs on a Linux environment, the shell commands are in Bash. Don't be intimidated if the commands look unfamiliar, but do check out the following resources if looking for context.
+Since Google Colab runs on a Linux environment, the shell commands are in Bash. Don't be intimidated if they look unfamiliar, but do check out the following resources if looking for context.
 
 - <a href="https://www.w3schools.com/bash/index.php">https://www.w3schools.com/bash/index.php</a>
 - <a href="https://www.w3schools.com/sql/">https://www.w3schools.com/sql/</a>
@@ -1029,9 +1029,9 @@ ORDER BY officeCode, employeeNumber, customerNumber;
 
 # Integrating Machine Learning
 
-A nice aspect of working with SQL in a Python environment is that machine learning libraries can be seamlessly integrated. We can import high-level functions for advanced data science tasks with only a few lines of code, and wrap SQL extractions in Python loops if the data are too large to work with all at once.
+A nice aspect of working with SQL in a Python environment is that machine learning libraries can be seamlessly integrated. We can import high-level functions for data science tasks with only a few lines of code, and wrap SQL extractions in Python loops if the data are too large to work with all at once.
 
-SQL offers the ability to create functions as well. For example, we could create a 'fuzzy lookup' function using Levenshtein distance, or a function to calculate the number of working days between dates. However, SQL by itself does not permit data visualization, and the ability to extend its functionality to machine learning capabilities is minimal. 
+SQL offers the ability to create functions as well. For example, we could create a 'fuzzy lookup' function using Levenshtein distance, or a function to calculate the number of working days between dates. However, SQL by itself does not permit data visualization, and the ability to engineer machine learning capabilities is minimal. 
 
 The below will integrate Python and SQL in order to cluster product descriptions based on semantic similarity, and visualize the results in an interactive 3D chart.
 
@@ -1039,9 +1039,9 @@ The challenge is to:
 
 1. From the <code>products</code> table, pull <code>productCode</code> and <code>productName</code>, and from the prodlines table, pull <code>textDescription</code>. Concatenate <code>productName</code> with <code>textDescription.</code>
 
-2. Convert the concatenated text to word embeddings - high-dimensional vectors of real numbers in continuous space, generated by a neural network (based on context), and saved to an importable library. The more similar the description text, the closer the direction of the vectors (there are other neat capabilities, like analogy calculations).
+2. Convert the concatenated text to word embeddings - high-dimensional vectors of real numbers in continuous space, generated by a neural network, and saved to an importable library. The more similar the description text, the closer the direction of the vectors (and there are other neat features, like analogy calculation).
 
-3. Use a dimensionality reduction technique called UMAP (Uniform Manifold Approximation Projection) to project the high-dimensional data onto a lower-dimensional space that we can visualize, with as minimal a loss of information as possible. This is possible because of the manifold hypothesis - that the meaningful structure of high-dimensional data often lies on or near a lower-dimensional manifold embedded in that space.
+3. Use a dimensionality reduction technique called UMAP (Uniform Manifold Approximation Projection) to project the high-dimensional data onto a lower-dimensional space that we can visualize, with as minimal a loss of information as possible. This is effective because of the meaningful structure of high-dimensional data often lies on or near a lower-dimensional manifold in that space.
 
 4. Visualize the results in an interactive 3D plot, using Plotly.
 
@@ -1135,14 +1135,14 @@ fig.show()
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/plotly_cht.png" style="height: 400px; width:auto;">
 
 
-To zoom in, rotate, and hover over points for labels, download the chart by <a href="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/plotly_chart.html" download="plotly_chart.html">right-clicking here</a>, select "Save Link As" and save as an .html file, and then open with a web browser. Or, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook (and open in Google Colab or Jupyter Notebook).</a>.
+To zoom in, rotate, and hover over points for labels, download the chart by <a href="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/plotly_chart.html" download="plotly_chart.html">right-clicking here</a>, selecting "Save Link As" and saving as an .html file, before opening with a web browser. Or, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook (and open in Google Colab or Jupyter Notebook).</a>.
 
 We see that ships and boats (green), motorcycles (red), and aviation (pink) are tightly clustered and relatively distant from the clusters near the bottom. The gold dots contain streetcars, buses, and trains. The teal dots contain classic cars, and the purple and green dots contain sports cars. In a more perfect analysis, perhaps the purple and green dots would be a part of the same cluster, and the gold dot that is touching them (18th Century Vintage Horse Carriage) would be further away. But we're relying on a pre-trained semantic model to make distinctions largely based on vehicle brand names, which is probably not its forte.
 
 
 # What's Next?
 
-- Next post will likely be about JSON (JavaScript Object Notation) queries for databases like MongoDB. Future RDBMS posts may include SQL functions, or a sandbox application using Streamlit.
+- Next post will likely be about JSON (JavaScript Object Notation) queries for databases like MongoDB. Future RDBMS posts may relate to SQL functions, or a sandbox application using Streamlit.
 
 
 
