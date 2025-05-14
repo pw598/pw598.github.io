@@ -5,7 +5,7 @@ date:   2025-05-14 00:00:00 +0000
 categories: SQL RDBMS NLP DimensionReduction
 ---
 
-MySQL is one of the most widely used relational database management systems (RDBMS), due in part to its open-source community edition. To ensure a high degree of no-fuss replicability, the following was done in a Google Colab notebook. Commanding MySQL from within a Python environment offers a range of cool integrations.
+MySQL is one of the most widely used relational database management systems (RDBMS), due in part to its open-source community edition. To ensure a high degree of no-fuss replicability, the following was done in a Google Colab notebook. Commanding MySQL from within a Python environment offers a wide range of cool integrations.
 
 
 
@@ -36,7 +36,7 @@ Similarly, Python has become one of the most widely adopted programming language
 - Convenient debugging
 - "Magic commands", which provide functionality such as allowing other languages
 
-Magic commands are not the only way to integrate SQL into a Python environment. Many libraries and functions, some of which we'll explore, are designed to accept plain-text SQL queries. A perk of the magic commands which refer to other languages is that they should yield the kind of keyword-formatting you would expect for the language.
+Magic commands are not the only way to integrate SQL into a Python environment. Many libraries and functions, some of which we'll explore, are designed to accept plain-text SQL queries. A perk of the magic commands which refer to other languages is that they should yield the kind of keyword-formatting you would expect of an editor for the language.
 
 Working in a Google Colab Python notebook, which you can download <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">here</a>, we will start with shell commands, and progress to include Python functions which wrap SQL queries. Of course, hosting your business's database in Google Colab (or through a notebook alone) would be highly problematic, unless you somehow mitigate the fact that the data will disappear at the end of your session. However, for our purposes of demonstration and replicability, it will work nicely.
 
@@ -757,10 +757,12 @@ Let's get a little fancier. Below, we will join more than two tables together, g
 
 - Instead of an <code>INNER JOIN</code>, we will use a <code>LEFT JOIN</code>, which means we keep all records from the 'left' table (i.e., the first one mentioned, offices), and bring in matches from the other tables, but associate null values for the right table with entries on the left which cannot be matched to.
 
-
-- The line with <code>CONVERT</code> is performing the MySQL equivalent of <code>CAST(SUM(payments.amount) AS INT) AS total</code> in SQL Server; 
-
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/joins.png" style="height: 275px; width:auto;">
+
+- The <code>CONVERT(SUM(payments.amount), SIGNED)</code> statement below is performing the MySQL equivalent of <code>CAST(SUM(payments.amount) AS INT)</code> in SQL Server. It is rounding the result to the nearest integer and also setting the data type.
+
+<p><i>source: https://www.w3schools.com/sql/sql_join.asp</i></p>
+
 
 ```sql
 %%sql
@@ -859,7 +861,6 @@ To get a little fancier, and make the code dynamic toward any number of years, w
 import mysql.connector
 import pandas as pd
 
-# Connect to your MySQL database
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -869,10 +870,10 @@ conn = mysql.connector.connect(
 
 cursor = conn.cursor()
 
-# Step 1: Increase group_concat limit (optional but helpful for many years)
-cursor.execute("SET SESSION group_concat_max_len = 100000;")
+# increase group_concat limit (optional but helpful for many years)
+# cursor.execute("SET SESSION group_concat_max_len = 100000;")
 
-# Step 2: Build dynamic column definitions
+# build dynamic column definitions
 cursor.execute("""
     SELECT GROUP_CONCAT(
         DISTINCT CONCAT(
@@ -885,7 +886,7 @@ cursor.execute("""
 """)
 pivot_columns = cursor.fetchone()[0]
 
-# Step 3: Build and execute full dynamic SQL
+# build and execute SQL
 sql = f"""
     SELECT customerNumber AS customer, {pivot_columns}
     FROM payments
@@ -894,11 +895,11 @@ sql = f"""
 """
 cursor.execute(sql)
 
-# Step 4: Fetch column names and results
+# fetch column names and results
 columns = [desc[0] for desc in cursor.description]
 rows = cursor.fetchall()
 
-# Step 5: Create a pandas DataFrame
+# create a pandas DataFrame
 df = pd.DataFrame(rows, columns=columns)
 
 cursor.close()
@@ -930,10 +931,10 @@ query = """
 """
 df_raw = pd.read_sql(query, conn)
 
-# Optional: Rename for readability
+# rename columns for readability
 df_raw.rename(columns={'customerNumber': 'customer'}, inplace=True)
 
-# Step 2: Create pivot using pandas
+# create pivot using pandas
 df_pivot = pd.pivot_table(
     df_raw,
     index='customer',
@@ -943,10 +944,10 @@ df_pivot = pd.pivot_table(
     fill_value=0
 ).reset_index()
 
-# Optional: Rename column headers if desired (e.g., keep years as they are)
-df_pivot.columns.name = None  # Remove index name from columns
+# Remove index name from columns
+df_pivot.columns.name = None  
 
-# Close connection
+# close connection
 conn.close()
 
 df_pivot.head()
@@ -1137,7 +1138,7 @@ fig.show()
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/plotly_cht.png" style="height: 400px; width:auto;">
 
 
-To zoom in, rotate, and hover over points for labels, download the chart by <a href="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/plotly_chart.html" download="plotly_chart.html">right-clicking here</a> and selecting "Save Link As". Or, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook</a>.
+To zoom in, rotate, and hover over points for labels, download the chart by <a href="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/plotly_chart.html" download="plotly_chart.html">right-clicking here</a> and selecting "Save Link As". Or, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook</a>.
 
 
 
