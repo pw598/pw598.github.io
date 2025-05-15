@@ -47,7 +47,7 @@ This is called symmetric because $p_{ij} = p_{ji}$ and $q_{ij} = q_{ji}$. For Ga
 
 <p>$p_{ij} = \frac{ exp( - ||x_i-x_j||^2 / 2 \sigma^2 ) }{ \sum_{k \neq l} exp( - ||x_k-x_l||^2 / 2 \sigma^2 ) }$</p>
 
-If the data points are approximately uniformly distributed in the region around i in a high (e.g. $10$) dimensional manifold, and we try to model the distances from $i$ to the other data points in a two-dimensional map, we get the crowding problem. The area of the two-dimensional map that is available to accommodate moderately distant data points will not be nearly large enough compared to the area available to accommodate nearby data points.
+If the data points are approximately uniformly distributed in the region around $i$ in a high (e.g. $10$) dimensional manifold, and we try to model the distances from $i$ to the other data points in a two-dimensional map, we get the crowding problem. The area of the two-dimensional map that is available to accommodate moderately distant data points will not be nearly large enough compared to the area available to accommodate nearby data points.
 
 Since symmetric SNE matches the joint probabilities of pairs of data points in the high-dimension and low-dimension space rather than their distances, we have a natural way of alleviating the crowding problem. In the high-dimensional space, we convert distances into probabilities using a Gaussian, and in the low-dimensional map, we use a distribution with heavier tails. In t-SNE, we use a t-distribution with one degree of freedom (a Cauchy distribution) in the low-dimension map.
 
