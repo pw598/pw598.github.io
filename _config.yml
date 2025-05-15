@@ -42,8 +42,8 @@ plainwhite:
   navigation:
     - title: Posts
       url: "/index"
-    # - title: Code Repository
-    #   url: "https://github.com/pw598/"
+    - title: Code Repository
+      url: "https://github.com/pw598/"
 
       
     # Mastodon instances
