@@ -44,7 +44,7 @@ Gaussian processes provide the best linear unbiased predictor (BLUP) of a variab
 
 # Working With the MVN Distribution
 
-GPs involve working with the multivariate Gaussian, which a random vector $\mathbf{X} = (X_1, …, X_k)$ has if every linear combination of the $X_j$ has a Gaussian distribution. The MVN has the nice properties that the marginal densities, conditional densities, and sum of independent random variables is also Gaussian. As the MVN is the multivariate generalization of the Gaussian, the GP is an infinite-dimensional generalization of the MVN. Gaussians also have the nice property of being closed under conditioning and marginalization, making problems in machine learning tractable.
+GPs involve working with the multivariate Gaussian, which a random vector $\mathbf{X} = (X_1, …, X_k)$ has if every linear combination of the $X_j$ has a Gaussian distribution. The MVN has the nice properties that the marginal densities, conditional densities, and sum of independent random variables are also Gaussian. As the MVN is the multivariate generalization of the Gaussian, the GP is an infinite-dimensional generalization of the MVN. Gaussians also have the nice property of being closed under conditioning and marginalization, making problems in machine learning tractable.
 
 <p>$\mathcal{N}(\mathbf{y} | \mathbf{\mu}, \mathbf{\Sigma}) = \frac{1}{ (2 \pi)^{D/2} |\mathbf{\Sigma}|^{1/2} } ~exp \left[ -\frac{1}{2} (\mathbf{y} - \mathbf{\mu})^T \mathbf{\Sigma}^{-1} (\mathbf{y} - \mathbf{\mu}) \right]$</p>
 
@@ -79,7 +79,7 @@ A variety of kernel functions are available, such as the following:
 - Play around with this at [https://distill.pub/2019/visual-exploration-gaussian-processes/](https://distill.pub/2019/visual-exploration-gaussian-processes/)
 
 
-For the periodic kernel, we have parameter p, which determines periodicity, and with the linear kernel, we have parameter c, which allows us to change the point on which all functions hinge. A kernel could be implemented as a mixture (a multiplication or addition) of multiple kernel functions.
+For the periodic kernel, we have parameter $p$, which determines periodicity, and with the linear kernel, we have parameter c, which allows us to change the point on which all functions hinge. A kernel could be implemented as a mixture (a multiplication or addition) of multiple kernel functions.
 
 A more extensive discussion of kernels can be found at <a href="www.cs.toronto.edu/~durenaud/cookbook">www.cs.toronto.edu/~durenaud/cookbook</a>.
 

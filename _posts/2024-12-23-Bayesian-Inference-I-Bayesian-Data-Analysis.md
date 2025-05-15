@@ -92,7 +92,6 @@ Before technology offered limitless options over choices of prior-likelihood pai
 
 An example is that a Beta prior with a Bernoulli or Binomial likelihood will combine to form a posterior that is itself Beta-distributed. Though the Beta is very flexible, and may take shapes between a Uniform and a dense spike, the method of conjugate priors is most restrictive compared to other methods, which do not constrain us to particular forms.
 
-Specific conjugate-prior relationships will be the subject of a future article.
 
 ### Flat Priors:
 

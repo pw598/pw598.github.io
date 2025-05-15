@@ -46,7 +46,7 @@ The steps to compute a principal component analysis are:
 <li>Compute the covariance matrix of the data.</li>
 <li>Perform eigendecomposition on the covariance matrix.</li>
 <li>Sort eigenvectors according to eigenvalue magnitude.</li>
-<li>Compute the component scores, calculated as the weighted combination of all data features, where the eigenvector provides the weights. i.e., for data matrix X, component one is calculated as \mathbf{v}_i^T \mathbf{X}, where v_1 is the eigenvector with the largest associated eigenvalue.</li>
+<li>Compute the component scores, calculated as the weighted combination of all data features, where the eigenvector provides the weights. i.e., for data matrix X, component one is calculated as $\mathbf{v}_i^T \mathbf{X}$, where $v_1$ is the eigenvector with the largest associated eigenvalue.</li>
 <li>(Optional) Convert to variance explained. The eigenvalues are in the scale of the variance of the data. To normalize, divide by the sum of eigenvalues.</li>
 </ol>
 

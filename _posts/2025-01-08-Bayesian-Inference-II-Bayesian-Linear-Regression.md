@@ -479,6 +479,6 @@ We've explored Bayesian linear regression, and extended it from the Normal model
 
 <u>Other:</u>
 
-- (2005, July 31). N is never large. Statistical Modeling, Causal Inference, and Social Science. https://statmodeling.stat.columbia.edu/2005/07/31/n_is_never_larg/
+- (2005, July 31). N is never large. Statistical Modeling, Causal Inference, and Social Science. [https://statmodeling.stat.columbia.edu/2005/07/31/n_is_never_larg/](https://statmodeling.stat.columbia.edu/2005/07/31/n_is_never_larg/)
 
 - <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">stan-dev Prior Choice Recommendations</a>
