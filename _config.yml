@@ -43,7 +43,7 @@ plainwhite:
     - title: Posts
       url: "/index"
     - title: Code Repository
-      url: "www.github.com/pw598"
+      url: "https://github.com/pw598/"
 
       
     # Mastodon instances
