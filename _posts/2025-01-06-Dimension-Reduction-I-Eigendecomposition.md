@@ -65,7 +65,7 @@ The way to discover the eigenvalues of a matrix is to rewrite the fundamental ei
 
 $\mathbf{Av} = \lambda \mathbf{v} = \mathbf{O}$
 
-To make this a valid operation, we'll insert an identity matrix before the vector $\mathbf{v}$. We'll also factor the vector \mathbf{v} out of both terms on the left.
+To make this a valid operation, we'll insert an identity matrix before the vector $\mathbf{v}$. We'll also factor the vector $\mathbf{v}$ out of both terms on the left.
 
 $(\mathbf{A} - \lambda \mathbf{I}) \mathbf{v} = \mathbf{O}$
 
@@ -94,7 +94,7 @@ So $\lambda_1 = 3$ and $\lambda_2 = -1$.
 
 # Finding Eigenvectors
 
-<p>Once you've identified the eigenvalues, shift the matrix by each −\lambda_i and find a vector \mathbf{v}_i in the null space of that shifted matrix. This can be written in two alternative ways:</p>
+<p>Once you've identified the eigenvalues, shift the matrix by each $−\lambda_i$ and find a vector $\mathbf{v}_i$ in the null space of that shifted matrix. This can be written in two alternative ways:</p>
 
 - $\mathbf{v}_i \in N(\mathbf{A} - \lambda_i ~\mathbf{I})$
 

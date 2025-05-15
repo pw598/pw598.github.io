@@ -137,7 +137,7 @@ If the proportional hazards assumption does not hold, one strategy is to stratif
 
 $h_s(t, X(s)) = h_{0,s}(t) ~exp(\beta^T X(s))$
 
-The categories s are used to stratify the subjects into S groups for which a Cox model is fitted. For each strata-specific hazard function, one can define a partial likelihood function $\mathcal{L}_s(\beta)$. The overall partial likelihood function for all strata is then given by the product of the individual likelihoods.
+The categories s are used to stratify the subjects into $S$ groups for which a Cox model is fitted. For each strata-specific hazard function, one can define a partial likelihood function $\mathcal{L}_s(\beta)$. The overall partial likelihood function for all strata is then given by the product of the individual likelihoods.
 
 $\mathcal{L}(\beta) = \displaystyle \prod_{s=1}^S \mathcal{L}_s(\beta)$
 
@@ -365,7 +365,7 @@ IBS
 
 # Accelerated Failure Time (AFT) Models
 
-An AFT model relates the survival function of two different populations A and B by an accelerated failure rate, $\lambda$.
+An AFT model relates the survival function of two different populations $A$ and $B$ by an accelerated failure rate, $\lambda$.
 
 $S_A(t) = S_B \left( \frac{t}{\lambda} \right)$
 
