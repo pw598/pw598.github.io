@@ -1058,33 +1058,25 @@ import plotly.graph_objects as go
 # get data
 df = %sql SELECT \
     products.productCode, \
-    prodlines.productLine, \
+    productlines.productLine, \
     products.productName, \
-    CONCAT(products.productName, ' ', prodlines.productLine) as line_name_concat \
-FROM productlines prodlines \
-INNER JOIN products \
-ON prodlines.productLine = products.productLine
+    CONCAT(products.productName, ' ', productlines.productLine) as name_line_concat \
+FROM products \
+INNER JOIN productlines \
+ON products.productLine = productlines.productLine
 
-data = {
-    'product_id': df['productCode'],
-    'prod_desc': df['productName'],
-    'description': df['line_name_concat']}
-
-# Create DataFrame (assumes 'data' is already defined with 'productCode' and 'productName')
-df2 = pd.DataFrame(data)
-
-# Load pre-trained BERT model for sentence embeddings
+# load pre-trained BERT model for sentence embeddings
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Generate embeddings
-embeddings = model.encode(df2['description'].tolist())
-df2['embedding'] = list(embeddings)
+# generate embeddings
+embeddings = model.encode(df['name_line_concat'].tolist())
+df['embedding'] = list(embeddings)
 
 # K-Means clustering
-n_clusters = min(6, len(df2))
+n_clusters = 7
 kmeans = KMeans(n_clusters=n_clusters, random_state=42)
 cluster_labels = kmeans.fit_predict(embeddings)
-df2['cluster'] = cluster_labels
+df['cluster'] = cluster_labels
 
 # UMAP dimensionality reduction
 umap_reducer = umap.UMAP(n_components=3, random_state=42)
@@ -1097,7 +1089,7 @@ palette_hex = [f'rgb({int(c[0]*255)},{int(c[1]*255)},{int(c[2]*255)})' for c in 
 fig = go.Figure()
 
 for cluster_id in range(n_clusters):
-    mask = df2['cluster'] == cluster_id
+    mask = df['cluster'] == cluster_id
     fig.add_trace(
         go.Scatter3d(
             x=embeddings_3d[mask, 0],
@@ -1106,7 +1098,7 @@ for cluster_id in range(n_clusters):
             mode='markers',
             marker=dict(size=8, color=palette_hex[cluster_id], opacity=0.6),
             name=f'Cluster {cluster_id}',
-            text=df2.loc[mask, 'prod_desc'],  # Hover text
+            text=df.loc[mask, 'productName'],  # Hover text
             hoverinfo='text'
         )
     )
@@ -1126,8 +1118,7 @@ fig.update_layout(
     height=600
 )
 
-
-fig.write_html('product_similarity_umap_kmeans_clusters_3d.html')
+fig.write_html('product_similarity_umap.html')
 fig.show()
 ```
 
