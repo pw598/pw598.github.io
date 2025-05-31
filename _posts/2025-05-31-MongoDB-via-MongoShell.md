@@ -137,7 +137,7 @@ We will be importing clickstream data from a <code>.bson</code> file with the da
 Our import commands below will specify <code>--drop</code> to drop the database first if it currently exists, but if at any point you wish to drop a database (in this case named <code>clickstream</code>, you can use the command <code>use clickstream</code> to select it, followed by <code>db.dropDatabase()</code>.
 
 
-### Drop clickstream if Exists (Optional)
+### Drop <code>clickstream</code> if Exists (Optional)
 
 ```js
 use clickstream
@@ -166,7 +166,7 @@ Although the code in this workbook is almost entirely focused on making commands
 The syntax for these commands is evident from the last two lines below. You could use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates a <code>.bat</code> file which can be run from the command line to import our <code>.bson</code> data file (using <code>mongorestore</code>, and <code>.json</code> metadata (using <code>mongoimport</code>).
 
 
-```bash
+```python
 # import_data.bat:
 SET HOST=localhost
 SET PORT=27017
@@ -1271,18 +1271,10 @@ That's it for the basics. Now we can focus on demonstrating the power of unstruc
 
 
 
-
-
-
-
-
-
-
 # References
 
 Mongo DB User Docs
-
-<a href="https://www.mongodb.com/docs/">https://www.mongodb.com/docs/</a>
+- <a href="https://www.mongodb.com/docs/">https://www.mongodb.com/docs/</a>
 
 
 
