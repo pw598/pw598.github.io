@@ -68,3 +68,6 @@ plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
 
+
+include:
+  - certifications/certifications.md
