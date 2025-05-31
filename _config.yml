@@ -70,4 +70,4 @@ plugins:
 
 
 include:
-  - certifications/certifications.md
+  - _certifications/certifications.md
