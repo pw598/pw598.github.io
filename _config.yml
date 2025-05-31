@@ -42,8 +42,11 @@ plainwhite:
   navigation:
     - title: Posts
       url: "/index"
+    - title: Certifications 
+      url: "/index/_posts/certifications/certifications.html"
     - title: Code Repository
       url: "https://github.com/pw598/"
+
 
       
     # Mastodon instances
