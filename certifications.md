@@ -1,13 +1,13 @@
 ---
-layout: post
+layout: default
 title: "Certifications"
 ---
 
 
-# Senior Data Scientist
-# <i>Data Science Council of America</i>
+## Senior Data Scientist
+## <i>Data Science Council of America</i>
 
-- View From Source: [https://www.credbadge.com/credit/certified/6649965209/]https://www.credbadge.com/credit/certified/6649965209/</a></p>
+- View From Source: <a href="https://www.credbadge.com/credit/certified/6649965209/">https://www.credbadge.com/credit/certified/6649965209/</a>
 
 
 
