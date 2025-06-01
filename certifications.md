@@ -3,9 +3,10 @@ layout: default
 title: "Certifications"
 ---
 
+<br>
+
 # Certifications
 
-<br>
 <br>
 <br>
 
@@ -16,7 +17,6 @@ View From Source:
 - <a href="https://www.credbadge.com/credit/certified/6649965209/">https://www.credbadge.com/credit/certified/6649965209/</a>
 
 
-<br>
 <br>
 <br>
 
