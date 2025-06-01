@@ -43,7 +43,7 @@ plainwhite:
     - title: Posts
       url: "/index"
     - title: Certifications 
-      url: "/_certifications/certifications"
+      url: "certifications"
     - title: Code Repository
       url: "https://github.com/pw598/"
 
@@ -69,5 +69,8 @@ plugins:
 #  - jekyll-feed
 
 
+header_pages:
+  - certifications.md
+
 include:
-  - _certifications/certifications.md
+  - certifications.md
