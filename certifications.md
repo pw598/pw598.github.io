@@ -1,26 +1,20 @@
 ---
 layout: post
 title: "Certifications"
-date: 2025-05-31
 ---
 
 
-<h1>Certifications</h1>
+# Senior Data Scientist
+# <i>Data Science Council of America</i>
 
-</br>
+- View From Source: [https://www.credbadge.com/credit/certified/6649965209/]https://www.credbadge.com/credit/certified/6649965209/</a></p>
 
-<h3>Senior Data Scientist</h3>
-<h3>Data Science Council of America</h3>
-<p>View Certificate From Source: <a href="https://www.credbadge.com/credit/certified/6649965209/">https://www.credbadge.com/credit/certified/6649965209/</a></p>
 
-</br>
-</br>
 
 <h3>AI and Machine Learning Blackbelt</h3>
 <h3>Analytics Vidhya</h3>
 
 
-</br>
 
 <p>View Certificates From Source:</p>
 
