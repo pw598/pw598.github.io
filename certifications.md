@@ -5,8 +5,9 @@ title: "Certifications"
 
 # Certifications
 
-</br>
-</br>
+<br>
+<br>
+<br>
 
 ## Senior Data Scientist
 ## <i>Data Science Council of America</i>
@@ -15,8 +16,9 @@ View From Source:
 - <a href="https://www.credbadge.com/credit/certified/6649965209/">https://www.credbadge.com/credit/certified/6649965209/</a>
 
 
-</br>
-</br>
+<br>
+<br>
+<br>
 
 ## Machine Learning and AI Blackbelt
 ## <i>Analytics Vidhya</i>
@@ -82,3 +84,6 @@ View From Source:
 
 </ul>
 
+<br>
+<br>
+<br>
