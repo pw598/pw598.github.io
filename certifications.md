@@ -3,20 +3,20 @@ layout: default
 title: "Certifications"
 ---
 
+# Certifications
 
 ## Senior Data Scientist
 ## <i>Data Science Council of America</i>
 
-- View From Source: <a href="https://www.credbadge.com/credit/certified/6649965209/">https://www.credbadge.com/credit/certified/6649965209/</a>
+- View From Source: 
+	<a href="https://www.credbadge.com/credit/certified/6649965209/">https://www.credbadge.com/credit/certified/6649965209/</a>
 
 
 
-<h3>AI and Machine Learning Blackbelt</h3>
-<h3>Analytics Vidhya</h3>
+## AI and Machine Learning Blackbelt
+## <i>Analytics Vidhya</i>
 
-
-
-<p>View Certificates From Source:</p>
+<p>View From Source:</p>
 
 <ul>
 
