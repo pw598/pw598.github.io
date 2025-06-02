@@ -185,7 +185,7 @@ mongorestore --host %HOST%:%PORT% --db %DBNAME% --collection %COLLECTION_BSON% -
 mongoimport --host %HOST%:%PORT% --db %DBNAME% --collection %COLLECTION_JSON% --drop --type json "%JSON_FILE%"
 ```
 
-With the <code>.bat</code> file created, simply call upon it from the command line, replacing my directory below with your own.
+With the <code>.bat</code> file created, simply call upon it from the command line, replacing my directory below with your own. Use the exclamation mark if in a Jupyter/Colab notebook, otherwise drop it.
 
 ```bash
 !"C:/Users/patwh/Downloads/import_data.bat"
@@ -521,17 +521,17 @@ load("C:/Users/patwh/Downloads/js_commands/unique_value_counts_hardcoded_fields.
 
 ```js
 // _id: 6100000 unique values
-// webClientID: 1091455 unique values
 // VisitDateTime: 6089023 unique values
+// webClientID: 1091455 unique values
+// user: 72162 unique values
+// user.UserID: 34051 unique values
+// user.City: 26260 unique values
 // ProductID: 10938 unique values
-// Activity: 2 unique values
+// user.Country: 222 unique values
 // device: 151 unique values
 // device.Browser: 82 unique values
 // device.OS: 18 unique values
-// user: 72162 unique values
-// user.City: 26260 unique values
-// user.Country: 222 unique values
-// user.UserID: 34051 unique values
+// Activity: 2 unique values
 ```
 
 We see some fields we didn't see in the sample document, such as <code>user.UserID</code>. These correspond to users of the Kirana store dataset who have signed up to create an account. 
@@ -640,6 +640,26 @@ load("C:/Users/patwh/Downloads/js_commands/count_unique_values_dynamic.js")
 
 
 
+# Get List of Unique Values for a Field
+
+To get the list of unique values for a field, we use <code>db.collection.distinct("fieldname")</code>, which quickly returns the results. Below, we will get the list of unique browsers. The list is long, so the results below are truncated.
+
+```js
+// [
+//   'AdsBot-Google',
+//   'AhrefsBot',
+//   'Amazon Silk',
+//   'Android',
+//   'AppEngine-Google',
+//   'Apple Mail',
+//   'BingPreview',
+//   'BlackBerry WebKit',
+//   ...
+//]
+```
+
+
+
 # CRUD Operations
 
 Fundamental database operations include creating new records, removing records, updating records, and deleting records - hence the acronym CRUD. The below will demonstrate examples of each.
@@ -690,7 +710,7 @@ Finally, we use <code>insertOne()</code> with reference to our stored variable i
 
 ```js
 // insert the record back into the collection
-db.clicks.insertOne(lastDoc)
+db.clicks.insertOne(lastDoc);
 ```
 <p></p>
 
@@ -1106,15 +1126,15 @@ db.collectionName.updateOne(
 
 
 
-### Update All <code>device.Browser</code> Records to be <code>Firefox</code>
+### ### Update <code>device.Browser</code> Records to be <code>Firefox</code> if Set to <code>Firefox iOS</code>
 
 
-If we wanted to update a list of records, we would use <code>updateMany</code> along with <code>$set</code>.
+If we wanted to update a list of records, we would use <code>updateMany</code> along with <code>$set</code>. Below is an example of how we would change the <code>device.Browser</code> to <code>Firefox</code> wherever currently set to <code>Firefox iOS</code>. For accuracy, I'll refrain from actually executing it.
 
 
 ```js
-// db.collectionName.updateMany(
-//   {},
+// db.clicks.updateMany(
+//   { "device.Browser": "Firefox iOS" },
 //   { $set: { "device.Browser": "Firefox" } }
 // );
 ```
@@ -1213,7 +1233,7 @@ Indexes are structures that improve the speed and efficiency of queries by creat
 To check which indexes exist, we can use the following.
 
 ```js
-db.clicks.getIndexes();
+db.clicks.getIndexes()
 ```
 
 <p></p>
@@ -1226,7 +1246,7 @@ db.clicks.getIndexes();
 
 
 ```js
-db.clicks.metadata.findOne();
+db.clicks.metadata.findOne()
 ```
 
 <p></p>
