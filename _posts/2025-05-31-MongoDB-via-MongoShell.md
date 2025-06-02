@@ -27,14 +27,15 @@ This is the first of 3 articles on MongoDB and the power of unstructured databas
 10. Get Record Counts
 11. Get List of Distinct Fields
 12. Get Number of Distinct Values Per Field
-13. CRUD Operations
+13. Get List of Distinct Values for a Field
+14. CRUD Operations
     - Remove and Create
     - Read
     - Update
-14. Indexes
+15. Indexes
     - View Indexes
     - Create Indexes
-15. What's Next?
+16. What's Next?
 
 
 
