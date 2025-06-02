@@ -9,10 +9,6 @@ categories: MongoDB Bash Python
 This is the first of 3 articles on MongoDB and the power of unstructured databases. The focus is on the Mongo shell, though parallel resources linked to within utilize command-line (Bash) and Python (PyMongo) commands.
 
 
-<img src="https://raw.githubusercontent.com/pw398/pw398.github.io/refs/heads/main/_posts/images/1-1.png" style="height: 250px; width:auto;">
-
-
-
 
 # Outline
 
@@ -44,7 +40,11 @@ This is the first of 3 articles on MongoDB and the power of unstructured databas
 
 Unstructured databases have greatly increased in popularity over the past 15 years, addressing the need to manage increasingly large, diverse, and evolving datasets. The lack of adherence to a rigid schema allows data to be stored in variable formats, rather than pre-specified columns, and this flexibility is well-suited toward modern data sources such as multimedia with metadata, text, and embedded or hierarchical data. Normalization and joins are avoided, lending toward the ability to horizontally scale compute resources, and this is heavily relied upon by organizations who deal with massive amounts of web transactions.
 
-MongoDB is the most popular of the unstructured databases, with a large developer community, integration with a multitude of APIs, and a cloud service called MongoDB Atlas. The native language for command-line instructions is Javascript, however the Mongo shell provides its own simplified language. The 'documents', a term analogous to a record in a structured database, are in a JSON-like format, and are organized into 'collections', the analog to a table.
+MongoDB is the most popular of the unstructured databases, with a large developer community, integration with a multitude of APIs, and a cloud service called MongoDB Atlas. 
+
+<img src="https://raw.githubusercontent.com/pw398/pw398.github.io/refs/heads/main/_posts/images/1-1.png" style="height: 250px; width:auto;">
+
+The native language for command-line instructions is Javascript, however the Mongo shell provides its own simplified language. The 'documents', a term analogous to records in a structured database, are in a JSON-like format, and are organized into 'collections', the analog to a table.
 
 In this article, we will focus on making commands through the Mongo shell, which is the simplest method. However, parallel notebooks utilizing the command line (Bash) and Python (PyMongo) are linked to below.
 - <a href="">Mongo Shell Notebook - Coming Soon</a>
@@ -57,10 +57,9 @@ Subsequent articles will focus on PyMongo. The content of this article will prov
 
 # Installation
 
-The MongoDB website has robust tutorials for installation. Be sure to get the Mongo shell and add it to PATH so you can follow along with the below. Although the code is provided in a notebook format, the commands in this article and the first 'notebook' will only work through the Mongo shell. This can be opened directly (by clicking on the .exe file), or from the command prompt using <code>mongosh</code>.
+The MongoDB website has robust tutorials for installation. Be sure to get the Mongo shell and add it to PATH so you can follow along with the below. Although the code is provided in a notebook format, most commands in this article and the first 'notebook' will only work through the Mongo shell. This can be opened directly (by clicking on the .exe file), or from the command prompt using <code>mongosh</code>.
 
 - <a href="https://www.mongodb.com/docs/manual/installation/">MongoDB Installation Tutorials</a>
-
 - <a href="https://www.mongodb.com/try/download/shell">MongoDB Shell</a>
 
 Also, regardless of which language or platform you plan on using, be sure to get the MongoDB command line tools, as this will be essential toward actions like reading and writing to file.
@@ -132,9 +131,9 @@ show dbs
 
 # Import Data 
 
-We will be importing clickstream data from a <code>.bson</code> file with the data records, along with a <code>.json</code> file with a single record of metadata. It corresponds to the web traffic of an e-commerce store called Kirana Store, an indicates with the <code>Activity</code> field whether a pageload or click on a product occured.
+We will be importing clickstream data from a <code>.bson</code> file with the data records, along with a <code>.json</code> file with a single record of metadata. It corresponds to the web traffic of an e-commerce store called Kirana Store, and indicates with the <code>Activity</code> field whether a pageload or click on a product occured.
 
-Our import commands below will specify <code>--drop</code> to drop the database first if it currently exists, but if at any point you wish to drop a database (in this case named <code>clickstream</code>, you can use the command <code>use clickstream</code> to select it, followed by <code>db.dropDatabase()</code>.
+Our import commands below will specify <code>--drop</code> to drop the database first if it currently exists, but if at any point you wish to drop a database (in this example named <code>clickstream</code>), you can use the command <code>use clickstream</code> to select it, followed by <code>db.dropDatabase()</code>.
 
 
 ### Drop <code>clickstream</code> if Exists (Optional)
@@ -163,7 +162,7 @@ db.dropDatabase()
 
 Although the code in this workbook is almost entirely focused on making commands through the Mongo shell, the Mongo tools such as <code>mongorestore</code> and <code>mongoimport</code> cannot be used through the Mongo shell, and must be called upon from the command line.
 
-The syntax for these commands is evident from the last two lines below. You could use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates a <code>.bat</code> file which can be run from the command line to import our <code>.bson</code> data file (using <code>mongorestore</code>, and <code>.json</code> metadata (using <code>mongoimport</code>).
+The syntax for these commands is evident from the last two lines below. You could use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates a <code>.bat</code> file which can be run from the command line to import our <code>.bson</code> file using <code>mongorestore</code>, and <code>.json</code> metadata using <code>mongoimport</code>.
 
 
 ```python
@@ -322,7 +321,7 @@ db.clicks.metadata.countDocuments()
 
 # Get List of Distinct Fields
 
-The below command is a little more involved. To get the list of distinct fields in the collection, we want to loop through each of the documents. Javascript is the native language of the Mongo shell, so if we want to create variables and loops, we must either enter Javascript commands, or use the <code>load()</code> function upon a <code>.js</code> file (or an API like PyMongo). As mentioned above, the shell is not optimized for large-scale processing, so PyMongo would actually be faster at executing the below operation (which is why it will be the focus of the second and third article).
+The below command is a little more involved. To get the list of distinct fields in the collection, we want to loop through each of the documents. Javascript is the native language of the Mongo shell, so if we want to create variables and loops, we must either enter Javascript commands, or use the <code>load()</code> function upon a <code>.js</code> file (or use an API like PyMongo instead of the Mongo shell). As mentioned above, the shell is not optimized for large-scale processing, so PyMongo would actually be faster at executing the below.
 
 
 ```js
@@ -351,9 +350,9 @@ The below command is a little more involved. To get the list of distinct fields 
 // ]
 ````
 
-That provided a list of top-level fields, but not nested fields that reside in a hierarchy. The following script will loop through second-level fields as well. It is quite lengthy to be entered line by line, so we'll use a <code>.js</code> file along with the <code>load()</code> command.
+That provided a list of top-level fields, but not nested fields that reside in the hierarchy. The following script will loop through second-level fields as well. It is quite lengthy to be entered line by line, so we'll use a <code>.js</code> file, along with the <code>load()</code> command.
 
-I said this article would be all about Mongo shell commands, but for my own sake, I will use the below Python function to generate the <code>.js</code> files and ensure the proper format. This is simply for the sake of convenience, it is purely optional.
+I said this article would be all about Mongo shell commands, but for my own sake, I will use the below Python function to generate the <code>.js</code> files and ensure proper format. This is purely optional, and only for the sake of convenience.
 
 
 ```js
@@ -385,7 +384,7 @@ def save_js_commands(js_input, js_folder, js_filename):
 ```
 
 
-Below specifies the Javascript as text, and calls upon the above function to create the <code>.js</code> file.
+The below specifies the Javascript as text, and calls upon the above function to create the <code>.js</code> file.
 
 
 ```python
@@ -702,7 +701,7 @@ db.clicks.insertOne(lastDoc)
 
 ### Remove and Re-Insert the Last 5 Records
 
-Similarly, we can do the same as above with a batch of records. Below, I will use the last 5.
+Similarly, we can do the same as above with a batch of records. I will use the last 5.
 
 We capture the data in a variable:
 
