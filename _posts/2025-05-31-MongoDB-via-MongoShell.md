@@ -6,6 +6,9 @@ categories: MongoDB Bash Python
 ---
 
 
+<img src="https://raw.githubusercontent.com/pw398/pw398.github.io/refs/heads/main/_posts/images/mg1.jpeg" style="height: 500px; width:auto;">
+
+
 This is the first of 3 articles on MongoDB and the power of unstructured databases. The focus is on the Mongo shell, though parallel resources linked to within utilize command-line (Bash) and Python (PyMongo) commands.
 
 
@@ -925,8 +928,9 @@ db.clicks.countDocuments({
 
 ### Get Count of Records Where <code>user.Country</code> is <code>India</code> or <code>United States</code>
 
-Below, we'll focus on logical and array operators, many of which have identical counterparts in SQL. We'll see that there is often an array-operator equivalent to a logical-operator, though array operators are often favorable in terms of the amount of typing, if dealing with a large list of desired or undesired values.
+Below, we'll focus on logical and array operators, many of which have identical counterparts in SQL. We'll see that there is often an array-operator equivalent to a logical-operator, though array operators can be favorable in terms of minimizing the amount of typing.
 
+First, we'll use the <code>$or</code> operator to get the count of records when filtered to where the country is either India or United States.
 
 
 #### Using <code>$or</code>
@@ -950,7 +954,7 @@ db.clicks.countDocuments({
 
 #### Using <code>$in</code>
 
-Below, we get the same result by using the <code>$in</code> operator, and passing in a list of countries for which we will consider the corresponding records.
+Below, we get the same result by using the <code>$in</code> operator, and passing in the list of countries for which we will consider the corresponding records.
 
 
 ```js
@@ -1080,7 +1084,7 @@ db.collectionName.updateOne(
 ```
 
 
-But we don't want to comprise the accuracy of further operations, so we'll wet it back to original state to avoid that.
+To maintain the accuracy of further operations, we'll set it back to the original state.
 
 
 ```js
@@ -1120,7 +1124,9 @@ If we wanted to update a list of records, we would use <code>updateMany</code> a
 ### Create New Field
 
 
-What if we want to create an entirely new field? Well, similar to a new database or collection, there is no need to define it explicitly beforehand. When data is inserted (and only when data gets inserted), then the new dimension is instantiated. So below we'll simply use <code>$set</code> along with the name of our new toy field, and the value we wish to populate. I've limited it to 1000 records because it takes a long time to create a new field for all 6.1M records, although we'll do it in the next article using PyMongo, which is better-suited toward that.
+What if we want to create an entirely new field? Well, similar to a new database or collection, there is no need to define it explicitly beforehand. When data is inserted (and only when data gets inserted), then the new dimension is instantiated. 
+
+Below, we'll simply use <code>$set</code> along with the name of our new toy field, and the value we wish to populate. I've limited it to 1000 records because it takes a long time to create a new field for all 6.1M records, although we'll do that in the next article using the better-suited PyMongo.
 
 
 ### Add Field Called <code>NewField</code> to First 1000 Records, Set Value to <code>Default</code>
@@ -1202,7 +1208,7 @@ db.clicks.updateMany(
 ## View Indexes
 
 
-Indexes are structures that improve the speed and efficiency of queries by creating a sorted mapping from the indexed fields to the location of documents. This allows a query to utilize information about which documents may be ignored, resulting in the search for applicable records not to require a scan of every document in the database. The <code>mongorestore</code> command does automatically associate indexes listed in the metadata (<code>.json</code> file) with the data (the <code>.bson</code>) file.
+Indexes are structures that improve the speed and efficiency of queries by creating a sorted mapping from the indexed fields to the location of documents. This allows a query to utilize information about which documents may be ignored, resulting in the search for applicable records to not require a scan of every document in the collection. The <code>mongorestore</code> command does automatically associate indexes listed in the metadata (<code>.json</code> file) with the data (the <code>.bson</code>) file.
 
 To check which indexes exist, we can use the following.
 
@@ -1216,7 +1222,7 @@ db.clicks.getIndexes();
 [ { v: 2, key: { _id: 1 }, name: '_id_' } ]
 ```
 
-<p>We see it only relates to the <code>_id</code> field, which will always be an index, by default.</p>
+<p>We see it only relates to the <code>_id</code> field, which will always be an index by default.</p>
 
 
 ```js
@@ -1266,7 +1272,7 @@ db.clicks.createIndex({ "device.Browser": 1 });
 
 # What's Next?
 
-That's it for the basics. Now we can focus on demonstrating the power of unstructured data, through aggregation pipelines for business insights, and machine learning (topic modeling) upon text data using Latent Dirichlet Analysis. Keep in mind, too, that we have not touched upon horizontal scaling, but it is certainly the case that one advantage MongoDB has over structured databases is that we can deal with read and write operations at massive scale (e.g., if the clickstream data was from Amazon). See you at the next article.
+That's it for the basics. Now we can focus on demonstrating the power of unstructured data, through aggregation pipelines for business insights, and machine learning (topic modeling) upon text data using Latent Dirichlet Analysis. Keep in mind, too, that we have not touched upon horizontal scaling, but it is certainly the case that one advantage MongoDB has over structured databases is that we can deal with read and write operations at massive scale (e.g., if the clickstream data was streaming in from Amazon). See you at the next article.
 
 
 
