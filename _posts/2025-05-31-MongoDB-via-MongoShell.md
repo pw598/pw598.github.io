@@ -50,7 +50,7 @@ MongoDB is the most popular of the unstructured databases, with a large develope
 The native language for command-line instructions is Javascript, however the Mongo shell provides its own simplified language. The 'documents', a term analogous to records in a structured database, are in a JSON-like format, and are organized into 'collections', the analog to a table.
 
 In this article, we will focus on making commands through the Mongo shell, which is the simplest method. However, parallel notebooks utilizing the command line (Bash) and Python (PyMongo) are linked to below.
-- <a href="">Mongo Shell Notebook - Coming Soon</a>
+- <a href="https://github.com/pw598/Articles/blob/main/notebooks/MongoDB-via-Mongo-Shell.ipynb">Mongo Shell Notebook</a>
 - <a href="">Bash Shell Notebook - Coming Soon</a>
 - <a href="">PyMongo Workbook - Coming Soon</a>
 
