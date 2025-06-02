@@ -4,6 +4,7 @@ title: "Certifications"
 ---
 
 <br>
+<br>
 
 # Certifications
 
@@ -55,7 +56,7 @@ View From Source:
 <p>- <a href="https://courses.analyticsvidhya.com/certificates/7q8asmadpc">https://courses.analyticsvidhya.com/certificates/7q8asmadpc</a></p>
 
 <li>Fundamentals of Structured Query Language</li>
-<p>- No link, download only</p>
+<p>- <a href="https://github.com/pw598/Articles/blob/main/dl_only_certifications/Fundamentals%20of%20Structured%20Query%20Language%20-%20Patrick%20White%20-%202023-04-29.pdf">https://github.com/pw598/Articles/blob/main/dl_only_certifications/Fundamentals%20of%20Structured%20Query%20Language%20-%20Patrick%20White%20-%202023-04-29.pdf</a></p>
 
 <li>Getting Started with NLP</li>
 <p>- <a href="https://courses.analyticsvidhya.com/certificates/9dx6onxfuh">https://courses.analyticsvidhya.com/certificates/9dx6onxfuh</a></p>
