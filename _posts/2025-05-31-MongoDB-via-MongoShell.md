@@ -6,7 +6,7 @@ categories: MongoDB Bash Python
 ---
 
 
-<img src="https://raw.githubusercontent.com/pw398/pw398.github.io/refs/heads/main/_posts/images/mg1.jpeg" style="height: 500px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mg1.jpg" style="height: 500px; width:auto;">
 
 
 This is the first of 3 articles on MongoDB and the power of unstructured databases. The focus is on the Mongo shell, though parallel resources linked to within utilize command-line (Bash) and Python (PyMongo) commands.
@@ -54,7 +54,7 @@ In this article, we will focus on making commands through the Mongo shell, which
 - <a href="">Bash Shell Notebook - Coming Soon</a>
 - <a href="">PyMongo Workbook - Coming Soon</a>
 
-Subsequent articles will focus on PyMongo. The content of this article will provide an overview of querying and database operations, the second article will focus on aggregation pipelines, and the third will focus on deploying machine learning upon streaming text data.
+Subsequent articles will utilize PyMongo. The content of this article will provide an overview of querying and database operations, the second will focus on aggregation pipelines, and the third will focus on deploying machine learning upon streaming text data.
 
 
 
@@ -69,7 +69,7 @@ Also, regardless of which language or platform you plan on using, be sure to get
 
 - <a href="https://www.mongodb.com/try/download/database-tools">MongoDB Command Line Tools</a>
 
-For PyMongo, if you are using Anaconda, I recommend using <code>conda install pymongo</code> from the Anaconda command prompt (<code>conda activate base</code> to activate it from the general command prompt). Otherwise, review the instructions <code>here</code>.
+For PyMongo, if you are using Anaconda, I recommend using <code>conda install pymongo</code> from the Anaconda command prompt (activate it with <code>conda activate base</code> first if operating from the general command prompt). Otherwise, review the instructions <a href="https://www.mongodb.com/docs/languages/python/pymongo-driver/upcoming/get-started/download-and-install/?msockid=10b2dcbcd0206ffd212ec970d1946ee7">here</a>.
 
 
 
@@ -77,7 +77,7 @@ For PyMongo, if you are using Anaconda, I recommend using <code>conda install py
 
 The capabilities of the Mongo shell include performing CRUD (create, read, update, delete) operations, querying and index management, user and database administration, and Javascript support. The commands are simpler and less verbose than calling upon MongoDB through the APIs, however the Mongo shell is not optimized for large-scale data processing, so APIs like PyMongo will perform better in this regard.
 
-Multi-line commands can be entered by pressing Enter to move to the next line, and then ctrl+Enter when ready to execute. This can be cumbersome for complex commands, though you can use <code>load()</code> to execute from a Javascript file.
+Multi-line commands can be entered by pressing Enter to move to the next line, and then ctrl+Enter when ready to execute. This can be cumbersome for complex commands, but you can use <code>load()</code> to execute code from a Javascript file, or paste in multiple lines at once.
 
 
 
@@ -165,24 +165,30 @@ db.dropDatabase()
 
 Although the code in this workbook is almost entirely focused on making commands through the Mongo shell, the Mongo tools such as <code>mongorestore</code> and <code>mongoimport</code> cannot be used through the Mongo shell, and must be called upon from the command line.
 
-The syntax for these commands is evident from the last two lines below. You could use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates a <code>.bat</code> file which can be run from the command line to import our <code>.bson</code> file using <code>mongorestore</code>, and <code>.json</code> metadata using <code>mongoimport</code>.
+The syntax for these commands is evident from the last two lines below. You are free to use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates an <code>import_data.bat</code> file which can be run from the command line to import our <code>.bson</code> file using <code>mongorestore</code>, and <code>.json</code> metadata using <code>mongoimport</code>. The text following <code>REM</code> are comments.
 
+```bash
+REM the below are optional, but used to avoid hard-coding the import commands further below
 
-```python
-# import_data.bat:
-SET HOST=localhost
-SET PORT=27017
-SET DBNAME=clickstream
-SET IMPORT_FILE_FOLDER=C:\Users\patwh\Downloads
-SET BSON_FILE_NAME=clicks
-SET JSON_FILE_NAME=clicks.metadata
-SET BSON_FILE=%IMPORT_FILE_FOLDER%\%BSON_FILE_NAME%.bson
-SET JSON_FILE=%IMPORT_FILE_FOLDER%\%JSON_FILE_NAME%.json
-SET COLLECTION_BSON=%BSON_FILE_NAME%
-SET COLLECTION_JSON=%JSON_FILE_NAME%
+@echo off
+set HOST=localhost
+set PORT=27017
+set DBNAME=clickstream
+set IMPORT_FILE_FOLDER=C:\Users\patwh\Downloads
+set BSON_FILE_NAME=clicks
+set JSON_FILE_NAME=clicks.metadata
 
-mongorestore --host %HOST%:%PORT% --db %DBNAME% --collection %COLLECTION_BSON% --drop "%BSON_FILE%"
-mongoimport --host %HOST%:%PORT% --db %DBNAME% --collection %COLLECTION_JSON% --drop --type json "%JSON_FILE%"
+set bson_file=%IMPORT_FILE_FOLDER%\%BSON_FILE_NAME%.bson
+set json_file=%IMPORT_FILE_FOLDER%\%JSON_FILE_NAME%.json
+
+set collection_bson=%BSON_FILE_NAME%
+set collection_json=%JSON_FILE_NAME%
+
+REM import operation
+mongorestore --host %HOST%:%PORT% --db %DBNAME% --collection %collection_bson% --drop "%bson_file%"
+mongoimport --host %HOST%:%PORT% --db %DBNAME% --collection %collection_json% --drop --type json "%json_file%"
+
+echo Done.
 ```
 
 With the <code>.bat</code> file created, simply call upon it from the command line, replacing my directory below with your own. Use the exclamation mark if in a Jupyter/Colab notebook, otherwise drop it.
@@ -202,7 +208,7 @@ With the <code>.bat</code> file created, simply call upon it from the command li
 # 2025-05-28T18:38:14.507-0600  1 document(s) imported successfully. 0 document(s) failed to import.
 ```
 
-We see that the data file contains 6.1M records, and the metadata file contains only one record. The first step toward viewing the details is to select a database. First, we use <code>show dbs</code> to confirm that our imported data exists.
+We see that the data file contains 6.1M records, and the metadata file contains only one record. The first step toward viewing the details is to select a database. First, we use <code>show dbs</code> to confirm that our imported database exists.
 
 
 # Select Imported Database
@@ -534,7 +540,7 @@ load("C:/Users/patwh/Downloads/js_commands/unique_value_counts_hardcoded_fields.
 // Activity: 2 unique values
 ```
 
-We see some fields we didn't see in the sample document, such as <code>user.UserID</code>. These correspond to users of the Kirana store dataset who have signed up to create an account. 
+We see some fields we didn't see in the sample document, such as <code>user.UserID</code>. These correspond to users of the Kirana store website who have signed up to create an account. 
 
 
 
@@ -644,6 +650,15 @@ load("C:/Users/patwh/Downloads/js_commands/count_unique_values_dynamic.js")
 
 To get the list of unique values for a field, we use <code>db.collection.distinct("fieldname")</code>, which quickly returns the results. Below, we will get the list of unique browsers. The list is long, so the results below are truncated.
 
+
+### Get Unique Values for <code>device.Browser</code>
+
+```js
+db.clicks.distinct("device.Browser")
+```
+
+<p></p>
+
 ```js
 // [
 //   'AdsBot-Google',
@@ -667,7 +682,7 @@ Fundamental database operations include creating new records, removing records, 
 
 ## Remove and Create
 
-To demonstrate the actions of removing a record, creating a record, and saving a record to a Javascript variable, we will capture the last record's data in a variable, remove that record, and then re-insert it from the variable.
+To demonstrate the actions of saving a record to a Javascript variable, removing a record, and creating a record, we will capture the last record's data in a variable, remove that record, and then re-insert it from the variable.
 
 
 ### Remove and Re-Insert the Last Record
@@ -857,15 +872,15 @@ db.clicks.find({ "device.Browser": { $ne: "Firefox" } }).limit(2);
 
 
 
-### Find First 2 Records Where <code>device.Browser</code> and <code>VisitDateTime</code> > 5/20/2018
+### Find First 2 Records Where <code>VisitDateTime</code> is Greater Than 5/20/2018
 
 
-Of course, we also have comparison operators such as <code>$gt</code>, used below to get two records (using <code>limit</code> which have a date later than May 20.
+Of course, we also have comparison operators such as <code>$gt</code>, used below to get two records (using <code>limit</code>) which have a date later than May 20.
 
 
 ```js
 db.clicks.find({
-  VisitDateTime: { $gt: new Date("2018-05-20T00:00:00Z") }
+  VisitDateTime: { $gt: new Date("2018-05-20") }
 }).limit(2);
 ````
 
@@ -934,7 +949,7 @@ Above, we used <code>countDocuments()</code> to get the count of records in a co
 
 ```js
 db.clicks.countDocuments({
-  VisitDateTime: { $gt: new Date("2018-05-20T00:00:00Z") }
+  VisitDateTime: { $gt: new Date("2018-05-20") }
 });
 ````
 
@@ -948,7 +963,7 @@ db.clicks.countDocuments({
 
 ### Get Count of Records Where <code>user.Country</code> is <code>India</code> or <code>United States</code>
 
-Below, we'll focus on logical and array operators, many of which have identical counterparts in SQL. We'll see that there is often an array-operator equivalent to a logical-operator, though array operators can be favorable in terms of minimizing the amount of typing.
+Below, we'll focus on logical and array operators, many of which have identical counterparts in SQL. We'll see that there is often an array-operator equivalent to a logical-operator, though array operators can be favorable toward minimizing typing, particularly when there is a long list of items.
 
 First, we'll use the <code>$or</code> operator to get the count of records when filtered to where the country is either India or United States.
 
@@ -1018,7 +1033,7 @@ db.clicks.countDocuments({
 
 #### Using `$not` and `$in`
 
-We can combine <code>$not</code> with <code>$in</code> to get the (count of) users that are 'not in' the list of countries provided.
+We can combine <code>$not</code> with <code>$in</code> to get the count of users that are 'not in' the list of countries provided.
 
 
 ```js
@@ -1114,6 +1129,8 @@ db.collectionName.updateOne(
 );
 ```
 
+<p></p>
+
 ```js
 // {
 //   acknowledged: true,
@@ -1126,10 +1143,10 @@ db.collectionName.updateOne(
 
 
 
-### ### Update <code>device.Browser</code> Records to be <code>Firefox</code> if Set to <code>Firefox iOS</code>
+### Update <code>device.Browser</code> Records to be <code>Firefox</code> if Set to <code>Firefox iOS</code>
 
 
-If we wanted to update a list of records, we would use <code>updateMany</code> along with <code>$set</code>. Below is an example of how we would change the <code>device.Browser</code> to <code>Firefox</code> wherever currently set to <code>Firefox iOS</code>. For accuracy, I'll refrain from actually executing it.
+If we wanted to update a list of records, we would use <code>updateMany</code> along with <code>$set</code>. Below is an example of how we would change the <code>device.Browser</code> to <code>Firefox</code> where it is currently set to <code>Firefox iOS</code>. For data accuracy, I'll refrain from actually executing the command.
 
 
 ```js
@@ -1292,7 +1309,7 @@ db.clicks.createIndex({ "device.Browser": 1 });
 
 # What's Next?
 
-That's it for the basics. Now we can focus on demonstrating the power of unstructured data, through aggregation pipelines for business insights, and machine learning (topic modeling) upon text data using Latent Dirichlet Analysis. Keep in mind, too, that we have not touched upon horizontal scaling, but it is certainly the case that one advantage MongoDB has over structured databases is that we can deal with read and write operations at massive scale (e.g., if the clickstream data was streaming in from Amazon). See you at the next article.
+That's it for the basics. Now we can focus on demonstrating the power of unstructured data, through aggregation pipelines for business insights, and machine learning upon text data. We have not touched upon horizontal scaling, but it is certainly the case that one advantage MongoDB has over structured databases is that we can deal with read and write operations at massive scale (e.g., if the clickstream data was streaming in from Amazon). See you at the next article.
 
 
 
