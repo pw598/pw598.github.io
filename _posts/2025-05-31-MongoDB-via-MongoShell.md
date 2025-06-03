@@ -51,7 +51,7 @@ The native language for command-line instructions is Javascript, however the Mon
 
 In this article, we will focus on making commands through the Mongo shell, which is the simplest method. However, parallel notebooks utilizing the command line (Bash) and Python (PyMongo) are linked to below.
 - <a href="https://github.com/pw598/Articles/blob/main/notebooks/MongoDB-via-Mongo-Shell.ipynb">Mongo Shell Notebook</a>
-- <a href="">Bash Shell Notebook - Coming Soon</a>
+- <a href="https://github.com/pw598/Articles/blob/main/notebooks/MongoDB-via-Bash-Shell.ipynb">Bash Shell Notebook</a>
 - <a href="">PyMongo Workbook - Coming Soon</a>
 
 Subsequent articles will utilize PyMongo. The content of this article will provide an overview of querying and database operations, the second will focus on aggregation pipelines, and the third will focus on deploying machine learning upon streaming text data.
@@ -551,58 +551,43 @@ Finding the unique list of fields and then hard-coding them into the search for 
 
 ```python
 js_code = """
-// Use the correct database
-db = db.getSiblingDB("clickstream");
+(function() {
+  db = db.getSiblingDB('clickstream');
+  print('=== Starting Unique Field Count ===');
+  const fieldSet = {};
 
-print("=== Starting Unique Field Count ===");
+  function extractFields(obj, prefix = '') {
+    Object.keys(obj).forEach(key => {
+      const fullKey = prefix ? prefix + '.' + key : key;
+      fieldSet[fullKey] = true;
+      if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+        extractFields(obj[key], fullKey);
+      }
+    });
+  }
 
-const SAMPLE_SIZE = 1000; // Sample more than 1 doc to detect more fields
-const MAX_FIELDS = 100;   // Safety cap
-let fieldSet = {};
+  db.clicks.find().forEach(doc => extractFields(doc));
 
-function extractFields(obj, prefix = "") {
-    for (let key in obj) {
-        if (!obj.hasOwnProperty(key)) continue;
-        const fullKey = prefix ? prefix + "." + key : key;
-        fieldSet[fullKey] = true;
-        if (typeof obj[key] === "object" && obj[key] !== null && !Array.isArray(obj[key])) {
-            extractFields(obj[key], fullKey);
-        }
-    }
-}
-
-// Sample documents to build a broader field list
-db.clicks.find().limit(SAMPLE_SIZE).forEach(doc => {
-    extractFields(doc);
-});
-
-const fields = Object.keys(fieldSet).slice(0, MAX_FIELDS);
-let results = [];
-
-fields.forEach(field => {
+  const results = Object.keys(fieldSet).map(field => {
     try {
-        const pipeline = [
-            { $group: { _id: `$${field}` } },
-            { $group: { _id: null, count: { $sum: 1 } } }
-        ];
-
-        const res = db.clicks.aggregate(pipeline).toArray();
-        const count = res.length ? res[0].count : 0;
-        results.push({ field, count });
+      const pipeline = [
+        { $group: { _id: `$${field}` } },
+        { $group: { _id: null, count: { $sum: 1 } } }
+      ];
+      const res = db.clicks.aggregate(pipeline).toArray();
+      return { field, count: res.length ? res[0].count : 0 };
     } catch (e) {
-        print(`Error counting values for ${field}: ${e.message}`);
+      print(`Error counting values for ${field}: ${e.message}`);
+      return { field, count: 0 };
     }
-});
+  });
 
-// Sort by count descending
-results.sort((a, b) => b.count - a.count);
+  results.sort((a, b) => b.count - a.count);
 
-// Print nicely
-results.forEach((r, i) => {
-    print(`${i + 1}. ${r.field}: ${r.count} unique values`);
-});
+  results.forEach((r, i) => print(`${i + 1}. ${r.field}: ${r.count} unique values`));
 
-print("=== Done ===");
+  print('=== Done ===');
+})();
 """
 
 js_folder = r"C:/Users/patwh/Downloads/js_commands"
