@@ -28,7 +28,7 @@ This is the first of 3 articles on MongoDB and the power of unstructured databas
 12. Get Number of Distinct Values Per Field
 13. Get List of Distinct Values for a Field
 14. CRUD Operations
-    - Remove and Create
+    - Delete and Create
     - Read
     - Update
 15. Indexes
@@ -50,9 +50,9 @@ MongoDB is the most popular of the unstructured databases, with a large develope
 The native language for command-line instructions is Javascript, however the Mongo shell provides its own simplified language. The 'documents', a term analogous to records in a structured database, are in a JSON-like format, and are organized into 'collections', the analog to a table.
 
 In this article, we will focus on making commands through the Mongo shell, which is the simplest method. However, parallel notebooks utilizing the command line (Bash) and Python (PyMongo) are linked to below.
-- <a href="https://github.com/pw598/Articles/blob/main/notebooks/MongoDB-via-Mongo-Shell.ipynb">Mongo Shell Notebook</a>
-- <a href="https://github.com/pw598/Articles/blob/main/notebooks/MongoDB-via-Bash-Shell.ipynb">Bash Shell Notebook</a>
-- <a href="">PyMongo Workbook - Coming Soon</a>
+- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-Mongo-Shell.ipynb">Mongo Shell Notebook</a>
+- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-Bash-Shell.ipynb">Bash Shell Notebook</a>
+- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-PyMongo.ipynb">PyMongo Workbook</a>
 
 Subsequent articles will utilize PyMongo. The content of this article will provide an overview of querying and database operations, the second will focus on aggregation pipelines, and the third will focus on deploying machine learning upon streaming text data.
 
@@ -659,13 +659,69 @@ db.clicks.distinct("device.Browser")
 ```
 
 
+### Get Count of Unique Values for a Field
+
+```python
+# count_unique_values_for_field.js
+
+js_code = """
+var result = db.clicks.aggregate([
+    { $group: { _id: "$device.Browser", count: { $sum: 1 } } }
+]).toArray();
+
+var counts = {};
+result.forEach(doc => {
+    counts[doc._id] = doc.count;
+});
+
+var sorted_counts = Object.keys(counts)
+    .sort((a, b) => counts[b] - counts[a])
+    .reduce((obj, key) => {
+        obj[key] = counts[key];
+        return obj;
+    }, {});
+
+printjson(sorted_counts);
+
+"""
+
+js_folder = r"C:/Users/patwh/Downloads/js_commands"
+js_filename = "unique_fields_nested"
+
+js_file = save_js_commands(js_code, js_folder, js_filename)
+```
+
+<p></p>
+
+```js
+load("C:/Users/patwh/Downloads/js_commands/count_unique_values_dynamic.js")
+````
+
+<p></p>
+
+```js
+// Chrome: 4360498
+// Chrome Mobile: 788991
+// Firefox: 388766
+// Safari: 204343
+// Mobile Safari: 93241
+// HeadlessChrome: 76595
+// Opera: 62522
+// Chrome Mobile iOS: 28031
+// Chrome Mobile WebView: 25381
+// Samsung Internet: 19804
+// Firefox Mobile: 7040
+// ...
+```
+
+
 
 # CRUD Operations
 
 Fundamental database operations include creating new records, removing records, updating records, and deleting records - hence the acronym CRUD. The below will demonstrate examples of each.
 
 
-## Remove and Create
+## Remove and Delete
 
 To demonstrate the actions of saving a record to a Javascript variable, removing a record, and creating a record, we will capture the last record's data in a variable, remove that record, and then re-insert it from the variable.
 
@@ -722,7 +778,7 @@ db.clicks.insertOne(lastDoc);
 ````
 
 
-### Remove and Re-Insert the Last 5 Records
+### Delete and Re-Insert the Last 5 Records
 
 Similarly, we can do the same as above with a batch of records. I will use the last 5.
 
