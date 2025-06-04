@@ -27,6 +27,7 @@ This is the first of 3 articles on MongoDB and the power of unstructured databas
 11. Get List of Distinct Fields
 12. Get Number of Distinct Values Per Field
 13. Get List of Distinct Values for a Field
+14. Get Count of Values by Value for a Field
 14. CRUD Operations
     - Delete and Create
     - Read
@@ -168,13 +169,13 @@ Although the code in this workbook is almost entirely focused on making commands
 The syntax for these commands is evident from the last two lines below. You are free to use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates an <code>import_data.bat</code> file which can be run from the command line to import our <code>.bson</code> file using <code>mongorestore</code>, and <code>.json</code> metadata using <code>mongoimport</code>. The text following <code>REM</code> are comments.
 
 ```bash
-REM the below are optional, but used to avoid hard-coding the import commands further below
+REM all but the last two lines are optional, you could use hard-coding instead
 
 @echo off
 set HOST=localhost
 set PORT=27017
 set DBNAME=clickstream
-set IMPORT_FILE_FOLDER=C:\Users\patwh\Downloads
+set IMPORT_FILE_FOLDER=C:\Users\patwh\Documents\clickstream_data
 set BSON_FILE_NAME=clicks
 set JSON_FILE_NAME=clicks.metadata
 
@@ -194,7 +195,7 @@ echo Done.
 With the <code>.bat</code> file created, simply call upon it from the command line, replacing my directory below with your own. Use the exclamation mark if in a Jupyter/Colab notebook, otherwise drop it.
 
 ```bash
-!"C:/Users/patwh/Downloads/import_data.bat"
+!"C:/Users/patwh/Documents/clickstream_data/import_data.bat"
 ```
 
 <p></p>
@@ -366,21 +367,26 @@ I said this article would be all about Mongo shell commands, but for my own sake
 
 ```js
 // Function for Creating .js Files From Text in Python
+
 import os
 
 def save_js_commands(js_input, js_folder, js_filename):
     filepath = f"{js_folder}/{js_filename}.js"
     
     try:
-        # Ensure input is a string and strip leading/trailing whitespace
+        # trim if string
         if isinstance(js_input, str):
             lines = [line.rstrip() for line in js_input.splitlines() if line.strip()]
+
+        # trim each item if list
         elif isinstance(js_input, list):
             lines = [line.rstrip() for line in js_input if line.strip()]
+
+        # raise error if not string or list
         else:
             raise TypeError("Input must be a string or list of strings.")
 
-        # Write to file with explicit UTF-8 encoding and Windows line endings
+        # write to .js file
         with open(filepath, 'w', encoding='utf-8', newline='\r\n') as file:
             for line in lines:
                 file.write(line + '\n')
@@ -397,40 +403,39 @@ The below specifies the Javascript as text, and calls upon the above function to
 
 
 ```python
-# unique_fields_nested.js
+## unique_fields_nested.js
 
 js_code = """
-(function() {
-  var fields = {};
+(() => {
+  let fields = {};
 
-  function extractFields(obj, prefix) {
-    for (var key in obj) {
-      if (!obj.hasOwnProperty(key)) continue;
+  // recursive function to extract fields
+  function extractFields(obj, prefix = "") {
 
-      var fullKey = prefix ? prefix + "." + key : key;
+    // iterate through keys
+    for (let key in obj) {
+
+      // construct full key path, e.g. parent.child
+      let fullKey = prefix + (prefix ? "." : "") + key;
+
+      // store field
       fields[fullKey] = true;
-
-      // Recurse into nested objects (not arrays or null)
-      if (typeof obj[key] === "object" && obj[key] !== null && !Array.isArray(obj[key])) {
-        extractFields(obj[key], fullKey);
-      }
+      if (obj[key]?.constructor === Object) extractFields(obj[key], fullKey);
     }
   }
 
-  db.clicks.find().limit(1000000).forEach(function(doc) {
-    extractFields(doc, "");
-  });
+  // limit number of records searched
+  db.clicks.find().limit(1000000).forEach(doc => extractFields(doc));
 
+  // print results
   printjson(Object.keys(fields));
 })();
-
 """
 
-js_folder = r"C:/Users/patwh/Downloads/js_commands"
+js_folder = JS_FOLDER
 js_filename = "unique_fields_nested"
 
 js_file = save_js_commands(js_code, js_folder, js_filename)
-exe_file = f"{js_folder}\\{js_filename}.js"
 ```
 
 <p></p>
@@ -442,7 +447,7 @@ exe_file = f"{js_folder}\\{js_filename}.js"
 The below is what we type into the Mongo shell to execute the <code>.js</code> script. Replace my directory with the directory pertaining to yourself.
 
 ```js
-load("C:/Users/patwh/Downloads/js_commands/unique_fields_nested.js")
+load("C:/Users/patwh/Documents/js_scripts/unique_fields_nested.js")
 ````
 
 <p></p>
@@ -471,6 +476,8 @@ load("C:/Users/patwh/Downloads/js_commands/unique_fields_nested.js")
 It would be informative to see how many distinct values correspond to each of the fields in the collection. For that, we can use the following.
 
 ```python
+## count_unique_value_hardcoded.js
+
 js_code = """
 (function() {
   const collection = db.clicks;
@@ -490,25 +497,42 @@ js_code = """
     'user.UserID'
   ];
 
+  // array to store fields and counts
+  const results = [];
+
+  // iterate through fields
   fields.forEach(field => {
-    const pipeline = [
+
+    const pipeline = 
+      // group documents by the specified field
       { $group: { _id: `$${field}` } },
+
+      // count number of documents in group 
       { $group: { _id: null, count: { $sum: 1 } } }
     ];
 
+    // run collection through pipeline, convert the result to array
     const result = collection.aggregate(pipeline).toArray();
+
+    // if doc exists, extract count
     const count = result.length > 0 ? result[0].count : 0;
+    results.push({ field: field, count: count });
+  });
+
+  // sort results descending by count
+  results.sort((a, b) => b.count - a.count);
+
+  // print sorted results
+  results.forEach(({ field, count }) => {
     print(`${field}: ${count} unique values`);
   });
 })();
-
 """
 
-js_folder = r"C:/Users/patwh/Downloads/js_commands"
-js_filename = "unique_value_counts_hardcoded_fields"
+js_folder = JS_FOLDER
+js_filename = "count_unique_values_hardcoded"
 
 js_file = save_js_commands(js_code, js_folder, js_filename)
-exe_file = f"{js_folder}\\{js_filename}.js"
 ```
 
 <p></p>
@@ -520,7 +544,7 @@ exe_file = f"{js_folder}\\{js_filename}.js"
 <p></p>
 
 ```js
-load("C:/Users/patwh/Downloads/js_commands/unique_value_counts_hardcoded_fields.js")
+load("C:/Users/patwh/Documents/js_scripts/count_unique_values_hardcoded.js")
 ```
 
 <p></p>
@@ -550,47 +574,62 @@ We see some fields we didn't see in the sample document, such as <code>user.User
 Finding the unique list of fields and then hard-coding them into the search for distinct values broke a very long task (given the 6.1M documents) into two shorter tasks. But the code to perform both actions in dynamic fashion, without hard-coding, is provided below.
 
 ```python
-js_code = """
-(function() {
-  db = db.getSiblingDB('clickstream');
-  print('=== Starting Unique Field Count ===');
-  const fieldSet = {};
+## count_unique_values_dynamic.js
 
+js_code = """
+(() => {
+  db = db.getSiblingDB('clickstream');
+  
+  // empty object
+  let fields = {};
+
+  // extract fields from nested objects
   function extractFields(obj, prefix = '') {
+  
+    // iterate through keys
     Object.keys(obj).forEach(key => {
-      const fullKey = prefix ? prefix + '.' + key : key;
-      fieldSet[fullKey] = true;
-      if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
-        extractFields(obj[key], fullKey);
-      }
+    
+      // construct full key path, e.g. parent.child
+      let fullKey = prefix + (prefix ? '.' : '') + key;
+      
+      // mark field as present
+      fields[fullKey] = 1;
+      
+      // recurse into nested objects if valid
+      if (obj[key]?.constructor === Object) extractFields(obj[key], fullKey);
     });
   }
 
-  db.clicks.find().forEach(doc => extractFields(doc));
+  // iterate through documents in collection
+  db.clicks.find().forEach(extractFields);
 
-  const results = Object.keys(fieldSet).map(field => {
-    try {
-      const pipeline = [
-        { $group: { _id: `$${field}` } },
-        { $group: { _id: null, count: { $sum: 1 } } }
-      ];
-      const res = db.clicks.aggregate(pipeline).toArray();
-      return { field, count: res.length ? res[0].count : 0 };
-    } catch (e) {
-      print(`Error counting values for ${field}: ${e.message}`);
-      return { field, count: 0 };
-    }
-  });
+  // map fields to their unique value counts
+  let results = Object.keys(fields).map(field => ({
+  
+    // store field name
+    field,
+    
+    // count unique values
+    count: db.clicks.aggregate([
+    
+      // group by field
+      { $group: { _id: `$${field}` } },
+      
+      // count unique groups
+      { $group: { _id: null, count: { $sum: 1 } } }
+      
+    // get first result's count or 0 if empty
+    ]).toArray()[0]?.count || 0
+    
+  // sort by count in descending order
+  })).sort((a, b) => b.count - a.count);
 
-  results.sort((a, b) => b.count - a.count);
-
-  results.forEach((r, i) => print(`${i + 1}. ${r.field}: ${r.count} unique values`));
-
-  print('=== Done ===');
+  // print ranked field counts
+  results.forEach((r, i) => print(`${i + 1}. ${r.field}: ${r.count}`));
 })();
 """
 
-js_folder = r"C:/Users/patwh/Downloads/js_commands"
+js_folder = JS_FOLDER
 js_filename = "count_unique_values_dynamic"
 
 js_file = save_js_commands(js_code, js_folder, js_filename)
@@ -606,7 +645,7 @@ exe_file = f"{js_folder}\\{js_filename}.js"
 <p></p>
 
 ```js
-load("C:/Users/patwh/Downloads/js_commands/count_unique_values_dynamic.js")
+load("C:/Users/patwh/Documents/js_scripts/count_unique_values_dynamic.js")
 ````
 
 <p></p>
@@ -662,31 +701,35 @@ db.clicks.distinct("device.Browser")
 ### Get Count of Unique Values for a Field
 
 ```python
-# count_unique_values_for_field.js
+## count_unique_values_for_field.js
 
 js_code = """
-var result = db.clicks.aggregate([
-    { $group: { _id: "$device.Browser", count: { $sum: 1 } } }
-]).toArray();
-
-var counts = {};
-result.forEach(doc => {
-    counts[doc._id] = doc.count;
-});
-
-var sorted_counts = Object.keys(counts)
-    .sort((a, b) => counts[b] - counts[a])
-    .reduce((obj, key) => {
-        obj[key] = counts[key];
-        return obj;
-    }, {});
-
-printjson(sorted_counts);
-
+(function() {
+  // get clicks collection
+  const collection = db.getSiblingDB('clickstream').clicks;
+  
+  // define aggregation pipeline
+  const pipeline = [
+  
+    // group by Browser, count occurrences
+    { $group: { _id: "$device.Browser", count: { $sum: 1 } } },
+    
+    // sort by count descending
+    { $sort: { count: -1 } }
+  ];
+  
+  // run pipeline, get results
+  const result = collection.aggregate(pipeline).toArray();
+  
+  // print each browser and count
+  result.forEach(doc => {
+    print(`${doc._id}: ${doc.count}`);
+  });
+})();
 """
 
-js_folder = r"C:/Users/patwh/Downloads/js_commands"
-js_filename = "unique_fields_nested"
+js_folder = JS_FOLDER
+js_filename = "count_unique_values_for_field"
 
 js_file = save_js_commands(js_code, js_folder, js_filename)
 ```
@@ -694,7 +737,7 @@ js_file = save_js_commands(js_code, js_folder, js_filename)
 <p></p>
 
 ```js
-load("C:/Users/patwh/Downloads/js_commands/count_unique_values_dynamic.js")
+load("C:/Users/patwh/Documents/js_scripts/count_unique_values_for_field.js")
 ````
 
 <p></p>
