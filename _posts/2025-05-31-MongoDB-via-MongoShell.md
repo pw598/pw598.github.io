@@ -50,9 +50,9 @@ MongoDB is the most popular of the unstructured databases, with a large develope
 The native language for command-line instructions is Javascript, however the Mongo shell provides its own simplified language. The 'documents', a term analogous to records in a structured database, are in a JSON-like format, and are organized into 'collections', the analog to a table.
 
 In this article, we will focus on making commands through the Mongo shell, which is the simplest method. However, parallel notebooks utilizing the command line (Bash) and Python (PyMongo) are linked to below.
-- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-Mongo-Shell.ipynb">Mongo Shell Notebook</a>
-- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-Bash-Shell.ipynb">Bash Shell Notebook</a>
-- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-PyMongo.ipynb">PyMongo Workbook</a>
+- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-Mongo-Shell.ipynb" target="_blank" rel="noopener noreferrer">Mongo Shell Notebook</a>
+- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-Bash-Shell.ipynb" target="_blank" rel="noopener noreferrer">Bash Shell Notebook</a>
+- <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/MongoDB-via-PyMongo.ipynb" target="_blank" rel="noopener noreferrer">PyMongo Workbook</a>
 
 Subsequent articles will utilize PyMongo. The content of this article will provide an overview of querying and database operations, the second will focus on aggregation pipelines, and the third will focus on deploying machine learning upon streaming text data.
 
@@ -62,14 +62,14 @@ Subsequent articles will utilize PyMongo. The content of this article will provi
 
 The MongoDB website has robust tutorials for installation. Be sure to get the Mongo shell and add it to PATH so you can follow along with the below. Although the code is provided in a notebook format, most commands in this article and the first 'notebook' will only work through the Mongo shell. This can be opened directly (by clicking on the .exe file), or from the command prompt using <code>mongosh</code>.
 
-- <a href="https://www.mongodb.com/docs/manual/installation/">MongoDB Installation Tutorials</a>
-- <a href="https://www.mongodb.com/try/download/shell">MongoDB Shell</a>
+- <a href="https://www.mongodb.com/docs/manual/installation/" target="_blank" rel="noopener noreferrer">MongoDB Installation Tutorials</a>
+- <a href="https://www.mongodb.com/try/download/shell" target="_blank" rel="noopener noreferrer">MongoDB Shell</a>
 
 Also, regardless of which language or platform you plan on using, be sure to get the MongoDB command line tools, as this will be essential toward actions like reading and writing to file.
 
-- <a href="https://www.mongodb.com/try/download/database-tools">MongoDB Command Line Tools</a>
+- <a href="https://www.mongodb.com/try/download/database-tools" target="_blank" rel="noopener noreferrer">MongoDB Command Line Tools</a>
 
-For PyMongo, if you are using Anaconda, I recommend using <code>conda install pymongo</code> from the Anaconda command prompt (activate it with <code>conda activate base</code> first if operating from the general command prompt). Otherwise, review the instructions <a href="https://www.mongodb.com/docs/languages/python/pymongo-driver/upcoming/get-started/download-and-install/?msockid=10b2dcbcd0206ffd212ec970d1946ee7">here</a>.
+For PyMongo, if you are using Anaconda, I recommend using <code>conda install pymongo</code> from the Anaconda command prompt (activate it with <code>conda activate base</code> first if operating from the general command prompt). Otherwise, review the instructions <a href="https://www.mongodb.com/docs/languages/python/pymongo-driver/upcoming/get-started/download-and-install/?msockid=10b2dcbcd0206ffd212ec970d1946ee7" target="_blank" rel="noopener noreferrer">here</a>.
 
 
 
