@@ -1141,7 +1141,7 @@ To update a record, using a toy example, we'll use the <code>$set</code> operato
 
 
 ```js
-db.collectionName.updateOne(
+db.clicks.updateOne(
   { _id: ObjectId("60df129dad74d9467ceebd51") },
   { $set: { "device.Browser": "Firefox" } }
 );
@@ -1153,8 +1153,8 @@ db.collectionName.updateOne(
 // {
 //   acknowledged: true,
 //   insertedId: null,
-//   matchedCount: 0,
-//   modifiedCount: 0,
+//   matchedCount: 1,
+//   modifiedCount: 1,
 //   upsertedCount: 0
 // }
 ```
@@ -1164,7 +1164,7 @@ To maintain the accuracy of further operations, we'll set it back to the origina
 
 
 ```js
-db.collectionName.updateOne(
+db.clicks.updateOne(
   { _id: ObjectId("60df129dad74d9467ceebd51") },
   { $set: { "device.Browser": "Chrome" } }
 );
@@ -1176,8 +1176,8 @@ db.collectionName.updateOne(
 // {
 //   acknowledged: true,
 //   insertedId: null,
-//   matchedCount: 0,
-//   modifiedCount: 0,
+//   matchedCount: 1,
+//   modifiedCount: 1,
 //   upsertedCount: 0
 // }
 ```
