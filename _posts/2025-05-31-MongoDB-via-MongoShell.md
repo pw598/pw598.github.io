@@ -164,32 +164,40 @@ db.dropDatabase()
 // { ok: 1, dropped: 'clickstream' }
 ```
 
-Although the code in this workbook is almost entirely focused on making commands through the Mongo shell, the Mongo tools such as <code>mongorestore</code> and <code>mongoimport</code> cannot be used through the Mongo shell, and must be called upon from the command line.
 
-The syntax for these commands is evident from the last two lines below. You are free to use hard-coding and ignore all of the variable-setting done by the preceding lines. The below creates an <code>import_data.bat</code> file which can be run from the command line to import our <code>.bson</code> file using <code>mongorestore</code>, and <code>.json</code> metadata using <code>mongoimport</code>. The text following <code>REM</code> are comments.
+### Import From File
+
+The Mongo tools such as <code>mongorestore</code> and <code>mongoimport</code> must be called upon from the command line. To do so with variables, I create a <code>.bat</code> file with the shell commands, using a Python function to do some from the text. All but the last two lines of text have to do with setting variables, so they can be removed if you would rather hard-code.
+
+```python
+import os
+
+def write_bat_file(file_path, lines):
+    bat_content = "\n".join(lines)
+    with open(file_path, 'w') as f:
+        f.write(bat_content)
+```
+
+<p></p>
 
 ```bash
-REM all but the last two lines are optional, you could use hard-coding instead
-
-@echo off
-set HOST=localhost
-set PORT=27017
-set DBNAME=clickstream
-set IMPORT_FILE_FOLDER=C:\Users\patwh\Documents\clickstream_data
-set BSON_FILE_NAME=clicks
-set JSON_FILE_NAME=clicks.metadata
-
-set bson_file=%IMPORT_FILE_FOLDER%\%BSON_FILE_NAME%.bson
-set json_file=%IMPORT_FILE_FOLDER%\%JSON_FILE_NAME%.json
-
-set collection_bson=%BSON_FILE_NAME%
-set collection_json=%JSON_FILE_NAME%
-
-REM import operation
-mongorestore --host %HOST%:%PORT% --db %DBNAME% --collection %collection_bson% --drop "%bson_file%"
-mongoimport --host %HOST%:%PORT% --db %DBNAME% --collection %collection_json% --drop --type json "%json_file%"
-
-echo Done.
+lines = [
+    "@echo off",
+    "set HOST=localhost",
+    "set PORT=27017",
+    "set DBNAME=clickstream",
+    r"set IMPORT_FILE_FOLDER=C:\Users\patwh\Documents\clickstream_data",
+    "set BSON_FILE_NAME=clicks",
+    "set JSON_FILE_NAME=clicks.metadata",
+    "set bson_file=%IMPORT_FILE_FOLDER%\\%BSON_FILE_NAME%.bson",
+    "set json_file=%IMPORT_FILE_FOLDER%\\%JSON_FILE_NAME%.json",
+    "set collection_bson=%BSON_FILE_NAME%",
+    "set collection_json=%JSON_FILE_NAME%",
+    
+    "mongorestore --host %HOST%:%PORT% --db %DBNAME% --collection %collection_bson% --drop \"%bson_file%\"",
+    "mongoimport --host %HOST%:%PORT% --db %DBNAME% --collection %collection_json% --drop --type json \"%json_file%\""
+]
+write_bat_file("data/import_data.bat", lines)
 ```
 
 With the <code>.bat</code> file created, simply call upon it from the command line, replacing my directory below with your own. Use the exclamation mark if in a Jupyter/Colab notebook, otherwise drop it.
