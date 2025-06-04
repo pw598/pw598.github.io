@@ -1010,13 +1010,23 @@ To get the minimum and maximum values of a field that spans a numerical or date-
 
 
 ```js
+use('clickstream');
 db.clicks.aggregate([
-  { $group: {
+  {
+    $group: {
       _id: null,
       minVisitDateTime: { $min: "$VisitDateTime" },
       maxVisitDateTime: { $max: "$VisitDateTime" }
-    } }
-]);
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      minVisitDateTime: { $dateToString: { format: "%Y-%m-%d", date: "$minVisitDateTime" } },
+      maxVisitDateTime: { $dateToString: { format: "%Y-%m-%d", date: "$maxVisitDateTime" } }
+    }
+  }
+]).forEach(printjson);
 ````
 
 <p></p>
