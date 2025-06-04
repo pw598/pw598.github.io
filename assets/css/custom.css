@@ -6,6 +6,7 @@
 
 .sidebar {
   position: absolute;
-  left: -20;
+  pdding-left: 0 !important;
+  margin-left: 0 !important;
   top: 140px; /* if you still want vertical offset */
 }
