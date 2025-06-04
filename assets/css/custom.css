@@ -2,6 +2,10 @@
 
 .about {
   padding-top: 165px;
-  padding-left: 20px;
 }
 
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 165px; /* if you still want vertical offset */
+}
