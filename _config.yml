@@ -43,7 +43,7 @@ plainwhite:
     - title: Posts
       url: "/index"
     - title: Certifications 
-      url: "/certifications"
+      url: "https://pw598.github.io/certifications"
     - title: Code Repository
       url: "https://github.com/pw598/"
 
