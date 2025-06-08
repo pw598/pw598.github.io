@@ -1126,7 +1126,7 @@ fig.show()
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/plotly_cht.png" style="height: 400px; width:auto;">
 
 
-{% include images/plotly_chart.html %}
+{% include plotly_chart.html %}
 
 
 To zoom in, rotate, and hover over points for labels, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook</a>, and open in Google Colab or Jupyter Notebook.
