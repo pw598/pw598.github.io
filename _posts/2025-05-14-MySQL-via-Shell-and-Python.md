@@ -1122,14 +1122,8 @@ fig.write_html('product_similarity_umap.html')
 fig.show()
 ```
 
-
-<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/plotly_cht.png" style="height: 400px; width:auto;">
-
-
 {% include plotly_chart.html %}
 
-
-To zoom in, rotate, and hover over points for labels, <a href="https://github.com/pw598/Articles/blob/main/notebooks/MySQL_via_Shell_and_Python.ipynb">download the .ipynb notebook</a>, and open in Google Colab or Jupyter Notebook.
 
 Ships and boats (green), motorcycles (red), and aviation (pink) are tightly clustered and relatively distant from the clusters near the bottom. The gold dots contain streetcars, buses, and trains. The teal dots contain classic cars, and the purple and green dots contain sports cars. In a more perfect analysis, perhaps the purple and green dots would be a part of the same cluster, and the gold dot that is touching them (18th Century Vintage Horse Carriage) would be further away. But we're relying on a pre-trained semantic model to make distinctions largely based on vehicle brand names, which is probably not its forte.
 
