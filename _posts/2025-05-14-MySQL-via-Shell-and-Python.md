@@ -1122,6 +1122,8 @@ fig.write_html('product_similarity_umap.html')
 fig.show()
 ```
 
+The following visual will only display properly in light mode, I'm working to fix that.
+
 {% include plotly_chart.html %}
 
 
