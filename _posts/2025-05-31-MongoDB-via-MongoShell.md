@@ -9,7 +9,7 @@ categories: MongoDB Bash Python
 This is the first of 3 articles on MongoDB and the power of unstructured databases. The focus is on the Mongo shell, though parallel resources linked to within utilize command-line (Bash) and Python (PyMongo) commands.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mg1.jpg?raw=true" style="height: 350px; width:auto;">
+<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mg1.jpg" style="height: 350px; width:auto;">
 
 
 # Outline
