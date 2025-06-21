@@ -9,7 +9,7 @@ categories: MongoDB Bash Python
 This is the first of 3 articles on MongoDB and the power of unstructured databases. The focus is on the Mongo shell, though parallel resources linked to within utilize command-line (Bash) and Python (PyMongo) commands.
 
 
-<img src="https://github.com/pw598/pw598.github.io/blob/main/_posts/images/mg1.jpg" style="height: 350px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/mg1.jpg" style="height: 350px; width:auto;">
 
 
 # Outline
@@ -136,6 +136,8 @@ show dbs
 # Import Data 
 
 We will be importing clickstream data from a <code>.bson</code> file with the data records, along with a <code>.json</code> file with a single record of metadata. It corresponds to the web traffic of an e-commerce store called Kirana Store, and indicates with the <code>Activity</code> field whether a pageload or click on a product occured.
+
+You can get the data here: <a href="https://drive.google.com/file/d/1ZRrNKa9sBtyRi1jZ5ocFMrcuuY_erVYH/view?usp=drive_link">Google Drive Link</a>
 
 Our import commands below will specify <code>--drop</code> to drop the database first if it currently exists, but if at any point you wish to drop a database (in this example named <code>clickstream</code>), you can use the command <code>use clickstream</code> to select it, followed by <code>db.dropDatabase()</code>.
 
