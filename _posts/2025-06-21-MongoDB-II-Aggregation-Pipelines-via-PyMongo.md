@@ -715,7 +715,7 @@ The MySQL via Bash analog would look something like the following.
 
 # Export Flattened Data to CSV
 
-It's a very conceivable use-case that we may want to bring data from an unstructured MongoDB database, such as used in the early stages of analysis in a data lake, into a structured SQL data warehouse with enforcable schema, normalizing entity relationships, etc. Below, we will 'flatten' the data such that nested fields are brought out of their hierarchy, and assigned null values in the places where the data do not exist. The MySQL Colab notebook linked to above, after some library installations and imports, will import this flattened data, and provide query analogies to illuminate our understanding of the increasingly complex MongoDB operations. This flattening and export operation is performed using pandas, after exporting the data as a list from the MongoDB collection.
+It's a very conceivable use-case that we may want to bring data from an unstructured MongoDB database, such as used in the early stages of analysis in a data lake, into a structured SQL data warehouse with enforcable schema, normalizing entity relationships, etc. Below, we will 'flatten' the data such that nested fields are brought out of their hierarchy, and assign null values in the places where the data do not exist. The MySQL Colab notebook linked to above, after some library installations and imports, will import this flattened data, and provide query analogies to illuminate our understanding of the increasingly complex MongoDB operations. This flattening and export operation is performed using pandas, after exporting the data as a list from the MongoDB collection.
 
 
 ```python
