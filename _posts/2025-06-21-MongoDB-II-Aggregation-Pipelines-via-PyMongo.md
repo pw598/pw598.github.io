@@ -80,7 +80,7 @@ We refer to the stage-based framework of aggregation in MongoDB as aggregation p
 
 - <code>$unwind</code>: deconstructs an array field from the input documents, outputting a separate document for each element in the array.
 
-- <code>$addFields</code>: adds new fields to documents in the aggregation pipeline, preserving existing fields (like <code>SELECT</code> combined with a calculated field.
+- <code>$addFields</code>: adds new fields to documents in the aggregation pipeline, preserving existing fields (like <code>SELECT</code> combined with a calculated field).
 
 - <code>$lookup</code>: performs a left outer join to another collection in the same database.
 
