@@ -65,14 +65,23 @@ The PyMongo Jupyter notebook is available <a href="https://github.com/pw598/Arti
 We refer to the stage-based framework of aggregation in MongoDB as aggregation pipelines, which analyze and transform data into filtered, aggregated, or calculated results. These stages include operations like:
 
 - <code>$match</code>: acts like <code>WHERE</code> in SQL, filters the document stream to those matching particular criteria.
+
 - <code>$sum</code>: acts like <code>SUM()</code> in SQL, I assume this one is self-explanatory.
+
 - <code>$count</code>: acts like <code>COUNT()</code> in SQL, refers to count of documents in the stream.
+
 - <code>$group</code>: acts like <code>GROUP BY</code> in SQL, combines multiple documents with the same field, fields, or expression into a single document according to a group key, resulting in one document per unique group key.
-- <code>$project</code>: reshapes each document in the stream, such as by adding new fields or removing existing fields (like <code>SELECT</code>, except you specify fields to include with a <code>1</code>, and to not include with a <code>0</code>.
+
+- <code>$project</code>: reshapes each document in the stream, such as by adding new fields or removing existing fields (like <code>SELECT</code>, except you specify fields to include with a <code>1</code>, and to not include with a <code>0</code>).
+
 - <code>$sort</code>: acts like <code>ORDER BY</code> in SQL, sorting the documents in the stream (takes as an argument 1 to specify ascending order, and -1 to specify descending order).
+
 - <code>$limit</code>: acts like <code>LIMIT</code> in SQL, truncating the number of documents returned in the results.
+
 - <code>$unwind</code>: deconstructs an array field from the input documents, outputting a separate document for each element in the array.
+
 - <code>$addFields</code>: adds new fields to documents in the aggregation pipeline, preserving existing fields (like <code>SELECT</code> combined with a calculated field.
+
 - <code>$lookup</code>: performs a left outer join to another collection in the same database.
 
 For more, see <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/">here</a> for the user docs on 'stages', and <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/">here</a> for the user docs on 'operators'.
