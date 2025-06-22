@@ -222,7 +222,7 @@ collection.find_one()
 
 ## Count of Records
 
-Though the number of documents is mentioned upon import, we can also use the following command. To apply a single filter, we would use something like <code>collection.count_documents({"user.City": "Colombo"})</code>, with either apostrophes or double-quotes being acceptable. For a double-filter, we would use something like <code>collection.count_documents({"user.City": "Colombo", "device.Browser": "Firefox"}), and so on.</code>.
+Though the number of documents is mentioned upon import, we can also use the following command. To apply a single filter, we would use something like <code>collection.count_documents({"user.City": "Colombo"})</code>, with either apostrophes or double-quotes being acceptable. For a double-filter, we would use something like <code>collection.count_documents({"user.City": "Colombo", "device.Browser": "Firefox"})</code>, and so on.
 
 
 ```python
