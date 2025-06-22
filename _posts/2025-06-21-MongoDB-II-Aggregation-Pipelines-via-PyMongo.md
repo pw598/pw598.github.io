@@ -74,7 +74,7 @@ We refer to the stage-based framework of aggregation in MongoDB as aggregation p
 
 - <code>$project</code>: reshapes each document in the stream, such as by adding new fields or removing existing fields (like <code>SELECT</code>, except you specify fields to include with a <code>1</code>, and to not include with a <code>0</code>).
 
-- <code>$sort</code>: acts like <code>ORDER BY</code> in SQL, sorting the documents in the stream (takes as an argument 1 to specify ascending order, and -1 to specify descending order).
+- <code>$sort</code>: acts like <code>ORDER BY</code> in SQL, sorting the documents in the stream (takes as an argument <code>1</code> to specify ascending order, and <code>-1</code> to specify descending order).
 
 - <code>$limit</code>: acts like <code>LIMIT</code> in SQL, truncating the number of documents returned in the results.
 
