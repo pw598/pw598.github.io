@@ -788,7 +788,7 @@ To capture the data of the <code>clicks</code> record that we will momentarily d
 var lastDoc = db.clicks.find().sort({ _id: -1 }).limit(1).next();
 ````
 
-The data is represented in JSON format.
+The data are represented in JSON format.
 
 ```js
 // {

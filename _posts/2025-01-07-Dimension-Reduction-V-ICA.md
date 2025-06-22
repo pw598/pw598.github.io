@@ -66,7 +66,7 @@ This identifies a partial solution for $\mathbf{A}$: $\mathbf{U}$ is a matrix of
 
 $\mathbf{W} = \mathbf{VD}^{-1/2} \mathbf{E}^T$
 
-This has performed whitening, a removal of all linear dependencies and normalization of the variance along all dimensions. This is also known as sphering, as whitening maps the data into a sperically symmetrical distribution.
+This has performed whitening, a removal of all linear dependencies and normalization of the variance along all dimensions. This is also known as sphering, as whitening maps the data into a spherically symmetrical distribution.
 
 The problem of ICA searches for the rotation matrix $\mathbf{V}$ such that $\mathbf{s}$ is statistically independent. Multi-information, a generalization of mutual information, is one option to measure the statistical independence between multiple variables.
 

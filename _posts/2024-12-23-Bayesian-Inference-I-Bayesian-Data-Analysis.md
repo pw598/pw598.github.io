@@ -34,7 +34,7 @@ A short introduction to Bayesian data analysis, including prior distributions an
 
 Whereas in frequentist statistics, the parameters of a model are considered fixed but unknown, in a Bayesian model, the parameters themselves are random variables, leading to a more probabilistic interpretation, which is what we tend to intuitively seek.
 
-Let’s consider the Bayesian ‘credible interval’ as compared to its frequentist analog, the confidence interval. The Bayesian credible interval, at a 95% threshold, states that “there is a 95% chance the parameter will fall within this interval”, whereas with the frequentist confidence interval requires an interpretation like “if we repeated this experiment many times and calculated a confidence interval each time, 95% of those intervals would contain the true parameter.”
+Let’s consider the Bayesian ‘credible interval’ as compared to its frequentist analog, the confidence interval. The Bayesian credible interval, at a 95% threshold, states that “there is a 95% chance the parameter will fall within this interval”, whereas the frequentist confidence interval requires an interpretation like “if we repeated this experiment many times and calculated a confidence interval each time, 95% of those intervals would contain the true parameter.”
 
 Bayesian inference utilizes Bayes’ theorem to update the probability of a hypothesis, dependent upon related conditions. In addition to the law of total probability, it is derived from Bayes’ rule, which is defined as:
 

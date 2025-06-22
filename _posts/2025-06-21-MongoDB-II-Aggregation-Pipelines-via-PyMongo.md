@@ -68,11 +68,11 @@ We refer to the stage-based framework of aggregation in MongoDB as aggregation p
 - <code>$sum</code>: acts like <code>SUM()</code> in SQL, I assume this one is self-explanatory.
 - <code>$count</code>: acts like <code>COUNT()</code> in SQL, refers to count of documents in the stream.
 - <code>$group</code>: acts like <code>GROUP BY</code> in SQL, combines multiple documents with the same field, fields, or expression into a single document according to a group key, resulting in one document per unique group key.
-- <code>$project</code>: reshapes each document in the stream, such as by adding new fields or removing existing fields.
+- <code>$project</code>: reshapes each document in the stream, such as by adding new fields or removing existing fields (like <code>SELECT</code>, except you specify fields to include with a <code>1</code>, and to not include with a <code>0</code>.
 - <code>$sort</code>: acts like <code>ORDER BY</code> in SQL, sorting the documents in the stream (takes as an argument 1 to specify ascending order, and -1 to specify descending order).
 - <code>$limit</code>: acts like <code>LIMIT</code> in SQL, truncating the number of documents returned in the results.
 - <code>$unwind</code>: deconstructs an array field from the input documents, outputting a separate document for each element in the array.
-- <code>$addFields</code>: adds new fields to documents in the aggregation pipeline, preserving existing fields.
+- <code>$addFields</code>: adds new fields to documents in the aggregation pipeline, preserving existing fields (like <code>SELECT</code> combined with a calculated field.
 - <code>$lookup</code>: performs a left outer join to another collection in the same database.
 
 For more, see <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/">here</a> for the user docs on 'stages', and <a href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/">here</a> for the user docs on 'operators'.
@@ -1867,7 +1867,7 @@ fig.show()
 {% include country_count_map_log.html %}
 
 
-To take it a step further, we could look at conversion rates. They are clearly going to be often greater than 100%, in terms of clicks as a proportion of pageloads (I assume navigating directly to a product counts as a click but not a pageload), but that doesn't necessarily make them uninformative. We could also analyze the behavior of those with an account vs. 'non-users', perhaps creating an aggregated table for the non-users as well.
+To take it a step further, we could look at conversion rates. They are clearly going to often be greater than 100%, in terms of clicks as a proportion of pageloads (I assume navigating directly to a product counts as a click but not a pageload), but that doesn't necessarily make them uninformative. We could also analyze the behavior of those with an account vs. 'non-users', perhaps creating an aggregated table for the non-users as well.
 
 
 # What's Next?
