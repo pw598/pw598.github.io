@@ -78,7 +78,7 @@ Let's consider the following matrix:
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/refs/heads/main/_posts/images/dr1-4.png" style="height: 75px; width:auto;">
 
 
-We'll shift matrix by $\lambda \cdot \mathbf{I}$, which will consist of $\lambda$ on the diagonal elements and zeros elsewhere. Thus, we'll shift the diagonal elements of the above matrix by $\lambda$, and set the determinant equal to zero.
+We'll shift the matrix by $\lambda \cdot \mathbf{I}$, which will consist of $\lambda$ on the diagonal elements and zeros elsewhere. Thus, we'll shift the diagonal elements of the above matrix by $\lambda$, and set the determinant equal to zero.
 
 Then, solve to get the eigenvalues.
 
