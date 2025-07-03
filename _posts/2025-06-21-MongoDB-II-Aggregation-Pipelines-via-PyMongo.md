@@ -525,7 +525,7 @@ The SQL analog, which I'll write as if we are using SQL magic commands in a Pyth
 
 
 ```sql
-%sql # UPDATE clicks \
+%sql UPDATE clicks \
 SET device_type = \
     CASE \
         WHEN LOWER(TRIM(device_Browser)) IN ( \
