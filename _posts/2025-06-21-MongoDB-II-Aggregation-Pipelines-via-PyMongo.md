@@ -1881,7 +1881,7 @@ To take it a step further, we could look at conversion rates. They are clearly g
 
 # What's Next?
 
-My intention for the next MongoDB article, which may or may not be the next one in general, is to use Latent Dirichlet Allocation upon some Reddit data for topic modeling, link up to a stream via the API, and test the veracity of predictions via accuracy, F1-score, etc.
+My intention for the next MongoDB article, which may or may not be the next one in general, is to use Latent Dirichlet Allocation upon some Reddit data for topic modeling.
 
 
 
