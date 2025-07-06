@@ -1881,7 +1881,7 @@ To take it a step further, we could look at conversion rates. They are clearly g
 
 # What's Next?
 
-My intention for the next MongoDB article, which may or may not be the next one in general, is to use Latent Dirichlet Allocation upon some Reddit data for topic modeling.
+My intention for the next MongoDB article, which may or may not be the next one in general, is to use Latent Dirichlet Allocation upon some Reddit data for topic modeling, transform it to supervised LDA (sLDA) to make predictions we can score based on accuracy, F1-score, etc., and compare it to methods like latent semantic indexing (LSI) and negative matrix-factorization (NMF).
 
 
 
