@@ -79,6 +79,8 @@ With a Binomial, representing two discrete potential outcomes, we can describe t
 
 Just as the Multinomial generalizes the Binomial to occurrences of multiple categories, the Dirichlet is a continuous distribution that generalizes the Beta to probabilities of multiple categories. Therefore, the Dirichlet serves as a prior (a conjugate prior) to the Multinomial. The parameters of the Dirichlet are a vector $\mathbf{\alpha} = [\alpha_1, \alpha_2, \ldots, \alpha_k]$ of concentration parameters, with each element corresponding to a discrete category of a Multinomial.
 
+I'll sometimes refer to a Categorical distribution, which is a Multinomial that models only a single trial over $K$ outcomes.
+
 
 <i><u>Dirichlet Probability Density Function (PDF):</u></i>
 
@@ -361,7 +363,7 @@ In the plate diagram below, $\mathbf{\alpha}$ and $\mathbf{\beta}$ are fixed par
 <ul>
   <li><p>$\theta$, sampled per documents, governs topic proportions. $\theta_d$ is the document-topic distribution for document $d$, $p(z|d)$, drawn from a Dirichlet parameterized by $\mathbf{\alpha}$.</p></li>
 
-  <li><p>$z$, sampled per word in each document, assigns topics based on $\theta$. $z_{d,n}$ is the topic assignment for the $n^{th}$ word in document $d$, drawn from the Multinomial distribution parameterized by $\theta_d$.</p></li>
+  <li><p>$z$, sampled per word in each document, assigns topics based on $\theta$. $z_{d,n}$ is the topic assignment for the $n^{th}$ word in document $d$, drawn from the Categorical distribution parameterized by $\theta_d$.</p></li>
 
   <li><p>$x_{d,n}$ is the $n^{th}$ word in each document, assigned topics based on $\theta$.</p></li>
 </ul>
@@ -400,7 +402,7 @@ An overview of the generative process is as follows:
     <li><p>Draw a document-topic distribution $\mathbf{\theta}_d \sim \text{Dirichlet}(\mathbf{\alpha})$, where $\mathbf{\theta}_d$ is a $K$-dimensional vector of topic proportions, and $\mathbf{\alpha}$ is the Dirichlet prior parameter.</p></li>
     <li>For each word position in $n = 1, \ldots, N_d$ in document $d$:</li>
     <ul>
-      <li>Draw a topic assignment $z_{d,n} \sim \text{Multinomial}(\theta_d)$, where $z_{d,n} \in \{1, \ldots, K\} $\in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
+      <li>Draw a topic assignment $z_{d,n} \sim \text{Categorical}(\theta_d)$, where $z_{d,n} \in \{1, \ldots, K\} $\in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
     </ul>
   </ul>
 </ol>
