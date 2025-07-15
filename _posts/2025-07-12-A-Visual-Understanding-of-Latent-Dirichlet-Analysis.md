@@ -129,7 +129,7 @@ A unigram implies a single, Multinomial distribution over the entire vocabulary 
 
 The mathematical formula this represents is:
 
-$p(x) = \prod_{j=1}^D p(x_j)$
+$p(x) = \prod_{j=1}^D ~p(x_j)$
 
 And as pseudocode:
 
@@ -242,7 +242,7 @@ A mixture of unigrams extends the unigram approach by adding an additional varia
 
 Represented mathematically:
 
-<p>$p(x) = \sum_z p(z) \prod_{j=1}^D ~p(x_j | z)$</p>
+<p>$p(x) = \sum_z ~p(z) ~\prod_{j=1}^D ~p(x_j | z)$</p>
 
 And in pseudocode:
 
@@ -253,7 +253,7 @@ for i = 1 to N:
     x(i,j) ~ p(x|z = z(i))
 ```
 
-Geometrically, in our triangle representing a 3-word, 3-topic vocabulary, we would have one dot per topic, with some closer to particular vertices than others are to their respective vertices. The vertex with the dot closer to it than any other dot to other vertices represents the word that defines the crisp prediction of a particular topic.
+Geometrically, in our triangle representing a 3-word, 3-topic vocabulary, we would have one dot per topic, with some closer to particular vertices than others are to their respective vertices. The vertex with the dot closer to it than any other dot to other vertices (i.e., the one with the greatest-value element) represents the word that defines the crisp prediction of a particular topic.
 
 
 <details markdown="1">
@@ -362,7 +362,7 @@ In the plate diagram below, $\mathbf{\alpha}$ and $\mathbf{\beta}$ are fixed par
 
   <li><p>$z$, sampled per word in each document, assigns topics based on $\theta$. $z_{d,n}$ is the topic assignment for the $n^{th}$ word in document $d$, drawn from the Multinomial distribution parameterized by $\theta_d$.</p></li>
 
-  <li><p>$x_{d,n}$ is the $n^{th}$ word in each document, assigns topics based on $\theta$.</p></li>
+  <li><p>$x_{d,n}$ is the $n^{th}$ word in each document, assigned topics based on $\theta$.</p></li>
 </ul>
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/lda_plate.png" style="height: 300px; width:auto;">
@@ -385,7 +385,7 @@ For all the hairy mathematical details, I'll refer you to <a href="https://en.wi
 - $\mathbf{\beta}$ is the Dirichlet prior for $\mathbf{\phi}_k$, of length $V$ for vocabulary.
 - $\mathbf{\phi}_k$ is the topic-word distribution, of length $V$.
 
-<p>Our mission is to infer the latent topic structure of a corpus, represented by the document-topic distribution $\mathbf{\theta}_d$ and topic-word distributions $\mathbf{\phi}_k$, given the model parameters $\mathbf{\alpha}$ and $\mathbf{\beta}$. The model seeks to infer those distributions by maximizing the probability of observing the document's words given the model parameters, $p(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$, which is typically approximated through Gibbs sampling or variational inference.</p>
+<p>Our mission is to infer the latent topic structure of a corpus, represented by the document-topic distribution $\mathbf{\theta}_d$ and topic-word distributions $\mathbf{\phi}_k$, given the model parameters $\mathbf{\alpha}$ and $\mathbf{\beta}$. The model seeks to infer those distributions by maximizing the probability of observing the document's words given the model parameters, $p(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$, which is typically approximated through <a href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs sampling</a> or <a href="https://arxiv.org/pdf/2108.13083v2">variational inference</a>.</p>
 
 An overview of the generative process is as follows:
 
@@ -406,7 +406,7 @@ An overview of the generative process is as follows:
 
 A more concentrated document-topic distribution, driven by a large $\mathbf{\alpha}$, means documents are more likely to be dominated by a smaller number of topics. A more concentrated topic-word distribution, driven by a large $\mathbf{\beta}$, means topics are dominated by fewer words; i.e., higher probabilities for specific words within each topic.
 
-Geometrically, the interpretation is similar to the mixture of unigrams. The difference is that, rather than a point within the triangle defining a singular topic chosen, there are degrees to which each of the topics represent each document.
+Geometrically, the interpretation is similar to the mixture of unigrams. The difference is that, rather than a point within the triangle defining a singular topic chosen, there are degrees to which each of the topics are represented for each document.
 
 
 <details markdown="1">
@@ -804,7 +804,7 @@ A notebook providing all the code used above is available <a href="https://githu
 
 We haven't discussed the specifics of the algorithms used to solve LDA, and there are several, such as Gibbs sampling, variational inference, and expectation-maximization (EM). The Scikit-Learn model utilizes variational inference. Each of these could warrant an article to themselves, and for the sake of brevity, I will avoid going down those rabbit holes in this article.
 
-There are also many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are also not limited to the bag-of-words method of vectorization, and could use something like TF-IDF or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams or tri-grams, etc., or treating sentences as sub-documents.
+There are many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are also not limited to the bag-of-words method of vectorization, and could use something like TF-IDF or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams, tri-grams, etc., or treating sentences as sub-documents.
 
 
 
@@ -815,7 +815,6 @@ The next article(s) will focus on practical application. We will:
 - Link up to the Reddit API, because it's free of cost and restrictions, and conducive to topic modeling. 
 - Use the visualization tool <code>pyLDAviz</code> to produce some cool and interactive visualizations.
 - Compare supervised LDA (sLDA) to other methods such as Latent Semantic Indexing (LSI) and Non-Negative Matrix Factorization (NMF).
-- Integrate the use of database software like MongoDB.
 
 
 
