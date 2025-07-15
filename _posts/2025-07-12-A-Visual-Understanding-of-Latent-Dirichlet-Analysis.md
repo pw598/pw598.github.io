@@ -817,7 +817,7 @@ The next article(s) will focus on practical application. We will:
 
 - Link up to the Reddit API, because it's free of cost and restrictions, and conducive to topic modeling. 
 - Use the visualization tool <code>pyLDAviz</code> to produce some cool and interactive visualizations.
-- Compare supervised LDA (sLDA) to alternative methods.
+- Compare to alternative methods.
 
 
 
