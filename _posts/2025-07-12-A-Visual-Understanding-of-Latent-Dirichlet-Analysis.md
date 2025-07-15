@@ -101,7 +101,7 @@ If you have read my first article on <a href="https://pw598.github.io/probabilit
 
 A simplex is the simplest possible polytope (a geometric object with flat sides), generalized to any dimension. A simplex in zero dimensions is a point, in one dimension is a line, and in two dimensions is a triangle. In three dimensions, we can visualize it as a tetrahedron. $K$, our number of topics, represents the number of vertices, so $K=3$ in two dimensions, $K=4$ in three dimensions, etc. 
 
-With regard to its visualization in the context of LDA, we can think of a subplot of bar charts, with both rows and columns representing discrete categories (such as topics and words), and their lengths reflecting probabilities. A nice property of this is that we can abstract it to an arbitrary number of dimensions, however it is only partially correct with regard to visualizing the Dirichlet, which is continuous rather than discrete. To provide some further intuition into the simplex representation, we can think of the following 'stick-breaking' analogy.
+With regard to visualizing LDA, we can think of a subplot of bar charts, with both rows and columns representing discrete categories (such as topics and words), and their normalized lengths reflecting probabilities. A nice property of this is that we can abstract it to an arbitrary number of dimensions, however it is not quite correct with regard to visualizing the Dirichlet, which is continuous rather than discrete. To provide some further intuition into the simplex representation, we can think of the following 'stick-breaking' analogy.
 
 
 ## The Stick-Breaking Analogy
@@ -817,7 +817,7 @@ The next article(s) will focus on practical application. We will:
 
 - Link up to the Reddit API, because it's free of cost and restrictions, and conducive to topic modeling. 
 - Use the visualization tool <code>pyLDAviz</code> to produce some cool and interactive visualizations.
-- Compare supervised LDA (sLDA) to other methods such as Latent Semantic Indexing (LSI) and Non-Negative Matrix Factorization (NMF).
+- Compare supervised LDA (sLDA) to alternative methods.
 
 
 
