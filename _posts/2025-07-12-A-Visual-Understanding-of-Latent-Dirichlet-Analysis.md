@@ -68,13 +68,14 @@ We can describe the Dirichlet in terms of its relationship to the Multinomial, w
 
 <u><i>Multinomial Probability Mass Function (PMF):</i></u>
 
-$P(X_1 = x_1, X_2 = x_2, \ldots, X_k = x_k) = \frac{n!}{x_1! x_2! \cdots x_V!} p_1^{x_1} p_2^{x_2} \cdots p_k^{x_k}$
+$P(\mathbf{x} | N, \mathbf{p}) = \frac{N!}{x_1! \cdots x_K!} \prod_{i=1}^K p_i^{x_i}$
 
-- The $ k $ outcomes correspond to the number of words in the vocabulary.
-- The $ n $ trials correspond to the total number of words in a document. 
-- The counts $x_1, x_2, \ldots, x_k$ represent the number of times each word appears in the document.
+- The $k$ outcomes correspond to the number of words in the vocabulary.
+- The $n$ trials correspond to the total number of words in a document. 
+- The counts $x_1, \ldots, x_k$ represent the number of times each word appears in the document.
+- The probabilities $p_1, \ldots, p_k$ represent the probabilities of the respective words.
 
-With a Binomial, representing two discrete potential outcomes, we can describe the probability of both outcomes (as knowing one determines the other) using the Beta distribution, dubbed the 'distribution of probabilities' because of its range of $0$ to $1$. You can visit <a href="https://pw598.github.io/probability/2024/12/04/Probability-Distributions-I-Discrete-Distributions.html" target="_blank">this article</a> for further detail on the Binomial, and <a href="https://pw598.github.io/probability/202 4/12/09/Probability-Distributions-II-Continuous-Distributions-I.html" target="_blank">this article</a> for further detail on the Beta.
+With a Binomial, representing two discrete potential outcomes, we can describe the probability of both outcomes (as knowing one determines the other) using the Beta distribution, dubbed the 'distribution of probabilities' because of its range of $0$ to $1$. You can visit <a href="https://pw598.github.io/probability/2024/12/04/Probability-Distributions-I-Discrete-Distributions.html" target="_blank">this article</a> for further detail on the Binomial, and <a href="https://pw598.github.io/probability/2024/12/09/Probability-Distributions-II-Continuous-Distributions-I.html" target="_blank">this article</a> for further detail on the Beta.
 
 Just as the Multinomial generalizes the Binomial to occurrences of multiple categories, the Dirichlet is a continuous distribution that generalizes the Beta to probabilities of multiple categories. Therefore, the Dirichlet serves as a prior (a conjugate prior) to the Multinomial. The parameters of the Dirichlet are a vector $\mathbf{\alpha} = [\alpha_1, \alpha_2, \ldots, \alpha_k]$ of concentration parameters, with each element corresponding to a discrete category of a Multinomial.
 
@@ -236,7 +237,7 @@ plt.show()
 
 A mixture of unigrams extends the unigram approach by adding an additional variable, introducing latent topics as discrete components that generate the observed data. Each document is assumed to be produced by selecting a single topic from a set of predefined topics, with each topic defined by a Multinomial distribution over the vocabulary, and words within the document drawn independently from that topic's distribution. This allows the clustering of documents into thematic groups.
 
-<p>So, whereas the unigram collapses all text into a single distribution, ignoring thematic diversity, the mixture of unigrams accomodates one distribution per topic, capturing document-level variation. The plate diagram below adds a node $z$ to the unigram model, representing the latent topic that generated the observed data (as the mixture model is generative). For each sample, we generate a topic $z_i$ so there is one topic per sample. From this topic, we loop through each of our $D$ words, and for each of these words, generate a count $x_{ij}$.</p>
+<p>So, whereas the unigram collapses all text into a single distribution, ignoring thematic diversity, the mixture of unigrams assigns each document to one topic-specific distribution, capturing document-level variation through discrete topic assignments. The plate diagram below adds a node $z$ to the unigram model, representing the latent topic that generated the observed data (as the mixture model is generative). For each sample, we generate a topic $z_i$ so there is one topic per sample. From this topic, we loop through each of our $D$ words, and for each of these words, generate a count $x_{ij}$.</p>
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/mixture_plate.png" style="height: 300px; width:auto;">
 
@@ -378,7 +379,7 @@ for i = 1 to N:
         x(i,j) ~ Multinomial(β, z(i,j))
 ```
 
-For all the hairy mathematical details, I'll refer you to <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Wikipedia</a> or the <a href="https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf" target="_blank">original paper</a> (there will be some differences, in terms of notation, and whether referring to a plurality of corpora), but explain it up to a certain level of detail. A point of clarification I'll provide about the model parameters is that, in the mathematics of LDA, there are several vector-valued parameters:
+For all the hairy mathematical details, I'll refer you to <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation" target="_blank">Wikipedia</a> or the <a href="https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf" target="_blank">original paper</a> (there will be some differences, in terms of notation, and whether referring to a plurality of corpora), but explain it up to a certain level of detail. A point of clarification I'll provide about the model parameters is that, in the mathematics of LDA, there are several vector-valued parameters:
 
 - $\mathbf{\theta}_d$ is the document-topic distribution of length $K$.
 - $\mathbf{\alpha}$ is the Dirichlet prior for $\mathbf{\theta}_d$, of length $K$.
@@ -399,14 +400,14 @@ An overview of the generative process is as follows:
     <li><p>Draw a document-topic distribution $\mathbf{\theta}_d \sim \text{Dirichlet}(\mathbf{\alpha})$, where $\mathbf{\theta}_d$ is a $K$-dimensional vector of topic proportions, and $\mathbf{\alpha}$ is the Dirichlet prior parameter.</p></li>
     <li>For each word position in $n = 1, \ldots, N_d$ in document $d$:</li>
     <ul>
-      <li>Draw a topic assignment $z_{d,n} \in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
+      <li>Draw a topic assignment $z_{d,n} \sim \text{Multinomial}(\theta_d)$, where $z_{d,n} \in \{1, \ldots, K\} $\in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
     </ul>
   </ul>
 </ol>
 
 A more concentrated document-topic distribution, driven by a large $\mathbf{\alpha}$, means documents are more likely to be dominated by a smaller number of topics. A more concentrated topic-word distribution, driven by a large $\mathbf{\beta}$, means topics are dominated by fewer words; i.e., higher probabilities for specific words within each topic.
 
-Geometrically, the interpretation is similar to the mixture of unigrams. The difference is that, rather than a point within the triangle defining a singular topic chosen, there are degrees to which each of the topics are represented for each document.
+Geometrically, the interpretation is similar to the mixture of unigrams. The difference is that, rather than a point within the triangle defining a singular topic chosen, there are degrees to which each of the topics are represented (and for each document).
 
 
 <details markdown="1">
@@ -802,9 +803,9 @@ A notebook providing all the code used above is available <a href="https://githu
 
 # Solving LDA
 
-We haven't discussed the specifics of the algorithms used to solve LDA, and there are several, such as Gibbs sampling, variational inference, and expectation-maximization (EM). The Scikit-Learn model utilizes variational inference. Each of these could warrant an article to themselves, and for the sake of brevity, I will avoid going down those rabbit holes in this article.
+We haven't discussed the specifics of the algorithms used to solve LDA, and there are several, such as Gibbs sampling, variational inference, and expectation-maximization (EM). The Scikit-Learn model utilizes variational inference. Each of these could warrant an article to themselves, and for the sake of brevity, I will avoid going down those rabbit holes.
 
-There are many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are also not limited to the bag-of-words method of vectorization, and could use something like TF-IDF or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams, tri-grams, etc., or treating sentences as sub-documents.
+There are many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are not limited to the bag-of-words method of vectorization, and could use something like TF-IDF or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams, tri-grams, etc., or treating sentences as sub-documents.
 
 
 
