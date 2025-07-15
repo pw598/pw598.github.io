@@ -800,7 +800,7 @@ plt.show()
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/lda_with_params_varied.png" style="height: 450px; width:auto;">
 
 
-A notebook providing all the code used above is available <a href="https://github.com/pw598/Articles/blob/main/Topic%20Modeling%20Diagrams.ipynb" target="_blank">here</a>.
+A notebook providing all the code used above is available <a href="https://github.com/pw598/pw598.github.io/blob/main/notebooks/Topic%20Modeling%20Diagrams.ipynb" target="_blank">here</a>.
 
 
 # Solving LDA
