@@ -5,7 +5,7 @@ date:   2025-07-12 00:00:00 +0000
 categories: TopicModeling LDA
 ---
 
-Latent Dirichlet Allocation (LDA) is an unsupervised clustering method, largely used for the topic-modeling of text documents. While it produces a very rich interpretation, this comes with some complexity. The aim of this article is to provide a visual and intuitive understanding, setting the stage for some real-word application.
+Latent Dirichlet Allocation (LDA) is an unsupervised clustering method, largely used for the topic-modeling of text documents. While it produces a rich interpretation, this comes with some complexity. The aim of this article is to provide a visual and intuitive understanding, setting the stage for some real-word application.
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/library.jpg" style="height: 600px; width:auto;">
 
@@ -68,12 +68,12 @@ We can describe the Dirichlet in terms of its relationship to the Multinomial, w
 
 <u><i>Multinomial Probability Mass Function (PMF):</i></u>
 
-<p>$P(\mathbf{x} | N, \mathbf{p}) = \frac{N!}{x_1! \cdots x_K!} \prod_{i=1}^K p_i^{x_i}$</p>
+<p>$P(\mathbf{x} | N, \mathbf{p}) = \frac{N!}{x_1! \cdots x_K!} \prod_{i=1}^K ~p_i^{x_i}$</p>
 
 - The $k$ outcomes correspond to the number of words in the vocabulary.
 - The $n$ trials correspond to the total number of words in a document. 
 - The counts $x_1, \ldots, x_k$ represent the number of times each word appears in the document.
-- The probabilities $p_1, \ldots, p_k$ represent the probabilities of the respective words.
+- The probabilities $p_1, \ldots, p_k$ represent the probabilities of selecting each respective word.
 
 With a Binomial, representing two discrete potential outcomes, we can describe the probability of both outcomes (as knowing one determines the other) using the Beta distribution, dubbed the 'distribution of probabilities' because of its range of $0$ to $1$. You can visit <a href="https://pw598.github.io/probability/2024/12/04/Probability-Distributions-I-Discrete-Distributions.html" target="_blank">this article</a> for further detail on the Binomial, and <a href="https://pw598.github.io/probability/2024/12/09/Probability-Distributions-II-Continuous-Distributions-I.html" target="_blank">this article</a> for further detail on the Beta.
 
@@ -402,7 +402,7 @@ An overview of the generative process is as follows:
     <li><p>Draw a document-topic distribution $\mathbf{\theta}_d \sim \text{Dirichlet}(\mathbf{\alpha})$, where $\mathbf{\theta}_d$ is a $K$-dimensional vector of topic proportions, and $\mathbf{\alpha}$ is the Dirichlet prior parameter.</p></li>
     <li>For each word position in $n = 1, \ldots, N_d$ in document $d$:</li>
     <ul>
-      <li>Draw a topic assignment $z_{d,n} \sim \text{Categorical}(\theta_d)$, where $z_{d,n} \in \{1, \ldots, K\} \in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
+      <li>Draw a topic assignment $z_{d,n} \sim \text{Categorical}(\mathbf{\theta}_d)$, where $z_{d,n} \in \{1, \ldots, K\}$, and draw a word $w_{d,n} \sim \text{Categorical}(\mathbf{\phi}_{z_{d,n}})$, where $w_{d,n} \in \{1, \ldots, V\}$ is the observed word from the vocabulary.</li>
     </ul>
   </ul>
 </ol>
@@ -665,7 +665,7 @@ We see that the unigram model, because it is only able to infer a distribution o
 
 In Scikit-Learn's <code>LatentDirichletAllocation</code> class, $\mathbf{\phi}_k$ is derived from <code>lda.components_</code> and stored in <code>lda_probs_list</code> for visualization in the top-row simplex plots. $\mathbf{\theta}_d$, the document-topic distribution, corresponds to <code>doc_topic_dists</code> from <code>lda.transform(X)</code> and is visualized in the bottom-row bar charts.
 
-<p>The marginal likelihood $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$ is implicitly optimized during <code>lda.fit(X)</code>, and <code>lda.score(X)</code> provides the <a href="https://en.wikipedia.org/wiki/Likelihood_function" target="_blank">log-likelihood's</a> <a href="https://en.wikipedia.org/wiki/Evidence_lower_bound">'evidence lower bound'</a>.</p>
+<p>The marginal likelihood $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$ is implicitly optimized during <code>lda.fit(X)</code>, and <code>lda.score(X)</code> provides the <a href="https://en.wikipedia.org/wiki/Likelihood_function" target="_blank">log-likelihood's</a> <a href="https://en.wikipedia.org/wiki/Evidence_lower_bound" target="_blank">'evidence lower bound'</a>.</p>
 
 
 
@@ -808,7 +808,7 @@ A notebook providing all the code used above is available <a href="https://githu
 We haven't discussed the specifics of the algorithms used to solve LDA, and there are several, such as Gibbs sampling, variational inference, and expectation-maximization (EM). The Scikit-Learn model utilizes variational inference. Each of these could warrant an article to themselves, and for the sake of brevity, I will avoid going down those rabbit holes.
 
 There are many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are not limited to the bag-of-words method of vectorization, and could use something like TF-IDF, or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams, tri-grams, etc., or treating sentences as sub-documents.
-
+  
 
 
 # What's Next?
