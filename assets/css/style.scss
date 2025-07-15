@@ -1,6 +1,25 @@
 ---
 ---
 
+
+details summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+
+details summary::before {
+  content: "▶"; /* Right-pointing arrow */
+  display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.2s ease-in-out;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg); /* Down-pointing arrow when open */
+}
+
+
 @import "plain";
 
 {% if site.plainwhite.search %}
@@ -11,3 +30,4 @@
   @import "toggle";
   @import "dark";
 {%- endif -%}
+
