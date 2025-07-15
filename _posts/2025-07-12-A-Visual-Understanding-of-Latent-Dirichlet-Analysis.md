@@ -30,7 +30,7 @@ Latent Dirichlet Allocation (LDA) is an unsupervised clustering method, largely 
 
 # Introduction
 
-Introduced in <a href="https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf">this paper</a> by David Blei et al., Latent Dirichlet Allocation (LDA) is an unsupervised clustering method commonly used for topic-modeling of documents in a corpus (collection of documents). Because it is unsupervised, labels are neither required as input, nor explicitly produced as output. We do provide the number of topics $K$, expecting to find meaningful distinctions and associations, and adjusting our approach if not. LDA is a soft-clustering method, so unlike the crisp topic-predictions we obtain from a method like K-Means, it assigns a probability distribution over topics to each document.
+Introduced in <a href="https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf" target="_blank">this paper</a> by David Blei et al., Latent Dirichlet Allocation (LDA) is an unsupervised clustering method commonly used for topic-modeling of documents in a corpus (collection of documents). Because it is unsupervised, labels are neither required as input, nor explicitly produced as output. We do provide the number of topics $K$, expecting to find meaningful distinctions and associations, and adjusting our approach if not. LDA is a soft-clustering method, so unlike the crisp topic-predictions we obtain from a method like K-Means, it assigns a probability distribution over topics to each document.
 
 As a quick sidenote, the 'LDA' we're referring to is not related to the dimension-reduction technique Linear Discriminant Analysis, which shares the same acronym.
 
@@ -74,7 +74,7 @@ $P(X_1 = x_1, X_2 = x_2, \ldots, X_k = x_k) = \frac{n!}{x_1! x_2! \cdots x_V!} p
 - The $ n $ trials correspond to the total number of words in a document. 
 - The counts $x_1, x_2, \ldots, x_k$ represent the number of times each word appears in the document.
 
-With a Binomial, representing two discrete potential outcomes, we can describe the probability of both outcomes (as knowing one determines the other) using the Beta distribution, dubbed the 'distribution of probabilities' because of its range of $0$ to $1$. You can visit <a href="https://pw598.github.io/probability/2024/12/04/Probability-Distributions-I-Discrete-Distributions.html">this article</a> for further detail on the Binomial, and <a href="https://pw598.github.io/probability/2024/12/09/Probability-Distributions-II-Continuous-Distributions-I.html">this article</a> for further detail on the Beta.
+With a Binomial, representing two discrete potential outcomes, we can describe the probability of both outcomes (as knowing one determines the other) using the Beta distribution, dubbed the 'distribution of probabilities' because of its range of $0$ to $1$. You can visit <a href="https://pw598.github.io/probability/2024/12/04/Probability-Distributions-I-Discrete-Distributions.html" target="_blank">this article</a> for further detail on the Binomial, and <a href="https://pw598.github.io/probability/202 4/12/09/Probability-Distributions-II-Continuous-Distributions-I.html" target="_blank">this article</a> for further detail on the Beta.
 
 Just as the Multinomial generalizes the Binomial to occurrences of multiple categories, the Dirichlet is a continuous distribution that generalizes the Beta to probabilities of multiple categories. Therefore, the Dirichlet serves as a prior (a conjugate prior) to the Multinomial. The parameters of the Dirichlet are a vector $\mathbf{\alpha} = [\alpha_1, \alpha_2, \ldots, \alpha_k]$ of concentration parameters, with each element corresponding to a discrete category of a Multinomial.
 
@@ -87,14 +87,14 @@ Just as the Multinomial generalizes the Binomial to occurrences of multiple cate
 
 - $\alpha_1, \ldots, \alpha_k$ are the concentration parameters of the Dirichlet prior (for the document-topic distribution $\mathbf{\theta}$ in LDA).
 
-- $\frac{1}{B(\alpha)}$ is a normalizing constant that ensures the PDF integrates to 1. $B(\alpha)$ is the <a href="https://en.wikipedia.org/wiki/Beta_function">Beta function</a>, a somewhat hairy mathematical formula which involves the <a href="https://simple.wikipedia.org/wiki/Gamma_function">Gamma function</a>, for which I'll also refer you to Wikipedia; but is an extension of the factorial function from discrete to real numbers, and therefore has utility in probability distributions.
+- $\frac{1}{B(\alpha)}$ is a normalizing constant that ensures the PDF integrates to 1. $B(\alpha)$ is the <a href="https://en.wikipedia.org/wiki/Beta_function" target="_blank">Beta function</a>, a somewhat hairy mathematical formula which involves the <a href="https://simple.wikipedia.org/wiki/Gamma_function" target="_blank">Gamma function</a>, for which I'll also refer you to Wikipedia; but is an extension of the factorial function from discrete to real numbers, and therefore has utility in probability distributions.
 
 - $\prod_{i=1}^k$ is the 'kernel' of the Dirichlet PDF, weighting each probability $p_i$ by its corresponding concentration parameter $\alpha_i$.
 
 
 In LDA, we have both a distribution of topics over documents, and a distribution of words over topics, so to avoid using two vectors of parameters denoted $\mathbf{\alpha}$, we name the vector of topic proportions over documents $\mathbf{\alpha}$, and the vector of topic proportions over words $\mathbf{\beta}$.
 
-If you have read my first article on <a href="https://pw598.github.io/probability/2024/12/09/Probability-Distributions-II-Continuous-Distributions-I.html">continuous distributions</a> (the second on distributions in general), you may have noticed that the Dirichlet is the only one not visualized. This is because of its abstract nature. We can visualize it as a simplex, which you can think of as an abstraction of a triangle, but I figured that just raises more questions. Now would be a good time to elaborate.
+If you have read my first article on <a href="https://pw598.github.io/probability/2024/12/09/Probability-Distributions-II-Continuous-Distributions-I.html" target="_blank">continuous distributions</a> (the second on distributions in general), you may have noticed that the Dirichlet is the only one not visualized. This is because of its abstract nature. We can visualize it as a simplex, which you can think of as an abstraction of a triangle, but I figured that just raises more questions. Now would be a good time to elaborate.
 
 A simplex is the simplest possible polytope (a geometric object with flat sides), generalized to any dimension. A simplex in zero dimensions is a point, in one dimension is a line, and in two dimensions is a triangle. In three dimensions, we can visualize it as a tetrahedron. $K$, our number of topics, represents the number of vertices, so $K=3$ in two dimensions, $K=4$ in three dimensions, etc. 
 
@@ -378,14 +378,14 @@ for i = 1 to N:
         x(i,j) ~ Multinomial(β, z(i,j))
 ```
 
-For all the hairy mathematical details, I'll refer you to <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Wikipedia</a> or the <a href="https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf">original paper</a> (there will be some differences, in terms of notation, and whether referring to a plurality of corpora), but explain it up to a certain level of detail. A point of clarification I'll provide about the model parameters is that, in the mathematics of LDA, there are several vector-valued parameters:
+For all the hairy mathematical details, I'll refer you to <a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Wikipedia</a> or the <a href="https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf" target="_blank">original paper</a> (there will be some differences, in terms of notation, and whether referring to a plurality of corpora), but explain it up to a certain level of detail. A point of clarification I'll provide about the model parameters is that, in the mathematics of LDA, there are several vector-valued parameters:
 
 - $\mathbf{\theta}_d$ is the document-topic distribution of length $K$.
 - $\mathbf{\alpha}$ is the Dirichlet prior for $\mathbf{\theta}_d$, of length $K$.
 - $\mathbf{\beta}$ is the Dirichlet prior for $\mathbf{\phi}_k$, of length $V$ for vocabulary.
 - $\mathbf{\phi}_k$ is the topic-word distribution, of length $V$.
 
-<p>Our mission is to infer the latent topic structure of a corpus, represented by the document-topic distribution $\mathbf{\theta}_d$ and topic-word distributions $\mathbf{\phi}_k$, given the model parameters $\mathbf{\alpha}$ and $\mathbf{\beta}$. The model seeks to infer those distributions by maximizing the probability of observing the document's words given the model parameters, $p(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$, which is typically approximated through <a href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs sampling</a> or <a href="https://arxiv.org/pdf/2108.13083v2">variational inference</a>.</p>
+<p>Our mission is to infer the latent topic structure of a corpus, represented by the document-topic distribution $\mathbf{\theta}_d$ and topic-word distributions $\mathbf{\phi}_k$, given the model parameters $\mathbf{\alpha}$ and $\mathbf{\beta}$. The model seeks to infer those distributions by maximizing the probability of observing the document's words given the model parameters, $p(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$, which is typically approximated through <a href="https://en.wikipedia.org/wiki/Gibbs_sampling" target="_blank">Gibbs sampling</a> or <a href="https://arxiv.org/pdf/2108.13083v2" target="_blank">variational inference</a>.</p>
 
 An overview of the generative process is as follows:
 
@@ -662,7 +662,7 @@ We see that the unigram model, because it is only able to infer a distribution o
 
 In Scikit-Learn's <code>LatentDirichletAllocation</code> class, $\mathbf{\phi}_k$ corresponds to <code>lda.probs_list</code>, accessible thorugh <code>lda.components_</code>, and visualized in the plots by the top-row simplexes' topic-word distributions. $\mathbf{\theta}_d$ corresponds to <code>doc_topic_dists</code>, produced by the transformation <code>lda.transform(X)</code>. These are visualized by the bottom-row charts, showing the topic proportions per document.
 
-<p>The marginal likelihood $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$ is implicitly optimized during <code>lda.fit(X)</code>, and <code>lda.score(X)</code> provides the <a href="https://en.wikipedia.org/wiki/Likelihood_function">log-likelihood</a>.</p>
+<p>The marginal likelihood $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$ is implicitly optimized during <code>lda.fit(X)</code>, and <code>lda.score(X)</code> provides the <a href="https://en.wikipedia.org/wiki/Likelihood_function" target="_blank">log-likelihood</a>.</p>
 
 
 
@@ -797,7 +797,7 @@ plt.show()
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/lda_with_params_varied.png" style="height: 450px; width:auto;">
 
 
-A notebook providing all the code used above is available <a href="https://github.com/pw598/Articles/blob/main/Topic%20Modeling%20Diagrams.ipynb">here</a>.
+A notebook providing all the code used above is available <a href="https://github.com/pw598/Articles/blob/main/Topic%20Modeling%20Diagrams.ipynb" target="_blank">here</a>.
 
 
 # Solving LDA
