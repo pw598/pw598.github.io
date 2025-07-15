@@ -5,7 +5,7 @@ date:   2025-07-12 00:00:00 +0000
 categories: TopicModeling LDA
 ---
 
-Latent Dirichlet Allocation (LDA) is an unsupervised clustering method, largely used for the topic-modeling of text documents. While it produces a very rich interpretation, this comes with some complexity. The aim of this article is to provide visual and intuitive understanding, setting the stage for some real-word application.
+Latent Dirichlet Allocation (LDA) is an unsupervised clustering method, largely used for the topic-modeling of text documents. While it produces a very rich interpretation, this comes with some complexity. The aim of this article is to provide a visual and intuitive understanding, setting the stage for some real-word application.
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/library.jpg" style="height: 600px; width:auto;">
 
@@ -54,7 +54,7 @@ As a soft-clustering method, LDA facilitates overlapping topic assignments. Rath
   </ul>
 </ol>
 
-Imagine a library where many books are strewn across the tables and floor, with no labels or organization. This collection of books represents our corpus. You need to create an algorithm to sort them into sections, but you do not know which categorizations exist beforehand. The books are our documents, the unknown categorizations are our topics, and the words are clues as to which topic a book belongs to. If a book has words like "experiment" and "hypothesis", the latent category corresponding to 'science' may be the one it predominantly belongs to. It may also have a strong probability of belonging to 'biology' or 'physics', and have small (often very small) probabilities of belonging to many other categories.
+Imagine a library where many books are strewn across the tables and floor, with no labels or organization. This collection of books represents our corpus. You need to create an algorithm to sort them into sections, but you do not know which categorizations exist beforehand. The books are our documents, the unknown categorizations are our topics, and the words are clues as to which topic a book belongs to. If a book has words like "experiment" and "hypothesis", the latent category corresponding to 'science' may be the one it predominantly belongs to. It may also have a strong probability of belonging to a latent category representing 'biology' or 'physics', and have small (often very small) probabilities of belonging to many other categories.
 
 I promise I won't subject us to (too) much math, but some is necessary to describe the Dirichlet distribution and its relatives. After all, it's in the name. Feel free to skim over the mathematical notation, it won't harm the ability to gain insight from the visuals.
 
@@ -68,7 +68,7 @@ We can describe the Dirichlet in terms of its relationship to the Multinomial, w
 
 <u><i>Multinomial Probability Mass Function (PMF):</i></u>
 
-$P(\mathbf{x} | N, \mathbf{p}) = \frac{N!}{x_1! \cdots x_K!} \prod_{i=1}^K p_i^{x_i}$
+<p>$P(\mathbf{x} | N, \mathbf{p}) = \frac{N!}{x_1! \cdots x_K!} \prod_{i=1}^K p_i^{x_i}$</p>
 
 - The $k$ outcomes correspond to the number of words in the vocabulary.
 - The $n$ trials correspond to the total number of words in a document. 
@@ -84,13 +84,13 @@ I'll sometimes refer to a Categorical distribution, which is a Multinomial that 
 
 <i><u>Dirichlet Probability Density Function (PDF):</u></i>
 
-<p>$f(p_1, \ldots, p_k | \alpha_1, \ldots, \alpha_k) = \frac{1}{B(\alpha)} \prod_{i=1}^k p_i^{\alpha_i - 1}$</p>
+<p>$f(p_1, \ldots, p_k | \alpha_1, \ldots, \alpha_k) = \frac{1}{B(\alpha)} \prod_{i=1}^k ~p_i^{\alpha_i - 1}$</p>
 
 - $p_1, \ldots, p_k$ are probabilities of the components of a k-dimensional simplex.
 
 - $\alpha_1, \ldots, \alpha_k$ are the concentration parameters of the Dirichlet prior (for the document-topic distribution $\mathbf{\theta}$ in LDA).
 
-- $\frac{1}{B(\alpha)}$ is a normalizing constant that ensures the PDF integrates to 1. $B(\alpha)$ is the <a href="https://en.wikipedia.org/wiki/Beta_function" target="_blank">Beta function</a>, a somewhat hairy mathematical formula which involves the <a href="https://simple.wikipedia.org/wiki/Gamma_function" target="_blank">Gamma function</a>, for which I'll also refer you to Wikipedia; but is an extension of the factorial function from discrete to real numbers, and therefore has utility in probability distributions.
+- $\frac{1}{B(\alpha)}$ is a normalizing constant that ensures the PDF integrates to 1. $B(\alpha)$ is the <a href="https://en.wikipedia.org/wiki/Beta_function" target="_blank">Beta function</a>, a somewhat hairy mathematical formula which involves the <a href="https://simple.wikipedia.org/wiki/Gamma_function" target="_blank">Gamma function</a>, for which I'll also refer you to Wikipedia; but it is an extension of the factorial function from discrete to real numbers, and therefore has utility in continuous probability distributions.
 
 - $\prod_{i=1}^k$ is the 'kernel' of the Dirichlet PDF, weighting each probability $p_i$ by its corresponding concentration parameter $\alpha_i$.
 
@@ -142,7 +142,7 @@ for i = 1 to N:
     x(i,j) ~ p(x)
 ```
 
-If we consider the vertices of a triangle to represent each word in a 3-word, 3-topic vocabulary, a point representing the probability vector that the singular topic is defined by will be roughly centered in the middle of a triangle, assuming a sufficiently large and unbiased corpus. A colormap or shading-scale would also indicate greatest density in the center, indicative of a roughly uniform distribution over topics.
+If we consider the vertices of a triangle to represent each word in a 3-word, 3-topic vocabulary, a point representing the probability vector that the singular topic is defined by will be roughly centered in the middle of the triangle, assuming a sufficiently large or unbiased corpus. A colormap or shading-scale would also indicate greatest density in the center, indicative of a roughly uniform distribution over topics.
 
 The triangular diagrams below refer to a simple toy corpus, consisting of the following 6 documents:
 
@@ -256,7 +256,7 @@ for i = 1 to N:
     x(i,j) ~ p(x|z = z(i))
 ```
 
-Geometrically, in our triangle representing a 3-word, 3-topic vocabulary, we would have one dot per topic, with some closer to particular vertices than others are to their respective vertices. The vertex with the dot closer to it than any other dot to other vertices (i.e., the one with the greatest-value element) represents the word that defines the crisp prediction of a particular topic.
+Geometrically, in our triangle representing a 3-word, 3-topic vocabulary, we would have one dot per topic, with some closer to particular vertices than others to their closest vertices. The vertex with closest dot (i.e., by the vector with the greatest-value element) represents the word that defines the crisp prediction of a particular topic.
 
 
 <details markdown="1">
@@ -361,7 +361,7 @@ This is similar to the mixture of unigrams in terms of foundation and objectives
 In the plate diagram below, $\mathbf{\alpha}$ and $\mathbf{\beta}$ are fixed parameters, because they appear outside of the plates. We can encode our prior expectations regarding these concentration parameters, but its quite typical to set a uniform prior, using $1/K$.
 
 <ul>
-  <li><p>$\theta$, sampled per documents, governs topic proportions. $\theta_d$ is the document-topic distribution for document $d$, $p(z|d)$, drawn from a Dirichlet parameterized by $\mathbf{\alpha}$.</p></li>
+  <li><p>$\mathbf{\theta}_d$, sampled per document, governs topic proportions. It is the document-topic distribution for document $d$, representing $P(z_{d,n}|d)$, drawn from a Dirichlet distribution parameterized by $\mathbf{\alpha}$.</p></li>
 
   <li><p>$z$, sampled per word in each document, assigns topics based on $\theta$. $z_{d,n}$ is the topic assignment for the $n^{th}$ word in document $d$, drawn from the Categorical distribution parameterized by $\theta_d$.</p></li>
 
@@ -402,7 +402,7 @@ An overview of the generative process is as follows:
     <li><p>Draw a document-topic distribution $\mathbf{\theta}_d \sim \text{Dirichlet}(\mathbf{\alpha})$, where $\mathbf{\theta}_d$ is a $K$-dimensional vector of topic proportions, and $\mathbf{\alpha}$ is the Dirichlet prior parameter.</p></li>
     <li>For each word position in $n = 1, \ldots, N_d$ in document $d$:</li>
     <ul>
-      <li>Draw a topic assignment $z_{d,n} \sim \text{Categorical}(\theta_d)$, where $z_{d,n} \in \{1, \ldots, K\} $\in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
+      <li>Draw a topic assignment $z_{d,n} \sim \text{Categorical}(\theta_d)$, where $z_{d,n} \in \{1, \ldots, K\} \in [1, \ldots, V]$ is the observed word from the vocabulary, conditioned on the topic $z_{d,n}$.</li>
     </ul>
   </ul>
 </ol>
@@ -663,9 +663,9 @@ plt.show()
 
 We see that the unigram model, because it is only able to infer a distribution over the entire corpus, must select the same topic across documents. The mixture of unigrams, as promised, is able to assign different topics to different documents. But the LDA distribution of topics over documents is more granular, providing a distribution of topics over each document. 
 
-In Scikit-Learn's <code>LatentDirichletAllocation</code> class, $\mathbf{\phi}_k$ corresponds to <code>lda.probs_list</code>, accessible thorugh <code>lda.components_</code>, and visualized in the plots by the top-row simplexes' topic-word distributions. $\mathbf{\theta}_d$ corresponds to <code>doc_topic_dists</code>, produced by the transformation <code>lda.transform(X)</code>. These are visualized by the bottom-row charts, showing the topic proportions per document.
+In Scikit-Learn's <code>LatentDirichletAllocation</code> class, $\mathbf{\phi}_k$ is derived from <code>lda.components_</code> and stored in <code>lda_probs_list</code> for visualization in the top-row simplex plots. $\mathbf{\theta}_d$, the document-topic distribution, corresponds to <code>doc_topic_dists</code> from <code>lda.transform(X)</code> and is visualized in the bottom-row bar charts.
 
-<p>The marginal likelihood $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$ is implicitly optimized during <code>lda.fit(X)</code>, and <code>lda.score(X)</code> provides the <a href="https://en.wikipedia.org/wiki/Likelihood_function" target="_blank">log-likelihood</a>.</p>
+<p>The marginal likelihood $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$ is implicitly optimized during <code>lda.fit(X)</code>, and <code>lda.score(X)</code> provides the <a href="https://en.wikipedia.org/wiki/Likelihood_function" target="_blank">log-likelihood's</a> <a href="https://en.wikipedia.org/wiki/Evidence_lower_bound">'evidence lower bound'</a>.</p>
 
 
 
@@ -807,7 +807,7 @@ A notebook providing all the code used above is available <a href="https://githu
 
 We haven't discussed the specifics of the algorithms used to solve LDA, and there are several, such as Gibbs sampling, variational inference, and expectation-maximization (EM). The Scikit-Learn model utilizes variational inference. Each of these could warrant an article to themselves, and for the sake of brevity, I will avoid going down those rabbit holes.
 
-There are many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are not limited to the bag-of-words method of vectorization, and could use something like TF-IDF or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams, tri-grams, etc., or treating sentences as sub-documents.
+There are many variants of LDA, such as Correlated Topic Models (CTM), Hierarchical Dirichlet Process (HDP), and Dynamic Topic Models (DTM). We are not limited to the bag-of-words method of vectorization, and could use something like TF-IDF, or continuous word embeddings. Furthermore, we could take into account word-sequence information, using bi-grams, tri-grams, etc., or treating sentences as sub-documents.
 
 
 
