@@ -88,7 +88,7 @@ I'll sometimes refer to a Categorical distribution, which is a Multinomial that 
 
 - $p_1, \ldots, p_k$ are probabilities of the components of a k-dimensional simplex.
 
-- $\alpha_1, \ldots, \alpha_k$ are the concentration parameters of the Dirichlet prior (for the document-topic distribution $\mathbf{\theta}$ in LDA).
+- $\alpha_1, \ldots, \alpha_k$ are the concentration parameters of the Dirichlet prior (for the document-topic distribution $\mathbf{\theta}_d$ in LDA).
 
 - $\frac{1}{B(\alpha)}$ is a normalizing constant that ensures the PDF integrates to 1. $B(\alpha)$ is the <a href="https://en.wikipedia.org/wiki/Beta_function" target="_blank">Beta function</a>, a somewhat hairy mathematical formula which involves the <a href="https://simple.wikipedia.org/wiki/Gamma_function" target="_blank">Gamma function</a>, for which I'll also refer you to Wikipedia; but it is an extension of the factorial function from discrete to real numbers, and therefore has utility in continuous probability distributions.
 
@@ -358,7 +358,7 @@ LDA is a hierarchical extension of probabilistic topic models, positing that eac
 
 This is similar to the mixture of unigrams in terms of foundation and objectives, as both are unsupervised probabilistic framewords aimed at uncovering latent topics as word distributions. However, LDA differs in its granularity and flexibility, offering soft, mixed-membership representations of topics, whereas the mixture model performs hard-clustering.
 
-In the plate diagram below, $\mathbf{\alpha}$ and $\mathbf{\beta}$ are fixed parameters, because they appear outside of the plates. We can encode our prior expectations regarding these concentration parameters, but its quite typical to set a uniform prior, using $1/K$.
+In the plate diagram below, $\mathbf{\alpha}$ and $\mathbf{\beta}$ are fixed parameters, because they appear outside of the plates. We can encode our prior expectations regarding these concentration parameters, but its quite typical to set a uniform prior, using $1/K$ for $\mathbf{\alpha}$, where $K$ is the number of topics, and $1/V$ for $\mathbf{\beta}$, where $V$ is the number of words in the vocabulary (in our case, both $K$ and $V$ are equal to $3$).
 
 <ul>
   <li><p>$\mathbf{\theta}_d$, sampled per document, governs topic proportions. It is the document-topic distribution for document $d$, representing $P(z_{d,n}|d)$, drawn from a Dirichlet distribution parameterized by $\mathbf{\alpha}$.</p></li>
@@ -673,7 +673,7 @@ In Scikit-Learn's <code>LatentDirichletAllocation</code> class, $\mathbf{\phi}_k
 
 To demonstrate the impact of varying the Dirichlet parameters, the next subplot will only include LDA representations, but with varying values for $\mathbf{\alpha}$ and $\mathbf{\beta}$. Though vectors mathematically, they are input as scalars because Scikit-Learn applies the same value to each element. To vary the values for particular categories, we would need a more customized approach.
 
-The two charts on the left hold $\beta$ constant and manipulate $\alpha$, and the two charts on the right hold $\alpha$ constant and manipulate $\beta$. The values held constant are equal to $1$ divided by the number of topics, producing uniformly distributed values by category, as is the common default.
+The two charts on the left hold $\mathbf{\beta}$ constant and manipulate $\mathbf{\alpha}$, and the two charts on the right hold $\mathbf{\alpha}$ constant and manipulate $\mathbf{\beta}$. The values held constant are set using the uniform approach of $1$ divided by the number of topics for $\mathbf{\alpha}$ and $1$ divided by the number of words for $\mathbf{\beta}$.
 
 
 <details markdown="1">
