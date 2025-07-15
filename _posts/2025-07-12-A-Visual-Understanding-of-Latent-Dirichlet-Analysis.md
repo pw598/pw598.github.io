@@ -829,6 +829,12 @@ The next article(s) will focus on practical application. We will:
 
 - Ruozzi, N. (n.d.). Latent Dirichlet Allocation. UT Dallas. [https://personal.utdallas.edu/~nrr150130/cs6375/2015fa/lects/Lecture_20_LDA.pdf](https://personal.utdallas.edu/~nrr150130/cs6375/2015fa/lects/Lecture_20_LDA.pdf)
 
+- [Summer Institute in Computational Social Science]. (2020, June 16). An Introduction to Topic Modeling [Video]. Youtube. [https://www.youtube.com/watch?v=IUAHUEy1V0Q&t=609s](https://www.youtube.com/watch?v=IUAHUEy1V0Q&t=609s)
+
+- [Simons Foundation]. (2019, February 8). Probabilistic Topic Models of Text and Users [Video]. Youtube. [https://www.youtube.com/watch?v=GxcQdu02-R8&t=1215s](https://www.youtube.com/watch?v=GxcQdu02-R8&t=1215s)
+
+- [Serrano Academy]. (2020, March 18). Latent Dirichlet Allocation (Part 1 of 2) [Video]. Youtube. [https://www.youtube.com/watch?v=T05t-SqKArY&t=313s](https://www.youtube.com/watch?v=T05t-SqKArY&t=313s)
+
 - Grok
 
 
