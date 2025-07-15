@@ -71,7 +71,7 @@ We can describe the Dirichlet in terms of its relationship to the Multinomial, w
 <p>$P(\mathbf{x} | N, \mathbf{p}) = \frac{N!}{x_1! \cdots x_K!} \prod_{i=1}^K ~p_i^{x_i}$</p>
 
 - The $k$ outcomes correspond to the number of words in the vocabulary.
-- The $n$ trials correspond to the total number of words in a document. 
+- The $N$ trials correspond to the total number of words in a document. 
 - The counts $x_1, \ldots, x_k$ represent the number of times each word appears in the document.
 - The probabilities $p_1, \ldots, p_k$ represent the probabilities of selecting each respective word.
 
@@ -363,9 +363,9 @@ In the plate diagram below, $\mathbf{\alpha}$ and $\mathbf{\beta}$ are fixed par
 <ul>
   <li><p>$\mathbf{\theta}_d$, sampled per document, governs topic proportions. It is the document-topic distribution for document $d$, representing $P(z_{d,n}|d)$, drawn from a Dirichlet distribution parameterized by $\mathbf{\alpha}$.</p></li>
 
-  <li><p>$z$, sampled per word in each document, assigns topics based on $\theta$. $z_{d,n}$ is the topic assignment for the $n^{th}$ word in document $d$, drawn from the Categorical distribution parameterized by $\theta_d$.</p></li>
+  <li><p>$z$, sampled per word in each document, assigns topics based on $\theta$. $z_{d,n}$ is the topic assignment for the $n^{th}$ word in document $d$, drawn from the Categorical distribution parameterized by $\mathbf{\theta}_d$.</p></li>
 
-  <li><p>$x_{d,n}$ is the $n^{th}$ word in each document, assigned topics based on $\theta$.</p></li>
+  <li><p>$x_{d,n}$ is the $n^{th}$ word in each document, assigned topics based on $\mathbf{\theta}_d$.</p></li>
 </ul>
 
 <img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/lda_plate.png" style="height: 300px; width:auto;">
@@ -388,7 +388,7 @@ For all the hairy mathematical details, I'll refer you to <a href="https://en.wi
 - $\mathbf{\beta}$ is the Dirichlet prior for $\mathbf{\phi}_k$, of length $V$ for vocabulary.
 - $\mathbf{\phi}_k$ is the topic-word distribution, of length $V$.
 
-<p>Our mission is to infer the latent topic structure of a corpus, represented by the document-topic distribution $\mathbf{\theta}_d$ and topic-word distributions $\mathbf{\phi}_k$, given the model parameters $\mathbf{\alpha}$ and $\mathbf{\beta}$. The model seeks to infer those distributions by maximizing the probability of observing the document's words given the model parameters, $p(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$, which is typically approximated through <a href="https://en.wikipedia.org/wiki/Gibbs_sampling" target="_blank">Gibbs sampling</a> or <a href="https://arxiv.org/pdf/2108.13083v2" target="_blank">variational inference</a>.</p>
+<p>Our mission is to infer the latent topic structure of a corpus, represented by the document-topic distribution $\mathbf{\theta}_d$ and topic-word distributions $\mathbf{\phi}_k$, given the model parameters $\mathbf{\alpha}$ and $\mathbf{\beta}$. The model seeks to infer those distributions by maximizing the probability of observing the document's words given the model parameters, $P(\mathbf{w}_d | \mathbf{\alpha}, \mathbf{\beta})$, which is typically approximated through <a href="https://en.wikipedia.org/wiki/Gibbs_sampling" target="_blank">Gibbs sampling</a> or <a href="https://arxiv.org/pdf/2108.13083v2" target="_blank">variational inference</a>.</p>
 
 An overview of the generative process is as follows:
 
@@ -671,7 +671,7 @@ In Scikit-Learn's <code>LatentDirichletAllocation</code> class, $\mathbf{\phi}_k
 
 # Effect of Varying Parameters
 
-To demonstrate the impact of varying the Dirichlet parameters, the next subplot will only include LDA representations, but with varying values for $\mathbf{\alpha}$ and $\mathbf{\beta}$. Though vectors mathematically, they are input as scalars because Scikit-Learn applies the same value to all topics. To vary the values for particular categories, we would need a more customized approach.
+To demonstrate the impact of varying the Dirichlet parameters, the next subplot will only include LDA representations, but with varying values for $\mathbf{\alpha}$ and $\mathbf{\beta}$. Though vectors mathematically, they are input as scalars because Scikit-Learn applies the same value to each element. To vary the values for particular categories, we would need a more customized approach.
 
 The two charts on the left hold $\beta$ constant and manipulate $\alpha$, and the two charts on the right hold $\alpha$ constant and manipulate $\beta$. The values held constant are equal to $1$ divided by the number of topics, producing uniformly distributed values by category, as is the common default.
 
