@@ -658,7 +658,7 @@ plt.show()
 </details> 
 
 
-<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/subplot_with_topic_dists.png" style="height: 500px; width:auto;">
+<img src="https://raw.githubusercontent.com/pw598/pw598.github.io/main/_posts/images/subplot_with_topic_dists.png" style="height: 600px; width:auto;">
 
 
 We see that the unigram model, because it is only able to infer a distribution over the entire corpus, must select the same topic across documents. The mixture of unigrams, as promised, is able to assign different topics to different documents. But the LDA distribution of topics over documents is more granular, providing a distribution of topics over each document. 
