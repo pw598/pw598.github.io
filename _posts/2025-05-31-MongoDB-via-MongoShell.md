@@ -46,8 +46,6 @@ Unstructured databases have greatly increased in popularity over the past 15 yea
 
 MongoDB is the most popular of the unstructured databases, with a large developer community, integration with a multitude of APIs, and a cloud service called MongoDB Atlas. 
 
-<img src="https://raw.githubusercontent.com/pw398/pw398.github.io/refs/heads/main/_posts/images/1-1.png" style="height: 250px; width:auto;">
-
 The native language for command-line instructions is Javascript, however the Mongo shell provides its own simplified language. The 'documents', a term analogous to records in a structured database, are in a JSON-like format, and are organized into 'collections', the analog to a table.
 
 In this article, we will focus on making commands through the Mongo shell, which is the simplest method. However, parallel notebooks utilizing the command line (Bash) and Python (PyMongo) are linked to below.
